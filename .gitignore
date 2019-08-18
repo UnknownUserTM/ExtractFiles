@@ -1,2 +1,12 @@
-
-*.mp3
+*
+!.gitignore
+!*/root
+!*/multi_locale
+!*/new_ui
+!*/textureset
+!*/uiscript
+!*/yamato
+!*/ETC
+!*/icon
+!*/item
+!*/dungeons
