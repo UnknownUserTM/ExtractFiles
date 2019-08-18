@@ -1,0 +1,14 @@
+[DELAY value;2]
+Ninjas sind professionelle 
+Mörder, die in der Lage sind, 
+jederzeit lautlos aus dem 
+Hinterhalt zuzuschlagen. Um die 
+dazu nötige Geschicklichkeit 
+und Schnelligkeit 
+zu unterstützen, tragen diese 
+schattenhaften Assassinen lediglich 
+leichte Schutzrüstungen. So werden 
+ihre fließenden Bewegungen nicht 
+behindert. Je nach Spezialisierung 
+verstehen es Ninjas mit dem Dolch 
+oder auch mit dem Bogen umzugehen.

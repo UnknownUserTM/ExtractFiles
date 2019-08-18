@@ -1,0 +1,13 @@
+ERROR_NO_STRING_FOUND	Es wurde kein Text gefunden in de/locale_quest.txt
+FIRST_QUEST_INTRO_TITLE	Willkommen auf Kimiko!
+FIRST_QUEST_INTRO_DESC	Bevor du mit deinen Abenteuer beginnen kannst[ENTER]benötigst du etwas Ausrüstung. Du kannst[ENTER]ja schließlich nicht hier rumlaufen mit nichts an[ENTER]als deiner Haut und was immer du da auch[ENTER]gerade anhast.[ENTER][ENTER]Begib dich zum Hauptmann des Dorfes er kann[ENTER]dir sicherlich weiterhelfen.[ENTER]
+FIRST_QUEST_INTRO_TALK	Ah der nächste Abenteurer hm? Wir haben in[ENTER]letzter zeit viele von deiner sorte hier im Dorf[ENTER]seitdem die Metinsteine fallen.[ENTER][ENTER]Wenn du hier leben willst musst du ein teil[ENTER]der Gemeinschaft werden! Das heißt du[ENTER]wirst dich hier nützlich machen ansonsten kannst[ENTER]du gleich wieder verschwinden! Verstanden?[ENTER][ENTER]Wir haben hier zurzeit ein problem mit den wilden[ENTER]Tieren außerhalb des Dorfes. Hier hast du ein Schwert[ENTER]hilf unseren Soldaten die Straßen wieder zu sichern.[ENTER]Wenn du das schafst erhälst du noch etwas[ENTER]mehr Ausrüstung von mir. Nun geh schon![ENTER]
+FIRST_QUEST_KILL_TITLE	Wilde Tiere!
+FIRST_QUEST_KILL_DESC	Der Hauptmann hat mir aufgetragen einige der [ENTER]wilden Tiere außerhalb des Dorfes zu erschlagen.[ENTER]
+FIRST_QUEST_REWARD_LETTER	Das sollten genug wilde Tiere sein. Ich gehe besser[ENTER]schnell wieder zum Hauptmann und erstatte[ENTER]ihm bericht über meine unglaubliche Heldentat![ENTER][ENTER]Ich bin schließlich der retter des Dorfes![ENTER]
+FIRST_QUEST_REWARD_TITLE	Wilde Tiere! - Abgeschlossen
+FIRST_QUEST_REWARD_TALK	Du lebst noch? Hm ich dachte du würdest direkt[ENTER]vom ersten Wildhund in stücke gerissen werden, so[ENTER]schwach und bleich wie du aussiehst. [ENTER][ENTER]Nagut wie versprochen habe ich etwas Ausrüstung[ENTER]aus dem Lager hohlen lassen. Sie ist schon etwas [ENTER]älter aber sollte dich zumindest warm halten.[ENTER]
+BIOLOGIST_TITLE	Forschung des Biologen
+BIOLOGIST_DESC_INTRO	Der Biologe benötigt deine Hilfe.[ENTER]Sprich mit ihm.
+BIOLOGIST_TALK_INTRO	Da bist du ja endlich mein treuer Assistent. [ENTER]Ich habe schon 15 Minuten auf dich gewartet![ENTER]Die zeit rennt und die konkurenz schläft nicht,[ENTER]wir müssen als erste die Forschungen an[ENTER]diesem Objekt abschließen.[ENTER]
+BIOLOGIST_ACTIVE_LETTER	Der Biologen hat mir erneut aufgetragen irgend so[ENTER]ein komisches Zeug für ihn zu sammeln.[ENTER]Naja hauptsache die Bezahlung stimmt...[ENTER]

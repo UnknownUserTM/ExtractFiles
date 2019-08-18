@@ -1,0 +1,2 @@
+ERROR_NO_STRING_FOUND	No Text found in en/locale_quest.txt
+ALIGNMENT_NAME	Rangpunkte:

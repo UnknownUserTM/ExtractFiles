@@ -1,0 +1,54 @@
+TextureSet
+
+TextureCount 5
+
+Start Texture001
+    "d:\ymir work\terrainmaps\shye\terraintexture_002_037a_d.dds"
+    4.000000
+    4.000000
+    0.000000
+    0.000000
+    1
+    0
+    0
+End Texture001
+Start Texture002
+    "d:\ymir work\terrainmaps\shye\tex_terrain_rock_05_d.dds"
+    4.000000
+    4.000000
+    0.000000
+    0.000000
+    1
+    0
+    0
+End Texture002
+Start Texture003
+    "d:\ymir work\terrainmaps\shye\tex_rock_stains_f_d.dds"
+    2.000000
+    2.000000
+    0.000000
+    0.000000
+    1
+    0
+    0
+End Texture003
+Start Texture004
+    "d:\ymir work\terrainmaps\shye\tex_terrain_earth_07_d.dds"
+    4.000000
+    4.000000
+    0.000000
+    0.000000
+    1
+    0
+    0
+End Texture004
+Start Texture005
+    "d:\ymir work\terrainmaps\shye\tex_terrain_earth_14_d.dds"
+    4.000000
+    4.000000
+    0.000000
+    0.000000
+    1
+    0
+    0
+End Texture005
