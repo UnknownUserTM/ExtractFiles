@@ -13,7 +13,7 @@ CH1_PORT = 10101
 CH2_PORT = 10201
 CH3_PORT = 10301
 CH4_PORT = 10401
-AUTH_PORT = 99803
+AUTH_PORT = 99804
 
 def BuildServerList(orderList):
 	retMarkAddrDict = {}
