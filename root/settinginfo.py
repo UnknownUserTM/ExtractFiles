@@ -3,7 +3,6 @@ import fgGHGjjFHJghjfFG1545gGG
 import chat
 import localeInfo
 import app
-import keineahnung
 # ----------------------------------------------------------------------------------------------
 # Inhaltsverzeichnis
 # 1.) 	variablenListe kleiner Systeme
