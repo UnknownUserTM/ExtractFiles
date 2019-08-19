@@ -213,8 +213,8 @@ class GameOptionWindow(ui.ScriptWindow):
 			
 			"id" : OPTION_INTERFACE_NAME_COLOR,
 			
-			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_NAME_COLOR_EMPIRE,
-			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_NAME_COLOR_NORMAL,
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_NAME_COLOR_NORMAL,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_NAME_COLOR_EMPIRE,
 		},
 		{
 			"name" : localeInfo.NEW_GAME_OPTION_TITLE_HIT,
