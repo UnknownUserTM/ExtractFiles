@@ -1105,6 +1105,10 @@ class Interface(object):
 	def AppendMaterialToRefineDialog(self, vnum, count):
 		self.dlgRefineNew.AppendMaterial(vnum, count)
 
+	if app.ENABLE_REFINE_RENEWAL:
+		def CheckRefineDialog(self, isFail):
+			self.dlgRefineNew.CheckRefine(isFail)
+
 	## Show & Hide
 	def ShowDefaultWindows(self):
 		self.wndTaskBar.Show()
