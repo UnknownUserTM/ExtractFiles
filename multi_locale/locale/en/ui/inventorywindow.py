@@ -22,8 +22,8 @@ window = {
 			"type" : "roofbar",
 			"style" : ("attach",),
 
-			"x" : -8,
-			"y" : 7 + SIDEBAR_WIDTH,
+			"x" : -8 + SIDEBAR_WIDTH,
+			"y" : 7,
 
 			"width" : 236+15-30-5,
 
@@ -34,8 +34,8 @@ window = {
 			"type" : "board",
 			"style" : ("attach",),
  
-			"x" : 0,
-			"y" : 50 + SIDEBAR_WIDTH,
+			"x" : 0 + SIDEBAR_WIDTH,
+			"y" : 50,
 			
 			"width" : 236-30-5,
 			"height": 400 + 100 + 60 + 15 - 15 + 60 - 10 + 20,
