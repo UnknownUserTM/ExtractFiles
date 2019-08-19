@@ -15,75 +15,218 @@ import event
 import localeInfo
 from uiGuild import MouseReflector
 
-
-
 class GameOptionWindow(ui.ScriptWindow):
 	# AUDIO
 	OPTION_AUDIO_MUSIC = 0
 	OPTION_AUDIO_SOUND = 1
 	
 	# Spiel
-	OPTION_GAME_PVP = 0
-	OPTION_GAME_BLOCK = 0
-	OPTION_GAME_CAMERA = 0
-	
-	
-	
+	OPTION_GAME_PVP = 2
+	OPTION_GAME_BLOCK_TRADE = 3
+	OPTION_GAME_BLOCK_PARTY	= 4
+	OPTION_GAME_BLOCK_GUILD = 5
+	OPTION_GAME_BLOCK_WHISPER = 6
+	OPTION_GAME_BLOCK_FRIENDS = 7
+	OPTION_GAME_BLOCK_REQUEST = 8
+	OPTION_GAME_CAMERA = 9
+
 	# Welt
-	OPTION_SHOP_NAME = 0
-	OPTION_WORLD_COSTUME = 0
-	OPTION_WORLD_COSTUME_WEAPON = 0
+	OPTION_SHOP_NAME = 10
+	OPTION_WORLD_COSTUME = 11
+	OPTION_WORLD_COSTUME_WEAPON = 12
 	# OPTION_WORLD_
-	
-	
+
 	# Interface
-	OPTION_INTERFACE_NAME_COLOR = 0 
-	OPTION_INTERFACE_HIT = 0
-	OPTION_INTERFACE_MONSTER_LEVEL = 0
-	OPTION_INTERFACE_MONSTER_AGGRESSIVE = 0
+	OPTION_INTERFACE_NAME_COLOR = 13 
+	OPTION_INTERFACE_HIT = 14
+	OPTION_INTERFACE_MONSTER_LEVEL = 15
+	OPTION_INTERFACE_MONSTER_AGGRESSIVE = 16
 	
-	OPTION_INTERFACE_BIND_MULTISHOP = 0
-	OPTION_INTERFACE_CURRENCY_TOOLTIP = 0
-	OPTION_INTERFACE_TASKBAR_INFO_TOOLTIP = 0
-	OPTION_INTERFACE_SHOPNAME = 0	
-	
-	
-	
-	
+	OPTION_INTERFACE_BIND_MULTISHOP = 17
+	OPTION_INTERFACE_CURRENCY_TOOLTIP = 18
+	OPTION_INTERFACE_TASKBAR_INFO_TOOLTIP = 19
+	OPTION_INTERFACE_SHOPNAME = 20	
+	OPTION_INTERFACE_ATTRIBUTE_TOOLTIP = 21
+
 	OPTION_TYPE_TOGGLE = 0
 	OPTION_TYPE_SOUND = 1
 	OPTION_TYPE_MUSIC = 2
 	OPTION_TYPE_PVP = 3
 	OPTION_TYPE_TITLE = 4
 	
+	#####################
 	
+	# Ton einstellungen
+	
+		# Effekte
+		# Musik
+		
+		
+	# Spiel einstellungen
+		# PVP							Frieden		Feindlich		Gilde		Frei
+		# Camera						Nah			Fern			Sehr Fern
+		# Abblocken						Blocken		Nicht Blocken
+		
+		
+	# Welt einstellungen
+		# ShopName						An			Aus
+		# Kostüm ausblenden				An			Aus
+		# Waffenkostüm ausblenden		An			Aus
+		
+	# Interface einstellungen
+		# Namensfarbe					Normal		Reichsfarbe
+		# Trefferanzeige				Anzeigen	Ausblenden
+		# Monsterlevel					Anzeigen	Ausblenden
+		# Monsteraggressivität			Anzeigen	Ausblenden
+		# BIND Multishop				Binden		Nicht binden
+		# Währeungs ToolTips			An			Aus
+		# Taskbar Button ToolTips		An			Aus
+		# ToolTip Bonus Auflistung		Neu			Alt
+
+	MAX_ITEM = 16
 	
 	optionDict = [
+		# ------------------------------------ #
+		{
+			"name" : "Ton einstellungen",
+			"type" : OPTION_TYPE_TITLE,
+		},
+		{
+			"name" : "Effekte",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_AUDIO_SOUND,
+		},
+		{
+			"name" : "Musik",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_AUDIO_MUSIC,
+		},
+		# ------------------------------------ #
+		{
+			"name" : "Spieleinstellungen",
+			"type" : OPTION_TYPE_TITLE,
+		},
+		{
+			"name" : "PVP",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_GAME_PVP,
+		},
+		{
+			"name" : "Kamera",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_GAME_CAMERA,
+		},
+		{
+			"name" : "Handeln abblocken",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_GAME_BLOCK_TRADE,
+		},
+		{
+			"name" : "Gruppeneinladungen abblocken",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_GAME_BLOCK_PARTY,
+		},
+		{
+			"name" : "Gildeneinladungen abblocken",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_GAME_BLOCK_GUILD,
+		},
+		{
+			"name" : "Flüstern abblocken",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_GAME_BLOCK_WHISPER,
+		},
+		{
+			"name" : "Freundschaftsanfragen abblocken",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_GAME_BLOCK_FRIENDS,
+		},	
+		{
+			"name" : "Shop Namenskarte anzeigen",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_SHOP_NAME,
+		},		
+		{
+			"name" : "Kostüm ausblenden",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_WORLD_COSTUME,
+		},	
+		{
+			"name" : "Waffenkostüm ausblenden",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_WORLD_COSTUME,
+		},			
+		# ------------------------------------ #
 		{
 			"name" : "Interface Einstellungen",
 			"type" : OPTION_TYPE_TITLE,
-		
-		
 		},
+		{
+			"name" : "Namensfarbe",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_INTERFACE_NAME_COLOR,
+		},
+		{
+			"name" : "Trefferanzeige",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_INTERFACE_NAME_COLOR,
+		},	
+		{
+			"name" : "Monsterlevel anzeigen",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_INTERFACE_MONSTER_LEVEL,
+		},			
+		{
+			"name" : "Monsteraggressivität anzeigen",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_INTERFACE_MONSTER_AGGRESSIVE,
+		},		
+		
 		{
 			"name" : "Multishop an Inventar Binden",
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_INTERFACE_BIND_MULTISHOP,
 		},
+		{
+			"name" : "WährungsToolTip",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_INTERFACE_CURRENCY_TOOLTIP,
+		},
+		{
+			"name" : "Taskbar ToolTip",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_INTERFACE_TASKBAR_INFO_TOOLTIP,
+		},
+		{
+			"name" : "Bonus ToolTip Sortierung",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_INTERFACE_ATTRIBUTE_TOOLTIP,
+		},
 	]
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
+		self.optionList = {}
 		self.LoadWindow()
 
 	def __del__(self):
@@ -100,66 +243,75 @@ class GameOptionWindow(ui.ScriptWindow):
 			
 			
 		self.background = self.GetChild("background")
-		
-		self.testItem = OptionTitleItem()
-		self.testItem.SetParent(self.background)
-		self.testItem.SetPosition(5,5)
-		self.testItem.Show()
-		
-		self.testItem2 = OptionToggleItem()
-		self.testItem2.SetParent(self.background)
-		self.testItem2.SetPosition(5,5 + 25)
-		
-		self.testItem2.SetTitle("Namensfarbe")
-		self.testItem2.SetEnableText("Normal")
-		self.testItem2.SetDisableText("Reichsfarbe")
-
-		self.testItem2.Show()		
-		self.testItem3 = OptionToggleItem()
-		self.testItem3.SetParent(self.background)
-		self.testItem3.SetPosition(5,5 + 25 + 25)
-		self.testItem3.SetTitle("Globaler Chat")
-		self.testItem3.SetEnableText("Einblenden")
-		self.testItem3.SetDisableText("Ausblenden")
+		self.scrollBar = self.GetChild("scrollBar")
+		self.scrollBar.SetScrollEvent(ui.__mem_func__(self.OnScroll))
 		
 		
-		self.testItem3.Show()		
-		self.testItem4 = OptionToggleItem()
-		self.testItem4.SetParent(self.background)
-		self.testItem4.SetPosition(5,5 + 25 + 25 + 25)
-		self.testItem4.SetTitle("Ladenname")
-		self.testItem4.SetEnableText("Anzeigen")
-		self.testItem4.SetDisableText("Ausblenden")
-		self.testItem4.Show()		
-		self.testItem5 = OptionToggleItem()
-		self.testItem5.SetParent(self.background)
-		self.testItem5.SetPosition(5,5 + 25 + 25 + 25 + 25)
+		self.devTextLine = self.GetChild("devTextLine")
 		
-		self.testItem5.SetTitle("Shop binden")
-		self.testItem5.SetEnableText("Binden")
-		self.testItem5.SetDisableText("Nicht binden")
 		
-		# self.testItem5.Show()		
-		# self.testItem6 = OptionToggleItem()
-		# self.testItem6.SetParent(self.background)
-		# self.testItem6.SetPosition(5,5 + 25 + 25 + 25 + 25 + 25)
-		# self.testItem6.Show()		
-		# self.testItem7 = OptionToggleItem()
-		# self.testItem7.SetParent(self.background)
-		# self.testItem7.SetPosition(5,5 + 25 + 25 + 25 + 25 + 25 + 25)
-		# self.testItem7.Show()
-
-
-		self.testItem8 = OptionTitleItem()
-		self.testItem8.SetParent(self.background)
-		self.testItem8.SetPosition(5,5 + 25 + 25 + 25 + 25 + 25 + 25 + 25)
-		self.testItem8.Show()		
+		y = 5
+		for i in xrange(len(self.optionDict)):
+			option = self.optionDict[i]
+			if option["type"] == self.OPTION_TYPE_TITLE:
+				self.optionList[i] = OptionTitleItem()
+				self.optionList[i].SetParent(self.background)
+				self.optionList[i].SetPosition(5,y)
+				self.optionList[i].SetTitle(option["name"])
+				self.optionList[i].Show()
+				
+			elif option["type"] == self.OPTION_TYPE_TOGGLE:
+				self.optionList[i] = OptionToggleItem()
+				self.optionList[i].SetParent(self.background)
+				self.optionList[i].SetPosition(5,y)
+				self.optionList[i].SetTitle(option["name"])
+				self.optionList[i].Show()
+				
+			 		
+				
+				
 		
+			y = y + 25
+		
+				
+		self.HideAllItems()
+		self.RenderOptionList()
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LoadWindow GameOptionWindow!")
 			
 		
 		
 		self.Show()
+		
+		
+		
+	def OnRunMouseWheel(self, nLen):
+		if nLen > 0:
+			self.scrollBar.OnUp()
+		else:
+			self.scrollBar.OnDown()
+	
+	
+	def RenderOptionList(self):
+		pos = int(self.scrollBar.GetPos() * (len(self.optionDict) - self.MAX_ITEM)) 
+		start_height = 5
+		for i in xrange(self.MAX_ITEM):
+			realPos = pos + i
+			self.optionList[realPos].SetPosition(5,start_height)
+			self.optionList[realPos].Show()
+			start_height = start_height + 25			
+
+		
+	def OnScroll(self):
+		self.HideAllItems()
+		self.RenderOptionList()
+		
+	def HideAllItems(self):
+		for i in xrange(len(self.optionList)):
+			self.optionList[i].Hide()
+	
+	def OnUpdate(self):
+		pos = int(self.scrollBar.GetPos() * (len(self.optionDict) - self.MAX_ITEM)) 
+		self.devTextLine.SetText(str(pos))
 	
 	def OnPressEscapeKey(self):
 		self.Close()
@@ -198,7 +350,7 @@ class OptionTitleItem(ui.ScriptWindow):
 		self.Show()
 
 	def SetTitle(self,title):
-		self.title = title
+		self.title.SetText(title)
 		
 		
 class OptionToggleItem(ui.ScriptWindow):

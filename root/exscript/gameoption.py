@@ -7,7 +7,7 @@ window = {
 	"name" : "GameOptionWindow",
 	"style" : ("movable", "float",),
 
-	"x" : 24,
+	"x" : SCREEN_WIDTH - WINDOW_WIDTH - 60,
 	"y" : (SCREEN_HEIGHT - 37 - WINDOW_HEIGTH) / 2,
 
 	"width" : WINDOW_WIDTH+30,
@@ -61,6 +61,20 @@ window = {
 											
 					"size" : WINDOW_HEIGTH + 5,
 				},
+				{
+					"name" : "devTextLine",
+					"type" : "text",
+					
+					"x" : WINDOW_WIDTH + 30,
+					"y" : 10,
+					
+					"text" : "0",
+					"outline" : 1,
+				
+				
+				
+				
+				},
 			
 			
 			
@@ -68,4 +82,3 @@ window = {
 		},
 	),
 }
-
