@@ -241,7 +241,7 @@ class GameOptionWindow(ui.ScriptWindow):
 			import exception
 			exception.Abort("GameOptionWindow.LoadWindow.LoadObject")
 			
-			
+		self.GetChild("TitleBar").SetCloseEvent(self.Close)	
 		self.background = self.GetChild("background")
 		self.scrollBar = self.GetChild("scrollBar")
 		self.scrollBar.SetScrollEvent(ui.__mem_func__(self.OnScroll))
@@ -277,9 +277,7 @@ class GameOptionWindow(ui.ScriptWindow):
 		self.HideAllItems()
 		self.RenderOptionList()
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LoadWindow GameOptionWindow!")
-			
-		
-		
+
 		self.Show()
 		
 		
