@@ -93,7 +93,7 @@ class GameOptionWindow(ui.ScriptWindow):
 			"type" : OPTION_TYPE_TITLE,
 		},
 		{
-			"name" : "Effekte",
+			"name" : "Soundeffekte",
 			"type" : OPTION_TYPE_SLIDER,
 			
 			"id" : OPTION_AUDIO_SOUND,
