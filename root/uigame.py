@@ -19,7 +19,7 @@ class GameOptionWindow(ui.ScriptWindow):
 	# AUDIO
 	OPTION_AUDIO_MUSIC = 0
 	OPTION_AUDIO_SOUND = 1
-	
+	# Hallo Welt!
 	# Spiel
 	OPTION_GAME_PVP = 2
 	OPTION_GAME_BLOCK_TRADE = 3
