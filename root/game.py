@@ -519,7 +519,7 @@ class GameWindow(ui.ScriptWindow):
 		onPressKeyDict[app.DIK_C]			= lambda state = "STATUS": self.interface.ToggleCharacterWindow(state)
 		onPressKeyDict[app.DIK_V]			= lambda state = "SKILL": self.interface.ToggleCharacterWindow(state)
 		#onPressKeyDict[app.DIK_B]			= lambda state = "EMOTICON": self.interface.ToggleCharacterWindow(state)
-		onPressKeyDict[app.DIK_N]			= lambda state = "QUEST": self.interface.ToggleCharacterWindow(state)
+		onPressKeyDict[app.DIK_N]			= lambda : self.interface.ToggleQuestWindowDialog()
 		onPressKeyDict[app.DIK_I]			= lambda : self.interface.ToggleInventoryWindow()
 		onPressKeyDict[app.DIK_O]			= lambda : self.interface.ToggleDragonSoulWindowWithNoInfo()
 		onPressKeyDict[app.DIK_M]			= lambda : self.interface.PressMKey()
