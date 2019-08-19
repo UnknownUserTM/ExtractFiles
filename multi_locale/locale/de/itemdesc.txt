@@ -2730,14 +2730,14 @@
 55205	Bio-Metin Stammtruhe	Enthält wertvolle Gegenstände
 55213	Bruchstück des Moralis	Kann gegen ein Reittier beim Craftingschmied getauscht werden. Benötigt werden:|20x Bruchstück des Moralis
 55214	Truhe des Schattens v2	Ranken und Wurzeln umschlingen die Truhe..
-160470	Waffenschein Rot 1	Wird zum Verbessern von Waffen benötigt.
-160471	Waffenschein Rot 2	Wird zum Verbessern von Waffen benötigt.
-160472	Waffenschein Rot 3	Wird zum Verbessern von Waffen benötigt.
-160473	Waffenschein Rot 4	Wird zum Verbessern von Waffen benötigt.
-160474	Waffenschein Rot 5	Wird zum Verbessern von Waffen benötigt.
-160475	Waffenschein Rot 6	Wird zum Verbessern von Waffen benötigt.
-160476	Waffenschein Rot 7	Wird zum Verbessern von Waffen benötigt.
-160477	Waffenschein Rot 8	Wird zum Verbessern von Waffen benötigt.
+160470	Elixier der Abgabe (25%)	Verbessert die Erfolgswahrscheinlichkeit beim Biologen um +25%
+160471	Elixier der Abgabe (50%)	Verbessert die Erfolgswahrscheinlichkeit beim Biologen um +50%
+160472	Elixier der Abgabe (75%)	Verbessert die Erfolgswahrscheinlichkeit beim Biologen um +75%
+160473	Elixier der Abgabe (100%)	Verbessert die Erfolgswahrscheinlichkeit beim Biologen um +100%
+160474	Elixier der Zeit (25%)	Verringert die Abgabezeit der aktuellen Biologenforschung um -25%
+160475	Elixier der Zeit (50%)	Verringert die Abgabezeit der aktuellen Biologenforschung um -50%
+160476	Elixier der Zeit (75%)	Verringert die Abgabezeit der aktuellen Biologenforschung um -75%
+160477	Elixier der Zeit (100%)	Verringert die Abgabezeit der aktuellen Biologenforschung um -100%
 160478	Waffenschein Blau 1	Wird zum Verbessern von Waffen benötigt.
 160479	Waffenschein Blau 2	Wird zum Verbessern von Waffen benötigt.
 160480	Waffenschein Blau 3	Wird zum Verbessern von Waffen benötigt.

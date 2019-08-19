@@ -2707,14 +2707,14 @@
 160462	Cupid (Seal)	This pet gives you a bonus of: | Strong against bosses + 15%
 160463	Angry Heart (Seal)	This pet gives you a bonus of: | Strong against Razador +20%
 160464	Valentine's Day Ticket	With this ticket, you have the opportunity to purchase a weapon costume from the Yunari2 Event-NPC.
-160470	Gun license red 1	Needed to upgrade weapons.
-160471	Gun license red 2	Needed to upgrade weapons.
-160472	Gun license red 3	Needed to upgrade weapons.
-160473	Gun license red 4	Needed to upgrade weapons.
-160474	Gun license red 5	Needed to upgrade weapons.
-160475	Gun license red 6	Needed to upgrade weapons.
-160476	Gun license red 7	Needed to upgrade weapons.
-160477	Gun license red 8	Needed to upgrade weapons.
+160470	Elixir of royalty (25%)	Improves the chance of success for the biologist +25%
+160471	Elixir of royalty (50%)	Improves the chance of success for the biologist +50%
+160472	Elixir of royalty (75%)	Improves the chance of success for the biologist+75%
+160473	Elixir of royalty (100%)	Improves the chance of success for the biologist +100%
+160474	Elixir of the time (25%)	Reduces the delivery time of current biologist research -25%
+160475	Elixir of the time (50%)	Reduces the delivery time of current biologist research -50%
+160476	Elixir of the time (75%)	Reduces the delivery time of current biologist research -75%
+160477	Elixir of the time (100%)	Reduces the delivery time of current biologist research-100%
 160478	Gun license blue 1	Needed to upgrade weapons.
 160479	Gun license blue 2	Needed to upgrade weapons.
 160480	Gun license blue 3	Needed to upgrade weapons.
