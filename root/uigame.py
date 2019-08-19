@@ -89,11 +89,11 @@ class GameOptionWindow(ui.ScriptWindow):
 	optionDict = [
 		# ------------------------------------ #
 		{
-			"name" : "Ton einstellungen",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_AUDIO,
 			"type" : OPTION_TYPE_TITLE,
 		},
 		{
-			"name" : "Soundeffekte",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_SOUND,
 			"type" : OPTION_TYPE_SLIDER,
 			
 			"id" : OPTION_AUDIO_SOUND,
@@ -106,122 +106,179 @@ class GameOptionWindow(ui.ScriptWindow):
 		# },
 		# ------------------------------------ #
 		{
-			"name" : "Spieleinstellungen",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_GAMEOPTION,
 			"type" : OPTION_TYPE_TITLE,
 		},
 		{
-			"name" : "PVP",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_PVP,
 			"type" : OPTION_TYPE_PVP_GROUP,
 			
 			"id" : OPTION_GAME_PVP,
+			
+			"button_peace"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_PVP_PEACE,
+			"button_revenge"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_PVP_REVENGE,
+			"button_guild"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_PVP_GUILD,
+			"button_free" 		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_PVP_FREE,
 		},
 		{
-			"name" : "Kamera",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_CAMERA,
 			"type" : OPTION_TYPE_CAMERA_GROUP,
 			
 			"id" : OPTION_GAME_CAMERA,
+			
+			"button_short"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_CAMERA_SHORT,
+			"button_long"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_CAMERA_LONG,
+			"button_verylong"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_CAMERA_VERYLING,
 		},
 		{
-			"name" : "Handeln abblocken",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_BLOCK_TRADE,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_GAME_BLOCK_TRADE,
+			
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_ON,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_OFF,
 		},
 		{
-			"name" : "Gruppeneinladungen abblocken",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_BLOCK_GROUP,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_GAME_BLOCK_PARTY,
+			
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_ON,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_OFF,
 		},
 		{
-			"name" : "Gildeneinladungen abblocken",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_BLOCK_GUILD,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_GAME_BLOCK_GUILD,
+			
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_ON,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_OFF,
 		},
 		{
-			"name" : "Flüstern abblocken",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_BLOCK_WHISPER,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_GAME_BLOCK_WHISPER,
+			
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_ON,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_OFF,
 		},
 		{
-			"name" : "Freundschaftsanfragen abblocken",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_BLOCK_FRIEND,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_GAME_BLOCK_FRIENDS,
+			
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_ON,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_OFF,
 		},	
 		{
-			"name" : "Shop Namenskarte anzeigen",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_SHOP_NAMECARD,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_SHOP_NAME,
+			
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},		
 		{
-			"name" : "Kostüm ausblenden",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_COSTUME_HIDE,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_WORLD_COSTUME,
+			
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},	
 		{
-			"name" : "Waffenkostüm ausblenden",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_WEAPON_COSTUME_HIDE,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_WORLD_COSTUME,
+
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},			
 		# ------------------------------------ #
 		{
-			"name" : "Interface Einstellungen",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_INTERFACE,
 			"type" : OPTION_TYPE_TITLE,
 		},
 		{
-			"name" : "Namensfarbe",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_NAMECOLOR,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_INTERFACE_NAME_COLOR,
+			
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_NAME_COLOR_EMPIRE,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_NAME_COLOR_NORMAL,
 		},
 		{
-			"name" : "Trefferanzeige",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_HIT,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_INTERFACE_NAME_COLOR,
+
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},	
 		{
-			"name" : "Monsterlevel anzeigen",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_MONSTER_LEVEL,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_INTERFACE_MONSTER_LEVEL,
+
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},			
 		{
-			"name" : "Monsteraggressivität anzeigen",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_MONSTER_AGGRESSIVITY,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_INTERFACE_MONSTER_AGGRESSIVE,
+
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},		
 		
 		{
-			"name" : "Multishop an Inventar Binden",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_BIND_MULTISHOP,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_INTERFACE_BIND_MULTISHOP,
+
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},
 		{
-			"name" : "WährungsToolTip",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_CURRENCY_TOOLTIP,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_INTERFACE_CURRENCY_TOOLTIP,
+
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},
 		{
-			"name" : "Taskbar ToolTip",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_TASKBAR_TOOLTIP,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_INTERFACE_TASKBAR_INFO_TOOLTIP,
+
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},
 		{
-			"name" : "Bonus ToolTip Sortierung",
+			"name" : localeInfo.NEW_GAME_OPTION_TITLE_BONUS_TOOLTIP,
 			"type" : OPTION_TYPE_TOGGLE,
 			
 			"id" : OPTION_INTERFACE_ATTRIBUTE_TOOLTIP,
+
+			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
+			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},
 	]
 
@@ -266,6 +323,8 @@ class GameOptionWindow(ui.ScriptWindow):
 				self.optionList[i].SetParent(self.background)
 				self.optionList[i].SetPosition(5,y)
 				self.optionList[i].SetTitle(option["name"])
+				self.optionList[i].SetOnButtonText(option["button_on"])
+				self.optionList[i].SetOffButtonText(option["button_off"])
 				self.optionList[i].Show()
 			elif option["type"] == self.OPTION_TYPE_SLIDER:
 				self.optionList[i] = OptionSlideItem()
@@ -278,12 +337,14 @@ class GameOptionWindow(ui.ScriptWindow):
 				self.optionList[i].SetParent(self.background)
 				self.optionList[i].SetPosition(5,y)
 				self.optionList[i].SetTitle(option["name"])
+				self.optionList[i].SetButtonText(option["button_peace"],option["button_revenge"],option["button_guild"],option["button_free"])
 				self.optionList[i].Show()
 			elif option["type"] == self.OPTION_TYPE_CAMERA_GROUP:
 				self.optionList[i] = OptionCameraGroupItem()
 				self.optionList[i].SetParent(self.background)
 				self.optionList[i].SetPosition(5,y)
 				self.optionList[i].SetTitle(option["name"])
+				self.optionList[i].SetButtonText(option["button_short"],option["button_long"],option["button_verylong"])
 				self.optionList[i].Show()
 
 			y = y + 25
@@ -430,6 +491,12 @@ class OptionCameraGroupItem(ui.ScriptWindow):
 			exception.Abort("GameOptionWindow.LoadWindow.LoadObject")
 
 		self.title = self.GetChild("titleTextLine")
+		self.shortText = self.GetChild("OptionTitle01")
+		self.longText = self.GetChild("OptionTitle02")
+		self.veryLongText = self.GetChild("OptionTitle03")
+		
+		
+		
 		self.toggleButtonBG01 = self.GetChild("toggleButton01BG")
 		self.toggleButtonBG02 = self.GetChild("toggleButton02BG")
 		self.toggleButtonBG03 = self.GetChild("toggleButton03BG")
@@ -490,6 +557,11 @@ class OptionCameraGroupItem(ui.ScriptWindow):
 	def SetTitle(self,title):
 		self.title.SetText(title)
 		
+	def SetButtonText(self,button_short,button_long,button_verylong):
+		self.shortText.SetText(button_short)
+		self.longText.SetText(button_long)
+		self.veryLongText.SetText(button_verylong)
+		
 	def OnUpdate(self):
 		if self.toggleButtonBG01.IsIn():
 			self.mouseReflector01.Show()
@@ -536,6 +608,10 @@ class OptionPVPGroupItem(ui.ScriptWindow):
 			exception.Abort("GameOptionWindow.LoadWindow.LoadObject")
 
 		self.title = self.GetChild("titleTextLine")
+		self.buttonPeaceText = self.GetChild("OptionTitle01")
+		self.buttonRevengeText = self.GetChild("OptionTitle02")
+		self.buttonGuildText = self.GetChild("OptionTitle03")
+		self.buttonFreeText = self.GetChild("OptionTitle04")
 		
 		self.toggleButtonBG01 = self.GetChild("toggleButton01BG")
 		self.toggleButtonBG02 = self.GetChild("toggleButton02BG")
@@ -584,6 +660,13 @@ class OptionPVPGroupItem(ui.ScriptWindow):
 	
 	def SetTitle(self,title):
 		self.title.SetText(title)
+		
+	def SetButtonText(self,button_peace,button_revenge,button_guild,button_free):
+		self.buttonPeaceText.SetText(button_peace)
+		self.buttonRevengeText.SetText(button_revenge)
+		self.buttonGuildText.SetText(button_guild)
+		self.buttonFreeText.SetText(button_free)	
+		
 
 	def OnUpdate(self):
 		if self.toggleButtonBG01.IsIn():
@@ -705,6 +788,8 @@ class OptionToggleItem(ui.ScriptWindow):
 			exception.Abort("GameOptionWindow.LoadWindow.LoadObject")
 
 		self.title = self.GetChild("titleTextLine")
+		self.onTextLine = self.GetChild("enableOptionTitle")
+		self.offTextLine = self.GetChild("disableOptionTitle")
 		self.toggleButtonBG01 = self.GetChild("toggleButton01BG")
 		self.toggleButtonText01 = self.GetChild("enableOptionTitle")
 		self.toggleButtonBG02 = self.GetChild("toggleButton02BG")
@@ -732,6 +817,13 @@ class OptionToggleItem(ui.ScriptWindow):
 
 	def SetTitle(self,title):
 		self.title.SetText(title)
+	
+	def SetOnButtonText(self,text):
+		self.onTextLine.SetText(text)
+		
+	def SetOffButtonText(self,text):
+		self.offTextLine.SetText(text)
+	
 	
 	def SetEnableText(self,text):
 		self.toggleButtonText01.SetText(text)
