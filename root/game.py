@@ -1552,6 +1552,12 @@ class GameWindow(ui.ScriptWindow):
 				else:
 					if chr.IsNPC(dstChrID):
 						GFHhg54GHGhh45GHGH.SendGiveItemPacket(dstChrID, attachedInvenType, attachedItemSlotPos, attachedItemCount)
+					if app.ENABLE_REFINE_RENEWAL:
+						constInfo.AUTO_REFINE_TYPE = 2
+						constInfo.AUTO_REFINE_DATA["NPC"][0] = dstChrID
+						constInfo.AUTO_REFINE_DATA["NPC"][1] = attachedInvenType
+						constInfo.AUTO_REFINE_DATA["NPC"][2] = attachedItemSlotPos
+						constInfo.AUTO_REFINE_DATA["NPC"][3] = attachedItemCount
 					else:
 						GFHhg54GHGhh45GHGH.SendExchangeStartPacket(dstChrID)
 						GFHhg54GHGhh45GHGH.SendExchangeItemAddPacket(attachedInvenType, attachedItemSlotPos, 0)
@@ -2512,12 +2518,14 @@ class GameWindow(ui.ScriptWindow):
 	# END_OF_ITEM_MALL
 
 	def RefineSuceededMessage(self):
-		snd.PlaySound("sound/ui/make_soket.wav")
 		self.PopupMessage(localeInfo.REFINE_SUCCESS)
+		if app.ENABLE_REFINE_RENEWAL:
+			self.interface.CheckRefineDialog(False)
 
 	def RefineFailedMessage(self):
-		snd.PlaySound("sound/ui/jaeryun_fail.wav")
 		self.PopupMessage(localeInfo.REFINE_FAILURE)
+		if app.ENABLE_REFINE_RENEWAL:
+			self.interface.CheckRefineDialog(True)
 
 	def CommandCloseSafebox(self):
 		self.interface.CommandCloseSafebox()

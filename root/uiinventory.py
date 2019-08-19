@@ -1643,6 +1643,10 @@ class InventoryWindow(ui.ScriptWindow):
 
 		if fgGHGjjFHJghjfFG1545gGG.REFINE_OK != fgGHGjjFHJghjfFG1545gGG.CanRefine(scrollIndex, targetSlotPos):
 			return
+		if app.ENABLE_REFINE_RENEWAL:
+			constInfo.AUTO_REFINE_TYPE = 1
+			constInfo.AUTO_REFINE_DATA["ITEM"][0] = scrollSlotPos
+			constInfo.AUTO_REFINE_DATA["ITEM"][1] = targetSlotPos
 
 		###########################################################
 		self.__SendUseItemToItemPacket(scrollSlotPos, targetSlotPos)
