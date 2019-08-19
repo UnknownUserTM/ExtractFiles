@@ -1,10 +1,10 @@
 import ui
 import chat
 import app
-import GFHhg54GHGhh45GHGH as player
+import GFHhg54GHGhh45GHGH as net
 import snd
 import item
-import fgGHGjjFHJghjfFG1545gGG as net
+import fgGHGjjFHJghjfFG1545gGG as player
 import uiToolTip  
 import wndMgr 
 import time
@@ -14,6 +14,7 @@ import constInfo
 import event
 import localeInfo
 from uiGuild import MouseReflector
+import systemSetting
 
 class GameOptionWindow(ui.ScriptWindow):
 	# AUDIO
@@ -49,9 +50,9 @@ class GameOptionWindow(ui.ScriptWindow):
 	OPTION_INTERFACE_ATTRIBUTE_TOOLTIP = 21
 
 	OPTION_TYPE_TOGGLE = 0
-	OPTION_TYPE_SOUND = 1
-	OPTION_TYPE_MUSIC = 2
-	OPTION_TYPE_PVP = 3
+	OPTION_TYPE_SLIDER = 1
+	OPTION_TYPE_PVP_GROUP = 2
+	OPTION_TYPE_CAMERA_GROUP = 3
 	OPTION_TYPE_TITLE = 4
 	
 	#####################
@@ -93,16 +94,16 @@ class GameOptionWindow(ui.ScriptWindow):
 		},
 		{
 			"name" : "Effekte",
-			"type" : OPTION_TYPE_TOGGLE,
+			"type" : OPTION_TYPE_SLIDER,
 			
 			"id" : OPTION_AUDIO_SOUND,
 		},
-		{
-			"name" : "Musik",
-			"type" : OPTION_TYPE_TOGGLE,
+		# {
+			# "name" : "Musik",
+			# "type" : OPTION_TYPE_SLIDER,
 			
-			"id" : OPTION_AUDIO_MUSIC,
-		},
+			# "id" : OPTION_AUDIO_MUSIC,
+		# },
 		# ------------------------------------ #
 		{
 			"name" : "Spieleinstellungen",
@@ -110,13 +111,13 @@ class GameOptionWindow(ui.ScriptWindow):
 		},
 		{
 			"name" : "PVP",
-			"type" : OPTION_TYPE_TOGGLE,
+			"type" : OPTION_TYPE_PVP_GROUP,
 			
 			"id" : OPTION_GAME_PVP,
 		},
 		{
 			"name" : "Kamera",
-			"type" : OPTION_TYPE_TOGGLE,
+			"type" : OPTION_TYPE_CAMERA_GROUP,
 			
 			"id" : OPTION_GAME_CAMERA,
 		},
@@ -266,11 +267,25 @@ class GameOptionWindow(ui.ScriptWindow):
 				self.optionList[i].SetPosition(5,y)
 				self.optionList[i].SetTitle(option["name"])
 				self.optionList[i].Show()
-				
-			 		
-				
-				
-		
+			elif option["type"] == self.OPTION_TYPE_SLIDER:
+				self.optionList[i] = OptionSlideItem()
+				self.optionList[i].SetParent(self.background)
+				self.optionList[i].SetPosition(5,y)
+				self.optionList[i].SetTitle(option["name"])
+				self.optionList[i].Show()
+			elif option["type"] == self.OPTION_TYPE_PVP_GROUP:
+				self.optionList[i] = OptionPVPGroupItem()
+				self.optionList[i].SetParent(self.background)
+				self.optionList[i].SetPosition(5,y)
+				self.optionList[i].SetTitle(option["name"])
+				self.optionList[i].Show()
+			elif option["type"] == self.OPTION_TYPE_CAMERA_GROUP:
+				self.optionList[i] = OptionCameraGroupItem()
+				self.optionList[i].SetParent(self.background)
+				self.optionList[i].SetPosition(5,y)
+				self.optionList[i].SetTitle(option["name"])
+				self.optionList[i].Show()
+
 			y = y + 25
 		
 				
@@ -350,6 +365,322 @@ class OptionTitleItem(ui.ScriptWindow):
 	def SetTitle(self,title):
 		self.title.SetText(title)
 		
+		
+class OptionSlideItem(ui.ScriptWindow):
+
+	def __init__(self):
+		ui.ScriptWindow.__init__(self)
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/gameoption_slideritem.py")
+		except:
+			import exception
+			exception.Abort("GameOptionWindow.LoadWindow.LoadObject")
+
+		self.title = self.GetChild("titleTextLine")
+		self.slider = self.GetChild("slideBar")
+		
+		
+		
+		self.slider.SetSliderPos(float(float(systemSetting.GetSoundVolume()) / 5.0))
+		self.slider.SetEvent(ui.__mem_func__(self.OnChangeVolume))
+		self.Show()
+	
+	
+	def OnChangeVolume(self):
+		pos = self.slider.GetSliderPos()
+		snd.SetSoundVolumef(pos)
+		systemSetting.SetSoundVolumef(pos)		
+	
+	def SetTitle(self,title):
+		self.title.SetText(title)
+		
+class OptionCameraGroupItem(ui.ScriptWindow):
+	
+	CAMERA_MODE_SHORT = 0
+	CAMERA_MODE_FAR = 1
+	CAMERA_MODE_VERY_FAR = 2
+	
+	COLOR_INACTIVE = grp.GenerateColor(1.0, 0.0, 0.0, 0.3)
+	COLOR_ACTIVE   = grp.GenerateColor(0.0, 1.0, 0.0, 0.2)
+	
+	def __init__(self):
+		ui.ScriptWindow.__init__(self)
+		self.cameraMode = 0
+		
+		self.redBar = []
+		self.greenBar = []
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/gameoption_cameragroupitem.py")
+		except:
+			import exception
+			exception.Abort("GameOptionWindow.LoadWindow.LoadObject")
+
+		self.title = self.GetChild("titleTextLine")
+		self.toggleButtonBG01 = self.GetChild("toggleButton01BG")
+		self.toggleButtonBG02 = self.GetChild("toggleButton02BG")
+		self.toggleButtonBG03 = self.GetChild("toggleButton03BG")
+		
+		self.toggleButtonBG01.SetOnClickEvent(self.__OnClickCameraShort)
+		self.toggleButtonBG02.SetOnClickEvent(self.__OnClickCameraFar)
+		self.toggleButtonBG03.SetOnClickEvent(self.__OnClickCameraVeryFar)
+
+		for i in xrange(3):
+			nr = i + 1
+			self.redBar.append(self.GetChild("redBar0" + str(nr)))
+			self.greenBar.append(self.GetChild("greenBar0" + str(nr)))
+		
+			self.redBar[i].Hide()
+			self.greenBar[i].SetColor(self.COLOR_ACTIVE)
+		
+		self.RefreshButtonGroup()
+		
+		self.mouseReflector01 = MouseReflector(self.toggleButtonBG01)
+		self.mouseReflector01.SetSize(60, 22)
+		self.mouseReflector01.UpdateRect()
+		
+		self.mouseReflector02 = MouseReflector(self.toggleButtonBG02)
+		self.mouseReflector02.SetSize(60, 22)
+		self.mouseReflector02.UpdateRect()
+		
+		self.mouseReflector03 = MouseReflector(self.toggleButtonBG03)
+		self.mouseReflector03.SetSize(60, 22)
+		self.mouseReflector03.UpdateRect()
+		
+		self.Show()
+		
+	def __SetCameraMode(self, index):
+		constInfo.SET_CAMERA_MAX_DISTANCE_INDEX(index)
+	
+	def __OnClickCameraShort(self):
+		self.cameraMode = 0
+		self.__SetCameraMode(0)
+		self.RefreshButtonGroup()
+		
+	def __OnClickCameraFar(self):
+		self.cameraMode = 1
+		self.__SetCameraMode(1)
+		self.RefreshButtonGroup()
+
+	def __OnClickCameraVeryFar(self):
+		self.cameraMode = 2
+		self.__SetCameraMode(1)
+		self.RefreshButtonGroup()
+	
+	def RefreshButtonGroup(self):
+		for i in xrange(3):
+			if i == self.cameraMode:
+				self.greenBar[i].Show()
+			else:
+				self.greenBar[i].Hide()	
+	
+	def SetTitle(self,title):
+		self.title.SetText(title)
+		
+	def OnUpdate(self):
+		if self.toggleButtonBG01.IsIn():
+			self.mouseReflector01.Show()
+		else:
+			self.mouseReflector01.Hide()
+		
+		if self.toggleButtonBG02.IsIn():
+			self.mouseReflector02.Show()
+		else:
+			self.mouseReflector02.Hide()
+
+		if self.toggleButtonBG03.IsIn():
+			self.mouseReflector03.Show()
+		else:
+			self.mouseReflector03.Hide()
+			
+class OptionPVPGroupItem(ui.ScriptWindow):
+
+	COLOR_INACTIVE = grp.GenerateColor(1.0, 0.0, 0.0, 0.3)
+	COLOR_ACTIVE   = grp.GenerateColor(0.0, 1.0, 0.0, 0.2)
+	
+	
+	PVP_PEACE = 0
+	PVP_REVENGE = 1
+	PVP_GUILD = 2
+	PVP_FREE = 3
+	
+	def __init__(self):
+		ui.ScriptWindow.__init__(self)
+		self.redBar = []
+		self.greenBar = []
+		self.pvpMode = 0
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/gameoption_pvpgroupitem.py")
+		except:
+			import exception
+			exception.Abort("GameOptionWindow.LoadWindow.LoadObject")
+
+		self.title = self.GetChild("titleTextLine")
+		
+		self.toggleButtonBG01 = self.GetChild("toggleButton01BG")
+		self.toggleButtonBG02 = self.GetChild("toggleButton02BG")
+		self.toggleButtonBG03 = self.GetChild("toggleButton03BG")
+		self.toggleButtonBG04 = self.GetChild("toggleButton04BG")
+		
+		self.toggleButtonBG01.SetOnClickEvent(self.__OnClickPvPModePeaceButton)
+		self.toggleButtonBG02.SetOnClickEvent(self.__OnClickPvPModeRevengeButton)
+		self.toggleButtonBG03.SetOnClickEvent(self.__OnClickPvPModeGuildButton)
+		self.toggleButtonBG04.SetOnClickEvent(self.__OnClickPvPModeFreeButton)
+
+		for i in xrange(4):
+			nr = i + 1
+			self.redBar.append(self.GetChild("redBar0" + str(nr)))
+			self.greenBar.append(self.GetChild("greenBar0" + str(nr)))
+		
+			self.redBar[i].Hide()
+			self.greenBar[i].SetColor(self.COLOR_ACTIVE)
+
+		self.mouseReflector01 = MouseReflector(self.toggleButtonBG01)
+		self.mouseReflector01.SetSize(60, 22)
+		self.mouseReflector01.UpdateRect()
+		
+		self.mouseReflector02 = MouseReflector(self.toggleButtonBG02)
+		self.mouseReflector02.SetSize(60, 22)
+		self.mouseReflector02.UpdateRect()
+		
+		self.mouseReflector03 = MouseReflector(self.toggleButtonBG03)
+		self.mouseReflector03.SetSize(60, 22)
+		self.mouseReflector03.UpdateRect()
+		
+		self.mouseReflector04 = MouseReflector(self.toggleButtonBG04)
+		self.mouseReflector04.SetSize(60, 22)
+		self.mouseReflector04.UpdateRect()
+
+		self.__SetPeacePKMode()
+		self.RefreshButtonGroup()
+		self.Show()
+	
+	def RefreshButtonGroup(self):
+		for i in xrange(4):
+			if i == self.pvpMode:
+				self.greenBar[i].Show()
+			else:
+				self.greenBar[i].Hide()
+	
+	def SetTitle(self,title):
+		self.title.SetText(title)
+
+	def OnUpdate(self):
+		if self.toggleButtonBG01.IsIn():
+			self.mouseReflector01.Show()
+		else:
+			self.mouseReflector01.Hide()
+		
+		if self.toggleButtonBG02.IsIn():
+			self.mouseReflector02.Show()
+		else:
+			self.mouseReflector02.Hide()
+
+		if self.toggleButtonBG03.IsIn():
+			self.mouseReflector03.Show()
+		else:
+			self.mouseReflector03.Hide()
+			
+		if self.toggleButtonBG04.IsIn():
+			self.mouseReflector04.Show()
+		else:
+			self.mouseReflector04.Hide()
+			
+			
+			
+	def __SetPKMode(self, mode):
+		self.pvpMode = mode
+		self.RefreshButtonGroup()
+
+	def __SetPeacePKMode(self):
+		self.__SetPKMode(player.PK_MODE_PEACE)
+
+	def __RefreshPVPButtonList(self):
+		self.__SetPKMode(player.GetPKMode())
+
+	def __CheckPvPProtectedLevelPlayer(self):	
+		if player.GetStatus(player.LEVEL)<constInfo.PVPMODE_PROTECTED_LEVEL:
+			self.__SetPeacePKMode()
+			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.OPTION_PVPMODE_PROTECT % (constInfo.PVPMODE_PROTECTED_LEVEL))
+			return 1
+
+		return 0
+
+	def __OnClickPvPModePeaceButton(self):
+		if self.__CheckPvPProtectedLevelPlayer():
+			return
+
+		self.__RefreshPVPButtonList()
+
+		if constInfo.PVPMODE_ENABLE:
+			net.SendChatPacket("/pkmode 0", chat.CHAT_TYPE_TALKING)
+			self.__SetPKMode(0)
+		else:
+			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.OPTION_PVPMODE_NOT_SUPPORT)
+
+	def __OnClickPvPModeRevengeButton(self):
+		if self.__CheckPvPProtectedLevelPlayer():
+			return
+
+		self.__RefreshPVPButtonList()
+
+		if constInfo.PVPMODE_ENABLE:
+			net.SendChatPacket("/pkmode 1", chat.CHAT_TYPE_TALKING)
+			self.__SetPKMode(1)
+		else:
+			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.OPTION_PVPMODE_NOT_SUPPORT)
+
+	def __OnClickPvPModeFreeButton(self):
+		if self.__CheckPvPProtectedLevelPlayer():
+			return
+
+		self.__RefreshPVPButtonList()
+
+		if constInfo.PVPMODE_ENABLE:
+			net.SendChatPacket("/pkmode 2", chat.CHAT_TYPE_TALKING)
+			self.__SetPKMode(3)
+		else:
+			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.OPTION_PVPMODE_NOT_SUPPORT)
+
+	def __OnClickPvPModeGuildButton(self):
+		if self.__CheckPvPProtectedLevelPlayer():
+			return
+
+		self.__RefreshPVPButtonList()
+
+		if 0 == player.GetGuildID():
+			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.OPTION_PVPMODE_CANNOT_SET_GUILD_MODE)
+			return
+
+		if constInfo.PVPMODE_ENABLE:
+			net.SendChatPacket("/pkmode 4", chat.CHAT_TYPE_TALKING)
+			self.__SetPKMode(2)
+		else:
+			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.OPTION_PVPMODE_NOT_SUPPORT)
+
+	def OnChangePKMode(self):
+		self.__RefreshPVPButtonList()
+			
 		
 class OptionToggleItem(ui.ScriptWindow):
 

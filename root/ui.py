@@ -3097,7 +3097,8 @@ class SliderBar(Window):
 	def __CreateBackGroundImage(self):
 		img = ImageBox()
 		img.SetParent(self)
-		img.LoadImage("d:/ymir work/ui/game/windows/sliderbar.sub")
+		# img.LoadImage("d:/ymir work/ui/game/windows/sliderbar.sub")
+		img.LoadImage("yamato_slider/rail.tga")
 		img.Show()
 		self.backGroundImage = img
 
@@ -3110,9 +3111,10 @@ class SliderBar(Window):
 		cursor.AddFlag("restrict_y")
 		cursor.SetParent(self)
 		cursor.SetMoveEvent(__mem_func__(self.__OnMove))
-		cursor.SetUpVisual("d:/ymir work/ui/game/windows/sliderbar_cursor.sub")
-		cursor.SetOverVisual("d:/ymir work/ui/game/windows/sliderbar_cursor.sub")
-		cursor.SetDownVisual("d:/ymir work/ui/game/windows/sliderbar_cursor.sub")
+		cursor.SetUpVisual("yamato_slider/slide_n.tga")
+		cursor.SetOverVisual("yamato_slider/slide_h.tga")
+		cursor.SetDownVisual("yamato_slider/slide_n.tga")
+		# cursor.SetPosition(0,-4)
 		cursor.Show()
 		self.cursor = cursor
 
