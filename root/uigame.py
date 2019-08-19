@@ -477,7 +477,7 @@ class OptionCameraGroupItem(ui.ScriptWindow):
 
 	def __OnClickCameraVeryFar(self):
 		self.cameraMode = 2
-		self.__SetCameraMode(1)
+		self.__SetCameraMode(2)
 		self.RefreshButtonGroup()
 	
 	def RefreshButtonGroup(self):
