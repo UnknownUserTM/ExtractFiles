@@ -2,7 +2,7 @@ import uiScriptLocale
 
 window = {
 	"name" : "GameOptionTitle",
-	"style" : ("movable", "float",),
+	"style" : ("float",),
 
 	"x" : 0,
 	"y" : 0,
@@ -15,7 +15,7 @@ window = {
 		{
 			"name" : "board",
 			"type" : "thinboard_circle",
-			"style" : ("movable","attach",),
+			"style" : ("attach",),
 
 			"x" : 0,
 			"y" : 0,
