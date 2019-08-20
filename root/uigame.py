@@ -476,7 +476,7 @@ class OptionCameraGroupItem(ui.ScriptWindow):
 	
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
-		self.cameraMode = 0
+		self.cameraMode = systemSetting.GetCameraDistance()
 		
 		self.redBar = []
 		self.greenBar = []
@@ -516,6 +516,8 @@ class OptionCameraGroupItem(ui.ScriptWindow):
 			self.redBar[i].Hide()
 			self.greenBar[i].SetColor(self.COLOR_ACTIVE)
 		
+		
+		self.__SetCameraMode(systemSetting.GetCameraDistance())
 		self.RefreshButtonGroup()
 		
 		self.mouseReflector01 = MouseReflector(self.toggleButtonBG01)
@@ -530,10 +532,13 @@ class OptionCameraGroupItem(ui.ScriptWindow):
 		self.mouseReflector03.SetSize(60, 22)
 		self.mouseReflector03.UpdateRect()
 		
+		
+		
 		self.Show()
 		
 	def __SetCameraMode(self, index):
 		constInfo.SET_CAMERA_MAX_DISTANCE_INDEX(index)
+		systemSetting.SetCameraDistance(index)
 	
 	def __OnClickCameraShort(self):
 		self.cameraMode = 0
