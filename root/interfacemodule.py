@@ -57,6 +57,7 @@ import uibiologist
 import uiuserevent
 import uimainquest
 import uimultishop
+import uigame
 
 
 IsQBHide = 0
@@ -218,12 +219,22 @@ class Interface(object):
 	
 	def __MakeMultiShop(self, inventory):
 		self.wndMultiShop = uimultishop.MultiShopWindow(inventory)
+		
+	def __MakeNewGameOptionWindow(self):
+		self.wndGameOption = uigame.GameOptionWindow()
 	
 	def OpenHallOfFame(self):
 		uihalloffame.wnd.OpenRequest()		
 
 	# def SendTempDropEventCount(self,count):
 		# self.wndUserEventButton.eventGuide.AddTempDropEventCount(count)
+	
+	
+	def SetBlockMode(self,mode):
+		self.wndGameOption.OnBlockMode(mode)
+	
+	def OpenNewGameOption(self):
+		self.wndGameOption.Open()
 		
 	#####################################################
 	#####################################################
@@ -467,7 +478,7 @@ class Interface(object):
 		self.dlgRestart.LoadDialog()
 		self.dlgRestart.Hide()
 
-		self.dlgSystem = uiSystem.SystemDialog()
+		self.dlgSystem = uiSystem.SystemDialog(self)
 		self.dlgSystem.LoadDialog()
 		self.dlgSystem.SetOpenHelpWindowEvent(ui.__mem_func__(self.OpenHelpWindow))
 
@@ -552,6 +563,7 @@ class Interface(object):
 		self.__MakeUserEventButtonWindow()
 		self.__MakeNewQuestWindow()
 		self.__MakeMultiShop(self.wndInventory)
+		self.__MakeNewGameOptionWindow()
 		# ACCESSORY_REFINE_ADD_METIN_STONE
 		self.__MakeItemSelectWindow()
 		# END_OF_ACCESSORY_REFINE_ADD_METIN_STONE
@@ -793,6 +805,7 @@ class Interface(object):
 		del self.wndForgeGuide
 		del self.wndCalender
 		del self.wndMultiShop
+		del self.wndGameOption
 		del self.wndBiologistSystem
 		del self.wndGMPanel
 		del self.wndNewQuestWindow

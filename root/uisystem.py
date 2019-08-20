@@ -17,8 +17,9 @@ SYSTEM_MENU_FOR_PORTAL = FALSE
 ## System
 class SystemDialog(ui.ScriptWindow):
 
-	def __init__(self):
+	def __init__(self,interface):
 		ui.ScriptWindow.__init__(self)
+		self.wndInterface = interface
 		self.__Initialize()
 	
 	def __Initialize(self):
@@ -57,7 +58,7 @@ class SystemDialog(ui.ScriptWindow):
 		self.GetChild("system_chhange_3_button").SetEvent(self.__OnClickChannelSwitch,3)
 		self.GetChild("system_chhange_4_button").SetEvent(self.__OnClickChannelSwitch,4)
 
-		
+		self.GetChild("system_option_button").Hide()
 		
 ##		if constInfo.IN_GAME_SHOP_ENABLE:
 ##			self.GetChild("mall_button").SAFE_SetEvent(self.__ClickInGameShopButton)
@@ -84,8 +85,8 @@ class SystemDialog(ui.ScriptWindow):
 		
 
 		
-		if self.gameOptionDlg:
-			self.gameOptionDlg.Destroy()
+		# if self.gameOptionDlg:
+			# self.gameOptionDlg.Destroy()
 			
 		if self.systemOptionDlg:
 			self.systemOptionDlg.Destroy()
@@ -134,10 +135,12 @@ class SystemDialog(ui.ScriptWindow):
 	def __ClickGameOptionButton(self):
 		self.Close()
 
-		if not self.gameOptionDlg:
-			self.gameOptionDlg = uiGameOption.OptionDialog()
+		# if not self.gameOptionDlg:
+			# self.gameOptionDlg = uiGameOption.OptionDialog()
 
-		self.gameOptionDlg.Show()
+		# self.gameOptionDlg.Show()
+		
+		self.wndInterface.OpenNewGameOption()
 
 	def __ClickSofortButton(self):
 		self.Close()

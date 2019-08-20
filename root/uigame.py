@@ -18,18 +18,17 @@ import systemSetting
 
 class GameOptionWindow(ui.ScriptWindow):
 	# AUDIO
-	OPTION_AUDIO_MUSIC = 0
-	OPTION_AUDIO_SOUND = 1
-	
+	OPTION_AUDIO_SOUND = 0	
 	# Spiel
-	OPTION_GAME_PVP = 2
-	OPTION_GAME_BLOCK_TRADE = 3
-	OPTION_GAME_BLOCK_PARTY	= 4
-	OPTION_GAME_BLOCK_GUILD = 5
-	OPTION_GAME_BLOCK_WHISPER = 6
-	OPTION_GAME_BLOCK_FRIENDS = 7
-	OPTION_GAME_BLOCK_REQUEST = 8
-	OPTION_GAME_CAMERA = 9
+	OPTION_GAME_PVP = 1
+	OPTION_GAME_CAMERA = 2
+	OPTION_GAME_BLOCK_TRADE = 5
+	OPTION_GAME_BLOCK_PARTY	= 6
+	OPTION_GAME_BLOCK_GUILD = 7
+	OPTION_GAME_BLOCK_WHISPER = 8
+	OPTION_GAME_BLOCK_FRIENDS = 9
+	# OPTION_GAME_BLOCK_REQUEST = 8
+	
 
 	# Welt
 	OPTION_SHOP_NAME = 10
@@ -285,10 +284,10 @@ class GameOptionWindow(ui.ScriptWindow):
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
 		self.optionList = {}
+		self.blockMode = 0
 		self.LoadWindow()
 
 	def __del__(self):
-		#constInfo.CALOPEN = 1
 		ui.ScriptWindow.__del__(self)
 
 	def LoadWindow(self):
@@ -303,11 +302,9 @@ class GameOptionWindow(ui.ScriptWindow):
 		self.background = self.GetChild("background")
 		self.scrollBar = self.GetChild("scrollBar")
 		self.scrollBar.SetScrollEvent(ui.__mem_func__(self.OnScroll))
-		
-		
+
 		self.devTextLine = self.GetChild("devTextLine")
-		
-		
+
 		y = 5
 		for i in xrange(len(self.optionDict)):
 			option = self.optionDict[i]
@@ -326,12 +323,14 @@ class GameOptionWindow(ui.ScriptWindow):
 				self.optionList[i].SetOnButtonText(option["button_on"])
 				self.optionList[i].SetOffButtonText(option["button_off"])
 				self.optionList[i].Show()
+				
 			elif option["type"] == self.OPTION_TYPE_SLIDER:
 				self.optionList[i] = OptionSlideItem()
 				self.optionList[i].SetParent(self.background)
 				self.optionList[i].SetPosition(5,y)
 				self.optionList[i].SetTitle(option["name"])
 				self.optionList[i].Show()
+				
 			elif option["type"] == self.OPTION_TYPE_PVP_GROUP:
 				self.optionList[i] = OptionPVPGroupItem()
 				self.optionList[i].SetParent(self.background)
@@ -339,6 +338,7 @@ class GameOptionWindow(ui.ScriptWindow):
 				self.optionList[i].SetTitle(option["name"])
 				self.optionList[i].SetButtonText(option["button_peace"],option["button_revenge"],option["button_guild"],option["button_free"])
 				self.optionList[i].Show()
+				
 			elif option["type"] == self.OPTION_TYPE_CAMERA_GROUP:
 				self.optionList[i] = OptionCameraGroupItem()
 				self.optionList[i].SetParent(self.background)
@@ -354,9 +354,10 @@ class GameOptionWindow(ui.ScriptWindow):
 		self.RenderOptionList()
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LoadWindow GameOptionWindow!")
 
-		self.Show()
+		# self.Show()
 		
-		
+	def Destroy(self):
+		self.Hide()
 		
 	def OnRunMouseWheel(self, nLen):
 		if nLen > 0:
@@ -401,7 +402,9 @@ class GameOptionWindow(ui.ScriptWindow):
 	def Close(self):
 		self.Hide()
 		
-
+	def OnBlockMode(self, mode):
+		# global blockMode
+		self.blockMode = mode
 
 class OptionTitleItem(ui.ScriptWindow):
 

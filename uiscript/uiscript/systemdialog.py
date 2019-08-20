@@ -127,7 +127,7 @@ window = {
 					"type" : "button",
 
 					"x" : 10 + YAMATO_WIDTH,
-					"y" : 87 + 45,
+					"y" : 87 + 45 - 30,
 
 					"text" : uiScriptLocale.GAMEOPTION_TITLE,
 
@@ -140,7 +140,7 @@ window = {
 					"type" : "button",
 
 					"x" : 10 + YAMATO_WIDTH,
-					"y" : 117 + 70,
+					"y" : 117 + 70 - 30,
 
 					"text" : uiScriptLocale.SYSTEM_CHANGE,
 
@@ -153,7 +153,7 @@ window = {
 					"type" : "button",
 
 					"x" : 10 + YAMATO_WIDTH,
-					"y" : 177 + 50,
+					"y" : 177 + 50 - 30,
 
 					"text" : uiScriptLocale.SYSTEM_LOGOUT,
 
@@ -167,7 +167,7 @@ window = {
 					"type" : "button",
 
 					"x" : 10 + YAMATO_WIDTH,
-					"y" : 207 + 50,
+					"y" : 207 + 50 - 30,
 
 					"text" : uiScriptLocale.SYSTEM_EXIT,
 
@@ -180,7 +180,7 @@ window = {
 					"type" : "button",
 
 					"x" : 10 + YAMATO_WIDTH,
-					"y" : 237 + 50,
+					"y" : 237 + 50 - 30,
 
 					"text" : uiScriptLocale.SYSTEM_KILL,
 
@@ -193,7 +193,7 @@ window = {
 					"type" : "button",
 
 					"x" : 10 + YAMATO_WIDTH,
-					"y" : 267 + 70,
+					"y" : 267 + 70 - 30,
 
 					"text" : uiScriptLocale.CANCEL,
 

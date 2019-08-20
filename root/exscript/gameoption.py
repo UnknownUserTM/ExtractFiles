@@ -7,7 +7,7 @@ window = {
 	"name" : "GameOptionWindow",
 	"style" : ("movable", "float",),
 
-	"x" : SCREEN_WIDTH - WINDOW_WIDTH - 60,
+	"x" : (SCREEN_WIDTH/2) - (WINDOW_WIDTH/2) + 30,
 	"y" : (SCREEN_HEIGHT - 37 - WINDOW_HEIGTH) / 2,
 
 	"width" : WINDOW_WIDTH+30,
