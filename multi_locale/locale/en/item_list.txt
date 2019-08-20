@@ -4585,7 +4585,6 @@
 71105	ETC	icon/item/71105.tga
 71106	ETC	icon/item/71106.tga
 71107	ETC	icon/item/71107.tga
-71108	ETC	icon/item/71108.tga
 71109	ETC	icon/item/71109.tga
 71110	ETC	icon/item/71110.tga
 71113	ETC	icon/item/71113.tga
@@ -5230,7 +5229,7 @@
 76007	ETC	icon/item/76007.tga
 76008	ETC	icon/item/76008.tga
 76009	ETC	icon/item/76009.tga
-76010	ETC	icon/item/76010.tga
+71108	ETC	icon/item/76010_1.tga
 76011	ETC	icon/item/76011.tga
 76012	ETC	icon/item/76012.tga
 76013	ETC	icon/item/76013.tga

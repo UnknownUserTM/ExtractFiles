@@ -2391,7 +2391,7 @@
 76007	Valiant Cloak	A colored cloak that lured all monsters. With this, warriors once proved their bravery. Not tradable.
 76008	Dragon Medal	Keeps you from losing experience points on your next resurrection. Not tradable.
 76009	Dragon Scroll	Eliminates the risk of destroying an item if its upgrade fails. Only the quality is reduced by one level. In addition, the probability of a successful improvement increases by 10%. Not tradable.
-76010	Bloodstone	This stone from the blood of Bahar-Taraji will ensure the entry into the grotto of exile. Not tradable.
+76010	biologists ticket	Gives you the opportunity to purchase items in the biologist shop.
 76011	Leader's book	As long as the leader of a group is equipped with this book, all party members gain 30% more experience. Not tradable.
 76012	Speed ​​Potion	Increases your movement speed by 60 for 30 minutes. Not tradable.
 76013	Reinforce Item (b)	If lucky, add a new bonus to one of your items. (up to 5 bonuses). Item from level chest, not tradable.

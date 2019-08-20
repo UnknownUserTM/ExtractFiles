@@ -338,8 +338,6 @@
 30187	Blutstropfen	Ein Tropfen Blut der ermordeten Göttin Bahar-Taraji, Schöpferin der Welt.
 30188	Vulkanglas	Ehemals flüssiges, schlagartig abgekühltes Vulkangestein.
 30189	Tränen Baljit-Elvedins	Das kunstvoll geformte Gefäß enthält die Tränen des Gottes Baljit-Elvedin.
-30190	Blutstein	Dieser Stein aus dem Blut Bahar-Tarajis wird den Eintritt in die Grotte der Verbannung gewährleisten.
-30191	Blutstein	Blutsteine ermöglichen den Eintritt in die Grotte der Verbannung.
 30192	Milchsaft	Hochwertiges Pflanzensekret
 30193	Fingerknochen	Das letzte Überbleibsel eines gefallenen Helden.
 30194	Ork-Keule	Eine hässliche Waffe mit stabilen Dornen.
@@ -2019,7 +2017,6 @@
 71105	Neuverteilung (STR)	Setzt deine Stärke auf 1 zurück und erlaubt dir, deine Punkte neu zu verteilen.
 71106	Neuverteilung (DEX)	Setzt deine Beweglichkeit auf 1 zurück und erlaubt dir, deine Punkte neu zu verteilen.
 71107	Frucht des Lebens	Erhöht die Rangpunkte um 2000 (Abklingzeit: 8 Stunden).
-71108	Granatapfelsaft	Getränk, das deine TP augenblicklich um 800 Punkte regeneriert. Dieses Item ist handelbar.
 71109	Rolle der Korrektur	Mit dieser Rolle kann der zuletzt erfolgreich hinzugefügte Geiststein aus einem Gegenstand entfernt werden.
 71110	Pferdezucker	Dieses Zuckerstück ermöglicht es, dem Reittier einen Namen zu geben. Gleichzeitig erhöht es dessen Verteidigungswert um 20.
 71113	Glas der Einsicht	Ermöglicht dir, einem anderen Spieler Gegenstände aus deinem Inventar zu zeigen. Das Glas zerbricht während des Vorgangs.
@@ -2392,7 +2389,7 @@
 76007	Tapferkeitsumhang	Ein farbiger Umhang, der sämtliche Monster anlockte. Mit diesem bewiesen Krieger einst ihre Tapferkeit. Nicht handelbar.
 76008	Medaille des Drachen	Bewahrt dich bei deiner nächsten Wiederbelebung davor, Erfahrungspunkte zu verlieren. Nicht handelbar.
 76009	Schriftrolle des Drachen	Beseitigt das Risiko, einen Gegenstand zu zerstören, wenn seine Verbesserung fehlschlägt. Es wird nur die Qualität um eine Stufe verringert. Zudem erhöht sich die Wahrscheinlichkeit einer erfolgreichen Verbesserung um 10 %. Nicht handelbar.
-76010	Blutstein	Dieser Stein aus dem Blut Bahar-Tarajis wird den Eintritt in die Grotte der Verbannung gewährleisten. Nicht handelbar.
+71108	Biologenticket	Gibt dir die Möglichkeit im Biologen-Shop Gegenstände zu erwerben.
 76011	Buch des Anführers	Solange der Anführer einer Gruppe mit diesem Buch ausgerüstet ist, sammeln alle Gruppenmitglieder 30% mehr Erfahrungspunkte. Nicht handelbar.
 76012	Geschwindigkeitstrank	Erhöht 30 Minuten lang deine Bewegungsgeschwindigkeit um 60. Nicht handelbar.
 76013	Gegenstand verstärken(b)	Fügt mit etwas Glück einem deiner Gegenstände einen neuen Bonus hinzu. (bis max. 5 Boni). Item aus Leveltruhe, nicht handelbar.
