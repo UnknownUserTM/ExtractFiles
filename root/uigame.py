@@ -15,6 +15,7 @@ import event
 import localeInfo
 from uiGuild import MouseReflector
 import systemSetting
+blockMode = 0
 
 class GameOptionWindow(ui.ScriptWindow):
 	# AUDIO
@@ -29,7 +30,6 @@ class GameOptionWindow(ui.ScriptWindow):
 	OPTION_GAME_BLOCK_FRIENDS = 9
 	# OPTION_GAME_BLOCK_REQUEST = 8
 	
-
 	# Welt
 	OPTION_SHOP_NAME = 10
 	OPTION_WORLD_COSTUME = 11
@@ -39,13 +39,12 @@ class GameOptionWindow(ui.ScriptWindow):
 	# Interface
 	OPTION_INTERFACE_NAME_COLOR = 13 
 	OPTION_INTERFACE_HIT = 14
-	OPTION_INTERFACE_MONSTER_LEVEL = 15
-	OPTION_INTERFACE_MONSTER_AGGRESSIVE = 16
+	OPTION_INTERFACE_MONSTER_LEVEL = 16
+	OPTION_INTERFACE_MONSTER_AGGRESSIVE = 17
 	
-	OPTION_INTERFACE_BIND_MULTISHOP = 17
-	OPTION_INTERFACE_CURRENCY_TOOLTIP = 18
-	OPTION_INTERFACE_TASKBAR_INFO_TOOLTIP = 19
-	OPTION_INTERFACE_SHOPNAME = 20	
+	OPTION_INTERFACE_BIND_MULTISHOP = 18
+	OPTION_INTERFACE_CURRENCY_TOOLTIP = 19
+	OPTION_INTERFACE_TASKBAR_INFO_TOOLTIP = 20
 	OPTION_INTERFACE_ATTRIBUTE_TOOLTIP = 21
 
 	OPTION_TYPE_TOGGLE = 0
@@ -54,35 +53,6 @@ class GameOptionWindow(ui.ScriptWindow):
 	OPTION_TYPE_CAMERA_GROUP = 3
 	OPTION_TYPE_TITLE = 4
 	
-	#####################
-	
-	# Ton einstellungen
-	
-		# Effekte
-		# Musik
-		
-		
-	# Spiel einstellungen
-		# PVP							Frieden		Feindlich		Gilde		Frei
-		# Camera						Nah			Fern			Sehr Fern
-		# Abblocken						Blocken		Nicht Blocken
-		
-		
-	# Welt einstellungen
-		# ShopName						An			Aus
-		# Kostüm ausblenden				An			Aus
-		# Waffenkostüm ausblenden		An			Aus
-		
-	# Interface einstellungen
-		# Namensfarbe					Normal		Reichsfarbe
-		# Trefferanzeige				Anzeigen	Ausblenden
-		# Monsterlevel					Anzeigen	Ausblenden
-		# Monsteraggressivität			Anzeigen	Ausblenden
-		# BIND Multishop				Binden		Nicht binden
-		# Währeungs ToolTips			An			Aus
-		# Taskbar Button ToolTips		An			Aus
-		# ToolTip Bonus Auflistung		Neu			Alt
-
 	MAX_ITEM = 16
 	
 	optionDict = [
@@ -302,7 +272,6 @@ class GameOptionWindow(ui.ScriptWindow):
 		self.background = self.GetChild("background")
 		self.scrollBar = self.GetChild("scrollBar")
 		self.scrollBar.SetScrollEvent(ui.__mem_func__(self.OnScroll))
-
 		self.devTextLine = self.GetChild("devTextLine")
 
 		y = 5
@@ -322,6 +291,7 @@ class GameOptionWindow(ui.ScriptWindow):
 				self.optionList[i].SetTitle(option["name"])
 				self.optionList[i].SetOnButtonText(option["button_on"])
 				self.optionList[i].SetOffButtonText(option["button_off"])
+				self.optionList[i].SetIndex(i)
 				self.optionList[i].Show()
 				
 			elif option["type"] == self.OPTION_TYPE_SLIDER:
@@ -348,14 +318,61 @@ class GameOptionWindow(ui.ScriptWindow):
 				self.optionList[i].Show()
 
 			y = y + 25
-		
-				
+
+		self.optionList[self.OPTION_GAME_BLOCK_TRADE].LinkEvent(self.ToggleBlockMode, self.OPTION_GAME_BLOCK_TRADE)
+		self.optionList[self.OPTION_GAME_BLOCK_PARTY].LinkEvent(self.ToggleBlockMode, self.OPTION_GAME_BLOCK_PARTY)
+		self.optionList[self.OPTION_GAME_BLOCK_GUILD].LinkEvent(self.ToggleBlockMode, self.OPTION_GAME_BLOCK_GUILD)
+		self.optionList[self.OPTION_GAME_BLOCK_WHISPER].LinkEvent(self.ToggleBlockMode, self.OPTION_GAME_BLOCK_WHISPER)
+		self.optionList[self.OPTION_GAME_BLOCK_FRIENDS].LinkEvent(self.ToggleBlockMode, self.OPTION_GAME_BLOCK_FRIENDS)
+
+
+
+		self.optionList[self.OPTION_INTERFACE_MONSTER_LEVEL].LinkEvent(self.ToggleMonsterLevel)
+
+
+
+
+
 		self.HideAllItems()
 		self.RenderOptionList()
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LoadWindow GameOptionWindow!")
-
-		# self.Show()
+	
+	def TestLinkEvent(self):
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Hallo Welt!")
 		
+	# ################################
+	def ToggleMonsterLevel(self):
+		if app.WJ_SHOW_MOB_INFO:
+			if systemSetting.IsShowMobLevel():
+				systemSetting.SetShowMobLevel(False)
+			else:
+				systemSetting.SetShowMobLevel(True)
+
+
+	def ToggleBlockMode(self, index):
+		# status = self.optionList[self.OPTION_GAME_BLOCK_TRADE].GetStatus()
+		# index = self.optionList[self.OPTION_GAME_BLOCK_TRADE].GetIndex()
+		
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"status: " + str(status))
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"index: " + str(index))
+		
+		blockDict = {
+			self.OPTION_GAME_BLOCK_TRADE	: player.BLOCK_EXCHANGE,
+			self.OPTION_GAME_BLOCK_PARTY	: player.BLOCK_PARTY,
+			self.OPTION_GAME_BLOCK_GUILD	: player.BLOCK_GUILD,
+			self.OPTION_GAME_BLOCK_WHISPER	: player.BLOCK_WHISPER,
+			self.OPTION_GAME_BLOCK_FRIENDS	: player.BLOCK_FRIEND,
+		}
+		
+		global blockMode
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"/setblockmode " + str(blockMode ^ blockDict[index]))	
+		net.SendChatPacket("/setblockmode " + str(blockMode ^ blockDict[index]))	
+
+	def OnBlockMode(self, mode):
+		global blockMode
+		blockMode = mode		
+	# ################################
+	
 	def Destroy(self):
 		self.Hide()
 		
@@ -365,7 +382,6 @@ class GameOptionWindow(ui.ScriptWindow):
 		else:
 			self.scrollBar.OnDown()
 	
-	
 	def RenderOptionList(self):
 		pos = int(self.scrollBar.GetPos() * (len(self.optionDict) - self.MAX_ITEM)) 
 		start_height = 5
@@ -374,7 +390,6 @@ class GameOptionWindow(ui.ScriptWindow):
 			self.optionList[realPos].SetPosition(5,start_height)
 			self.optionList[realPos].Show()
 			start_height = start_height + 25			
-
 		
 	def OnScroll(self):
 		self.HideAllItems()
@@ -398,13 +413,13 @@ class GameOptionWindow(ui.ScriptWindow):
 		else:
 			self.Show()
 		
-		
 	def Close(self):
 		self.Hide()
 		
 	def OnBlockMode(self, mode):
 		# global blockMode
 		self.blockMode = mode
+
 
 class OptionTitleItem(ui.ScriptWindow):
 
@@ -429,7 +444,6 @@ class OptionTitleItem(ui.ScriptWindow):
 	def SetTitle(self,title):
 		self.title.SetText(title)
 		
-		
 class OptionSlideItem(ui.ScriptWindow):
 
 	def __init__(self):
@@ -450,12 +464,9 @@ class OptionSlideItem(ui.ScriptWindow):
 		self.title = self.GetChild("titleTextLine")
 		self.slider = self.GetChild("slideBar")
 		
-		
-		
 		self.slider.SetSliderPos(float(float(systemSetting.GetSoundVolume()) / 5.0))
 		self.slider.SetEvent(ui.__mem_func__(self.OnChangeVolume))
 		self.Show()
-	
 	
 	def OnChangeVolume(self):
 		pos = self.slider.GetSliderPos()
@@ -497,9 +508,7 @@ class OptionCameraGroupItem(ui.ScriptWindow):
 		self.shortText = self.GetChild("OptionTitle01")
 		self.longText = self.GetChild("OptionTitle02")
 		self.veryLongText = self.GetChild("OptionTitle03")
-		
-		
-		
+
 		self.toggleButtonBG01 = self.GetChild("toggleButton01BG")
 		self.toggleButtonBG02 = self.GetChild("toggleButton02BG")
 		self.toggleButtonBG03 = self.GetChild("toggleButton03BG")
@@ -515,8 +524,7 @@ class OptionCameraGroupItem(ui.ScriptWindow):
 		
 			self.redBar[i].Hide()
 			self.greenBar[i].SetColor(self.COLOR_ACTIVE)
-		
-		
+
 		self.__SetCameraMode(systemSetting.GetCameraDistance())
 		self.RefreshButtonGroup()
 		
@@ -531,9 +539,7 @@ class OptionCameraGroupItem(ui.ScriptWindow):
 		self.mouseReflector03 = MouseReflector(self.toggleButtonBG03)
 		self.mouseReflector03.SetSize(60, 22)
 		self.mouseReflector03.UpdateRect()
-		
-		
-		
+
 		self.Show()
 		
 	def __SetCameraMode(self, index):
@@ -590,8 +596,7 @@ class OptionPVPGroupItem(ui.ScriptWindow):
 
 	COLOR_INACTIVE = grp.GenerateColor(1.0, 0.0, 0.0, 0.3)
 	COLOR_ACTIVE   = grp.GenerateColor(0.0, 1.0, 0.0, 0.2)
-	
-	
+
 	PVP_PEACE = 0
 	PVP_REVENGE = 1
 	PVP_GUILD = 2
@@ -674,7 +679,6 @@ class OptionPVPGroupItem(ui.ScriptWindow):
 		self.buttonRevengeText.SetText(button_revenge)
 		self.buttonGuildText.SetText(button_guild)
 		self.buttonFreeText.SetText(button_free)	
-		
 
 	def OnUpdate(self):
 		if self.toggleButtonBG01.IsIn():
@@ -696,8 +700,6 @@ class OptionPVPGroupItem(ui.ScriptWindow):
 			self.mouseReflector04.Show()
 		else:
 			self.mouseReflector04.Hide()
-			
-			
 			
 	def __SetPKMode(self, mode):
 		self.pvpMode = mode
@@ -771,7 +773,6 @@ class OptionPVPGroupItem(ui.ScriptWindow):
 
 	def OnChangePKMode(self):
 		self.__RefreshPVPButtonList()
-			
 		
 class OptionToggleItem(ui.ScriptWindow):
 
@@ -781,8 +782,10 @@ class OptionToggleItem(ui.ScriptWindow):
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
 		self.status = True
+		self.index = 0
+		self.eventFunc = None
+		self.eventArgs = None
 		self.LoadWindow()
-		
 
 	def __del__(self):
 		ui.ScriptWindow.__del__(self)
@@ -832,7 +835,6 @@ class OptionToggleItem(ui.ScriptWindow):
 	def SetOffButtonText(self,text):
 		self.offTextLine.SetText(text)
 	
-	
 	def SetEnableText(self,text):
 		self.toggleButtonText01.SetText(text)
 		
@@ -849,27 +851,46 @@ class OptionToggleItem(ui.ScriptWindow):
 			self.mouseReflector02.Show()
 		else:
 			self.mouseReflector02.Hide()		
+
+	def LinkEvent(self, func, *args):
+		self.eventFunc = func
+		self.eventArgs = args
+	
+	def GetStatus(self):
+		return self.status
+
+	def SetIndex(self,index):
+		self.index = int(index)
 		
-		
+	def GetIndex(self):
+		return self.index
+	
 	def Enable(self):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"OptionToggleItem: Enable")
-		
 		if self.status == True:
 			return
 		
 		self.status = True
 		self.greenBar.Show()
 		self.redBar.Hide()
+		try:
+			if self.eventFunc:
+				snd.PlaySound("sound/ui/click.wav")
+				apply(self.eventFunc, self.eventArgs)
 		
-		
-		
+		except:
+			return		
+			
 	def Disable(self):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"OptionToggleItem: Disable")
-		
 		if self.status == False:
 			return
 		
 		self.status = False
 		self.greenBar.Hide()
 		self.redBar.Show()		
+		try:
+			if self.eventFunc:
+				snd.PlaySound("sound/ui/click.wav")
+				apply(self.eventFunc, self.eventArgs)
 		
+		except:
+			return		

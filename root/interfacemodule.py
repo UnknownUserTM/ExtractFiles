@@ -923,7 +923,7 @@ class Interface(object):
 		self.dlgSystem.OnMobileAuthority()
 
 	def OnBlockMode(self, mode):
-		self.dlgSystem.OnBlockMode(mode)
+		self.wndGameOption.OnBlockMode(mode)
 	
 	def SetDragonCoins(self,points):
 		self.wndInventory.SetDragonCoins(points)

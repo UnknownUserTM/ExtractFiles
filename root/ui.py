@@ -2808,6 +2808,9 @@ class ThinBoardCircle(Window):
 	def __init__(self, layer = "UI"):
 		Window.__init__(self, layer)
 
+		self.eventFunc = None
+		self.eventArgs = None
+
 		CornerFileNames = [ "d:/ymir work/ui/pattern/thinboardcircle/ThinBoard_Corner_"+dir+".tga" for dir in ["LeftTop_circle","LeftBottom_circle","RightTop_circle","RightBottom_circle"] ]
 		LineFileNames = [ "d:/ymir work/ui/pattern/thinboardcircle/ThinBoard_Line_"+dir+".tga" for dir in ["Left_circle","Right_circle","Top_circle","Bottom_circle"] ]
 
@@ -2847,6 +2850,8 @@ class ThinBoardCircle(Window):
 
 	def __del__(self):
 		Window.__del__(self)
+		self.eventFunc = None
+		self.eventArgs = None
 
 	def SetSize(self, width, height):
 
@@ -2882,16 +2887,20 @@ class ThinBoardCircle(Window):
 		for wnd in self.Corners:
 			wnd.Hide()
 
-	def SetOnClickEvent(self,event):
-		self.event = event
+	def SetOnClickEvent(self, func, *args):
+		self.eventFunc = func
+		self.eventArgs = args
 	
 	def OnMouseLeftButtonUp(self):
-		try:
-			if self.event:
-				self.event()
+		if self.eventFunc:
+			snd.PlaySound("sound/ui/click.wav")
+			apply(self.eventFunc, self.eventArgs)
+		# try:
+			# if self.event:
+				# self.event()
 		
-		except:
-			return			
+		# except:
+			# return			
 
 			
 class ScrollBar(Window):
