@@ -2746,5 +2746,3 @@
 160516	Chest of objects 5	Contains valuable items for the gameplay and character.
 160517	Chest of objects 6	Contains valuable items for the gameplay and character.
 160518	Chest of the skills	Includes the following chests:|1x Warrior skills|1x Ninja skills|1x Sura skills|1x Shamans skills
-79998	Bonus spell
-79999	Changing spell
