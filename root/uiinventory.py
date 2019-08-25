@@ -1862,7 +1862,11 @@ class InventoryWindow(ui.ScriptWindow):
 		
 				if item.ITEM_TYPE_BELT == item.GetItemType():
 					return True
-
+			elif "USE_COSTUME_CHANGE_ATTRIBUTE" == useType:								
+				return TRUE;
+					
+			elif "USE_COSTUME_ADD_ATTRIBUTE" == useType:								
+				return TRUE;
 		return False
 
 	def __CanCleanBrokenMetinStone(self, dstSlotPos):
@@ -2032,7 +2036,10 @@ class InventoryWindow(ui.ScriptWindow):
 		if constInfo.BlockItemsSystem["Block"] == 1:
 			chat.AppendChat(1, "Sicherheitssystem ist Aktiviert.")
 			return
-
+		
+		
+		
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"srcSlotPos: " + str(srcSlotPos) + ", dstSlotPos: " + str(dstSlotPos))
 		GFHhg54GHGhh45GHGH.SendItemUseToItemPacket(srcSlotPos, dstSlotPos)
 
 	def __SendUseItemPacket(self, slotPos):
