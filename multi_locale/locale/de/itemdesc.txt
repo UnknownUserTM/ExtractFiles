@@ -2766,3 +2766,5 @@
 160516	Truhe der Gegenstände 5	Enthält wertvolle Gegenstände für den Spielverlauf und euren Charakter.
 160517	Truhe der Gegenstände 6	Enthält wertvolle Gegenstände für den Spielverlauf und euren Charakter.
 160518	Truhe der Fertigkeiten	Enthält folgende weitere Truhen:|1x Krieger Fertigkeiten|1x Ninja Fertigkeiten|1x Sura Fertigkeiten|1x Schamanen Fertigkeiten
+79998	Bonus spell
+79999	Changing spell
