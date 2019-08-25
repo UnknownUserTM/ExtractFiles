@@ -2746,3 +2746,6 @@
 160516	Chest of objects 5	Contains valuable items for the gameplay and character.
 160517	Chest of objects 6	Contains valuable items for the gameplay and character.
 160518	Chest of the skills	Includes the following chests:|1x Warrior skills|1x Ninja skills|1x Sura skills|1x Shamans skills
+79998	Transform costume	Add random bonuses to a costume. A maximum of 3 bonuses can be added.
+79999	Enchant costume	Change the bonuses on a costume.
+80000	Enchant costume(+)	Change a selected boni on a costume.

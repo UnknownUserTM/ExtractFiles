@@ -2766,3 +2766,6 @@
 160516	Truhe der Gegenstände 5	Enthält wertvolle Gegenstände für den Spielverlauf und euren Charakter.
 160517	Truhe der Gegenstände 6	Enthält wertvolle Gegenstände für den Spielverlauf und euren Charakter.
 160518	Truhe der Fertigkeiten	Enthält folgende weitere Truhen:|1x Krieger Fertigkeiten|1x Ninja Fertigkeiten|1x Sura Fertigkeiten|1x Schamanen Fertigkeiten
+79998	Kostüm verwandeln	Fügt auf einem Kostüm einen zufälligen Boni hinzu. Maximal können 3 Boni hinzugefügt werden.
+79999	Kostüm verzaubern	Ändert die Boni auf einem Kostüm.
+80000	Kostüm verzaubern(+)	Ändert einen ausgewählten Boni auf einem Kostüm.

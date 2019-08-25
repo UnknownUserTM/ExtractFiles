@@ -8157,3 +8157,6 @@
 160516	ETC	icon/item/5.tga
 160517	ETC	icon/item/6.tga
 160518	ETC	icon/item/160518.tga
+79998	ETC	icon/item/79998.tga
+79999	ETC	icon/item/79999.tga
+80000	ETC	icon/item/80000.tga
