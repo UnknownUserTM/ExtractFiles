@@ -1519,9 +1519,8 @@ class ItemToolTip(ToolTip):
 			self.AppendTextLine("[ Switchbare Boni ]")
 			self.__AppendCostumeAttributeInformation(attrSlot)
 			self.AppendSpace(5)
-			if item.GetItemType() == 28:
-				self.AppendTextLine("|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Bonus ändern", self.NORMAL_COLOR)
-				self.AppendSpace(5)
+			self.AppendTextLine("|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Bonus ändern", self.NORMAL_COLOR)
+			self.AppendSpace(5)
 			self.AppendHorizontalLine()
 			self.AppendWearableInformation()
 			self.AppendSpace(5)
