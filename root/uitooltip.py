@@ -1090,8 +1090,23 @@ class ItemToolTip(ToolTip):
 			affectString = self.__GetAffectString(attrSlot[i][0],attrSlot[i][1])
 			self.AppendTextLine(affectString, self.POSITIVE_COLOR)
 			
-			
 	
+	
+	def __AppendCostumeAttributeInformation(self, attrSlot):
+		for i in xrange(3):
+			if attrSlot[i][0] == 0:
+				x = i + 1
+				self.AppendTextLine(str(x) + ". Bonus: Leer", self.NEGATIVE_COLOR)
+			else:
+				affectString = self.__GetAffectString(attrSlot[i][0],attrSlot[i][1])
+				if attrSlot[i][1] <= 0:
+					self.AppendTextLine(str(x) + ". Bonus: " + affectString, self.NEGATIVE_COLOR)
+				
+				else:
+					self.AppendTextLine(str(x) + ". Bonus: " + affectString, self.NEGATIVE_COLOR)
+				
+				
+				
 	def __AppendAttributeInformation(self, attrSlot):
 		if 0 != attrSlot:
 			AttrIndexSettingInfo = settinginfo.AttributeIndex
@@ -1497,9 +1512,16 @@ class ItemToolTip(ToolTip):
 		## ÄÚ½ºÃõ ¾ÆÀÌÅÛ ##
 		elif 0 != isCostumeItem:
 			self.__AppendLimitInformation()
+			self.AppendTextLine("[ Standartboni ]")
 			self.__AppendAffectInformation()
-			self.__AppendAttributeInformation(attrSlot)
+			
+			self.AppendSpace(8)
+			self.AppendTextLine("[ Switchbare Boni ]")
+			self.__AppendCostumeAttributeInformation(attrSlot)
 			self.AppendSpace(5)
+			if item.GetItemType() == 28:
+				self.AppendTextLine("|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Bonus ändern", self.NORMAL_COLOR)
+				self.AppendSpace(5)
 			self.AppendHorizontalLine()
 			self.AppendWearableInformation()
 			self.AppendSpace(5)
@@ -2142,11 +2164,28 @@ class ItemToolTip(ToolTip):
 			
 		# =======================================================================================================		
 		
-		self.AppendTextLine("[ DEV ]", self.SPECIAL_TITLE_COLOR)
-		self.AppendTextLine("itemVnum : " + str(itemVnum), self.NORMAL_COLOR)
-		self.AppendTextLine("itemType : " + str(item.GetItemType()), self.NORMAL_COLOR)
-		self.AppendTextLine("itemSubType : " + str(item.GetItemSubType()), self.NORMAL_COLOR)
-		self.AppendHorizontalLine()			
+		# self.AppendTextLine("[ DEV ]", self.NORMAL_COLOR)
+		# self.AppendTextLine("itemVnum : " + str(itemVnum), self.NORMAL_COLOR)
+		# self.AppendTextLine("itemType : " + str(item.GetItemType()), self.NORMAL_COLOR)
+		# self.AppendTextLine("itemSubType : " + str(item.GetItemSubType()), self.NORMAL_COLOR)
+		# self.AppendSpace(5)
+		# self.AppendTextLine("socket0 : " + str(metinSlot[0]), self.NORMAL_COLOR)
+		# self.AppendTextLine("socket1 : " + str(metinSlot[1]), self.NORMAL_COLOR)
+		# self.AppendTextLine("socket2 : " + str(metinSlot[2]), self.NORMAL_COLOR)
+		# self.AppendTextLine("socket3 : " + str(metinSlot[3]), self.NORMAL_COLOR)
+		# self.AppendTextLine("socket4 : " + str(metinSlot[4]), self.NORMAL_COLOR)
+		# self.AppendTextLine("socket5 : " + str(metinSlot[5]), self.NORMAL_COLOR)
+		# self.AppendSpace(5)
+		# self.AppendTextLine("attrType0 : " + str(attrSlot[0][0]) + ", attrValue0 : " + str(attrSlot[0][1]), self.NORMAL_COLOR)
+		# self.AppendTextLine("attrType1 : " + str(attrSlot[1][0]) + ", attrValue1 : " + str(attrSlot[1][1]), self.NORMAL_COLOR)
+		# self.AppendTextLine("attrType2 : " + str(attrSlot[2][0]) + ", attrValue2 : " + str(attrSlot[2][1]), self.NORMAL_COLOR)
+		# self.AppendTextLine("attrType3 : " + str(attrSlot[3][0]) + ", attrValue3 : " + str(attrSlot[3][1]), self.NORMAL_COLOR)
+		# self.AppendTextLine("attrType4 : " + str(attrSlot[4][0]) + ", attrValue4 : " + str(attrSlot[4][1]), self.NORMAL_COLOR)
+		# self.AppendTextLine("attrType5 : " + str(attrSlot[5][0]) + ", attrValue5 : " + str(attrSlot[5][1]), self.NORMAL_COLOR)
+		# self.AppendTextLine("attrType6 : " + str(attrSlot[6][0]) + ", attrValue6 : " + str(attrSlot[6][1]), self.NORMAL_COLOR)
+		# self.AppendSpace(5)
+		
+		# self.AppendHorizontalLine()			
 		
 		if item.GetItemType() == 23:
 			if itemVnum in settinginfo.PREVIEW_CHEST_LIST:
@@ -2154,8 +2193,18 @@ class ItemToolTip(ToolTip):
 				self.AppendSpace(5)
 			self.AppendTextLine(localeInfo.TOOLTIP_GIFTBOX_SHORTCUT_OPEN_ALL, self.NORMAL_COLOR)
 			self.AppendSpace(5)
-			self.AppendHorizontalLine()			
+			self.AppendHorizontalLine()	
+
+		# if item.GetItemType() == 28:
+			# self.AppendTextLine("|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Bonus ändern", self.NORMAL_COLOR)
+			# self.AppendSpace(5)
+			
+		self.AppendSpace(5)	
+		self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
+		self.AppendSpace(5)
+			
 		self.ShowToolTip()
+
 
 	def __DragonSoulInfoString (self, dwVnum):
 		step = (dwVnum / 100) % 10
