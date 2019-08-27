@@ -1,11 +1,10 @@
 import ui
-import fgGHGjjFHJghjfFG1545gGG
+import fgGHGjjFHJghjfFG1545gGG as player
 import mouseModule
 import GFHhg54GHGhh45GHGH
 import app
 import snd
 import item
-import fgGHGjjFHJghjfFG1545gGG
 import chat
 import grp
 import uiScriptLocale
@@ -31,6 +30,213 @@ ITEM_MALL_BUTTON_ENABLE = True
 
 ITEM_FLAG_APPLICABLE = 1 << 14
 
+class DEVItemInformation(ui.Window):
+
+	normalWidth = 190
+
+	
+	def __init__(self,wndInventory):
+		ui.Window.__init__(self)
+		self.wndInventory = wndInventory
+		self.SetSize(self.normalWidth,100)
+		self.slot = 0
+		self.itemVnum = 0
+		self.attributeList = []
+		self.socketList = []	
+		self.Hide()
+		self.MakeToolTip()	
+		self.MakeCloseButton()
+		
+	def __del__(self):
+		ui.Window.__del__(self)
+		
+	def AdjustPosition(self):
+		x, y = self.wndInventory.GetGlobalPosition()
+		self.SetPosition(x - self.normalWidth - 10 + 22 - 15,(y + 650)-self.toolTip.toolTipHeight)
+		self.SetSize(self.normalWidth,self.toolTip.toolTipHeight)
+	def MakeToolTip(self):
+		toolTip = uiToolTip.ToolTip()
+		toolTip.SetParent(self)
+		toolTip.SetPosition(1, 1)
+		toolTip.SetFollow(False)
+		toolTip.Show()
+		self.toolTip = toolTip
+		
+		
+	def MakeCloseButton(self):
+		self.closeButton = ui.Button()
+		self.closeButton.SetParent(self)
+		self.closeButton.SetPosition(self.normalWidth - 20,8)
+		self.closeButton.SetText("")
+		self.closeButton.SetUpVisual("d:/ymir work/ui/public/close_button_01.sub")
+		self.closeButton.SetOverVisual("d:/ymir work/ui/public/close_button_02.sub")
+		self.closeButton.SetDownVisual("d:/ymir work/ui/public/close_button_03.sub")
+		self.closeButton.SetEvent(self.Close)
+		self.closeButton.Show()
+	
+	def Open(self,slot):
+		self.slot = slot
+		
+		itemVnum = player.GetItemIndex(slot)
+		item.SelectItem(itemVnum)
+		
+		self.itemVnum = itemVnum
+		self.socketList = [player.GetItemMetinSocket(slot, i) for i in xrange(player.METIN_SOCKET_MAX_NUM)]
+		self.attributeList = [player.GetItemAttribute(slot, i) for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM)]
+		self.Show()
+		
+	def OnUpdate(self):
+		if self.itemVnum != 0:
+			self.RenderToolTip()
+		
+	def RenderToolTip(self):
+		slot = self.slot
+		self.socketList = [player.GetItemMetinSocket(slot, i) for i in xrange(player.METIN_SOCKET_MAX_NUM)]
+		self.attributeList = [player.GetItemAttribute(slot, i) for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM)]
+		self.toolTip.ClearToolTip()
+		item.SelectItem(self.itemVnum)		
+		self.toolTip.AppendTextLine("Item-Information:",self.toolTip.TITLE_COLOR)
+		self.toolTip.AppendStatisticTextLine("itemVnum:",self.itemVnum)
+		self.toolTip.AppendStatisticTextLine("itemType:",item.GetItemType())
+		self.toolTip.AppendStatisticTextLine("itemSubType:",item.GetItemSubType())
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendHorizontalLine()
+		self.toolTip.AppendTextLine("Values:",self.toolTip.TITLE_COLOR)
+		self.toolTip.AppendStatisticTextLine("value 0:",item.GetValue(0))
+		self.toolTip.AppendStatisticTextLine("value 1:",item.GetValue(1))
+		self.toolTip.AppendStatisticTextLine("value 2:",item.GetValue(2))
+		self.toolTip.AppendStatisticTextLine("value 3:",item.GetValue(3))
+		self.toolTip.AppendStatisticTextLine("value 4:",item.GetValue(4))
+		self.toolTip.AppendStatisticTextLine("value 5:",item.GetValue(5))
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendHorizontalLine()
+		self.toolTip.AppendTextLine("Sockets:",self.toolTip.TITLE_COLOR)
+		for i in xrange(len(self.socketList)):
+			self.toolTip.AppendStatisticTextLine("socket " + str(i) + ":",self.socketList[i])
+
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendHorizontalLine()
+		self.toolTip.AppendTextLine("Attributes:",self.toolTip.TITLE_COLOR)
+		for i in xrange(len(self.attributeList)):
+			self.toolTip.AppendStatisticTextLine("attrSlot (" + str(i) + ") Type: " + str(self.attributeList[i][0]),self.attributeList[i][1])
+		
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendHorizontalLine()
+			
+		self.toolTip.ResizeToolTip()	
+		self.AdjustPosition()
+		
+		
+		
+	def Clear(self):
+		self.slot = 0
+		self.attributeList = []
+		self.socketList = []	
+		self.toolTip.ClearToolTip()
+		self.itemVnum = 0
+	def Close(self):
+		self.Hide()
+
+
+class CostumeAttributeChanger(ui.ScriptWindow):
+	
+	def __init__(self, wndInventory):
+		ui.ScriptWindow.__init__(self)
+		self.wndInventory = wndInventory
+		self.costumeSlotPosition = 0
+		self.costumeItemVnum = 0
+		self.costumeAttributeList = []
+		self.costumeSocketList = []
+		self.LoadWindow()
+
+	def __del__(self):
+		#constInfo.CALOPEN = 1
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/costumeattributechange.py")
+		except:
+			import exception
+			exception.Abort("CostumeAttributeChanger.LoadWindow.LoadObject")
+			
+		self.costumeToolTip = uiToolTip.ItemToolTip()  
+		self.costumeToolTip.HideToolTip()	
+		
+		self.GetChild("TitleBar").SetCloseEvent(self.Close)
+		
+		self.costumeSlot = self.GetChild("costumeSlot")
+		self.costumeSlot.SetOverInItemEvent(ui.__mem_func__(self.ShowToolTip))  
+		self.costumeSlot.SetOverOutItemEvent(ui.__mem_func__(self.HideToolTip)) 		
+		
+		
+		
+		self.costumeSwitcherSlot = self.GetChild("costumeSwitcherSlot")
+		self.costumeSpecialSwitcherSlot = self.GetChild("specialCostumeSwitcherSlot")
+		
+		
+		
+		
+		self.Open()
+		# self.eventDayImage[12].Show()
+	
+	
+	def ShowToolTip(self,slot):
+		self.costumeToolTip.ClearToolTip()	
+		self.costumeToolTip.AddItemData(self.costumeItemVnum, self.costumeSocketList, self.costumeAttributeList)	
+		self.costumeToolTip.ShowToolTip()	
+	
+	def HideToolTip(self):
+		self.costumeToolTip.HideToolTip()	
+	
+	def OnPressEscapeKey(self):
+		self.Close()
+		return True
+	
+	def LoadItem(self,slot):
+		self.costumeSlotPosition = slot
+		self.costumeItemVnum = player.GetItemIndex(slot)
+		
+		self.costumeSocketList = [player.GetItemMetinSocket(slot, i) for i in xrange(player.METIN_SOCKET_MAX_NUM)]
+		self.costumeAttributeList = [player.GetItemAttribute(slot, i) for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM)]
+
+		self.costumeSlot.SetItemSlot(0,self.costumeItemVnum,0)
+		
+
+
+
+
+
+
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"costumeSocketList : " + str(len(self.costumeSocketList)))
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"costumeAttributeList : " + str(len(self.costumeAttributeList)))
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"socket0: " + str(player.GetItemMetinSocket(slot,0)))
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"slot: " + str(slot))
+		return
+	
+	def Clear(self):
+		self.costumeSlotPosition = 0
+		self.costumeItemVnum = 0
+		self.costumeSlot.ClearSlot(0)
+		
+	def Open(self):
+		if self.IsShow():
+			self.Close()
+		else:
+			self.Show()
+		
+		
+	def Close(self):
+		self.Hide()
+		
+	def GetBasePosition(self):
+		x, y = self.wndInventory.GetGlobalPosition()
+		return x - 450, y
+		
+	def AdjustPosition(self):
+		bx, by = self.GetBasePosition()
+		self.SetPosition(bx, by)		
 			
 class SuperAwesomeIMBAKrassSideBarPrototypeJaKriegtNochAnderenCLASSNameHaHa(ui.ScriptWindow):
 
@@ -80,7 +286,6 @@ class SuperAwesomeIMBAKrassSideBarPrototypeJaKriegtNochAnderenCLASSNameHaHa(ui.S
 			y = y + 32
 
 		self.Show()
-
 
 class EasySideBarItem(ui.ScriptWindow):
 
@@ -281,7 +486,6 @@ class InventorySortDropDownMenu(ui.ScriptWindow):
 			self.Hide()
 		else:
 			self.Show()
-
 			
 class InventorySortDropDownMenuItem(ui.ScriptWindow):
 
@@ -330,9 +534,6 @@ class InventorySortDropDownMenuItem(ui.ScriptWindow):
 		self.status = self.STATUS_INACTIVE
 		self.background.SetColor(self.COLOR_INACTIVE)
 	
-	
-
-			
 class GoldSafeWindow(ui.ScriptWindow):
 	
 	goldSafeVnum = [30251,30252,30253]
@@ -404,7 +605,7 @@ class GoldSafeWindow(ui.ScriptWindow):
 		# self.UpdateCountAndPriceCheck()
 	
 	def UpdateCountAndPriceCheck(self):
-		gold = fgGHGjjFHJghjfFG1545gGG.GetElk()
+		gold = player.GetElk()
 	
 		if gold >= self.goldSafePrice[0]:
 			count100GoldSafe = int(gold/self.goldSafePrice[0])
@@ -519,7 +720,7 @@ class CostumeWindow(ui.ScriptWindow):
 		self.AdjustPosition()
 
 	def RefreshCostumeSlot(self):
-		getItemVNum=fgGHGjjFHJghjfFG1545gGG.GetItemIndex
+		getItemVNum=player.GetItemIndex
 		
 		for i in xrange(item.COSTUME_SLOT_COUNT):
 			slotNumber = item.COSTUME_SLOT_START + i
@@ -661,16 +862,16 @@ class BeltInventoryWindow(ui.ScriptWindow):
 		self.wndBeltInventorySlot = wndBeltInventorySlot
 
 	def RefreshSlot(self):
-		getItemVNum=fgGHGjjFHJghjfFG1545gGG.GetItemIndex
+		getItemVNum=player.GetItemIndex
 		
 		for i in xrange(item.BELT_INVENTORY_SLOT_COUNT):
 			slotNumber = item.BELT_INVENTORY_SLOT_START + i
-			self.wndBeltInventorySlot.SetItemSlot(slotNumber, getItemVNum(slotNumber), fgGHGjjFHJghjfFG1545gGG.GetItemCount(slotNumber))
+			self.wndBeltInventorySlot.SetItemSlot(slotNumber, getItemVNum(slotNumber), player.GetItemCount(slotNumber))
 			self.wndBeltInventorySlot.SetAlwaysRenderCoverButton(slotNumber, TRUE)
 			
 			avail = "0"
 			
-			if fgGHGjjFHJghjfFG1545gGG.IsAvailableBeltInventoryCell(slotNumber):
+			if player.IsAvailableBeltInventoryCell(slotNumber):
 				self.wndBeltInventorySlot.EnableCoverButton(slotNumber)				
 			else:
 				self.wndBeltInventorySlot.DisableCoverButton(slotNumber)				
@@ -874,7 +1075,7 @@ class InventoryWindow(ui.ScriptWindow):
 		
 		
 		self.currencyToolTip = CurrencyDescriptionToolTip(self)
-		
+		self.devItemToolTip = DEVItemInformation(self)
 		
 		self.sideBar = SuperAwesomeIMBAKrassSideBarPrototypeJaKriegtNochAnderenCLASSNameHaHa(self)
 		self.sideBar.SetParent(self)
@@ -888,7 +1089,11 @@ class InventoryWindow(ui.ScriptWindow):
 		## AttachMetinDialog
 		self.attachMetinDialog = uiAttachMetin.AttachMetinDialog()
 		self.attachMetinDialog.Hide()
-
+		
+		
+		self.costumeAttributeChange = CostumeAttributeChanger(self)
+		self.costumeAttributeChange.Hide()
+		self.costumeAttributeChange.AdjustPosition()
 		## MoneySlot
 		self.wndMoneySlot.SetEvent(ui.__mem_func__(self.OpenPickMoneyDialog))
 		
@@ -1019,6 +1224,8 @@ class InventoryWindow(ui.ScriptWindow):
 
 		self.attachMetinDialog.Destroy()
 		self.attachMetinDialog = 0
+		
+		self.costumeAttributeChange = 0
 
 		self.tooltipItem = None
 		self.wndItem = 0
@@ -1146,16 +1353,16 @@ class InventoryWindow(ui.ScriptWindow):
 		# if mouseModule.mouseController.isAttached():
 
 			# attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
-			# if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_SAFEBOX == mouseModule.mouseController.GetAttachedType():
+			# if player.SLOT_TYPE_SAFEBOX == mouseModule.mouseController.GetAttachedType():
 
-				# if fgGHGjjFHJghjfFG1545gGG.ITEM_MONEY == mouseModule.mouseController.GetAttachedItemIndex():
+				# if player.ITEM_MONEY == mouseModule.mouseController.GetAttachedItemIndex():
 					# GFHhg54GHGhh45GHGH.SendSafeboxWithdrawMoneyPacket(mouseModule.mouseController.GetAttachedItemCount())
 					# snd.PlaySound("sound/ui/money.wav")
 
 			# mouseModule.mouseController.DeattachObject()
 
 		# else:
-			# curMoney = fgGHGjjFHJghjfFG1545gGG.GetElk()
+			# curMoney = player.GetElk()
 
 			# if curMoney <= 0:
 				# return
@@ -1166,25 +1373,25 @@ class InventoryWindow(ui.ScriptWindow):
 			# self.dlgPickMoney.SetMax(7) # 인벤토리 990000 제한 버그 수정
 
 	def OnPickMoney(self, money):
-		mouseModule.mouseController.AttachMoney(self, fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY, money)
+		mouseModule.mouseController.AttachMoney(self, player.SLOT_TYPE_INVENTORY, money)
 
 	def OnPickItem(self, count):
 		itemSlotIndex = self.dlgPickMoney.itemGlobalSlotIndex
-		selectedItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(itemSlotIndex)
-		mouseModule.mouseController.AttachObject(self, fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY, itemSlotIndex, selectedItemVNum, count)
+		selectedItemVNum = player.GetItemIndex(itemSlotIndex)
+		mouseModule.mouseController.AttachObject(self, player.SLOT_TYPE_INVENTORY, itemSlotIndex, selectedItemVNum, count)
 
 	def __InventoryLocalSlotPosToGlobalSlotPos(self, local):
-		if fgGHGjjFHJghjfFG1545gGG.IsEquipmentSlot(local) or fgGHGjjFHJghjfFG1545gGG.IsCostumeSlot(local) or (app.ENABLE_NEW_EQUIPMENT_SYSTEM and fgGHGjjFHJghjfFG1545gGG.IsBeltInventorySlot(local)):
+		if player.IsEquipmentSlot(local) or player.IsCostumeSlot(local) or (app.ENABLE_NEW_EQUIPMENT_SYSTEM and player.IsBeltInventorySlot(local)):
 			return local
 
-		return self.inventoryPageIndex*fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE + local
+		return self.inventoryPageIndex*player.INVENTORY_PAGE_SIZE + local
 
 	def RefreshBagSlotWindow(self):
-		getItemVNum=fgGHGjjFHJghjfFG1545gGG.GetItemIndex
-		getItemCount=fgGHGjjFHJghjfFG1545gGG.GetItemCount
+		getItemVNum=player.GetItemIndex
+		getItemCount=player.GetItemCount
 		setItemVNum=self.wndItem.SetItemSlot
 		
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE):
+		for i in xrange(player.INVENTORY_PAGE_SIZE):
 			slotNumber = self.__InventoryLocalSlotPosToGlobalSlotPos(i)
 			
 			itemCount = getItemCount(slotNumber)
@@ -1197,13 +1404,13 @@ class InventoryWindow(ui.ScriptWindow):
 			itemVnum = getItemVNum(slotNumber)
 			setItemVNum(i, itemVnum, itemCount)
 			# if constInfo.IS_PET_SEAL(itemVnum):
-				# metinSocket = [fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(slotNumber, j) for j in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM)]
-				# if slotNumber >= fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE and slotNumber < fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE*2:
-					# slotNumber -= fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE
-				# elif slotNumber >= fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE*2 and slotNumber < fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE*3:
-					# slotNumber -= fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE*2
-				# elif slotNumber >= fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE*3:
-					# slotNumber -= fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE*3
+				# metinSocket = [player.GetItemMetinSocket(slotNumber, j) for j in xrange(player.METIN_SOCKET_MAX_NUM)]
+				# if slotNumber >= player.INVENTORY_PAGE_SIZE and slotNumber < player.INVENTORY_PAGE_SIZE*2:
+					# slotNumber -= player.INVENTORY_PAGE_SIZE
+				# elif slotNumber >= player.INVENTORY_PAGE_SIZE*2 and slotNumber < player.INVENTORY_PAGE_SIZE*3:
+					# slotNumber -= player.INVENTORY_PAGE_SIZE*2
+				# elif slotNumber >= player.INVENTORY_PAGE_SIZE*3:
+					# slotNumber -= player.INVENTORY_PAGE_SIZE*3
 				# isActivated = 0 != metinSocket[0]
 	
 				# if isActivated:				
@@ -1215,10 +1422,10 @@ class InventoryWindow(ui.ScriptWindow):
 				self.RefreshBagSlotWindowOnAvilable()
 			if constInfo.IS_AUTO_POTION(itemVnum):
 				# metinSocket - [0] : 활성화 여부, [1] : 사용한 양, [2] : 최대 용량
-				metinSocket = [fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(slotNumber, j) for j in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM)]	
+				metinSocket = [player.GetItemMetinSocket(slotNumber, j) for j in xrange(player.METIN_SOCKET_MAX_NUM)]	
 				
-				if slotNumber >= fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE:
-					slotNumber -= fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE
+				if slotNumber >= player.INVENTORY_PAGE_SIZE:
+					slotNumber -= player.INVENTORY_PAGE_SIZE
 					
 				isActivated = 0 != metinSocket[0]
 				
@@ -1226,13 +1433,13 @@ class InventoryWindow(ui.ScriptWindow):
 					self.wndItem.ActivateSlot(slotNumber)
 					potionType = 0;
 					if constInfo.IS_AUTO_POTION_HP(itemVnum):
-						potionType = fgGHGjjFHJghjfFG1545gGG.AUTO_POTION_TYPE_HP
+						potionType = player.AUTO_POTION_TYPE_HP
 					elif constInfo.IS_AUTO_POTION_SP(itemVnum):
-						potionType = fgGHGjjFHJghjfFG1545gGG.AUTO_POTION_TYPE_SP						
+						potionType = player.AUTO_POTION_TYPE_SP						
 					
 					usedAmount = int(metinSocket[1])
 					totalAmount = int(metinSocket[2])					
-					fgGHGjjFHJghjfFG1545gGG.SetAutoPotionInfo(potionType, isActivated, (totalAmount - usedAmount), totalAmount, self.__InventoryLocalSlotPosToGlobalSlotPos(i))
+					player.SetAutoPotionInfo(potionType, isActivated, (totalAmount - usedAmount), totalAmount, self.__InventoryLocalSlotPosToGlobalSlotPos(i))
 					
 				else:
 					self.wndItem.DeactivateSlot(slotNumber)
@@ -1245,19 +1452,19 @@ class InventoryWindow(ui.ScriptWindow):
 			self.dlgCreateGoldSafe.UpdateCountAndPriceCheck()
 		
 	def RefreshEquipSlotWindow(self):
-		getItemVNum=fgGHGjjFHJghjfFG1545gGG.GetItemIndex
-		getItemCount=fgGHGjjFHJghjfFG1545gGG.GetItemCount
+		getItemVNum=player.GetItemIndex
+		getItemCount=player.GetItemCount
 		setItemVNum=self.wndEquip.SetItemSlot
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.EQUIPMENT_PAGE_COUNT):
-			slotNumber = fgGHGjjFHJghjfFG1545gGG.EQUIPMENT_SLOT_START + i
+		for i in xrange(player.EQUIPMENT_PAGE_COUNT):
+			slotNumber = player.EQUIPMENT_SLOT_START + i
 			itemCount = getItemCount(slotNumber)
 			if itemCount <= 1:
 				itemCount = 0
 			setItemVNum(slotNumber, getItemVNum(slotNumber), itemCount)
 
 		if app.ENABLE_NEW_EQUIPMENT_SYSTEM:
-			for i in xrange(fgGHGjjFHJghjfFG1545gGG.NEW_EQUIPMENT_SLOT_COUNT):
-				slotNumber = fgGHGjjFHJghjfFG1545gGG.NEW_EQUIPMENT_SLOT_START + i
+			for i in xrange(player.NEW_EQUIPMENT_SLOT_COUNT):
+				slotNumber = player.NEW_EQUIPMENT_SLOT_START + i
 				itemCount = getItemCount(slotNumber)
 				if itemCount <= 1:
 					itemCount = 0
@@ -1278,11 +1485,11 @@ class InventoryWindow(ui.ScriptWindow):
 	
 	def RefreshStatus(self):
 		import systemSetting
-		money = fgGHGjjFHJghjfFG1545gGG.GetElk()
+		money = player.GetElk()
 		self.wndMoney.SetText(localeInfo.NumberToMoneyString(money))
 		self.wndAps.SetText(str(constInfo.aps) + " AP's")
 		
-		# if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL) >= 35:
+		# if player.GetStatus(player.LEVEL) >= 35:
 			# self.wndDps.SetText(str(constInfo.dps) + " DP's")
 		# else:
 			# self.wndDps.SetText("Ab lv.35 verfugbar!")
@@ -1293,8 +1500,8 @@ class InventoryWindow(ui.ScriptWindow):
 			constInfo.avilable = 0
 			
 	def RefreshBagSlotWindowOnAvilable(self):
-		getItemVNum=fgGHGjjFHJghjfFG1545gGG.GetItemIndex
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE):
+		getItemVNum=player.GetItemIndex
+		for i in xrange(player.INVENTORY_PAGE_SIZE):
 			slotNumber = self.__InventoryLocalSlotPosToGlobalSlotPos(i)
 
 			itemVnum = getItemVNum(slotNumber)
@@ -1342,7 +1549,7 @@ class InventoryWindow(ui.ScriptWindow):
 		# if self.wndDps == None:
 			# return
 			
-		# if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL) >= 35:
+		# if player.GetStatus(player.LEVEL) >= 35:
 			# self.wndDps.SetText(constInfo.NumberToPointString(constInfo.dps) + " DP's")
 			# self.wndDps.SetFontColor(0.7607, 0.7607, 0.7607)	
 		# else:
@@ -1377,10 +1584,10 @@ class InventoryWindow(ui.ScriptWindow):
 		self.tooltipItem = tooltipItem
 
 	def SellItem(self):
-		if self.sellingSlotitemIndex == fgGHGjjFHJghjfFG1545gGG.GetItemIndex(self.sellingSlotNumber):
-			if self.sellingSlotitemCount == fgGHGjjFHJghjfFG1545gGG.GetItemCount(self.sellingSlotNumber):
+		if self.sellingSlotitemIndex == player.GetItemIndex(self.sellingSlotNumber):
+			if self.sellingSlotitemCount == player.GetItemCount(self.sellingSlotNumber):
 				## 용혼석도 팔리게 하는 기능 추가하면서 인자 type 추가
-				GFHhg54GHGhh45GHGH.SendShopSellPacketNew(self.sellingSlotNumber, self.questionDialog.count, fgGHGjjFHJghjfFG1545gGG.INVENTORY)
+				GFHhg54GHGhh45GHGH.SendShopSellPacketNew(self.sellingSlotNumber, self.questionDialog.count, player.INVENTORY)
 				snd.PlaySound("sound/ui/money.wav")
 		self.OnCloseQuestionDialog()
 
@@ -1414,38 +1621,38 @@ class InventoryWindow(ui.ScriptWindow):
 			attachedItemCount = mouseModule.mouseController.GetAttachedItemCount()
 			attachedItemIndex = mouseModule.mouseController.GetAttachedItemIndex()
 
-			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedSlotType:
-				itemCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(attachedSlotPos)
+			if player.SLOT_TYPE_INVENTORY == attachedSlotType:
+				itemCount = player.GetItemCount(attachedSlotPos)
 				attachedCount = mouseModule.mouseController.GetAttachedItemCount()
 				self.__SendMoveItemPacket(attachedSlotPos, selectedSlotPos, attachedCount)
 
 				if item.IsRefineScroll(attachedItemIndex):
 					self.wndItem.SetUseMode(False)
 
-			elif fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_PRIVATE_SHOP == attachedSlotType:
+			elif player.SLOT_TYPE_PRIVATE_SHOP == attachedSlotType:
 				mouseModule.mouseController.RunCallBack("INVENTORY")
 
-			elif fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_SHOP == attachedSlotType:
+			elif player.SLOT_TYPE_SHOP == attachedSlotType:
 				GFHhg54GHGhh45GHGH.SendShopBuyPacket(attachedSlotPos)
 
-			elif fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_SAFEBOX == attachedSlotType:
+			elif player.SLOT_TYPE_SAFEBOX == attachedSlotType:
 
-				if fgGHGjjFHJghjfFG1545gGG.ITEM_MONEY == attachedItemIndex:
+				if player.ITEM_MONEY == attachedItemIndex:
 					GFHhg54GHGhh45GHGH.SendSafeboxWithdrawMoneyPacket(mouseModule.mouseController.GetAttachedItemCount())
 					snd.PlaySound("sound/ui/money.wav")
 
 				else:
 					GFHhg54GHGhh45GHGH.SendSafeboxCheckoutPacket(attachedSlotPos, selectedSlotPos)
 					
-#			elif fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_GUILD_SAFEBOX == attachedSlotType:
-#				if fgGHGjjFHJghjfFG1545gGG.ITEM_MONEY == attachedItemIndex:
+#			elif player.SLOT_TYPE_GUILD_SAFEBOX == attachedSlotType:
+#				if player.ITEM_MONEY == attachedItemIndex:
 #					GFHhg54GHGhh45GHGH.SendGuildSafeboxTakeGoldPacket(mouseModule.mouseController.GetAttachedItemCount())
 #					snd.PlaySound("sound/ui/money.wav")
 #
 #				else:
 #					GFHhg54GHGhh45GHGH.SendGuildSafeboxCheckoutPacket(attachedSlotPos, selectedSlotPos)
 
-			elif fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_MALL == attachedSlotType:
+			elif player.SLOT_TYPE_MALL == attachedSlotType:
 				GFHhg54GHGhh45GHGH.SendMallCheckoutPacket(attachedSlotPos, selectedSlotPos)
 
 			mouseModule.mouseController.DeattachObject()
@@ -1465,7 +1672,7 @@ class InventoryWindow(ui.ScriptWindow):
 			attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
 			attachedItemVID = mouseModule.mouseController.GetAttachedItemIndex()
 
-			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedSlotType:
+			if player.SLOT_TYPE_INVENTORY == attachedSlotType:
 				self.__DropSrcItemToDestItemInInventory(attachedItemVID, attachedSlotPos, itemSlotIndex)
 
 			mouseModule.mouseController.DeattachObject()
@@ -1480,12 +1687,12 @@ class InventoryWindow(ui.ScriptWindow):
 				chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.SHOP_BUY_INFO)
 				
 			elif app.IsPressed(app.DIK_LALT):
-				link = fgGHGjjFHJghjfFG1545gGG.GetItemLink(itemSlotIndex)
+				link = player.GetItemLink(itemSlotIndex)
 				chat.AppendChat(chat.CHAT_TYPE_INFO, link)
 				ime.PasteString(link)
 
 			elif app.IsPressed(app.DIK_LSHIFT):
-				itemCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(itemSlotIndex)
+				itemCount = player.GetItemCount(itemSlotIndex)
 				
 				if itemCount > 1:
 					self.dlgPickMoney.SetTitleName(localeInfo.PICK_ITEM_TITLE)
@@ -1493,24 +1700,36 @@ class InventoryWindow(ui.ScriptWindow):
 					self.dlgPickMoney.Open(itemCount)
 					self.dlgPickMoney.itemGlobalSlotIndex = itemSlotIndex
 				#else:
-					#selectedItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(itemSlotIndex)
-					#mouseModule.mouseController.AttachObject(self, fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY, itemSlotIndex, selectedItemVNum)
+					#selectedItemVNum = player.GetItemIndex(itemSlotIndex)
+					#mouseModule.mouseController.AttachObject(self, player.SLOT_TYPE_INVENTORY, itemSlotIndex, selectedItemVNum)
 
 			elif app.IsPressed(app.DIK_LCONTROL):
-				itemIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(itemSlotIndex)
-
+				itemIndex = player.GetItemIndex(itemSlotIndex)
+				
+				if item.GetItemType() == 28:
+					self.costumeAttributeChange.Clear()
+					self.costumeAttributeChange.LoadItem(itemSlotIndex)
+					self.costumeAttributeChange.Open()
+					return 
+					
 				if True == item.CanAddToQuickSlotItem(itemIndex):
-					fgGHGjjFHJghjfFG1545gGG.RequestAddToEmptyLocalQuickSlot(fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY, itemSlotIndex)
+					player.RequestAddToEmptyLocalQuickSlot(player.SLOT_TYPE_INVENTORY, itemSlotIndex)
 				else:
 					if itemIndex in settinginfo.PREVIEW_CHEST_LIST:						
 						GFHhg54GHGhh45GHGH.SendChatPacket("/user_open_all_giftbox " + str(itemSlotIndex))
 					else:
 						chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.QUICKSLOT_REGISTER_DISABLE_ITEM)
+						
+			elif app.IsPressed(app.DIK_RCONTROL):
+				self.devItemToolTip.Close()
+				self.devItemToolTip.Clear()
+			
+				self.devItemToolTip.Open(itemSlotIndex)
 
 			else:
-				selectedItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(itemSlotIndex)
-				itemCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(itemSlotIndex)
-				mouseModule.mouseController.AttachObject(self, fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY, itemSlotIndex, selectedItemVNum, itemCount)
+				selectedItemVNum = player.GetItemIndex(itemSlotIndex)
+				itemCount = player.GetItemCount(itemSlotIndex)
+				mouseModule.mouseController.AttachObject(self, player.SLOT_TYPE_INVENTORY, itemSlotIndex, selectedItemVNum, itemCount)
 				
 				if self.__IsUsableItemToItem(selectedItemVNum, itemSlotIndex):				
 					self.wndItem.SetUseMode(True)
@@ -1528,26 +1747,26 @@ class InventoryWindow(ui.ScriptWindow):
 		if srcItemSlotPos == dstItemSlotPos:
 			return
 			
-		elif srcItemVID == fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstItemSlotPos):
+		elif srcItemVID == player.GetItemIndex(dstItemSlotPos):
 			self.__SendMoveItemPacket(srcItemSlotPos, dstItemSlotPos, 0)
 			return
-		if srcItemVID == 91001 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstItemSlotPos) == 91002:
+		if srcItemVID == 91001 and player.GetItemIndex(dstItemSlotPos) == 91002:
 			self.__SendUseItemToItemPacket(srcItemSlotPos, dstItemSlotPos)	
 			return
-		if srcItemVID == 91201 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstItemSlotPos) == 91200:
+		if srcItemVID == 91201 and player.GetItemIndex(dstItemSlotPos) == 91200:
 			self.__SendUseItemToItemPacket(srcItemSlotPos, dstItemSlotPos)	
 
-		if srcItemVID == 55102 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstItemSlotPos) == 55001:
+		if srcItemVID == 55102 and player.GetItemIndex(dstItemSlotPos) == 55001:
 			self.__SendUseItemToItemPacket(srcItemSlotPos, dstItemSlotPos)	
 			
-		if srcItemVID == 55102 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstItemSlotPos) == 55002:
+		if srcItemVID == 55102 and player.GetItemIndex(dstItemSlotPos) == 55002:
 			self.__SendUseItemToItemPacket(srcItemSlotPos, dstItemSlotPos)	
 			
-		if srcItemVID == 91202 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstItemSlotPos) == 91200:
+		if srcItemVID == 91202 and player.GetItemIndex(dstItemSlotPos) == 91200:
 			self.__SendUseItemToItemPacket(srcItemSlotPos, dstItemSlotPos)		
-		if srcItemVID == 91203 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstItemSlotPos) == 91200:
+		if srcItemVID == 91203 and player.GetItemIndex(dstItemSlotPos) == 91200:
 			self.__SendUseItemToItemPacket(srcItemSlotPos, dstItemSlotPos)		
-		if srcItemVID == 91204 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstItemSlotPos) == 91200:
+		if srcItemVID == 91204 and player.GetItemIndex(dstItemSlotPos) == 91200:
 			self.questionDialog = uiCommon.QuestionDialog()
 			self.questionDialog.SetText("Mochtest du das Aussehen deines Reittieres wirklich andern?")
 			self.questionDialog.SetAcceptEvent(ui.__mem_func__(self.UseMountSkin))
@@ -1573,7 +1792,7 @@ class InventoryWindow(ui.ScriptWindow):
 		elif item.IsKey(srcItemVID):
 			self.__SendUseItemToItemPacket(srcItemSlotPos, dstItemSlotPos)			
 
-		elif (fgGHGjjFHJghjfFG1545gGG.GetItemFlags(srcItemSlotPos) & ITEM_FLAG_APPLICABLE) == ITEM_FLAG_APPLICABLE:
+		elif (player.GetItemFlags(srcItemSlotPos) & ITEM_FLAG_APPLICABLE) == ITEM_FLAG_APPLICABLE:
 			self.__SendUseItemToItemPacket(srcItemSlotPos, dstItemSlotPos)
 
 		elif item.GetUseType(srcItemVID) in self.USE_TYPE_TUPLE:
@@ -1583,7 +1802,7 @@ class InventoryWindow(ui.ScriptWindow):
 			#snd.PlaySound("sound/ui/drop.wav")
 
 			## 이동시킨 곳이 장착 슬롯일 경우 아이템을 사용해서 장착 시킨다 - [levites]
-			if fgGHGjjFHJghjfFG1545gGG.IsEquipmentSlot(dstItemSlotPos):
+			if player.IsEquipmentSlot(dstItemSlotPos):
 
 				## 들고 있는 아이템이 장비일때만
 				if item.IsEquipmentVID(srcItemVID):
@@ -1594,10 +1813,10 @@ class InventoryWindow(ui.ScriptWindow):
 				#GFHhg54GHGhh45GHGH.SendItemMovePacket(srcItemSlotPos, dstItemSlotPos, 0)
 
 	def __SellItem(self, itemSlotPos):
-		if not fgGHGjjFHJghjfFG1545gGG.IsEquipmentSlot(itemSlotPos):
+		if not player.IsEquipmentSlot(itemSlotPos):
 			self.sellingSlotNumber = itemSlotPos
-			itemIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(itemSlotPos)
-			itemCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(itemSlotPos)
+			itemIndex = player.GetItemIndex(itemSlotPos)
+			itemCount = player.GetItemCount(itemSlotPos)
 			
 			
 			self.sellingSlotitemIndex = itemIndex
@@ -1638,10 +1857,10 @@ class InventoryWindow(ui.ScriptWindow):
 
 	def RefineItem(self, scrollSlotPos, targetSlotPos):
 
-		scrollIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(scrollSlotPos)
-		targetIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(targetSlotPos)
+		scrollIndex = player.GetItemIndex(scrollSlotPos)
+		targetIndex = player.GetItemIndex(targetSlotPos)
 
-		if fgGHGjjFHJghjfFG1545gGG.REFINE_OK != fgGHGjjFHJghjfFG1545gGG.CanRefine(scrollIndex, targetSlotPos):
+		if player.REFINE_OK != player.CanRefine(scrollIndex, targetSlotPos):
 			return
 		if app.ENABLE_REFINE_RENEWAL:
 			constInfo.AUTO_REFINE_TYPE = 1
@@ -1659,37 +1878,37 @@ class InventoryWindow(ui.ScriptWindow):
 		#return
 		###########################################################
 
-		result = fgGHGjjFHJghjfFG1545gGG.CanRefine(scrollIndex, targetSlotPos)
+		result = player.CanRefine(scrollIndex, targetSlotPos)
 
-		if fgGHGjjFHJghjfFG1545gGG.REFINE_ALREADY_MAX_SOCKET_COUNT == result:
+		if player.REFINE_ALREADY_MAX_SOCKET_COUNT == result:
 			#snd.PlaySound("sound/ui/jaeryun_fail.wav")
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_NO_MORE_SOCKET)
 
-		elif fgGHGjjFHJghjfFG1545gGG.REFINE_NEED_MORE_GOOD_SCROLL == result:
+		elif player.REFINE_NEED_MORE_GOOD_SCROLL == result:
 			#snd.PlaySound("sound/ui/jaeryun_fail.wav")
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_NEED_BETTER_SCROLL)
 
-		elif fgGHGjjFHJghjfFG1545gGG.REFINE_CANT_MAKE_SOCKET_ITEM == result:
+		elif player.REFINE_CANT_MAKE_SOCKET_ITEM == result:
 			#snd.PlaySound("sound/ui/jaeryun_fail.wav")
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_SOCKET_DISABLE_ITEM)
 
-		elif fgGHGjjFHJghjfFG1545gGG.REFINE_NOT_NEXT_GRADE_ITEM == result:
+		elif player.REFINE_NOT_NEXT_GRADE_ITEM == result:
 			#snd.PlaySound("sound/ui/jaeryun_fail.wav")
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_UPGRADE_DISABLE_ITEM)
 
-		elif fgGHGjjFHJghjfFG1545gGG.REFINE_CANT_REFINE_METIN_TO_EQUIPMENT == result:
+		elif player.REFINE_CANT_REFINE_METIN_TO_EQUIPMENT == result:
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_EQUIP_ITEM)
 
-		if fgGHGjjFHJghjfFG1545gGG.REFINE_OK != result:
+		if player.REFINE_OK != result:
 			return
 
 		self.refineDialog.Open(scrollSlotPos, targetSlotPos)
 
 	def DetachMetinFromItem(self, scrollSlotPos, targetSlotPos):
-		scrollIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(scrollSlotPos)
-		targetIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(targetSlotPos)
+		scrollIndex = player.GetItemIndex(scrollSlotPos)
+		targetIndex = player.GetItemIndex(targetSlotPos)
 
-		if not fgGHGjjFHJghjfFG1545gGG.CanDetach(scrollIndex, targetSlotPos):
+		if not player.CanDetach(scrollIndex, targetSlotPos):
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_METIN_INSEPARABLE_ITEM)
 			return
 
@@ -1702,29 +1921,29 @@ class InventoryWindow(ui.ScriptWindow):
 		self.questionDialog.targetPos = targetSlotPos
 
 	def AttachMetinToItem(self, metinSlotPos, targetSlotPos):
-		metinIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(metinSlotPos)
-		targetIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(targetSlotPos)
+		metinIndex = player.GetItemIndex(metinSlotPos)
+		targetIndex = player.GetItemIndex(targetSlotPos)
 		if targetIndex >= 45182 and targetIndex <= 45187:
 			return
 
 		item.SelectItem(metinIndex)
 		itemName = item.GetItemName()
 
-		result = fgGHGjjFHJghjfFG1545gGG.CanAttachMetin(metinIndex, targetSlotPos)
+		result = player.CanAttachMetin(metinIndex, targetSlotPos)
 
-		if fgGHGjjFHJghjfFG1545gGG.ATTACH_METIN_NOT_MATCHABLE_ITEM == result:
+		if player.ATTACH_METIN_NOT_MATCHABLE_ITEM == result:
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_CAN_NOT_ATTACH(itemName))
 
-		if fgGHGjjFHJghjfFG1545gGG.ATTACH_METIN_NO_MATCHABLE_SOCKET == result:
+		if player.ATTACH_METIN_NO_MATCHABLE_SOCKET == result:
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_NO_SOCKET(itemName))
 
-		elif fgGHGjjFHJghjfFG1545gGG.ATTACH_METIN_NOT_EXIST_GOLD_SOCKET == result:
+		elif player.ATTACH_METIN_NOT_EXIST_GOLD_SOCKET == result:
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_NO_GOLD_SOCKET(itemName))
 
-		elif fgGHGjjFHJghjfFG1545gGG.ATTACH_METIN_CANT_ATTACH_TO_EQUIPMENT == result:
+		elif player.ATTACH_METIN_CANT_ATTACH_TO_EQUIPMENT == result:
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.REFINE_FAILURE_EQUIP_ITEM)
 
-		if fgGHGjjFHJghjfFG1545gGG.ATTACH_METIN_OK != result:
+		if player.ATTACH_METIN_OK != result:
 			return
 
 		self.attachMetinDialog.Open(metinSlotPos, targetSlotPos)
@@ -1746,7 +1965,7 @@ class InventoryWindow(ui.ScriptWindow):
 		
 		if mouseModule.mouseController.isAttached():
 			attachedItemType = mouseModule.mouseController.GetAttachedType()
-			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedItemType:
+			if player.SLOT_TYPE_INVENTORY == attachedItemType:
 				
 				attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
 				attachedItemVNum = mouseModule.mouseController.GetAttachedItemIndex()
@@ -1783,7 +2002,7 @@ class InventoryWindow(ui.ScriptWindow):
 			return True
 		elif item.IsKey(srcItemVNum):
 			return True
-		elif (fgGHGjjFHJghjfFG1545gGG.GetItemFlags(srcSlotPos) & ITEM_FLAG_APPLICABLE) == ITEM_FLAG_APPLICABLE:
+		elif (player.GetItemFlags(srcSlotPos) & ITEM_FLAG_APPLICABLE) == ITEM_FLAG_APPLICABLE:
 			return True
 		else:
 			if item.GetUseType(srcItemVNum) in self.USE_TYPE_TUPLE:
@@ -1796,41 +2015,41 @@ class InventoryWindow(ui.ScriptWindow):
 
 		if srcSlotPos == dstSlotPos:
 			return False
-		if srcItemVNum >= 55102 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos) == 55001:			
+		if srcItemVNum >= 55102 and player.GetItemIndex(dstSlotPos) == 55001:			
 			return True	
-		if srcItemVNum >= 55102 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos) == 55002:			
+		if srcItemVNum >= 55102 and player.GetItemIndex(dstSlotPos) == 55002:			
 			return True	
-		if srcItemVNum >= 91001 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos) == 91002:			
+		if srcItemVNum >= 91001 and player.GetItemIndex(dstSlotPos) == 91002:			
 			return True			
-		if srcItemVNum >= 91201 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos) == 91200:			
+		if srcItemVNum >= 91201 and player.GetItemIndex(dstSlotPos) == 91200:			
 			return True		
-		if srcItemVNum >= 91202 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos) == 91200:			
+		if srcItemVNum >= 91202 and player.GetItemIndex(dstSlotPos) == 91200:			
 			return True		
-		if srcItemVNum >= 91203 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos) == 91200:			
+		if srcItemVNum >= 91203 and player.GetItemIndex(dstSlotPos) == 91200:			
 			return True		
-		if srcItemVNum >= 91204 and fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos) == 91200:			
+		if srcItemVNum >= 91204 and player.GetItemIndex(dstSlotPos) == 91200:			
 			return True
 			
 		if srcItemVNum == 39063:
 			self.__SendUseItemToItemPacket(srcSlotPos, dstSlotPos)	
 				
-		if srcItemVNum == fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos):
-			if fgGHGjjFHJghjfFG1545gGG.GetItemCount(dstSlotPos) < 200:
+		if srcItemVNum == player.GetItemIndex(dstSlotPos):
+			if player.GetItemCount(dstSlotPos) < 200:
 				return True			
 		elif item.IsRefineScroll(srcItemVNum):
-			if fgGHGjjFHJghjfFG1545gGG.REFINE_OK == fgGHGjjFHJghjfFG1545gGG.CanRefine(srcItemVNum, dstSlotPos):
+			if player.REFINE_OK == player.CanRefine(srcItemVNum, dstSlotPos):
 				return True
 		elif item.IsMetin(srcItemVNum):
-			if fgGHGjjFHJghjfFG1545gGG.ATTACH_METIN_OK == fgGHGjjFHJghjfFG1545gGG.CanAttachMetin(srcItemVNum, dstSlotPos):
+			if player.ATTACH_METIN_OK == player.CanAttachMetin(srcItemVNum, dstSlotPos):
 				return True
 		elif item.IsDetachScroll(srcItemVNum):
-			if fgGHGjjFHJghjfFG1545gGG.DETACH_METIN_OK == fgGHGjjFHJghjfFG1545gGG.CanDetach(srcItemVNum, dstSlotPos):
+			if player.DETACH_METIN_OK == player.CanDetach(srcItemVNum, dstSlotPos):
 				return True
 		elif item.IsKey(srcItemVNum):
-			if fgGHGjjFHJghjfFG1545gGG.CanUnlock(srcItemVNum, dstSlotPos):
+			if player.CanUnlock(srcItemVNum, dstSlotPos):
 				return True
 
-		elif (fgGHGjjFHJghjfFG1545gGG.GetItemFlags(srcSlotPos) & ITEM_FLAG_APPLICABLE) == ITEM_FLAG_APPLICABLE:
+		elif (player.GetItemFlags(srcSlotPos) & ITEM_FLAG_APPLICABLE) == ITEM_FLAG_APPLICABLE:
 			return True
 
 		else:
@@ -1855,7 +2074,7 @@ class InventoryWindow(ui.ScriptWindow):
 				if self.__CanPutAccessorySocket(dstSlotPos, srcItemVNum):
 					return TRUE;
 			elif "USE_PUT_INTO_BELT_SOCKET" == useType:								
-				dstItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos)
+				dstItemVNum = player.GetItemIndex(dstSlotPos)
 				print "USE_PUT_INTO_BELT_SOCKET", srcItemVNum, dstItemVNum
 
 				item.SelectItem(dstItemVNum)
@@ -1866,7 +2085,7 @@ class InventoryWindow(ui.ScriptWindow):
 		return False
 
 	def __CanCleanBrokenMetinStone(self, dstSlotPos):
-		dstItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos)
+		dstItemVNum = player.GetItemIndex(dstSlotPos)
 		if dstItemVNum == 0:
 			return False
 
@@ -1875,14 +2094,14 @@ class InventoryWindow(ui.ScriptWindow):
 		if item.ITEM_TYPE_WEAPON != item.GetItemType():
 			return False
 
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
-			if fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(dstSlotPos, i) == constInfo.ERROR_METIN_STONE:
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
+			if player.GetItemMetinSocket(dstSlotPos, i) == constInfo.ERROR_METIN_STONE:
 				return True
 
 		return False
 
 	def __CanChangeItemAttrList(self, dstSlotPos):
-		dstItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos)
+		dstItemVNum = player.GetItemIndex(dstSlotPos)
 		if dstItemVNum == 0:
 			return False
 
@@ -1891,14 +2110,14 @@ class InventoryWindow(ui.ScriptWindow):
 		if not item.GetItemType() in (item.ITEM_TYPE_WEAPON, item.ITEM_TYPE_ARMOR):	 
 			return False
 
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
-			if fgGHGjjFHJghjfFG1545gGG.GetItemAttribute(dstSlotPos, i) != 0:
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
+			if player.GetItemAttribute(dstSlotPos, i) != 0:
 				return True
 
 		return False
 
 	def __CanPutAccessorySocket(self, dstSlotPos, mtrlVnum):
-		dstItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos)
+		dstItemVNum = player.GetItemIndex(dstSlotPos)
 		if dstItemVNum == 0:
 			return False
 
@@ -1910,8 +2129,8 @@ class InventoryWindow(ui.ScriptWindow):
 		if not item.GetItemSubType() in (item.ARMOR_WRIST, item.ARMOR_NECK, item.ARMOR_EAR):
 			return False
 
-		curCount = fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(dstSlotPos, 0)
-		maxCount = fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(dstSlotPos, 1)
+		curCount = player.GetItemMetinSocket(dstSlotPos, 0)
+		maxCount = player.GetItemMetinSocket(dstSlotPos, 1)
 
 		if mtrlVnum != constInfo.GET_ACCESSORY_MATERIAL_VNUM(dstItemVNum, item.GetItemSubType()):
 			return False
@@ -1922,7 +2141,7 @@ class InventoryWindow(ui.ScriptWindow):
 		return True
 
 	def __CanAddAccessorySocket(self, dstSlotPos):
-		dstItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos)
+		dstItemVNum = player.GetItemIndex(dstSlotPos)
 		if dstItemVNum == 0:
 			return False
 
@@ -1934,8 +2153,8 @@ class InventoryWindow(ui.ScriptWindow):
 		if not item.GetItemSubType() in (item.ARMOR_WRIST, item.ARMOR_NECK, item.ARMOR_EAR):
 			return False
 
-		curCount = fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(dstSlotPos, 0)
-		maxCount = fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(dstSlotPos, 1)
+		curCount = player.GetItemMetinSocket(dstSlotPos, 0)
+		maxCount = player.GetItemMetinSocket(dstSlotPos, 1)
 		
 		ACCESSORY_SOCKET_MAX_SIZE = 3
 		if maxCount >= ACCESSORY_SOCKET_MAX_SIZE:
@@ -1944,7 +2163,7 @@ class InventoryWindow(ui.ScriptWindow):
 		return True
 
 	def __CanAddItemAttr(self, dstSlotPos):
-		dstItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(dstSlotPos)
+		dstItemVNum = player.GetItemIndex(dstSlotPos)
 		if dstItemVNum == 0:
 			return False
 
@@ -1954,8 +2173,8 @@ class InventoryWindow(ui.ScriptWindow):
 			return False
 			
 		attrCount = 0
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
-			if fgGHGjjFHJghjfFG1545gGG.GetItemAttribute(dstSlotPos, i) != 0:
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
+			if player.GetItemAttribute(dstSlotPos, i) != 0:
 				attrCount += 1
 
 		if attrCount<4:
@@ -1993,7 +2212,7 @@ class InventoryWindow(ui.ScriptWindow):
 		
 		if app.ENABLE_DRAGON_SOUL_SYSTEM:
 			if self.wndDragonSoulRefine.IsShow():
-				self.wndDragonSoulRefine.AutoSetItem((fgGHGjjFHJghjfFG1545gGG.INVENTORY, slotIndex), 1)
+				self.wndDragonSoulRefine.AutoSetItem((player.INVENTORY, slotIndex), 1)
 				return
 
 		self.__UseItem(slotIndex)
@@ -2001,7 +2220,7 @@ class InventoryWindow(ui.ScriptWindow):
 		self.OverOutItem()
 
 	def __UseItem(self, slotIndex):
-		ItemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(slotIndex)
+		ItemVNum = player.GetItemIndex(slotIndex)
 		item.SelectItem(ItemVNum)
 		if item.IsFlag(item.ITEM_FLAG_CONFIRM_WHEN_USE):
 			self.questionDialog = uiCommon.QuestionDialog()
@@ -2085,12 +2304,15 @@ class InventoryWindow(ui.ScriptWindow):
 		if self.wndCostume:
 			self.wndCostume.AdjustPosition()
 			
+		if self.costumeAttributeChange:
+			self.costumeAttributeChange.AdjustPosition()
+			
 	def HighlightSlot(self, slot):
 		if not slot in self.liHighlightedItems:
 			self.liHighlightedItems.append(slot)
 	
 	def __RefreshHighlights(self):
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE):
+		for i in xrange(player.INVENTORY_PAGE_SIZE):
 			slotNumber = self.__InventoryLocalSlotPosToGlobalSlotPos(i)
 			if slotNumber in self.liHighlightedItems:
 				self.wndItem.ActivateSlot(i)
