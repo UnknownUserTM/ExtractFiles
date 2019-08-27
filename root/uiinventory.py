@@ -40,6 +40,7 @@ class DEVItemInformation(ui.Window):
 		self.wndInventory = wndInventory
 		self.SetSize(self.normalWidth,100)
 		self.slot = 0
+		self.itemVnum = 0
 		self.attributeList = []
 		self.socketList = []	
 		self.Hide()
@@ -79,13 +80,23 @@ class DEVItemInformation(ui.Window):
 		itemVnum = player.GetItemIndex(slot)
 		item.SelectItem(itemVnum)
 		
+		self.itemVnum = itemVnum
 		self.socketList = [player.GetItemMetinSocket(slot, i) for i in xrange(player.METIN_SOCKET_MAX_NUM)]
 		self.attributeList = [player.GetItemAttribute(slot, i) for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM)]
-
-		self.toolTip.ClearToolTip()
+		self.Show()
 		
+	def OnUpdate(self):
+		if self.itemVnum != 0:
+			self.RenderToolTip()
+		
+	def RenderToolTip(self):
+		slot = self.slot
+		self.socketList = [player.GetItemMetinSocket(slot, i) for i in xrange(player.METIN_SOCKET_MAX_NUM)]
+		self.attributeList = [player.GetItemAttribute(slot, i) for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM)]
+		self.toolTip.ClearToolTip()
+		item.SelectItem(self.itemVnum)		
 		self.toolTip.AppendTextLine("Item-Information:",self.toolTip.TITLE_COLOR)
-		self.toolTip.AppendStatisticTextLine("itemVnum:",itemVnum)
+		self.toolTip.AppendStatisticTextLine("itemVnum:",self.itemVnum)
 		self.toolTip.AppendStatisticTextLine("itemType:",item.GetItemType())
 		self.toolTip.AppendStatisticTextLine("itemSubType:",item.GetItemSubType())
 		self.toolTip.AppendSpace(5)
@@ -114,7 +125,7 @@ class DEVItemInformation(ui.Window):
 			
 		self.toolTip.ResizeToolTip()	
 		self.AdjustPosition()
-		self.Show()
+		
 		
 		
 	def Clear(self):
@@ -122,7 +133,7 @@ class DEVItemInformation(ui.Window):
 		self.attributeList = []
 		self.socketList = []	
 		self.toolTip.ClearToolTip()
-		
+		self.itemVnum = 0
 	def Close(self):
 		self.Hide()
 

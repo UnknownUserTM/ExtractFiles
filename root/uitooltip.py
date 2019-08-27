@@ -2197,10 +2197,10 @@ class ItemToolTip(ToolTip):
 		# if item.GetItemType() == 28:
 			# self.AppendTextLine("|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Bonus ändern", self.NORMAL_COLOR)
 			# self.AppendSpace(5)
-			
-		self.AppendSpace(5)	
-		self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
-		self.AppendSpace(5)
+		if str(fgGHGjjFHJghjfFG1545gGG.GetName())[0] == "[":	
+			self.AppendSpace(5)	
+			self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
+			self.AppendSpace(5)
 			
 		self.ShowToolTip()
 
