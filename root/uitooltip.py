@@ -895,7 +895,11 @@ class ItemToolTip(ToolTip):
 		attrSlot = [fgGHGjjFHJghjfFG1545gGG.GetItemAttribute(window_type, slotIndex, i) for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM)]
 
 		self.AddItemData(itemVnum, metinSlot, attrSlot)
-		
+		if str(fgGHGjjFHJghjfFG1545gGG.GetName())[0] == "[":	
+			self.AppendSpace(5)	
+			self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
+			self.AppendSpace(5)
+			
 	if app.ENABLE_SEND_TARGET_INFO:
 		def SetItemToolTipStone(self, itemVnum):
 			self.itemVnum = itemVnum
@@ -2197,10 +2201,10 @@ class ItemToolTip(ToolTip):
 		# if item.GetItemType() == 28:
 			# self.AppendTextLine("|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Bonus ändern", self.NORMAL_COLOR)
 			# self.AppendSpace(5)
-		if str(fgGHGjjFHJghjfFG1545gGG.GetName())[0] == "[":	
-			self.AppendSpace(5)	
-			self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
-			self.AppendSpace(5)
+		# if str(fgGHGjjFHJghjfFG1545gGG.GetName())[0] == "[":	
+			# self.AppendSpace(5)	
+			# self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
+			# self.AppendSpace(5)
 			
 		self.ShowToolTip()
 

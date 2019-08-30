@@ -33,7 +33,6 @@ ITEM_FLAG_APPLICABLE = 1 << 14
 class DEVItemInformation(ui.Window):
 
 	normalWidth = 190
-
 	
 	def __init__(self,wndInventory):
 		ui.Window.__init__(self)
@@ -54,6 +53,7 @@ class DEVItemInformation(ui.Window):
 		x, y = self.wndInventory.GetGlobalPosition()
 		self.SetPosition(x - self.normalWidth - 10 + 22 - 15,(y + 650)-self.toolTip.toolTipHeight)
 		self.SetSize(self.normalWidth,self.toolTip.toolTipHeight)
+		
 	def MakeToolTip(self):
 		toolTip = uiToolTip.ToolTip()
 		toolTip.SetParent(self)
@@ -61,7 +61,6 @@ class DEVItemInformation(ui.Window):
 		toolTip.SetFollow(False)
 		toolTip.Show()
 		self.toolTip = toolTip
-		
 		
 	def MakeCloseButton(self):
 		self.closeButton = ui.Button()
@@ -91,6 +90,12 @@ class DEVItemInformation(ui.Window):
 		
 	def RenderToolTip(self):
 		slot = self.slot
+		
+		if player.GetItemIndex(slot) != self.itemVnum:
+			self.Clear()
+			self.Close()
+			return
+		
 		self.socketList = [player.GetItemMetinSocket(slot, i) for i in xrange(player.METIN_SOCKET_MAX_NUM)]
 		self.attributeList = [player.GetItemAttribute(slot, i) for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM)]
 		self.toolTip.ClearToolTip()
@@ -99,6 +104,7 @@ class DEVItemInformation(ui.Window):
 		self.toolTip.AppendStatisticTextLine("itemVnum:",self.itemVnum)
 		self.toolTip.AppendStatisticTextLine("itemType:",item.GetItemType())
 		self.toolTip.AppendStatisticTextLine("itemSubType:",item.GetItemSubType())
+		self.toolTip.AppendStatisticTextLine("slot:",slot)
 		self.toolTip.AppendSpace(5)
 		self.toolTip.AppendHorizontalLine()
 		self.toolTip.AppendTextLine("Values:",self.toolTip.TITLE_COLOR)
@@ -125,32 +131,72 @@ class DEVItemInformation(ui.Window):
 			
 		self.toolTip.ResizeToolTip()	
 		self.AdjustPosition()
-		
-		
-		
+
 	def Clear(self):
 		self.slot = 0
 		self.attributeList = []
 		self.socketList = []	
 		self.toolTip.ClearToolTip()
 		self.itemVnum = 0
+		
 	def Close(self):
 		self.Hide()
 
-
 class CostumeAttributeChanger(ui.ScriptWindow):
+
+	class CostumeAttributeItem(ui.ScriptWindow):
+	
+		def __init__(self, wndAttributeSwitcher):
+			ui.ScriptWindow.__init__(self)
+			self.wndAttributeSwitcher = wndAttributeSwitcher
+			self.LoadWindow()
+
+		def __del__(self):
+			ui.ScriptWindow.__del__(self)
+
+		def LoadWindow(self):
+			try:
+				pyScrLoader = ui.PythonScriptLoader()
+				pyScrLoader.LoadScriptFile(self, "exscript/costumeattributeitem.py")
+			except:
+				import exception
+				exception.Abort("CostumeAttributeItem.LoadWindow.LoadObject")
+				
+			self.background = self.GetChild("board")
+			
+			self.mouseReflector = MouseReflector(self.background)
+			self.mouseReflector.SetSize(290-24, 22)
+			self.mouseReflector.UpdateRect()	
+
+		def OnUpdate(self):
+			if self.background.IsIn():
+				if self.wndAttributeSwitcher.isSpecialSwitchMode:
+					self.mouseReflector.Show()
+				else:
+					self.mouseReflector.Hide()
+			else:
+				self.mouseReflector.Hide()
+				
+	# ################################################# #			
+			
+			
+	BONUS_ADDER			= 79998
+	NORMAL_SWITCHER		= 79999
+	SPECIAL_SWITCHER	= 80000
+	
+	COSTUME_SLOT = 199
 	
 	def __init__(self, wndInventory):
 		ui.ScriptWindow.__init__(self)
-		self.wndInventory = wndInventory
-		self.costumeSlotPosition = 0
-		self.costumeItemVnum = 0
-		self.costumeAttributeList = []
-		self.costumeSocketList = []
+		self.wndInventory			= wndInventory
+		self.costumeSlotPosition	= 0
+		self.costumeItemVnum		= 0
+		self.isSpecialSwitchMode	= False
+		self.costumeAttributeList	= []
+		self.costumeSocketList		= []
 		self.LoadWindow()
 
 	def __del__(self):
-		#constInfo.CALOPEN = 1
 		ui.ScriptWindow.__del__(self)
 
 	def LoadWindow(self):
@@ -163,38 +209,138 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 			
 		self.costumeToolTip = uiToolTip.ItemToolTip()  
 		self.costumeToolTip.HideToolTip()	
+
+		self.costumeSwitcherToolTip = uiToolTip.ItemToolTip()  
+		self.costumeSwitcherToolTip.HideToolTip()
+		
+		self.costumeSpecialSwitcherToolTip = uiToolTip.ItemToolTip()  
+		self.costumeSpecialSwitcherToolTip.HideToolTip()
 		
 		self.GetChild("TitleBar").SetCloseEvent(self.Close)
 		
 		self.costumeSlot = self.GetChild("costumeSlot")
 		self.costumeSlot.SetOverInItemEvent(ui.__mem_func__(self.ShowToolTip))  
-		self.costumeSlot.SetOverOutItemEvent(ui.__mem_func__(self.HideToolTip)) 		
-		
-		
-		
+		self.costumeSlot.SetOverOutItemEvent(ui.__mem_func__(self.HideToolTip)) 
+
 		self.costumeSwitcherSlot = self.GetChild("costumeSwitcherSlot")
+		self.costumeSwitcherSlot.SetOverInItemEvent(ui.__mem_func__(self.ShowSwitcherToolTip))  
+		self.costumeSwitcherSlot.SetOverOutItemEvent(ui.__mem_func__(self.HideSwitcherToolTip)) 	
+		self.costumeSwitcherSlot.SetSlotBaseImage("icon/item/" + str(self.NORMAL_SWITCHER) + ".tga", 1.0, 1.0, 1.0, 0.5)	
+		self.costumeSwitcherSlot.ShowSlotBaseImage(0)
+		
 		self.costumeSpecialSwitcherSlot = self.GetChild("specialCostumeSwitcherSlot")
+		self.costumeSpecialSwitcherSlot.SetOverInItemEvent(ui.__mem_func__(self.ShowSpecialSwitcherToolTip))  
+		self.costumeSpecialSwitcherSlot.SetOverOutItemEvent(ui.__mem_func__(self.HideSpecialSwitcherToolTip)) 		
+		self.costumeSpecialSwitcherSlot.SetSlotBaseImage("icon/item/" + str(self.SPECIAL_SWITCHER) + ".tga", 1.0, 1.0, 1.0, 0.5)	
+		self.costumeSpecialSwitcherSlot.SAFE_SetButtonEvent("RIGHT", "ALWAYS", self.ToggleSpecialSwitcher)
+		self.costumeSpecialSwitcherSlot.ShowSlotBaseImage(0)
 		
+		self.bonusBackground = self.GetChild("bonusChangeBackground")
 		
+		self.bonusSlot = {}
 		
+		self.bonusSlot[0] = self.CostumeAttributeItem(self)
+		self.bonusSlot[0].SetParent(self.bonusBackground)
+		self.bonusSlot[0].SetPosition(12,35)
+		self.bonusSlot[0].Show()
+
+		self.bonusSlot[1] = self.CostumeAttributeItem(self)
+		self.bonusSlot[1].SetParent(self.bonusBackground)
+		self.bonusSlot[1].SetPosition(12,35 + 30)
+		self.bonusSlot[1].Show()
 		
+		self.bonusSlot[2] = self.CostumeAttributeItem(self)
+		self.bonusSlot[2].SetParent(self.bonusBackground)
+		self.bonusSlot[2].SetPosition(12,35 + 30 + 30)
+		self.bonusSlot[2].Show()
+
 		self.Open()
-		# self.eventDayImage[12].Show()
 	
+	def ToggleSpecialSwitcher(self,slot):
+		if self.isSpecialSwitchMode:
+			self.isSpecialSwitchMode = False
+			self.costumeSpecialSwitcherSlot.DeactivateSlot(0)
+			
+		elif not self.isSpecialSwitchMode:
+			self.isSpecialSwitchMode = True
+			self.costumeSpecialSwitcherSlot.ActivateSlot(0)
 	
+	def OnUpdate(self):
+		if player.GetItemIndex(self.costumeSlotPosition) != self.costumeItemVnum:
+			self.Clear()
+			self.Close()
+			return
+
+		count, s_count = self.CountCostumeSwitcher()
+		
+		if count == 0 or self.isSpecialSwitchMode:
+			self.costumeSwitcherSlot.SetItemSlot(0,0,0)
+		else:
+			self.costumeSwitcherSlot.SetItemSlot(0,self.NORMAL_SWITCHER,count)
+
+		if s_count == 0:	
+			self.costumeSpecialSwitcherSlot.SetItemSlot(0,0,0)
+		else:
+			self.costumeSpecialSwitcherSlot.SetItemSlot(0,self.SPECIAL_SWITCHER,s_count)
+
+
+	def CountCostumeSwitcher(self):
+		count = 0
+		s_count = 0
+		for i in range(0,(90*4)-1):
+			if player.GetItemIndex(i) == self.NORMAL_SWITCHER:
+				count = count + player.GetItemCount(i)
+				
+			elif player.GetItemIndex(i) == self.SPECIAL_SWITCHER:
+				s_count = s_count + player.GetItemCount(i)	
+				
+		return count, s_count
+		
 	def ShowToolTip(self,slot):
+		self.costumeSocketList = [player.GetItemMetinSocket(self.costumeSlotPosition, i) for i in xrange(player.METIN_SOCKET_MAX_NUM)]
+		self.costumeAttributeList = [player.GetItemAttribute(self.costumeSlotPosition, i) for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM)]
+	
 		self.costumeToolTip.ClearToolTip()	
 		self.costumeToolTip.AddItemData(self.costumeItemVnum, self.costumeSocketList, self.costumeAttributeList)	
 		self.costumeToolTip.ShowToolTip()	
 	
 	def HideToolTip(self):
-		self.costumeToolTip.HideToolTip()	
-	
+		self.costumeToolTip.HideToolTip()
+
+	def ShowSwitcherToolTip(self,slot):
+		self.costumeSwitcherToolTip.ClearToolTip()	
+		self.costumeSwitcherToolTip.AddItemData(self.NORMAL_SWITCHER, [0,0,0,0,0,0])	
+		
+		self.costumeSwitcherToolTip.AppendTextLine("[Hinweis]",self.costumeSwitcherToolTip.TITLE_COLOR)
+		self.costumeSwitcherToolTip.AppendTextLine("Alle 3 Boni werden neu gewurfelt!",self.costumeSwitcherToolTip.NORMAL_COLOR)
+		self.costumeSwitcherToolTip.AppendHorizontalLine()
+		self.costumeSwitcherToolTip.AppendTextLine("|Eemoji/key_lclick|e - Alle Switchen!",self.costumeSwitcherToolTip.NORMAL_COLOR)
+		self.costumeSwitcherToolTip.AppendHorizontalLine()
+		self.costumeSwitcherToolTip.ShowToolTip()	
+		
+	def HideSwitcherToolTip(self):
+		self.costumeSwitcherToolTip.HideToolTip()
+
+	def ShowSpecialSwitcherToolTip(self,slot):
+		self.costumeSpecialSwitcherToolTip.ClearToolTip()	
+		self.costumeSpecialSwitcherToolTip.AddItemData(self.NORMAL_SWITCHER, [0,0,0,0,0,0])	
+		self.costumeSpecialSwitcherToolTip.AppendTextLine("|Eemoji/key_rclick|e - Aktivieren",self.costumeSpecialSwitcherToolTip.NORMAL_COLOR)
+		self.costumeSpecialSwitcherToolTip.AppendHorizontalLine()
+		self.costumeSpecialSwitcherToolTip.ShowToolTip()
+		
+	def HideSpecialSwitcherToolTip(self):
+		self.costumeSpecialSwitcherToolTip.HideToolTip()
+
 	def OnPressEscapeKey(self):
 		self.Close()
 		return True
 	
 	def LoadItem(self,slot):
+		if slot == self.COSTUME_SLOT:
+			chat.AppendChat(chat.CHAT_TYPE_INFO,"Bitte lege das Kostum zum switchen ab!")
+			return
+	
+	
 		self.costumeSlotPosition = slot
 		self.costumeItemVnum = player.GetItemIndex(slot)
 		
@@ -203,30 +349,28 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 
 		self.costumeSlot.SetItemSlot(0,self.costumeItemVnum,0)
 		
-
-
-
-
-
-
+		# self.wndInventory.wndItem.LockSlot(slot)
+		
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"costumeSocketList : " + str(len(self.costumeSocketList)))
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"costumeAttributeList : " + str(len(self.costumeAttributeList)))
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"socket0: " + str(player.GetItemMetinSocket(slot,0)))
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"slot: " + str(slot))
+		
+		self.Open()
 		return
 	
 	def Clear(self):
 		self.costumeSlotPosition = 0
 		self.costumeItemVnum = 0
 		self.costumeSlot.ClearSlot(0)
+		self.isSpecialSwitchMode = False
 		
 	def Open(self):
 		if self.IsShow():
 			self.Close()
 		else:
 			self.Show()
-		
-		
+
 	def Close(self):
 		self.Hide()
 		
@@ -877,7 +1021,6 @@ class BeltInventoryWindow(ui.ScriptWindow):
 				self.wndBeltInventorySlot.DisableCoverButton(slotNumber)				
 
 		self.wndBeltInventorySlot.RefreshSlot()
-
 		
 class InventoryWindow(ui.ScriptWindow):
 	liHighlightedItems = []
@@ -1705,11 +1848,11 @@ class InventoryWindow(ui.ScriptWindow):
 
 			elif app.IsPressed(app.DIK_LCONTROL):
 				itemIndex = player.GetItemIndex(itemSlotIndex)
-				
+				item.SelectItem(itemIndex)
 				if item.GetItemType() == 28:
 					self.costumeAttributeChange.Clear()
 					self.costumeAttributeChange.LoadItem(itemSlotIndex)
-					self.costumeAttributeChange.Open()
+					# self.costumeAttributeChange.Open()
 					return 
 					
 				if True == item.CanAddToQuickSlotItem(itemIndex):

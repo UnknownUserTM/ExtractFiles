@@ -5027,7 +5027,11 @@ class PythonScriptLoader(object):
 			window.SetVerticalAlignCenter()
 			window.SetWindowHorizontalAlignCenter()
 			window.SetWindowVerticalAlignCenter()
-
+		
+		if value.has_key("multi_line"):
+			window.SetMultiLine()
+			window.SetLimitWidth(value["multi_line"])
+			
 		if value.has_key("r") and value.has_key("g") and value.has_key("b"):
 			window.SetFontColor(float(value["r"]), float(value["g"]), float(value["b"]))
 		elif value.has_key("color"):

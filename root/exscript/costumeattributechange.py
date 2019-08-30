@@ -216,6 +216,17 @@ window = {
 								
 								
 								},
+								{
+									"name" : "systemDescription",
+									"type" : "text",
+									
+									"x" : 12,
+									"y" : 35 + 96 + 13,
+									
+									"multi_line" : 290 - 24,
+									"text" : "Hier steht dann später wie alles funktioniert. Ist MultiLine wird automatisch auf mehrere zeilen gesetzt wenn der Text breiter ist als 266px. Hoffentlich klappt das, denn das wäre echt easy dann. So ich brauch noch mehr Text. Den Text hier gibts nur damit dieser Bereich hier nicht so leer ist.",
+
+								},
 							
 							
 							
