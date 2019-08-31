@@ -681,7 +681,17 @@ class ItemToolTip(ToolTip):
 		localeInfo.TOOLTIP_ARROW,
 	)
 	WEAR_COUNT = len(WEAR_NAMES)
-
+	
+	ANTI_FLAG_NAMES = (
+		localeInfo.TOOLTIP_ANTIFLAG_DROP,
+		localeInfo.TOOLTIP_ANTIFLAG_SELL,
+		localeInfo.TOOLTIP_ANTIFLAG_GIVE,
+		localeInfo.TOOLTIP_ANTIFLAG_PKDROP,
+		localeInfo.TOOLTIP_ANTIFLAG_STACK,
+		localeInfo.TOOLTIP_ANTIFLAG_MYSHOP,
+	)
+	ANTI_FLAG_COUNT = len(ANTI_FLAG_NAMES)
+		
 	AFFECT_DICT = {
 		item.APPLY_MAX_HP : localeInfo.TOOLTIP_MAX_HP,
 		item.APPLY_MAX_SP : localeInfo.TOOLTIP_MAX_SP,
@@ -2206,8 +2216,43 @@ class ItemToolTip(ToolTip):
 			# self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
 			# self.AppendSpace(5)
 			
+		self.AppendAntiflagInformation()
+			
 		self.ShowToolTip()
+		
+	def AppendAntiflagInformation(self):
+		self.AppendSpace(5)
+		
+		antiFlagList = (
+			item.IsAntiFlag(item.ITEM_ANTIFLAG_DROP),	
+			item.IsAntiFlag(item.ITEM_ANTIFLAG_SELL),
+			item.IsAntiFlag(item.ITEM_ANTIFLAG_GIVE),
+			item.IsAntiFlag(item.ITEM_ANTIFLAG_PKDROP),
+			item.IsAntiFlag(item.ITEM_ANTIFLAG_STACK),
+			item.IsAntiFlag(item.ITEM_ANTIFLAG_MYSHOP),
+			item.IsAntiFlag(item.ITEM_ANTIFLAG_SAFEBOX),
+		)
+			
+		antiFlagNames = ""
+		flagCount = 0
+		for i in xrange(self.ANTI_FLAG_COUNT):
 
+			name = self.ANTI_FLAG_NAMES[i]
+			flag = antiFlagList[i]
+
+			if flag:
+				if flagCount > 0:
+					antiFlagNames += ", "
+				flagCount = flagCount + 1
+				antiFlagNames += name
+					
+		if flagCount > 0:
+			antiFlagNames += " "
+			antiFlagNames += localeInfo.NOT_POSSIBLE
+			
+		textLine = self.AppendTextLine(antiFlagNames, self.CONDITION_COLOR)
+		textLine.SetFeather()
+			
 
 	def __DragonSoulInfoString (self, dwVnum):
 		step = (dwVnum / 100) % 10
