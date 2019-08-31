@@ -25,6 +25,16 @@ window = {
 			
 			"children" : (
 				{
+					"name" : "addBonusBar",
+					"type" : "bar",
+					
+					"x" : 0,
+					"y" : 0,
+					
+					"width" : 290 - 24,
+					"height" : 22,
+				},
+				{
 								
 					"name" : "bonusTitleTextLine",
 					"type" : "text",

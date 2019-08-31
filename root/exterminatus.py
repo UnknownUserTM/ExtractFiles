@@ -57,6 +57,10 @@ class PointArrow(ui.Window):
 		self.arrow.AppendImage("d:/ymir work/ui/minigame/yutnori/move_arrow/3.sub")
 		self.arrow.AppendImage("d:/ymir work/ui/minigame/yutnori/move_arrow/4.sub")
 		self.arrow.AppendImage("d:/ymir work/ui/minigame/yutnori/move_arrow/5.sub")
+		self.arrow.AppendImage("d:/ymir work/ui/minigame/yutnori/move_arrow/4.sub")
+		self.arrow.AppendImage("d:/ymir work/ui/minigame/yutnori/move_arrow/3.sub")
+		self.arrow.AppendImage("d:/ymir work/ui/minigame/yutnori/move_arrow/2.sub")
+		self.arrow.AppendImage("d:/ymir work/ui/minigame/yutnori/move_arrow/1.sub")
 		self.arrow.Show()
 
 class HelpButtonWindow(ui.Window):

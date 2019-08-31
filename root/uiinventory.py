@@ -23,6 +23,7 @@ import event
 import background
 from uiGuild import MouseReflector
 import uiToolTip
+import exterminatus
 
 ITEM_MALL_BUTTON_ENABLE = True
 
@@ -146,9 +147,14 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 
 	class CostumeAttributeItem(ui.ScriptWindow):
 	
+		COLOR_NEGATIVE	= grp.GenerateColor(1.0, 0.0, 0.0, 0.3)
+		COLOR_POSITIVE	= grp.GenerateColor(0.0, 1.0, 0.0, 0.2)
+		
 		def __init__(self, wndAttributeSwitcher):
 			ui.ScriptWindow.__init__(self)
 			self.wndAttributeSwitcher = wndAttributeSwitcher
+			self.attributeIndex = 0
+			self.attributeValue = 0
 			self.LoadWindow()
 
 		def __del__(self):
@@ -161,21 +167,59 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 			except:
 				import exception
 				exception.Abort("CostumeAttributeItem.LoadWindow.LoadObject")
-				
-			self.background = self.GetChild("board")
 			
+			
+			self.pointArrow = exterminatus.PointArrow()
+			self.pointArrow.SetParent(self)
+			self.pointArrow.SetPosition((290-24)/2,-20)
+			self.pointArrow.Hide()
+			
+			self.background = self.GetChild("board")
+			self.addBonusBar = self.GetChild("addBonusBar")
+			self.addBonusBar.SetColor(self.COLOR_POSITIVE)
+			self.addBonusBar.SetOnClickEvent(self.AddBonus)
+			self.addBonusBar.Hide()
 			self.mouseReflector = MouseReflector(self.background)
 			self.mouseReflector.SetSize(290-24, 22)
 			self.mouseReflector.UpdateRect()	
+		
+		def AddBonus(self):
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"addBonus CLICK!")
+		
+		def AddYToArrowPosition(self,y):
+			self.pointArrow.SetPosition(((290-24)/2) + y,-20)
+		
+		def AddAttributeInformation(self,index,value):
+			self.attributeIndex = index
+			self.attributeValue = value			
 
 		def OnUpdate(self):
-			if self.background.IsIn():
-				if self.wndAttributeSwitcher.isSpecialSwitchMode:
-					self.mouseReflector.Show()
+			if mouseModule.mouseController.isAttached():
+
+				attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
+				if player.SLOT_TYPE_INVENTORY == mouseModule.mouseController.GetAttachedType():
+
+					if self.wndAttributeSwitcher.BONUS_ADDER == mouseModule.mouseController.GetAttachedItemIndex():
+						if self.attributeIndex == 0:
+							self.addBonusBar.SetColor(self.COLOR_POSITIVE)
+							self.addBonusBar.Show()
+							self.pointArrow.Show()							
+						
+						else:
+							self.addBonusBar.SetColor(self.COLOR_NEGATIVE)
+							self.addBonusBar.Show()
+							self.pointArrow.Hide()
+				# mouseModule.mouseController.DeattachObject()		
+			else:
+				self.pointArrow.Hide()
+				self.addBonusBar.Hide()
+				if self.background.IsIn():
+					if self.wndAttributeSwitcher.isSpecialSwitchMode:
+						self.mouseReflector.Show()
+					else:
+						self.mouseReflector.Hide()
 				else:
 					self.mouseReflector.Hide()
-			else:
-				self.mouseReflector.Hide()
 				
 	# ################################################# #			
 			
@@ -192,6 +236,7 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		self.costumeSlotPosition	= 0
 		self.costumeItemVnum		= 0
 		self.isSpecialSwitchMode	= False
+		self.waitForServerAnswer	= False
 		self.costumeAttributeList	= []
 		self.costumeSocketList		= []
 		self.LoadWindow()
@@ -242,16 +287,20 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		self.bonusSlot[0] = self.CostumeAttributeItem(self)
 		self.bonusSlot[0].SetParent(self.bonusBackground)
 		self.bonusSlot[0].SetPosition(12,35)
+		self.bonusSlot[0].AddAttributeInformation(1,1)
+		self.bonusSlot[0].AddYToArrowPosition(15)
 		self.bonusSlot[0].Show()
 
 		self.bonusSlot[1] = self.CostumeAttributeItem(self)
 		self.bonusSlot[1].SetParent(self.bonusBackground)
 		self.bonusSlot[1].SetPosition(12,35 + 30)
+		self.bonusSlot[1].AddYToArrowPosition(15 + 20)
 		self.bonusSlot[1].Show()
 		
 		self.bonusSlot[2] = self.CostumeAttributeItem(self)
 		self.bonusSlot[2].SetParent(self.bonusBackground)
 		self.bonusSlot[2].SetPosition(12,35 + 30 + 30)
+		self.bonusSlot[2].AddYToArrowPosition(15 + 20 + 20)
 		self.bonusSlot[2].Show()
 
 		self.Open()
