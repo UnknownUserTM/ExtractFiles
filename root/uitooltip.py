@@ -2249,10 +2249,12 @@ class ItemToolTip(ToolTip):
 		if flagCount > 0:
 			antiFlagNames += " "
 			antiFlagNames += localeInfo.NOT_POSSIBLE
-			
-		textLine = self.AppendTextLine(antiFlagNames, self.CONDITION_COLOR)
-		textLine.SetFeather()
-			
+		
+		if not antiFlagNames == "":
+			textLine = self.AppendTextLine(antiFlagNames, self.CONDITION_COLOR)
+			textLine.SetFeather()
+			self.AppendSpace(5)
+			self.AppendHorizontalLine()				
 
 	def __DragonSoulInfoString (self, dwVnum):
 		step = (dwVnum / 100) % 10

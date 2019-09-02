@@ -2388,7 +2388,7 @@ class GameWindow(ui.ScriptWindow):
 			"foresttime"			: self.ForestTimer,
 			
 			"biologist"			: self.LUA_Biologist,
-			
+			"cac"				: self.LUA_CostumeAttributeChanger,
 			# TEAM BOARD
             "SetTeamOnline"				: self.__Team_On,
             "SetTeamOffline"				: self.__Team_Off, 
@@ -3577,8 +3577,18 @@ class GameWindow(ui.ScriptWindow):
 		# else:
 			# self.Calender.GAME_Show()
 	
+	def LUA_CostumeAttributeChanger(self,command):
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LUA_CostumeAttributeChanger: " + command)
+		cmd = command.split("/")
+		if cmd[0] == "qid":
+			self.interface.SetCostumeAttributeChangerQID(cmd[1])
+		elif cmd[0] == "refresh":
+			self.interface.RefreshCostumeAttributeChanger()
+		else:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknown Command [LUA_CostumeAttributeChanger]: " + str(cmd[0]))
+	
 	def LUA_Biologist(self,command):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,command)
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LUA_Biologist: " + command)
 		cmd = command.split("/")
 		if cmd[0] == "qid":
 			self.interface.AddBiologistQuestIndex(int(cmd[1]))

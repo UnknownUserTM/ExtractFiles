@@ -239,6 +239,7 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		self.waitForServerAnswer	= False
 		self.costumeAttributeList	= []
 		self.costumeSocketList		= []
+		self.qid					= 0
 		self.LoadWindow()
 
 	def __del__(self):
@@ -287,7 +288,6 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		self.bonusSlot[0] = self.CostumeAttributeItem(self)
 		self.bonusSlot[0].SetParent(self.bonusBackground)
 		self.bonusSlot[0].SetPosition(12,35)
-		self.bonusSlot[0].AddAttributeInformation(1,1)
 		self.bonusSlot[0].AddYToArrowPosition(15)
 		self.bonusSlot[0].Show()
 
@@ -388,7 +388,11 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		if slot == self.COSTUME_SLOT:
 			chat.AppendChat(chat.CHAT_TYPE_INFO,"Bitte lege das Kostum zum switchen ab!")
 			return
-	
+		
+		
+		if self.qid == 0:
+			chat.AppendChat(chat.CHAT_TYPE_INFO,"Es ist ein Fehler aufgetreten. Bitte starte deinen Clienten neu. FEHLER: QID")
+			return
 	
 		self.costumeSlotPosition = slot
 		self.costumeItemVnum = player.GetItemIndex(slot)
@@ -419,6 +423,12 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 			self.Close()
 		else:
 			self.Show()
+	
+	def Refresh(self):
+		return
+	
+	def SetQID(self,qid):
+		self.qid = int(qid)
 
 	def Close(self):
 		self.Hide()

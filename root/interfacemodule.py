@@ -235,7 +235,14 @@ class Interface(object):
 	
 	def OpenNewGameOption(self):
 		self.wndGameOption.Open()
-		
+	
+	
+	def SetCostumeAttributeChangerQID(self,qid):
+		self.wndInventory.costumeAttributeChange.SetQID(qid)
+
+	def RefreshCostumeAttributeChanger(self):
+		self.wndInventory.costumeAttributeChange.Refresh()
+	
 	#####################################################
 	#####################################################
 	## MULTISHOP 2019 WINDOW
