@@ -28,6 +28,19 @@ GOLD_STORAGE_ITEMS = [80003,80004,80005,80006,30251,30252,30253]
 
 ITEM_WITH_TEXT_NEW = [
 	[
+		[91001],[
+			["Dein persönlicher Dietrich.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
+			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)], # 255, 048, 048 (Rot)
+			["Kann bei Ah-Yu verbessert werden.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
+	[
+		[91002],[
+			["Verwendbar mit einem Dietrich.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
+			["Nicht Lagerbar!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
+		]
+	],
+	[
 		[50825],[
 			["Max. Wert: +120 Angriffswert",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
 			["Laufzeit: 30 Minuten",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
@@ -42,7 +55,7 @@ ITEM_WITH_TEXT_NEW = [
 	[
 		[70038],[
 			["Dein permanenter Tapferkeitsumhang.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Nachkaufbar bei der Gemi",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
+			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
 		]
 	],
 	[
@@ -85,6 +98,24 @@ ITEM_WITH_TEXT_NEW = [
 		[71084],[
 			["Kosten pro Switch:",grp.GenerateColor(1.0, 1.0, 0.0, 1.0)], # 255, 255, 0 (Gelb)
 			["10.000 Yang",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
+		]
+	],
+	[
+		[91200],[
+			["ACHTUNG:.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
+			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
+		]
+	],
+	[
+		[55002],[
+			["ACHTUNG:.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
+			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
+		]
+	],
+	[
+		[55001],[
+			["ACHTUNG:.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
+			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
 		]
 	],
 	[
