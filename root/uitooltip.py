@@ -28,152 +28,48 @@ GOLD_STORAGE_ITEMS = [80003,80004,80005,80006,30251,30252,30253]
 
 ITEM_WITH_TEXT_NEW = [
 	[
-		[91001],[
-			["Dein persönlicher Dietrich.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)], # 255, 048, 048 (Rot)
-			["Kann bei Ah-Yu verbessert werden.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
-		]
-	],
-	[
-		[91002],[
-			["Verwendbar mit einem Dietrich.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Nicht Lagerbar!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[50825],[
-			["Max. Wert: +120 Angriffswert",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Laufzeit: 30 Minuten",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
-		]
-	],
-	[
-		[50826],[
-			["Max. Wert: +200 Verteidigung",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Laufzeit: 30 Minuten",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
-		]
-	],
-	[
-		[70038],[
-			["Dein permanenter Tapferkeitsumhang.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[71085],[
-			["Du kannst alle 5 Boni mit",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["diesem Item hinzufügen!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
-		]
-	],
-	[
-		[76013],[
-			["Du kannst alle 5 Boni mit",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["diesem Item hinzufügen!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
-		]
-	],
-	[
-		[91148],[
-			["ACHTUNG:",grp.GenerateColor(1.0, 1.0, 0.0, 1.0)], # 255, 255, 0 (Gelb)
-			["Das Verbessern kann fehlschlagen!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[91149],[
-			["ACHTUNG:",grp.GenerateColor(1.0, 1.0, 0.0, 1.0)], # 255, 255, 0 (Gelb)
-			["Das Verbessern kann fehlschlagen!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[91150],[
-			["ACHTUNG:",grp.GenerateColor(1.0, 1.0, 0.0, 1.0)], # 255, 255, 0 (Gelb)
-			["Das Verbessern kann fehlschlagen!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[27987],[
-			["ACHTUNG:",grp.GenerateColor(1.0, 1.0, 0.0, 1.0)], # 255, 255, 0 (Gelb)
-			["Öffnen nicht mehr möglich!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[71084],[
-			["Kosten pro Switch:",grp.GenerateColor(1.0, 1.0, 0.0, 1.0)], # 255, 255, 0 (Gelb)
-			["10.000 Yang",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[91200],[
-			["ACHTUNG:.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[55002],[
-			["ACHTUNG:.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[55001],[
-			["ACHTUNG:.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Nicht lagerbar und Charaktergebunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[71136],[
-			["ACHTUNG:.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Der Boni Bosse wirkt nicht in Dungeons!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
-		[60002],[
-			["ACHTUNG:.",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)], # 000, 255, 000 (Grün)
-			["Bitte wartet nach dem Handeln 10 Sekunden!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)], # 255, 048, 048 (Rot)
-			["Ein Verlust wird nicht ersetzt!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
-		]
-	],
-	[
 		[160480],[
-			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
 	[
 		[160481],[
-			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
 	[
 		[160482],[
-			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
 	[
 		[160483],[
-			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
 	[
 		[160484],[
-			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
 	[
 		[160485],[
-			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
 	[
 		[160486],[
-			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
 	[
 		[160487],[
-			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
 	[
 		[80000],[
-			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
 ]

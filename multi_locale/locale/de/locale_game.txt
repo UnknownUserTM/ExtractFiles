@@ -1197,3 +1197,4 @@ TOOLTIP_ANTIFLAG_SAFEBOX	Lager
 TOOLTIP_ANTIFLAG_SELL	Verkauf
 TOOLTIP_ANTIFLAG_STACK	Stapel
 NOT_POSSIBLE	nicht möglich.
+NOTDESTROY	Dieser Gegenstand kann nicht zerstört werden
