@@ -100,6 +100,8 @@ cameraHeight = 100.0
 testAlignment = 0
 BPisLoaded = 0
 
+CANNOT_DESTROY_ITEM_LIST = [27001,27002]
+
 class GameWindow(ui.ScriptWindow):
 	def __init__(self, stream):
 		ui.ScriptWindow.__init__(self, "GAME")
@@ -1628,25 +1630,37 @@ class GameWindow(ui.ScriptWindow):
 		else:
 			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedType:
 				dropItemIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(attachedItemSlotPos)
-
+				canDestroy = True
+				
+				if dropItemIndex in CANNOT_DESTROY_ITEM_LIST:
+					canDestroy = False
+				
+				
 				item.SelectItem(dropItemIndex)
 				dropItemName = item.GetItemName()
 
 				## Question Text
 				questionText = localeInfo.HOW_MANY_ITEM_DO_YOU_DROP(dropItemName, attachedItemCount)
 
-				## Dialog
+				## Dialog self.destroyButton.
 				itemDropQuestionDialog = uiCommon.QuestionDialogItem()
 				itemDropQuestionDialog.SetText(questionText)
 				itemDropQuestionDialog.SetAcceptEvent(lambda arg=True: self.RequestDropItem(arg))
 				itemDropQuestionDialog.SetDestroyEvent(lambda arg=TRUE: self.RequestDestroyItem(arg))
 				itemDropQuestionDialog.SetCancelEvent(lambda arg=False: self.RequestDropItem(arg))
+				
+
+				
 				itemDropQuestionDialog.Open()
 				itemDropQuestionDialog.dropType = attachedType
 				itemDropQuestionDialog.dropNumber = attachedItemSlotPos
 				itemDropQuestionDialog.dropCount = attachedItemCount
 				self.itemDropQuestionDialog = itemDropQuestionDialog
-
+				if canDestroy:
+					self.itemDropQuestionDialog.destroyButton.Enable()
+				
+				else:
+					self.itemDropQuestionDialog.destroyButton.Disable()
 				constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
 			elif fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedType:
 				dropItemIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(fgGHGjjFHJghjfFG1545gGG.DRAGON_SOUL_INVENTORY, attachedItemSlotPos)
