@@ -100,7 +100,7 @@ cameraHeight = 100.0
 testAlignment = 0
 BPisLoaded = 0
 
-CANNOT_DESTROY_ITEM_LIST = [27001,27002]
+CANNOT_DESTROY_ITEM_LIST = [160480,160481,160482,160483,160484,160485,160486,160487,80000]
 
 class GameWindow(ui.ScriptWindow):
 	def __init__(self, stream):
