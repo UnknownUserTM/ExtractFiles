@@ -131,6 +131,51 @@ ITEM_WITH_TEXT_NEW = [
 			["Ein Verlust wird nicht ersetzt!",grp.GenerateColor(1.0, 0.1882, 0.1882, 1.0)] # 255, 048, 048 (Rot)
 		]
 	],
+	[
+		[160480],[
+			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
+	[
+		[160481],[
+			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
+	[
+		[160482],[
+			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
+	[
+		[160483],[
+			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
+	[
+		[160484],[
+			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
+	[
+		[160485],[
+			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
+	[
+		[160486],[
+			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
+	[
+		[160487],[
+			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
+	[
+		[80000],[
+			["Dieser Gegenstand kann nicht zerstört werden!",grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
 ]
 QUESTBOOK_QUEST = [
 	[ # Leicht
