@@ -70,6 +70,7 @@ window = {
 					"default_image" : "d:/ymir work/ui/public/middle_button_01.sub",
 					"over_image" : "d:/ymir work/ui/public/middle_button_02.sub",
 					"down_image" : "d:/ymir work/ui/public/middle_button_03.sub",
+					"disable_image" : "d:/ymir work/ui/public/middle_button_03.sub",
 				},
 				{
 					"name" : "cancel",
