@@ -2769,3 +2769,11 @@
 79998	Kostüm verwandeln	Fügt auf einem Kostüm einen zufälligen Boni hinzu. Maximal können 3 Boni hinzugefügt werden.
 79999	Kostüm verzaubern	Ändert die Boni auf einem Kostüm.
 80000	Kostüm verzaubern(+)	Ändert einen ausgewählten Boni auf einem Kostüm.
+160480	Weißer Tau (Permanent)	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
+160481	Blauer Tau (Permanent)	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
+160482	Gelber Tau (Permanent)	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
+160483	Drachengott Angriff (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
+160484	Drachengott Verteidigung (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
+160485	Drachengott Leben (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
+160486	Kritischer Kampf (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
+160487	Durchbohrender Kampf (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.

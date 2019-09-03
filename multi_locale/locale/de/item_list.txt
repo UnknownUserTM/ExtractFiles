@@ -8160,3 +8160,11 @@
 79998	ETC	icon/item/79998.tga
 79999	ETC	icon/item/79999.tga
 80000	ETC	icon/item/80000.tga
+160480	ETC	icon/item/160480.tga
+160481	ETC	icon/item/160481.tga
+160482	ETC	icon/item/160482.tga
+160483	ETC	icon/item/160483.tga
+160484	ETC	icon/item/160484.tga
+160485	ETC	icon/item/160485.tga
+160486	ETC	icon/item/160486.tga
+160487	ETC	icon/item/160487.tga
