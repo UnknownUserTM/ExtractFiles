@@ -1,10 +1,11 @@
 TextureSet
 
-TextureCount 12
+TextureCount 13
+
 Start Texture001
-    "d:\ymir work\terrainmaps\wom\b_grass_01.dds"
-    2.000000
-    2.000000
+    "d:\ymir work\terrainmaps\b\grass\grass 01.dds"
+    9.000000
+    9.000000
     0.000000
     0.000000
     0
@@ -12,9 +13,9 @@ Start Texture001
     0
 End Texture001
 Start Texture002
-    "d:\ymir work\terrainmaps\b\grass\grass 02.dds"
-    3.000000
-    3.000000
+    "d:\ymir work\terrainmaps\b\grass\grass 01_02.dds"
+    9.000000
+    9.000000
     0.000000
     0.000000
     0
@@ -23,8 +24,8 @@ Start Texture002
 End Texture002
 Start Texture003
     "d:\ymir work\terrainmaps\b\grass\grass 03_05.dds"
-    8.000000
-    8.000000
+    9.000000
+    9.000000
     0.000000
     0.000000
     0
@@ -53,8 +54,8 @@ Start Texture005
 End Texture005
 Start Texture006
     "d:\ymir work\terrainmaps\b\tile\tile05.dds"
-    4.000000
-    4.000000
+    5.000000
+    5.000000
     0.000000
     0.000000
     0
@@ -83,8 +84,8 @@ Start Texture008
 End Texture008
 Start Texture009
     "d:\ymir work\terrainmaps\b\tile\tile06.dds"
-    5.000000
-    5.000000
+    7.000000
+    7.000000
     0.000000
     0.000000
     0
@@ -92,7 +93,7 @@ Start Texture009
     0
 End Texture009
 Start Texture010
-    "D:\ymir work\terrainmaps\b\stone\dc_rock_00.dds"
+    "d:\ymir work\terrainmaps\b\stone\dc_rock_00.dds"
     3.000000
     3.000000
     0.000000
@@ -102,7 +103,7 @@ Start Texture010
     0
 End Texture010
 Start Texture011
-    "D:\ymir work\terrainmaps\dungeon\devilcave\dc_grass_00.DDS"
+    "d:\ymir work\terrainmaps\dungeon\devilcave\dc_grass_00.dds"
     3.000000
     3.000000
     0.000000
@@ -112,7 +113,7 @@ Start Texture011
     0
 End Texture011
 Start Texture012
-    "D:\ymir work\terrainmaps\dungeon\devilcave\dc_spider_00.DDS"
+    "d:\ymir work\terrainmaps\dungeon\devilcave\dc_spider_00.dds"
     3.000000
     3.000000
     0.000000
@@ -121,12 +122,13 @@ Start Texture012
     0
     0
 End Texture012
-
-
-
-
-
-
-
-
-
+Start Texture013
+    "d:\ymir work\terrainmaps\dungeon\field 01.dds"
+    4.000000
+    4.000000
+    0.000000
+    0.000000
+    1
+    0
+    0
+End Texture013

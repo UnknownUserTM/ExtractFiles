@@ -2090,7 +2090,10 @@ class Interface(object):
 			return 1
 
 		return 0
-
+		
+	def SetLastGold(self, amount):
+		self.wndInventory.lastGold = amount
+		
 	def EmptyFunction(self):
 		pass
 

@@ -17,6 +17,8 @@ import localeInfo
 import exterminatus
 import uimainquest
 import uimultishop
+import settinginfo
+from uiGuild import MouseReflector
 
 GM_PANEL_DICT = {
 	"qid" : {},
@@ -38,8 +40,9 @@ class GMPanel(ui.ScriptWindow):
 	BUTTON_QUEST_TEXT_TOOL = 9
 	BUTTON_MULTISHOP_EDITOR = 10
 	BUTTON_BIOQUEST_MAKER = 11
+	BUTTON_ITEM_MAKER = 12
 	
-	BUTTON_MAX = 12
+	BUTTON_MAX = 13
 
 	gm_permission_list = []
 	
@@ -68,6 +71,8 @@ class GMPanel(ui.ScriptWindow):
 		self.multiShopEditor = uimultishop.MultiShopEditorWindow()
 		self.bioQuestMaker = BioQuestMaker(self.BUTTON_BIOQUEST_MAKER)
 		
+		self.itemMaker = ItemMakerWindow(self.BUTTON_ITEM_MAKER)
+		
 		self.GetChild("TitleBar").SetCloseEvent(self.Close)
 		self.gmPanelButtons = []
 		for i in xrange(self.BUTTON_MAX):
@@ -85,9 +90,13 @@ class GMPanel(ui.ScriptWindow):
 		self.gmPanelButtons[self.BUTTON_QUEST_TEXT_TOOL].SetEvent(self.ToggleQuestTextMaker)
 		self.gmPanelButtons[self.BUTTON_MULTISHOP_EDITOR].SetEvent(self.ToggleMultiShopEditor)
 		self.gmPanelButtons[self.BUTTON_BIOQUEST_MAKER].SetEvent(self.ToggleBioQuestMaker)
+		self.gmPanelButtons[self.BUTTON_ITEM_MAKER].SetEvent(self.ToggleItemMaker)
 		
 		# self.ActivateButton(self.BUTTON_INVINCIBILITY)
 		# self.InsertGMPermission(self.BUTTON_MULTISHOP_EDITOR)
+		
+		self.InsertGMPermission(self.BUTTON_ITEM_MAKER)
+		
 	def InsertGMPermission(self,permission):
 		# chat.AppendChat(chat.CHAT_TYPE_INFO, "InsertGMPermission : " + str(permission) + "!")
 		self.gm_permission_list.append(permission)
@@ -167,6 +176,9 @@ class GMPanel(ui.ScriptWindow):
 		
 	def ToggleBioQuestMaker(self):
 		self.bioQuestMaker.Open()
+		
+	def ToggleItemMaker(self):
+		self.itemMaker.Open()
 		
 class SupportWindow(ui.ScriptWindow):
 	
@@ -263,10 +275,7 @@ class SupportWindow(ui.ScriptWindow):
 			
 			else:
 				self.Clear()
-		
-		
-		
-		
+	
 class EventPanel(ui.ScriptWindow):
 
 	SYSTEM_INDEX = 0
@@ -585,7 +594,6 @@ class EventPanel(ui.ScriptWindow):
 	def Destroy(self):
 		self.__del__()	
 	
-
 class SystemManagePanel(ui.ScriptWindow):
 
 	SYSTEM_INDEX = 0
@@ -624,10 +632,7 @@ class SystemManagePanel(ui.ScriptWindow):
 		
 	def Destroy(self):
 		self.__del__()			
-		
-		
-		
-		
+	
 class RegenMaker(ui.ScriptWindow):
 
 	SYSTEM_INDEX = 0
@@ -732,8 +737,7 @@ class RegenMaker(ui.ScriptWindow):
 		
 	def Destroy(self):
 		self.__del__()
-		
-		
+			
 class BioQuestMaker(ui.ScriptWindow):
 
 	SYSTEM_INDEX = 0
@@ -772,166 +776,366 @@ class BioQuestMaker(ui.ScriptWindow):
 	def Destroy(self):
 		self.__del__()
 		
-		
-# class QuestMaker(ui.ScriptWindow):
+class ItemMakerWindow(ui.ScriptWindow):
 
-	# SYSTEM_INDEX = 0
-
-	# def __init__(self,systemIndex):
-		# ui.ScriptWindow.__init__(self)
-		# self.SYSTEM_INDEX = systemIndex
-		# self.LoadWindow()
-
-	# def __del__(self):
-		# ui.ScriptWindow.__del__(self)
-
-	# def LoadWindow(self):
-		# try:
-			# pyScrLoader = ui.PythonScriptLoader()
-			# pyScrLoader.LoadScriptFile(self, "exscript/questmaker.py")
-		# except:
-			# import exception
-			# exception.Abort("QuestMakerWindow.LoadWindow.LoadObject")
-		
-		# self.GetChild("TitleBar").SetCloseEvent(self.Close)
-		
-		# self.stateListBox = self.GetChild("stateListBox")
-		# self.stateScrollBar = self.GetChild("scrollBar")
-		# self.stateListBox.InsertItem(0,"start")
-		# self.stateListBox.InsertItem(1,"GOTO_QUESTMASTER")
-		# self.stateListBox.InsertItem(2,"KILL_WILDDOG")
-		# self.stateListBox.InsertItem(3,"BACK_TO_QUESTMASTER")
-		# self.stateListBox.InsertItem(4,"QUEST_COMPLETE")
-		
-	# def OnRunMouseWheel(self, nLen):
-		# if nLen > 0:
-			# self.stateScrollBar.OnUp()
-		# else:
-			# self.stateScrollBar.OnDown()		
-		
-	# def OnPressEscapeKey(self):
-		# self.Close()
-		# return True
-
-	# def Open(self):
-		# if self.IsShow():
-			# self.Close()
-		# else:
-			# self.Show()
-			
-	# def Close(self):
-		# self.Hide()
-		
-	# def Destroy(self):
-		# self.__del__()
-
-		
-# class QuestTextTool(ui.ScriptWindow):
-
-	# SYSTEM_INDEX = 0
+	class ItemMakerSocketItem(ui.ScriptWindow):
 	
-	# questText = []
+		SOCKET_TYPE_NONE = 0
+		SOCKET_TYPE_STONE = 1
+		SOCKET_TYPE_TIME = 2
+		SOCKET_TYPE_VALUE = 3
 
-	# def __init__(self,systemIndex):
-		# ui.ScriptWindow.__init__(self)
-		# self.SYSTEM_INDEX = systemIndex
-		# self.LoadWindow()
+		def __init__(self, wndItemMaker):
+			ui.ScriptWindow.__init__(self)
+			self.wndItemMaker = wndItemMaker
+			self.socketType = self.SOCKET_TYPE_NONE
+			self.socketNumber = 0
+			self.socketValue = 0
+			self.LoadWindow()
 
-	# def __del__(self):
-		# ui.ScriptWindow.__del__(self)
+		def __del__(self):
+			ui.ScriptWindow.__del__(self)
 
-	# def LoadWindow(self):
-		# try:
-			# pyScrLoader = ui.PythonScriptLoader()
-			# pyScrLoader.LoadScriptFile(self, "exscript/questtexttool.py")
-		# except:
-			# import exception
-			# exception.Abort("QuestTextTool.LoadWindow.LoadObject")
-		
-		# self.GetChild("TitleBar").SetCloseEvent(self.Close)
-		# self.board = self.GetChild("board")
-		# self.addButton = self.GetChild("addTextButton")
-		# self.saveButton = self.GetChild("SaveButton")
-		# self.clearAllButton = self.GetChild("ClearButton")
-		# self.clearLastButton = self.GetChild("BackButton")
-		
-		# self.addButton.SetEvent(self.AddText)
-		# self.saveButton.SetEvent(self.SaveText)
-		# self.clearAllButton.SetEvent(self.ClearAll)
-		# self.clearLastButton.SetEvent(self.ClearLast)
-		# self.clearLastButton.Disable()
-		# self.editLine = self.GetChild("questText_EditLine")
-		# self.editLine.SetReturnEvent(self.AddText)
-		# self.QuestPaper = uimainquest.QuestPaper(self)
-		# self.QuestPaper.SetParent(self.board)
-		# self.QuestPaper.SetPosition(0,30)
-		# self.QuestPaper.Show()
-
-		# self.QuestPaper.SetTitle("This is just decorative Title. Part VII")
-		# self.QuestPaper.questListBox.InsertTitleItem(localeInfo.QUEST_INTRO_DESCRIPTION_TITLE)
-		
-	# def AddText(self):
-		# text = self.editLine.GetText()
-		# if text == "":
-			# text = "[ENTER]"
-		# self.questText.append(text)
-		# self.editLine.SetText("")
-		# self.clearLastButton.Enable()
-		# self.Rebuild()
-		
-		
-	# def SaveText(self):
-		# saveString = ""
-		# for i in xrange(len(self.questText)):
-			# if self.questText[i] == "[ENTER]":
-				# saveString = saveString + "[ENTER]"
-			# else:
-				# saveString = saveString + self.questText[i] + "[ENTER]"
-
-		# fo = open("questtext.txt", "a")
-		# fo.write(saveString + "\n")
-		# fo.close()
-		# self.ClearAll()
-		# chat.AppendChat(chat.CHAT_TYPE_INFO,"Questext wurde in questtext.txt gespeichert. Du findest du Datei im Hauptverzeichnis.")
-		
-	# def ClearAll(self):
-		# self.questText = []
-		# self.QuestPaper.Clear()
-		# self.QuestPaper.SetTitle("This is just decorative Title. Part VII")
-		# self.QuestPaper.questListBox.InsertTitleItem(localeInfo.QUEST_INTRO_DESCRIPTION_TITLE)
-		# self.clearLastButton.Disable()
-		
-	# def ClearLast(self):
-		# index = len(self.questText) - 1
-		# del self.questText[index]
-		# self.Rebuild()
-		
-	# def Rebuild(self):
-		# self.QuestPaper.Clear()
-		# self.QuestPaper.SetTitle("This is just decorative Title. Part VII")
-		# self.QuestPaper.questListBox.InsertTitleItem(localeInfo.QUEST_INTRO_DESCRIPTION_TITLE)
-		# for i in xrange(len(self.questText)):
-			# self.QuestPaper.questListBox.InsertDescItem(self.questText[i])
-		
-		# if len(self.questText) == 0:
-			# self.clearLastButton.Disable()
-		# else:
-			# self.clearLastButton.Enable()
+		def LoadWindow(self):
+			try:
+				pyScrLoader = ui.PythonScriptLoader()
+				pyScrLoader.LoadScriptFile(self, "exscript/itemmaker_socketitem.py")
+			except:
+				import exception
+				exception.Abort("ItemMakerSocketItem.LoadWindow.LoadObject")
 			
-	# def OnPressEscapeKey(self):
-		# self.Close()
-		# return True
-
-	# def Open(self):
-		# if self.IsShow():
-			# self.Close()
-		# else:
-			# self.Show()
-			
-	# def Close(self):
-		# self.Hide()
+			self.background = self.GetChild("board")
+			self.textLine = self.GetChild("socketTextLine")
+			self.mouseReflector = MouseReflector(self.background)
+			self.mouseReflector.SetSize(350 - 30 + 20 - 20, 20)
+			self.mouseReflector.UpdateRect()	
+			self.UpdateTextLine()
 		
-	# def Destroy(self):
-		# self.__del__()	
+		def OnUpdate(self):
+			if self.background.IsIn():
+				self.mouseReflector.Show()
+			else:
+				self.mouseReflector.Hide()
+			
+			# self.UpdateTextLine()
+			
+		def UpdateTextLine(self):
+			if self.socketType == self.SOCKET_TYPE_NONE:
+				self.textLine.SetText("0")
+			elif self.socketType == self.SOCKET_TYPE_STONE:
+				item.SelectItem(self.socketValue)
+				self.textLine.SetText(item.GetItemName())
+			elif self.socketType == self.SOCKET_TYPE_TIME:
+				self.textLine.SetText("+ " + str(self.socketValue) + " Min.")
+			elif self.socketType == self.SOCKET_TYPE_VALUE:
+				self.textLine.SetText(str(self.socketValue))
+				
+				
+		def SetSocketType(self,type):
+			self.socketType = int(type)
+			self.UpdateTextLine()
+		
+		def SetSocketValue(self,value):
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(value))
+			self.socketValue = int(value)
+			self.UpdateTextLine()
+		
+		def SetSocketNumber(self,slot):
+			self.socketNumber = int(slot)
+			self.background.SetOnClickEvent(self.OnClick,slot)
+		
+		def OnClick(self,slot):
+			self.wndItemMaker.ShowSocketTypeSelectBoard(slot)
+		
+	class ItemMakerAttributeItem(ui.ScriptWindow):
+
+		def __init__(self, wndItemMaker):
+			ui.ScriptWindow.__init__(self)
+			self.wndItemMaker = wndItemMaker
+			self.attrNumber = 0
+			self.attrIndex = 0
+			self.attrValue = 0
+			self.LoadWindow()
+
+		def __del__(self):
+			ui.ScriptWindow.__del__(self)
+
+		def LoadWindow(self):
+			try:
+				pyScrLoader = ui.PythonScriptLoader()
+				pyScrLoader.LoadScriptFile(self, "exscript/itemmaker_attritem.py")
+			except:
+				import exception
+				exception.Abort("ItemMakerSocketItem.LoadWindow.LoadObject")
+			
+			self.background = self.GetChild("board")
+			self.attrBackground = self.GetChild("attrValueBoard")
+			self.attrIndexTextLine = self.GetChild("attrIndexTextLine")
+			self.attrValueTextLine = self.GetChild("attrValueTextLine")
+			
+			self.mouseReflector = MouseReflector(self.background)
+			self.mouseReflector.SetSize(350 - 30 + 20 - 20 - 60, 20)
+			self.mouseReflector.UpdateRect()			
+			
+			self.mouseReflector1 = MouseReflector(self.attrBackground)
+			self.mouseReflector1.SetSize(60, 20)
+			self.mouseReflector1.UpdateRect()	
+		
+		
+		def SetAttributeIndex(self,name,index):
+			self.attrIndexTextLine.SetText(name)
+			self.attrIndex = int(index)
+			
+		def SetAttributeValue(self,value):
+			self.attrValueTextLine.SetText(str(value))
+			self.attrValue = int(value)			
+		
+		def SetAttributeNumber(self,slot):
+			self.attrNumber = int(slot)
+			self.background.SetOnClickEvent(self.OnClick,slot)
+		
+		def OnClick(self,slot):
+			self.wndItemMaker.ShowAttributeSelectBoard(slot)
+			
+		def OnUpdate(self):
+			if self.background.IsIn():
+				self.mouseReflector.Show()
+			else:
+				self.mouseReflector.Hide()
+				
+			if self.attrBackground.IsIn():
+				self.mouseReflector1.Show()
+			else:
+				self.mouseReflector1.Hide()				
+				
+	
+	SOCKET_TYPE_NONE = 0
+	SOCKET_TYPE_STONE = 1
+	SOCKET_TYPE_TIME = 2
+	SOCKET_TYPE_VALUE = 3
+	
+	STONE_LIST = [28430,28431,28432,28433,28434,28435,28436,28437,28438,28439,28440,28441,28442,28443]
+		
+	def __init__(self,systemIndex):
+		ui.ScriptWindow.__init__(self)
+		self.SYSTEM_INDEX = systemIndex
+		self.socketItemList = {}
+		self.attrItemList = {}
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/itemmaker.py")
+		except:
+			import exception
+			exception.Abort("SystemPanelWindow.LoadWindow.LoadObject")
+		
+		self.GetChild("TitleBar").SetCloseEvent(self.Close)
+		
+		self.background = self.GetChild("itemMakerBackground")
+		
+		self.vnumInputEditLine = self.GetChild("vnumInputEditLine")
+		self.ItemNameTextLine = self.GetChild("itemVnumInfoTextLine")
+		self.socketTypeSelectBoard = self.GetChild("socketTypeSelectBoard")
+		self.socketTypeSelectBoard.Hide()
+		
+		self.socketTypeSelectButtonStone = self.GetChild("socket_ghostStoneButton")
+		self.socketTypeSelectButtonTime = self.GetChild("socket_timeButton")
+		self.socketTypeSelectButtonValue = self.GetChild("socket_valueButton")
+		self.socketTypeSelectButtonClose = self.GetChild("socket_closeButton")
+		
+		self.socketTypeSelectButtonStone.SetEvent(self.SetSocketType,self.SOCKET_TYPE_STONE)
+		self.socketTypeSelectButtonTime.SetEvent(self.SetSocketType,self.SOCKET_TYPE_TIME)
+		self.socketTypeSelectButtonValue.SetEvent(self.SetSocketType,self.SOCKET_TYPE_VALUE)
+		self.socketTypeSelectButtonClose.SetEvent(self.CloseSocketTypeSelectBoard)
+		
+		
+		self.stoneVnumSelectBoard = self.GetChild("socketVnumSelectBoard")
+		self.stoneVnumCloseButton = self.GetChild("socket_vnumCloseButton")
+		self.stoneVnumAddButton = self.GetChild("socket_AddButton")
+		self.stoneVnumCloseButton.SetEvent(self.CloseStoneVnumSelectBoard)
+		self.stoneVnumAddButton.SetEvent(self.AddStoneToSocket)
+		
+		self.stoneVnumSelectBoard.Hide()
+		self.stoneListBox = self.GetChild("stoneListBox")
+		self.stoneListBoxScrollBar = self.GetChild("stoneListBoxScrollBar")
+		self.stoneListBoxScrollBar.SetScrollEvent(ui.__mem_func__(self.OnStoneListScroll))
+		self.InitStoneListBox()
+		
+		
+		self.socketTimeBoard = self.GetChild("socketTimeBoard")
+		self.socketTimeBoard.Hide()
+		self.socketTimeEditLine = self.GetChild("socketTimeEditLine")
+		self.socketTimeAddButton = self.GetChild("socket_addTimeButton")
+		self.socketTimeCloseButton = self.GetChild("socket_closeTimeButton")
+
+		self.socketTimeAddButton.SetEvent(self.AddTimeToSocket)
+		self.socketTimeCloseButton.SetEvent(self.CloseSocketTimeBoard)
+
+
+
+		self.socketValueBoard = self.GetChild("socketValueBoard")
+		self.socketValueBoard.Hide()
+		self.socketValueEditLine = self.GetChild("socketValueEditLine")
+		self.socketValueAddButton = self.GetChild("socket_addValueButton")
+		self.socketValueCloseButton = self.GetChild("socket_closeValueButton")
+
+		self.socketValueAddButton.SetEvent(self.AddValueToSocket)
+		self.socketValueCloseButton.SetEvent(self.CloseSocketValueBoard)
+		
+		
+		self.attrBoard = self.GetChild("attributeSelectBoard")
+		self.attrBoard.Hide()
+		self.attrListBox = self.GetChild("attrListBox")
+		
+		self.attrListBoxScrollBar = self.GetChild("attrListBoxScrollBar")
+		self.attrListBoxScrollBar.SetScrollEvent(ui.__mem_func__(self.OnAttrListScroll))
+		self.InitAttrListBox()
+		
+		self.attrAddButton = self.GetChild("attr_AddButton")
+		self.attrCloseButton = self.GetChild("attr_CloseButton")
+		
+		self.attrAddButton.SetEvent(self.AddAttr)
+		self.attrCloseButton.SetEvent(self.CloseAttrBoard)
+		
+		y = 52
+		for i in xrange(6):	
+			self.socketItemList[i] = self.ItemMakerSocketItem(self)
+			self.socketItemList[i].SetParent(self.background)
+			self.socketItemList[i].SetPosition(10,y)
+			self.socketItemList[i].SetSocketNumber(i)
+			self.socketItemList[i].Show()
+			y = y + 22
+
+
+		y = 22 + 4 + 180 -18 + 24
+		for i in xrange(7):	
+			self.attrItemList[i] = self.ItemMakerAttributeItem(self)
+			self.attrItemList[i].SetParent(self.background)
+			self.attrItemList[i].SetPosition(10,y)
+			self.attrItemList[i].SetAttributeNumber(i)
+			self.attrItemList[i].Show()
+			y = y + 22
+	
+	def InitStoneListBox(self):
+		for i in xrange(len(self.STONE_LIST)):
+			item.SelectItem(self.STONE_LIST[i])
+			self.stoneListBox.InsertItem(i,item.GetItemName())
+			
+	def InitAttrListBox(self):
+		bonusList = settinginfo.Switchbot_BonusList
+		for i in xrange(len(bonusList)):
+			self.attrListBox.InsertItem(i,bonusList[i][0][1])
+		
+
+	def OnStoneListScroll(self):
+		viewItemCount = self.stoneListBox.GetViewItemCount()
+		itemCount = self.stoneListBox.GetItemCount()
+		pos = self.stoneListBoxScrollBar.GetPos() * (itemCount - viewItemCount)
+		self.stoneListBox.SetBasePos(int(pos))	
+
+	def OnAttrListScroll(self):
+		viewItemCount = self.attrListBox.GetViewItemCount()
+		itemCount = self.attrListBox.GetItemCount()
+		pos = self.attrListBoxScrollBar.GetPos() * (itemCount - viewItemCount)
+		self.attrListBox.SetBasePos(int(pos))	
+
+			
+	def ShowSocketTypeSelectBoard(self,slot):
+		self.currentSocketSlot = slot
+		self.socketTypeSelectBoard.Show()
+		
+	def ShowAttributeSelectBoard(self,slot):
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"ShowAttributeSelectBoard")
+		self.currentSocketSlot = slot
+		self.attrBoard.Show()
+		
+	def SetSocketType(self,type):
+		self.socketItemList[self.currentSocketSlot].SetSocketType(type)
+		
+		if type == self.SOCKET_TYPE_STONE:
+			self.stoneVnumSelectBoard.Show()
+		elif type == self.SOCKET_TYPE_TIME:
+			self.socketTimeBoard.Show()
+		elif type == self.SOCKET_TYPE_VALUE:
+			self.socketValueBoard.Show()
+			
+		self.CloseSocketTypeSelectBoard()
+	
+	def CloseStoneVnumSelectBoard(self):
+		self.stoneVnumSelectBoard.Hide()
+		self.socketItemList[self.currentSocketSlot].SetSocketType(self.SOCKET_TYPE_NONE)
+		
+	def AddStoneToSocket(self):
+		self.stoneVnumSelectBoard.Hide()
+		self.socketItemList[self.currentSocketSlot].SetSocketValue(self.STONE_LIST[self.stoneListBox.GetSelectedItem()])
+	
+		
+	def CloseSocketTypeSelectBoard(self):
+		self.socketTypeSelectBoard.Hide()
+		
+	
+	def CloseSocketTimeBoard(self):
+		self.socketTimeBoard.Hide()
+		self.socketItemList[self.currentSocketSlot].SetSocketType(self.SOCKET_TYPE_NONE)
+		
+	def AddTimeToSocket(self):
+		self.socketTimeBoard.Hide()
+		self.socketItemList[self.currentSocketSlot].SetSocketValue(int(self.socketTimeEditLine.GetText()))
+
+
+	def CloseSocketValueBoard(self):
+		self.socketValueBoard.Hide()
+		self.socketItemList[self.currentSocketSlot].SetSocketType(self.SOCKET_TYPE_NONE)
+		
+	def AddValueToSocket(self):
+		self.socketValueBoard.Hide()
+		self.socketItemList[self.currentSocketSlot].SetSocketValue(int(self.socketValueEditLine.GetText()))
+	
+	
+	
+	def CloseAttrBoard(self):
+		self.attrBoard.Hide()
+		
+		
+	def AddAttr(self):
+		self.attrBoard.Hide()
+		attrListIndex = self.attrListBox.GetSelectedItem()
+		bonusList = settinginfo.Switchbot_BonusList
+		self.attrItemList[self.currentSocketSlot].SetAttributeIndex(bonusList[attrListIndex][0][1],bonusList[attrListIndex][0][0])
+		valueList = len(bonusList[attrListIndex][2]) - 1
+		value = bonusList[attrListIndex][2][valueList]
+		self.attrItemList[self.currentSocketSlot].SetAttributeValue(value)
+		
+	def OnUpdate(self):
+		self.CheckForItemName()
+		
+		
+	def CheckForItemName(self):
+		try:
+			vnum = int(self.vnumInputEditLine.GetText())
+			item.SelectItem(vnum)
+			self.ItemNameTextLine.SetText(item.GetItemName())	
+		except:
+			self.ItemNameTextLine.SetText("No item found...")	
+	def OnPressEscapeKey(self):
+		self.Close()
+		return True
+
+	def Open(self):
+		if self.IsShow():
+			self.Close()
+		else:
+			self.Show()
+			
+	def Close(self):
+		self.Hide()
+		
+	def Destroy(self):
+		self.__del__()	
 
 		

@@ -1120,6 +1120,11 @@ class GameWindow(ui.ScriptWindow):
 		self.interface.RecvWhisper(name)
 
 	def OnPickMoney(self, money):
+		#########################################
+		## Yang Refresh
+		oldGold = player.GetElk() - money
+		self.interface.SetLastGold(oldGold)
+		#########################################
 		if constInfo.YangChatStatus == 0:
 			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.GAME_PICK_MONEY % (money))
 

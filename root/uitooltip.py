@@ -1053,12 +1053,13 @@ class ItemToolTip(ToolTip):
 				x = i + 1
 				self.AppendTextLine(str(x) + ". Bonus: Leer", self.NEGATIVE_COLOR)
 			else:
+				x = i + 1
 				affectString = self.__GetAffectString(attrSlot[i][0],attrSlot[i][1])
 				if attrSlot[i][1] <= 0:
-					self.AppendTextLine(str(x) + ". Bonus: " + affectString, self.NEGATIVE_COLOR)
+					self.AppendTextLine(affectString, self.NEGATIVE_COLOR)
 				
 				else:
-					self.AppendTextLine(str(x) + ". Bonus: " + affectString, self.NEGATIVE_COLOR)
+					self.AppendTextLine(affectString, self.POSITIVE_COLOR)
 				
 				
 				

@@ -150,11 +150,12 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		COLOR_NEGATIVE	= grp.GenerateColor(1.0, 0.0, 0.0, 0.3)
 		COLOR_POSITIVE	= grp.GenerateColor(0.0, 1.0, 0.0, 0.2)
 		
-		def __init__(self, wndAttributeSwitcher):
+		def __init__(self, wndAttributeSwitcher, attrSlot):
 			ui.ScriptWindow.__init__(self)
 			self.wndAttributeSwitcher = wndAttributeSwitcher
 			self.attributeIndex = 0
 			self.attributeValue = 0
+			self.attrSlot = attrSlot
 			self.LoadWindow()
 
 		def __del__(self):
@@ -175,23 +176,50 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 			self.pointArrow.Hide()
 			
 			self.background = self.GetChild("board")
+			self.background.SetOnClickEvent(self.UseSpecialSwitcher)
 			self.addBonusBar = self.GetChild("addBonusBar")
 			self.addBonusBar.SetColor(self.COLOR_POSITIVE)
 			self.addBonusBar.SetOnClickEvent(self.AddBonus)
 			self.addBonusBar.Hide()
+			
+			self.attributeIndexTextLine = self.GetChild("bonusTitleTextLine")
+			self.attributeValueTextLine = self.GetChild("bonusValueTextLine")
+			
 			self.mouseReflector = MouseReflector(self.background)
 			self.mouseReflector.SetSize(290-24, 22)
 			self.mouseReflector.UpdateRect()	
 		
 		def AddBonus(self):
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"addBonus CLICK!")
-		
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"addBonus CLICK!")
+			
+			constInfo.INPUT_CMD = "add#" + str(self.wndAttributeSwitcher.costumeSlotPosition) + "#" + str(self.attrSlot)
+			event.QuestButtonClick(self.wndAttributeSwitcher.qid)
+			
+		def UseSpecialSwitcher(self):
+			if self.wndAttributeSwitcher.isSpecialSwitchMode:
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"ChangeBonus CLICK!")
+				constInfo.INPUT_CMD = "change_s#" + str(self.wndAttributeSwitcher.costumeSlotPosition) + "#" + str(self.attrSlot)
+				event.QuestButtonClick(self.wndAttributeSwitcher.qid)
+				
 		def AddYToArrowPosition(self,y):
 			self.pointArrow.SetPosition(((290-24)/2) + y,-20)
 		
 		def AddAttributeInformation(self,index,value):
 			self.attributeIndex = index
-			self.attributeValue = value			
+			self.attributeValue = value	
+			
+			if index == 0:
+				self.attributeIndexTextLine.SetText("Kein Bonus")
+				
+			else:
+				try:
+					self.attributeIndexTextLine.SetText(str(self.wndAttributeSwitcher.ATTRIBUTE_NAME_LIST[index]))
+					
+				except:
+					self.attributeIndexTextLine.SetText("NO_ATTR_NAME_FOR:" + str(index))
+				
+				
+			self.attributeValueTextLine.SetText(str(value))
 
 		def OnUpdate(self):
 			if mouseModule.mouseController.isAttached():
@@ -229,6 +257,17 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 	SPECIAL_SWITCHER	= 80000
 	
 	COSTUME_SLOT = 199
+	
+	
+	ATTRIBUTE_NAME_LIST = {
+		
+		12 : "Vergiftungschance",
+		13 : "Ohnmachtschance",
+		14 : "Verlangsamungschance",
+		15 : "Chance auf krit. Treffer",
+		16 : "Chance auf durchbohrenden Treffer",
+		17 : "Stark gegen Halbmenschen",
+	}
 	
 	def __init__(self, wndInventory):
 		ui.ScriptWindow.__init__(self)
@@ -272,6 +311,7 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		self.costumeSwitcherSlot.SetOverInItemEvent(ui.__mem_func__(self.ShowSwitcherToolTip))  
 		self.costumeSwitcherSlot.SetOverOutItemEvent(ui.__mem_func__(self.HideSwitcherToolTip)) 	
 		self.costumeSwitcherSlot.SetSlotBaseImage("icon/item/" + str(self.NORMAL_SWITCHER) + ".tga", 1.0, 1.0, 1.0, 0.5)	
+		self.costumeSwitcherSlot.SetSelectItemSlotEvent(ui.__mem_func__(self.DoNormalSwitch)) 
 		self.costumeSwitcherSlot.ShowSlotBaseImage(0)
 		
 		self.costumeSpecialSwitcherSlot = self.GetChild("specialCostumeSwitcherSlot")
@@ -285,19 +325,19 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		
 		self.bonusSlot = {}
 		
-		self.bonusSlot[0] = self.CostumeAttributeItem(self)
+		self.bonusSlot[0] = self.CostumeAttributeItem(self, 0)
 		self.bonusSlot[0].SetParent(self.bonusBackground)
 		self.bonusSlot[0].SetPosition(12,35)
 		self.bonusSlot[0].AddYToArrowPosition(15)
 		self.bonusSlot[0].Show()
 
-		self.bonusSlot[1] = self.CostumeAttributeItem(self)
+		self.bonusSlot[1] = self.CostumeAttributeItem(self, 1)
 		self.bonusSlot[1].SetParent(self.bonusBackground)
 		self.bonusSlot[1].SetPosition(12,35 + 30)
 		self.bonusSlot[1].AddYToArrowPosition(15 + 20)
 		self.bonusSlot[1].Show()
 		
-		self.bonusSlot[2] = self.CostumeAttributeItem(self)
+		self.bonusSlot[2] = self.CostumeAttributeItem(self, 2)
 		self.bonusSlot[2].SetParent(self.bonusBackground)
 		self.bonusSlot[2].SetPosition(12,35 + 30 + 30)
 		self.bonusSlot[2].AddYToArrowPosition(15 + 20 + 20)
@@ -305,12 +345,22 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 
 		self.Open()
 	
+	def DoNormalSwitch(self,slot):
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Hallo? Ist da jemand?")
+		constInfo.INPUT_CMD = "change_n#" + str(self.costumeSlotPosition) + "#0"
+		event.QuestButtonClick(self.qid)		
+	
 	def ToggleSpecialSwitcher(self,slot):
 		if self.isSpecialSwitchMode:
 			self.isSpecialSwitchMode = False
 			self.costumeSpecialSwitcherSlot.DeactivateSlot(0)
 			
 		elif not self.isSpecialSwitchMode:
+			count, s_count = self.CountCostumeSwitcher()
+			if s_count == 0:
+				chat.AppendChat(chat.CHAT_TYPE_INFO,"Du besitzt keine Special-Switcher!")
+				return
+				
 			self.isSpecialSwitchMode = True
 			self.costumeSpecialSwitcherSlot.ActivateSlot(0)
 	
@@ -329,9 +379,21 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 
 		if s_count == 0:	
 			self.costumeSpecialSwitcherSlot.SetItemSlot(0,0,0)
+			
+			if self.isSpecialSwitchMode:
+				self.isSpecialSwitchMode = False
+				self.costumeSpecialSwitcherSlot.DeactivateSlot(0)				
+			
 		else:
 			self.costumeSpecialSwitcherSlot.SetItemSlot(0,self.SPECIAL_SWITCHER,s_count)
-
+		
+		
+		
+		tempAttrList = [player.GetItemAttribute(self.costumeSlotPosition, i) for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM)]
+		
+		self.bonusSlot[0].AddAttributeInformation(tempAttrList[0][0],tempAttrList[0][1])
+		self.bonusSlot[1].AddAttributeInformation(tempAttrList[1][0],tempAttrList[1][1])
+		self.bonusSlot[2].AddAttributeInformation(tempAttrList[2][0],tempAttrList[2][1])
 
 	def CountCostumeSwitcher(self):
 		count = 0
@@ -372,7 +434,10 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 
 	def ShowSpecialSwitcherToolTip(self,slot):
 		self.costumeSpecialSwitcherToolTip.ClearToolTip()	
-		self.costumeSpecialSwitcherToolTip.AddItemData(self.NORMAL_SWITCHER, [0,0,0,0,0,0])	
+		self.costumeSpecialSwitcherToolTip.AddItemData(self.SPECIAL_SWITCHER, [0,0,0,0,0,0])
+		self.costumeSpecialSwitcherToolTip.AppendTextLine("[Hinweis]",self.costumeSwitcherToolTip.TITLE_COLOR)
+		self.costumeSpecialSwitcherToolTip.AppendDescription("Nutze rechtsklick um den Spezial-Switcher zu aktivieren, und wahle dann rechts einen der 3 Boni aus. Es wird nur der ausgewahlte Boni geswitcht, alle anderen bleiben bestehen.", 25)
+		self.costumeSpecialSwitcherToolTip.AppendHorizontalLine()
 		self.costumeSpecialSwitcherToolTip.AppendTextLine("|Eemoji/key_rclick|e - Aktivieren",self.costumeSpecialSwitcherToolTip.NORMAL_COLOR)
 		self.costumeSpecialSwitcherToolTip.AppendHorizontalLine()
 		self.costumeSpecialSwitcherToolTip.ShowToolTip()
@@ -404,10 +469,10 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		
 		# self.wndInventory.wndItem.LockSlot(slot)
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"costumeSocketList : " + str(len(self.costumeSocketList)))
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"costumeAttributeList : " + str(len(self.costumeAttributeList)))
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"socket0: " + str(player.GetItemMetinSocket(slot,0)))
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"slot: " + str(slot))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"costumeSocketList : " + str(len(self.costumeSocketList)))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"costumeAttributeList : " + str(len(self.costumeAttributeList)))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"socket0: " + str(player.GetItemMetinSocket(slot,0)))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"slot: " + str(slot))
 		
 		self.Open()
 		return
@@ -1088,6 +1153,7 @@ class InventoryWindow(ui.ScriptWindow):
 	questionDialog = None
 	tooltipItem = None
 	wndCostume = None
+	lastGold = None
 	wndBelt = None
 	dlgPickMoney = None
 	dlgCreateGoldSafe = None
@@ -1430,6 +1496,7 @@ class InventoryWindow(ui.ScriptWindow):
 		self.costumeAttributeChange = 0
 
 		self.tooltipItem = None
+		self.lastGold = None
 		self.wndItem = 0
 		self.wndEquip = 0
 		self.dlgPickMoney = 0
@@ -1687,8 +1754,26 @@ class InventoryWindow(ui.ScriptWindow):
 	
 	def RefreshStatus(self):
 		import systemSetting
+		
+		
+		# iLastGold    = self.lastGold
+		# iGoldNow    = player.GetElk()
+		# gIncrease    = 1 if (not (iGoldNow - iLastGold) / 10000 > 0) else 10000
+		# for goldLoop in range(iLastGold, iGoldNow + 1, gIncrease):
+			# goldLoop    = goldLoop
+			# iGoldNow    = iGoldNow
+			# self.wndMoney.SetText(localeInfo.NumberToMoneyString(goldLoop))
+			# if (goldLoop == iGoldNow): break
+		# self.wndMoney.SetText(localeInfo.NumberToMoneyString(iGoldNow))		
+		
+		
+		# ## OLD MONEY DIALOG
 		money = player.GetElk()
 		self.wndMoney.SetText(localeInfo.NumberToMoneyString(money))
+		
+		
+		
+		
 		self.wndAps.SetText(str(constInfo.aps) + " AP's")
 		
 		# if player.GetStatus(player.LEVEL) >= 35:
