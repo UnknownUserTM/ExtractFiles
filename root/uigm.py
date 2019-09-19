@@ -39,10 +39,9 @@ class GMPanel(ui.ScriptWindow):
 	BUTTON_QUEST = 8
 	BUTTON_QUEST_TEXT_TOOL = 9
 	BUTTON_MULTISHOP_EDITOR = 10
-	BUTTON_BIOQUEST_MAKER = 11
-	BUTTON_ITEM_MAKER = 12
+	BUTTON_ITEM_MAKER = 11
 	
-	BUTTON_MAX = 13
+	BUTTON_MAX = 12
 
 	gm_permission_list = []
 	
@@ -69,7 +68,6 @@ class GMPanel(ui.ScriptWindow):
 		self.questMaker = uimainquest.QuestMaker(self.BUTTON_QUEST)
 		self.questTextMaker = uimainquest.QuestTextTool(self.BUTTON_QUEST_TEXT_TOOL)
 		self.multiShopEditor = uimultishop.MultiShopEditorWindow()
-		self.bioQuestMaker = BioQuestMaker(self.BUTTON_BIOQUEST_MAKER)
 		
 		self.itemMaker = ItemMakerWindow(self.BUTTON_ITEM_MAKER)
 		
@@ -89,13 +87,12 @@ class GMPanel(ui.ScriptWindow):
 		self.gmPanelButtons[self.BUTTON_QUEST].SetEvent(self.ToggleQuestMaker)
 		self.gmPanelButtons[self.BUTTON_QUEST_TEXT_TOOL].SetEvent(self.ToggleQuestTextMaker)
 		self.gmPanelButtons[self.BUTTON_MULTISHOP_EDITOR].SetEvent(self.ToggleMultiShopEditor)
-		self.gmPanelButtons[self.BUTTON_BIOQUEST_MAKER].SetEvent(self.ToggleBioQuestMaker)
 		self.gmPanelButtons[self.BUTTON_ITEM_MAKER].SetEvent(self.ToggleItemMaker)
 		
 		# self.ActivateButton(self.BUTTON_INVINCIBILITY)
 		# self.InsertGMPermission(self.BUTTON_MULTISHOP_EDITOR)
 		
-		self.InsertGMPermission(self.BUTTON_ITEM_MAKER)
+		# self.InsertGMPermission(self.BUTTON_ITEM_MAKER)
 		
 	def InsertGMPermission(self,permission):
 		# chat.AppendChat(chat.CHAT_TYPE_INFO, "InsertGMPermission : " + str(permission) + "!")
@@ -173,9 +170,6 @@ class GMPanel(ui.ScriptWindow):
 		
 	def ToggleMultiShopEditor(self):
 		self.multiShopEditor.Open()
-		
-	def ToggleBioQuestMaker(self):
-		self.bioQuestMaker.Open()
 		
 	def ToggleItemMaker(self):
 		self.itemMaker.Open()
@@ -893,9 +887,13 @@ class ItemMakerWindow(ui.ScriptWindow):
 		def SetAttributeNumber(self,slot):
 			self.attrNumber = int(slot)
 			self.background.SetOnClickEvent(self.OnClick,slot)
+			self.attrBackground.SetOnClickEvent(self.OnClick2,slot)
 		
 		def OnClick(self,slot):
 			self.wndItemMaker.ShowAttributeSelectBoard(slot)
+
+		def OnClick2(self,slot):
+			self.wndItemMaker.ShowAttributeValueChangeBoard(slot)
 			
 		def OnUpdate(self):
 			if self.background.IsIn():
@@ -921,6 +919,7 @@ class ItemMakerWindow(ui.ScriptWindow):
 		self.SYSTEM_INDEX = systemIndex
 		self.socketItemList = {}
 		self.attrItemList = {}
+		self.is67attrList = False
 		self.LoadWindow()
 
 	def __del__(self):
@@ -965,8 +964,7 @@ class ItemMakerWindow(ui.ScriptWindow):
 		self.stoneListBoxScrollBar = self.GetChild("stoneListBoxScrollBar")
 		self.stoneListBoxScrollBar.SetScrollEvent(ui.__mem_func__(self.OnStoneListScroll))
 		self.InitStoneListBox()
-		
-		
+
 		self.socketTimeBoard = self.GetChild("socketTimeBoard")
 		self.socketTimeBoard.Hide()
 		self.socketTimeEditLine = self.GetChild("socketTimeEditLine")
@@ -975,8 +973,6 @@ class ItemMakerWindow(ui.ScriptWindow):
 
 		self.socketTimeAddButton.SetEvent(self.AddTimeToSocket)
 		self.socketTimeCloseButton.SetEvent(self.CloseSocketTimeBoard)
-
-
 
 		self.socketValueBoard = self.GetChild("socketValueBoard")
 		self.socketValueBoard.Hide()
@@ -992,6 +988,7 @@ class ItemMakerWindow(ui.ScriptWindow):
 		self.attrBoard.Hide()
 		self.attrListBox = self.GetChild("attrListBox")
 		
+		self.attrListBoxBackground = self.GetChild("attrListBoxBackground")
 		self.attrListBoxScrollBar = self.GetChild("attrListBoxScrollBar")
 		self.attrListBoxScrollBar.SetScrollEvent(ui.__mem_func__(self.OnAttrListScroll))
 		self.InitAttrListBox()
@@ -1001,6 +998,35 @@ class ItemMakerWindow(ui.ScriptWindow):
 		
 		self.attrAddButton.SetEvent(self.AddAttr)
 		self.attrCloseButton.SetEvent(self.CloseAttrBoard)
+		
+		self.specialAttrListBoxBackground = self.GetChild("specialAttrListBoxBackground")
+		self.specialAttrListBox = self.GetChild("specialAttrListBox")
+		self.specialAttrListBoxScrollBar = self.GetChild("specialAttrListBoxScrollBar")
+		self.specialAttrListBoxScrollBar.SetScrollEvent(ui.__mem_func__(self.OnSpecialAttrListScroll))
+		self.InitSpecialAttrListBox()
+		self.specialAttrListBoxBackground.Hide()
+		
+		self.switchTo67Button = self.GetChild("attr_SwitchTo67AttrButton")
+		self.backTo15Button = self.GetChild("attr_BackTo15AttrButton")
+		
+		self.backTo15Button.Hide()
+
+		self.switchTo67Button.SetEvent(self.OnSwitchTo67List)
+		self.backTo15Button.SetEvent(self.BackTo15List)
+		
+		
+		self.changeAttrValueBoard = self.GetChild("attrChangeValueBoard")
+		self.changeAttrEditLine = self.GetChild("attrChangeEditLine")
+		self.changeAttrButton = self.GetChild("attrChange_addValueButton")
+		self.changeAttrCloseButton = self.GetChild("attrChange_closeValueButton")
+		
+		self.changeAttrValueBoard.Hide()
+		
+		self.changeAttrButton.SetEvent(self.ChangeAttrValue)
+		self.changeAttrCloseButton.SetEvent(self.CloseAttributeValueChangeBoard)
+		
+		self.makeItemButton = self.GetChild("makeItemButton")
+		self.makeItemButton.SetEvent(self.MakeItem)
 		
 		y = 52
 		for i in xrange(6):	
@@ -1030,7 +1056,11 @@ class ItemMakerWindow(ui.ScriptWindow):
 		bonusList = settinginfo.Switchbot_BonusList
 		for i in xrange(len(bonusList)):
 			self.attrListBox.InsertItem(i,bonusList[i][0][1])
-		
+
+	def InitSpecialAttrListBox(self):
+		bonusList = settinginfo.ItemMaker_BonusList67
+		for i in xrange(len(bonusList)):
+			self.specialAttrListBox.InsertItem(i,bonusList[i][0][1])		
 
 	def OnStoneListScroll(self):
 		viewItemCount = self.stoneListBox.GetViewItemCount()
@@ -1044,6 +1074,25 @@ class ItemMakerWindow(ui.ScriptWindow):
 		pos = self.attrListBoxScrollBar.GetPos() * (itemCount - viewItemCount)
 		self.attrListBox.SetBasePos(int(pos))	
 
+	def OnSpecialAttrListScroll(self):
+		viewItemCount = self.specialAttrListBox.GetViewItemCount()
+		itemCount = self.specialAttrListBox.GetItemCount()
+		pos = self.specialAttrListBoxScrollBar.GetPos() * (itemCount - viewItemCount)
+		self.specialAttrListBox.SetBasePos(int(pos))
+
+	def OnSwitchTo67List(self):
+		self.attrListBoxBackground.Hide()
+		self.specialAttrListBoxBackground.Show()
+		self.switchTo67Button.Hide()
+		self.backTo15Button.Show()
+		self.is67attrList = True
+
+	def BackTo15List(self):
+		self.attrListBoxBackground.Show()
+		self.specialAttrListBoxBackground.Hide()
+		self.switchTo67Button.Show()
+		self.backTo15Button.Hide()
+		self.is67attrList = False
 			
 	def ShowSocketTypeSelectBoard(self,slot):
 		self.currentSocketSlot = slot
@@ -1053,6 +1102,17 @@ class ItemMakerWindow(ui.ScriptWindow):
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"ShowAttributeSelectBoard")
 		self.currentSocketSlot = slot
 		self.attrBoard.Show()
+		
+	def ShowAttributeValueChangeBoard(self,slot):
+		self.currentSocketSlot = slot
+		self.changeAttrValueBoard.Show()
+		
+	def CloseAttributeValueChangeBoard(self):
+		self.changeAttrValueBoard.Hide()
+		
+	def ChangeAttrValue(self):
+		self.changeAttrValueBoard.Hide()
+		self.attrItemList[self.currentSocketSlot].SetAttributeValue(self.changeAttrEditLine.GetText())
 		
 	def SetSocketType(self,type):
 		self.socketItemList[self.currentSocketSlot].SetSocketType(type)
@@ -1104,16 +1164,44 @@ class ItemMakerWindow(ui.ScriptWindow):
 		
 	def AddAttr(self):
 		self.attrBoard.Hide()
-		attrListIndex = self.attrListBox.GetSelectedItem()
-		bonusList = settinginfo.Switchbot_BonusList
+		
+		
+		if self.is67attrList == False:
+			attrListIndex = self.attrListBox.GetSelectedItem()
+			bonusList = settinginfo.Switchbot_BonusList
+		else:
+			attrListIndex = self.specialAttrListBox.GetSelectedItem()
+			bonusList = settinginfo.ItemMaker_BonusList67
 		self.attrItemList[self.currentSocketSlot].SetAttributeIndex(bonusList[attrListIndex][0][1],bonusList[attrListIndex][0][0])
 		valueList = len(bonusList[attrListIndex][2]) - 1
 		value = bonusList[attrListIndex][2][valueList]
 		self.attrItemList[self.currentSocketSlot].SetAttributeValue(value)
+	
+	
+	def MakeItem(self):
+		makeItemString = str(self.vnumInputEditLine.GetText()) + "#"
 		
+		for i in xrange(6):
+			type = self.socketItemList[i].socketType
+			if type == self.SOCKET_TYPE_TIME:
+				value = (self.socketItemList[i].socketValue*60) + app.GetGlobalTimeStamp()
+			else:
+				value = self.socketItemList[i].socketValue
+			makeItemString = makeItemString + str(value) + "#"
+	
+		for i in xrange(7):
+			index = self.attrItemList[i].attrIndex
+			value = self.attrItemList[i].attrValue
+			merge = str(index) + "/" + str(value)
+			
+			makeItemString = makeItemString + str(merge) + "#"
+		
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,makeItemString)
+		constInfo.INPUT_CMD = makeItemString
+		event.QuestButtonClick(GM_PANEL_DICT["qid"][self.SYSTEM_INDEX])
+
 	def OnUpdate(self):
 		self.CheckForItemName()
-		
 		
 	def CheckForItemName(self):
 		try:
@@ -1121,7 +1209,8 @@ class ItemMakerWindow(ui.ScriptWindow):
 			item.SelectItem(vnum)
 			self.ItemNameTextLine.SetText(item.GetItemName())	
 		except:
-			self.ItemNameTextLine.SetText("No item found...")	
+			self.ItemNameTextLine.SetText("No item found...")
+			
 	def OnPressEscapeKey(self):
 		self.Close()
 		return True

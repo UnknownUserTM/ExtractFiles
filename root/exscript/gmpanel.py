@@ -1,7 +1,7 @@
 import uiScriptLocale
 
 WINDOW_WIDTH = 180
-WINDOW_HEIGTH = 420
+WINDOW_HEIGTH = 390
 
 window = {
 	"name" : "GMPanel",
@@ -204,27 +204,27 @@ window = {
 					"text" : "MultiShopEditor",
 						
 				},	
+				# {
+					# "name" : "gm_panel_11",
+					# "type" : "button",
+							
+					# "x" : 25,
+					# "y" : 15 + 30 + 30 + 45 + 30 + 45 + 30 + 30 + 30 + 30 + 30 + 30,
+						
+					# "default_image" : "yamato_helpboard/wide_button_n.tga",
+					# "over_image" : "yamato_helpboard/wide_button_h.tga",
+					# "down_image" : "yamato_helpboard/wide_button_p.tga",
+					# "disable_image" : "yamato_helpboard/wide_button_d.tga",
+
+					# "text" : "BioQuest Maker",
+						
+				# },	
 				{
 					"name" : "gm_panel_11",
 					"type" : "button",
 							
 					"x" : 25,
 					"y" : 15 + 30 + 30 + 45 + 30 + 45 + 30 + 30 + 30 + 30 + 30 + 30,
-						
-					"default_image" : "yamato_helpboard/wide_button_n.tga",
-					"over_image" : "yamato_helpboard/wide_button_h.tga",
-					"down_image" : "yamato_helpboard/wide_button_p.tga",
-					"disable_image" : "yamato_helpboard/wide_button_d.tga",
-
-					"text" : "BioQuest Maker",
-						
-				},	
-				{
-					"name" : "gm_panel_12",
-					"type" : "button",
-							
-					"x" : 25,
-					"y" : 15 + 30 + 30 + 45 + 30 + 45 + 30 + 30 + 30 + 30 + 30 + 30 + 30,
 						
 					"default_image" : "yamato_helpboard/wide_button_n.tga",
 					"over_image" : "yamato_helpboard/wide_button_h.tga",

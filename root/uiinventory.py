@@ -191,9 +191,10 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		
 		def AddBonus(self):
 			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"addBonus CLICK!")
-			
-			constInfo.INPUT_CMD = "add#" + str(self.wndAttributeSwitcher.costumeSlotPosition) + "#" + str(self.attrSlot)
-			event.QuestButtonClick(self.wndAttributeSwitcher.qid)
+			if mouseModule.mouseController.isAttached():
+				constInfo.INPUT_CMD = "add#" + str(self.wndAttributeSwitcher.costumeSlotPosition) + "#" + str(self.attrSlot)
+				event.QuestButtonClick(self.wndAttributeSwitcher.qid)
+				mouseModule.mouseController.DeattachObject()
 			
 		def UseSpecialSwitcher(self):
 			if self.wndAttributeSwitcher.isSpecialSwitchMode:

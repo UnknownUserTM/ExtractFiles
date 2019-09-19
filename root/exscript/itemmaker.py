@@ -661,6 +661,74 @@ window = {
 						
 						},
 						{
+							"name" : "specialAttrListBoxBackground",
+							"type" : "thinboard_circle",
+							
+							"x" : 0, 
+							"y" : 4 - 100 + 20 + 90 - 80 + 5,
+						
+							"width" : 190,
+							"height" : 165 + 30,
+							"horizontal_align" : "center",								
+							"vertical_align" : "center",
+
+							"children" : (
+								{	
+									"name" : "specialAttrListBox",
+									"type" : "listbox",
+									
+									"x" : 0,
+									"y" : 0,
+									
+									"width" : 190,
+									"height" : 165 + 30,
+								},
+								{
+									"name" : "specialAttrListBoxScrollBar",
+									"type" : "small_thin_scrollbar",
+											
+									"x" : 190 - 15 + 1,
+									"y" : 1,
+											
+									"size" : 165 + 30 - 1,
+								},							
+							),
+						},
+						{
+							"name" : "attr_SwitchTo67AttrButton",
+							"type" : "button",
+									
+							"x" : 0,
+							"y" : 35 + 100 - 80,
+									
+							"text" : "Zu 6&7 Boni wechseln.",
+							
+							"vertical_align" : "center",
+							"horizontal_align" : "center", 
+							
+							"default_image" : "yamato_helpboard/wide_button_n.tga",
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",			
+						},
+						{
+							"name" : "attr_BackTo15AttrButton",
+							"type" : "button",
+									
+							"x" : 0,
+							"y" : 35 + 100 - 80,
+									
+							"text" : "Zurück",
+							
+							"vertical_align" : "center",
+							"horizontal_align" : "center", 
+							
+							"default_image" : "yamato_helpboard/wide_button_n.tga",
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",			
+						},
+						{
 							"name" : "attr_AddButton",
 							"type" : "button",
 									
@@ -694,6 +762,102 @@ window = {
 							"down_image" : "yamato_helpboard/wide_button_p.tga",
 							"disable_image" : "yamato_helpboard/wide_button_d.tga",			
 						},
+					),
+				},
+				{
+					"name" : "attrChangeValueBoard",
+					"type" : "thinboard_circle",
+					
+					"x" : 20,
+					"y" : 10,
+					
+					"width" : WINDOW_WIDTH - 30 + 20,
+					"height" : WINDOW_HEIGTH - 30  + 40 - 5,
+					
+				
+					"children" : (
+						{
+							"name" : "descAttrChangeValueType",
+							"type" : "text",
+									
+							"x" : 0,
+							"y" : 4 - 100,
+								
+							"text" : "Gib einen Wert zwischen 0 und 32.767 ein.",
+							"outline" : 1,
+							"text_horizontal_align" : "center",
+							"horizontal_align" : "center",								
+							"vertical_align" : "center",	
+						},					
+						
+						
+						{
+							"name" : "attrChangeEditLineBoard",
+							"type" : "thinboard_circle",
+							
+							
+							"x" : 0,
+							"y" : 4 - 100 + 27,
+							
+							"width" : 161,
+							"height" : 20,
+							
+							"horizontal_align" : "center",								
+							"vertical_align" : "center",	
+							
+							"children" : (
+								{
+									"name" : "attrChangeEditLine",
+									"type" : "editline",
+													
+									"x" : 7,
+									"y" : 4,
+													
+									"input_limit" : 20,
+									
+									"text" : "0",
+													
+									"width" : WINDOW_WIDTH - 30 + 20,
+									"height" : 20,
+								},
+							),
+						},
+						
+						{
+							"name" : "attrChange_addValueButton",
+							"type" : "button",
+									
+							"x" : 0,
+							"y" : 35 - 100 + 30,
+									
+							"text" : "Einfügen",
+							
+							"vertical_align" : "center",
+							"horizontal_align" : "center", 
+							
+							"default_image" : "yamato_helpboard/wide_button_n.tga",
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",			
+						},
+						{
+							"name" : "attrChange_closeValueButton",
+							"type" : "button",
+									
+							"x" : 0,
+							"y" : 35 + 30 - 100 + 30,
+									
+							"text" : "Schließen",
+							
+							"vertical_align" : "center",
+							"horizontal_align" : "center", 
+							
+							"default_image" : "yamato_helpboard/wide_button_n.tga",
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",			
+						},					
+						
 					),
 				},				
 			),

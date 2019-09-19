@@ -12538,8 +12538,54 @@ Switchbot_BonusList = [
 ]
 
 
-
-
+ItemMaker_BonusList67 = [
+	
+	[					# TP
+		[1,localeInfo.SWITCHBOT_BONUS_TP],		# BonusIndex, BonusNameFürListe	<- BoniNummer und Name wie er in der Liste stehen soll.
+		[0],			# bonusTypeList					<- Siehe Liste oben. Wenn die nummer hier steht kann der Boni in den ItemType.
+		[2000,3000,3500],		# valueList						<- Alle Bonistufen eintragen.
+	],
+	[					
+		[63,"Stark gegen Monster"],
+		[0],			
+		[5,5,5],		
+	],
+	[					
+		[17,localeInfo.SWITCHBOT_BONUS_HUMAN],
+		[0],
+		[5,5,5],
+	],
+	[					
+		[41,"Giftwiderstand"],
+		[0],
+		[5,5,5],
+	],
+	[					
+		[22,"Stark gegen Teufel?"],
+		[0],
+		[5,5,5],
+	],
+	[					
+		[18,"Stark gegen Tiere?"],
+		[0],
+		[5,5,5],
+	],
+	[					
+		[20,"Stark gegen Mylgios? <- Wieso sind die alle durcheinander?"],
+		[0],
+		[5,5,5],
+	],
+	[					
+		[15,"Chance auf krit. Treffer <- Kann in settinginfo.ItemMaker_BonusList67 bearbeitet werden."],
+		[0],
+		[5,5,5],
+	],
+	[					
+		[19,"Stark gegen Orks? <- So legt man keine neuen Boni an!!!"],
+		[0],
+		[5,5,5],
+	],
+]
 
 
 
