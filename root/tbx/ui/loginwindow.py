@@ -93,6 +93,7 @@ window = {
 							"default_image" : "yamato_helpboard/wide_button_n.tga", 
 							"over_image" : "yamato_helpboard/wide_button_h.tga",
 							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",
 							
 							"text" : "Speichern",
 						},
@@ -129,16 +130,127 @@ window = {
 
 					),
 				},
+				
+				{
+					"name" : "pasteBoard",
+					"type" : "board",
+					
+					"x" : 0, 
+					"y" : 0,
+					
+					"width" : 300,
+					"height" : 280,
+					
+					"horizontal_align" : "center",
+					"vertical_align" : "center",
+					
+					"children" : (
+						
+						{
+							"name" : "pasteBoardDescBoard",
+							"type" : "thinboard_circle",
+							
+							"x" : 15 + 3,
+							"y" : 5 + 3,
+							
+							"width" : 300 - 30 - 10 + 3,
+							"height" : 22,
+							
+							"children" : (
+								{
+									"name" : "pasteBoardDescTextLine",
+									"type" : "text",
+									
+									"x" : 7,
+									"y" : 4,
+									
+									"text" : "Drücke STRG+V um die kopierten Daten in das Feld zu laden, klicke anschließend auf Laden.",
+									"outline" : 1,
+								
+								
+								
+								},
+							
+							
+							
+							),
+						},
+						{
+							"name" : "pasteBoardEditLineBoard",
+							"type" : "thinboard_circle",
+							
+							"x" : 15 + 3,
+							"y" : 5 + 3 + 22,
+							
+							"width" : 300 - 30 - 10 + 3,
+							"height" : 210 - 3,
+							
+							"children" : (
+							
+								{
+									"name" : "pasteBoardEditLine",
+									"type" : "editline",
+													
+									"x" : 7,
+									"y" : 4,
+									
+									"width" : 300 - 30 - 10 + 3,
+									"height" : 210 - 3,	
+									
+									"with_codepage" : 1,
+									"input_limit" : 200,	
+									"limit_width" : 300,
+									# "multi_line" : 1,
+													
+
+								},
+							
+							),
+						},					
+						{
+							"name" : "acceptPasteButton",
+							"type" : "button",
+							"x" : -50, 
+							"y" : 5 + 3 + 22 + 213 - 5,
+
+							"default_image" : "yamato_helpboard/normal_button_n.tga", 
+							"over_image" : "yamato_helpboard/normal_button_h.tga",
+							"down_image" : "yamato_helpboard/normal_button_p.tga",
+							"disable_image" : "yamato_helpboard/normal_button_d.tga",
+							
+							"horizontal_align" : "center",
+							# "vertical_align" : "center",
+					
+							"text" : "Laden",
+						},						
+						{
+							"name" : "cancelPasteButton",
+							"type" : "button",
+							"x" : 50, 
+							"y" : 5 + 3 + 22 + 213 - 5,
+
+							"default_image" : "yamato_helpboard/normal_button_n.tga", 
+							"over_image" : "yamato_helpboard/normal_button_h.tga",
+							"down_image" : "yamato_helpboard/normal_button_p.tga",
+							"disable_image" : "yamato_helpboard/normal_button_d.tga",
+							
+							"horizontal_align" : "center",
+							# "vertical_align" : "center",
+					
+							"text" : "Schließen",
+						},						
+					),
+				},
 				{
 					"name" : "account_management",
 					"type" : "window",
 					
 					"x" : SCREEN_WIDTH - 220,
-					"y" : SCREEN_HEIGHT - 200,
+					"y" : SCREEN_HEIGHT - 400,
 					
 					
-					"width" : 190,
-					"height" : 120,
+					"width" : 230,
+					"height" : 300,
 					
 				
 					"children" : (
@@ -239,8 +351,178 @@ window = {
 							"disable_image" : "yamato_button/close_d.dds",
 							
 							
+						},	
+
+						{
+							"name" : "account_button_textline_3",
+							"type" : "text",
+							"x" : -25, 
+							"y" : 9 + 60 + 30,
+							"text" : "[ F4 ] ",
+							"outline" : 1,
+						},
+						{
+							"name" : "account_button_3",
+							"type" : "button",
+							"x" : 5, "y" : 5 + 60 + 30,
+
+							"default_image" : "yamato_helpboard/wide_button_n.tga", 
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",
+							
+							"text" : "leer",
 						},						
+						{
+							"name" : "account_delete_button_3",
+							"type" : "button",
+							"x" : 145, "y" : 5 + 60 + 30,
+
+							"default_image" : "yamato_button/close_n.dds", 
+							"over_image" : "yamato_button/close_h.dds",
+							"down_image" : "yamato_button/close_p.dds",
+							"disable_image" : "yamato_button/close_d.dds",
+						},						
+
+						{
+							"name" : "account_button_textline_4",
+							"type" : "text",
+							"x" : -25, 
+							"y" : 9 + 60 + 30 + 30,
+							"text" : "[ F5 ] ",
+							"outline" : 1,
+						},
+						{
+							"name" : "account_button_4",
+							"type" : "button",
+							"x" : 5, "y" : 5 + 60 + 30 + 30,
+
+							"default_image" : "yamato_helpboard/wide_button_n.tga", 
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",
+							
+							"text" : "leer",
+						},						
+						{
+							"name" : "account_delete_button_4",
+							"type" : "button",
+							"x" : 145, "y" : 5 + 60 + 30 + 30,
+
+							"default_image" : "yamato_button/close_n.dds", 
+							"over_image" : "yamato_button/close_h.dds",
+							"down_image" : "yamato_button/close_p.dds",
+							"disable_image" : "yamato_button/close_d.dds",
+						},							
+
+						{
+							"name" : "account_button_textline_5",
+							"type" : "text",
+							"x" : -25, 
+							"y" : 9 + 60 + 30 + 30 + 30,
+							"text" : "[ F6 ] ",
+							"outline" : 1,
+						},
+						{
+							"name" : "account_button_5",
+							"type" : "button",
+							"x" : 5, "y" : 5 + 60 + 30 + 30 + 30,
+
+							"default_image" : "yamato_helpboard/wide_button_n.tga", 
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",
+							
+							"text" : "leer",
+						},						
+						{
+							"name" : "account_delete_button_5",
+							"type" : "button",
+							"x" : 145, "y" : 5 + 60 + 30 + 30 + 30,
+
+							"default_image" : "yamato_button/close_n.dds", 
+							"over_image" : "yamato_button/close_h.dds",
+							"down_image" : "yamato_button/close_p.dds",
+							"disable_image" : "yamato_button/close_d.dds",
+						},
+
+
+						{
+							"name" : "account_button_textline_6",
+							"type" : "text",
+							"x" : -25, 
+							"y" : 9 + 60 + 30 + 30 + 30 + 30,
+							"text" : "[ F7 ] ",
+							"outline" : 1,
+						},
+						{
+							"name" : "account_button_6",
+							"type" : "button",
+							"x" : 5, "y" : 5 + 60 + 30 + 30 + 30 + 30,
+
+							"default_image" : "yamato_helpboard/wide_button_n.tga", 
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",
+							
+							"text" : "leer",
+						},						
+						{
+							"name" : "account_delete_button_6",
+							"type" : "button",
+							"x" : 145, "y" : 5 + 60 + 30 + 30 + 30 + 30,
+
+							"default_image" : "yamato_button/close_n.dds", 
+							"over_image" : "yamato_button/close_h.dds",
+							"down_image" : "yamato_button/close_p.dds",
+							"disable_image" : "yamato_button/close_d.dds",
+						},
 						
+						
+						{
+							"name" : "account_button_textline_7",
+							"type" : "text",
+							"x" : -25, 
+							"y" : 9 + 60 + 30 + 30 + 30 + 30 + 30,
+							"text" : "[ F8 ] ",
+							"outline" : 1,
+						},
+						{
+							"name" : "account_button_7",
+							"type" : "button",
+							"x" : 5, "y" : 5 + 60 + 30 + 30 + 30 + 30 + 30,
+
+							"default_image" : "yamato_helpboard/wide_button_n.tga", 
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",
+							
+							"text" : "leer",
+						},						
+						{
+							"name" : "account_delete_button_7",
+							"type" : "button",
+							"x" : 145, "y" : 5 + 60 + 30 + 30 + 30 + 30 + 30,
+
+							"default_image" : "yamato_button/close_n.dds", 
+							"over_image" : "yamato_button/close_h.dds",
+							"down_image" : "yamato_button/close_p.dds",
+							"disable_image" : "yamato_button/close_d.dds",
+						},
+						
+						
+						{
+							"name" : "new_secure_register_button",
+							"type" : "button",
+							"x" : 5, "y" : 5 + 60 + 30 + 30 + 30 + 30 + 30 + 30 + 15,
+
+							"default_image" : "yamato_helpboard/wide_button_n.tga", 
+							"over_image" : "yamato_helpboard/wide_button_h.tga",
+							"down_image" : "yamato_helpboard/wide_button_p.tga",
+							"disable_image" : "yamato_helpboard/wide_button_d.tga",
+							
+							"text" : "Accountdaten einfügen (TEST)",
+						},
 					
 					),
 				

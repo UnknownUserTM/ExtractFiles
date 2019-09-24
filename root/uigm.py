@@ -785,6 +785,7 @@ class ItemMakerWindow(ui.ScriptWindow):
 			self.socketType = self.SOCKET_TYPE_NONE
 			self.socketNumber = 0
 			self.socketValue = 0
+			self.socketValue2 = 0
 			self.LoadWindow()
 
 		def __del__(self):
@@ -833,6 +834,9 @@ class ItemMakerWindow(ui.ScriptWindow):
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(value))
 			self.socketValue = int(value)
 			self.UpdateTextLine()
+			
+		def SetSocketValue2(self,value):
+			self.socketValue2 = int(value)			
 		
 		def SetSocketNumber(self,slot):
 			self.socketNumber = int(slot)
@@ -912,7 +916,7 @@ class ItemMakerWindow(ui.ScriptWindow):
 	SOCKET_TYPE_TIME = 2
 	SOCKET_TYPE_VALUE = 3
 	
-	STONE_LIST = [28430,28431,28432,28433,28434,28435,28436,28437,28438,28439,28440,28441,28442,28443]
+	STONE_LIST = [28030,28430,28431,28432,28433,28434,28435,28436,28437,28438,28439,28440,28441,28442,28443]
 		
 	def __init__(self,systemIndex):
 		ui.ScriptWindow.__init__(self)
@@ -952,7 +956,6 @@ class ItemMakerWindow(ui.ScriptWindow):
 		self.socketTypeSelectButtonValue.SetEvent(self.SetSocketType,self.SOCKET_TYPE_VALUE)
 		self.socketTypeSelectButtonClose.SetEvent(self.CloseSocketTypeSelectBoard)
 		
-		
 		self.stoneVnumSelectBoard = self.GetChild("socketVnumSelectBoard")
 		self.stoneVnumCloseButton = self.GetChild("socket_vnumCloseButton")
 		self.stoneVnumAddButton = self.GetChild("socket_AddButton")
@@ -982,7 +985,6 @@ class ItemMakerWindow(ui.ScriptWindow):
 
 		self.socketValueAddButton.SetEvent(self.AddValueToSocket)
 		self.socketValueCloseButton.SetEvent(self.CloseSocketValueBoard)
-		
 		
 		self.attrBoard = self.GetChild("attributeSelectBoard")
 		self.attrBoard.Hide()
@@ -1133,6 +1135,7 @@ class ItemMakerWindow(ui.ScriptWindow):
 	def AddStoneToSocket(self):
 		self.stoneVnumSelectBoard.Hide()
 		self.socketItemList[self.currentSocketSlot].SetSocketValue(self.STONE_LIST[self.stoneListBox.GetSelectedItem()])
+		self.socketItemList[self.currentSocketSlot].SetSocketValue2(self.stoneListBox.GetSelectedItem())
 	
 		
 	def CloseSocketTypeSelectBoard(self):
@@ -1185,14 +1188,18 @@ class ItemMakerWindow(ui.ScriptWindow):
 			type = self.socketItemList[i].socketType
 			if type == self.SOCKET_TYPE_TIME:
 				value = (self.socketItemList[i].socketValue*60) + app.GetGlobalTimeStamp()
+			elif type == self.SOCKET_TYPE_STONE:
+				value = self.socketItemList[i].socketValue2 
 			else:
 				value = self.socketItemList[i].socketValue
+				
+				
 			makeItemString = makeItemString + str(value) + "#"
 	
 		for i in xrange(7):
 			index = self.attrItemList[i].attrIndex
 			value = self.attrItemList[i].attrValue
-			merge = str(index) + "/" + str(value)
+			merge = str(index) + "#" + str(value)
 			
 			makeItemString = makeItemString + str(merge) + "#"
 		

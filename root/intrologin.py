@@ -274,7 +274,8 @@ class LoginWindow(ui.ScriptWindow):
 			exception.Abort("LoginWindow.__LoadScript.LoadObject")
 
 		try:
-			# self.scrollBoard = self.GetChild("board")
+			self.scrollBoard = self.GetChild("board")
+			self.pasteBoard = self.GetChild("pasteBoard")
 			self.idEditLine = self.GetChild("id")
 			self.pwdEditLine = self.GetChild("pwd")
 			self.enterButton = self.GetChild("enter_button")
@@ -282,24 +283,28 @@ class LoginWindow(ui.ScriptWindow):
 			self.deleteButton = self.GetChild("delete_main_button")
 			self.exitButton = self.GetChild("exit_button")
 			self.loginLanguageBoard = self.GetChild("LanguageBoard")
+			self.showPasteBoardButton = self.GetChild("new_secure_register_button")
+			self.closePasteBoardButton = self.GetChild("cancelPasteButton")
 			# self.scrollBoard.SetPosition(0,wndMgr.GetScreenHeight())
 			# self.scrollAnimation = 1
 			# self.scrollStartHeight = wndMgr.GetScreenHeight()
 			# self.scrollEndHeight = 50
-			
+			self.closePasteBoardButton.SetEvent(self.ClosePasteBoard)
+			self.showPasteBoardButton.SetEvent(self.OpenPasteBoard)
+			self.pasteBoard.Hide()
 			self.fKeyTextLine = []
-			for i in xrange(3):
+			for i in xrange(8):
 				self.fKeyTextLine.append(self.GetChild("account_button_textline_" + str(i)))
 				self.fKeyTextLine[i].Hide()
 			
 			self.accountButton = []
-			for i in xrange(3):
+			for i in xrange(8):
 				self.accountButton.append(self.GetChild("account_button_" + str(i)))
 				self.accountButton[i].SetEvent(ui.__mem_func__(self.LoadAccount), i)
 				self.accountButton[i].Disable()
 				
 			self.accountDeleteButton = []
-			for i in xrange(3):
+			for i in xrange(8):
 				self.accountDeleteButton.append(self.GetChild("account_delete_button_" + str(i)))
 				self.accountDeleteButton[i].SetEvent(ui.__mem_func__(self.DeleteAccount), i)
 				self.accountDeleteButton[i].Disable()
@@ -324,7 +329,16 @@ class LoginWindow(ui.ScriptWindow):
 		self.idEditLine.SetFocus()
 		self.__RequestServerStateList()
 		self.InitLanguageBoard()
-		
+	
+	def OpenPasteBoard(self):
+		self.scrollBoard.Hide()
+		self.pasteBoard.Show()
+
+	def ClosePasteBoard(self):
+		self.scrollBoard.Show()
+		self.pasteBoard.Hide()		
+
+
 	def InitLanguageBoard(self):
 		self.Y_START = 7
 		self.X_SPACE = self.Y_START
@@ -365,7 +379,7 @@ class LoginWindow(ui.ScriptWindow):
 		app.SetLanguage(bLanguage)
 
 	def SaveAccount(self):
-		for i in xrange(3):
+		for i in xrange(8):
 			if not get_reg("acc_%d" % i):
 				if (self.idEditLine.GetText() != "") or (self.pwdEditLine.GetText() != ""):
 					set_reg("acc_%d" % i, "%s|%s" % (self.idEditLine.GetText(), self.pwdEditLine.GetText()))
@@ -381,7 +395,7 @@ class LoginWindow(ui.ScriptWindow):
 		self.deleteButton.Down()
 		self.deleteButton.Disable()
 		
-		for i in xrange(3):
+		for i in xrange(8):
 			if get_reg("acc_%d" % i):
 				self.accountLabel[i][1].SetUpVisual("tbx/loginwindow/delete_0.tga")
 				self.accountLabel[i][1].SetOverVisual("tbx/loginwindow/delete_1.tga")
@@ -392,7 +406,7 @@ class LoginWindow(ui.ScriptWindow):
 		# self.accountLabel = {}
 		# self.position[1] = 70
 		slots = 0
-		for i in xrange(3):
+		for i in xrange(8):
 			if get_reg("acc_%d" % i):
 				self.accountButton[i].SetText(get_reg("acc_%d" % i).split("|")[0])
 				self.accountButton[i].Enable()
@@ -480,6 +494,11 @@ class LoginWindow(ui.ScriptWindow):
 			fKeyIndex[app.DIK_F1] = 0
 			fKeyIndex[app.DIK_F2] = 1
 			fKeyIndex[app.DIK_F3] = 2
+			fKeyIndex[app.DIK_F4] = 3
+			fKeyIndex[app.DIK_F5] = 4
+			fKeyIndex[app.DIK_F6] = 5
+			fKeyIndex[app.DIK_F7] = 6
+			fKeyIndex[app.DIK_F8] = 7
 		
 			self.LoadAccount(fKeyIndex[key])
 
