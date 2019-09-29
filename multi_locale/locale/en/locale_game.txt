@@ -1196,3 +1196,5 @@ TOOLTIP_ANTIFLAG_SELL	sell
 TOOLTIP_ANTIFLAG_STACK	stack
 NOT_POSSIBLE	nicht möglich.
 NOTDESTROY	This item can not be destroyed
+TOOLTIP_APPLY_ATTBONUS_ELEC	Strong against Metinstones +%d%%	SA
+TOOLTIP_APPLY_ATTBONUS_FIRE	Strong against Bosses +%d%%	SA
