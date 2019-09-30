@@ -1945,10 +1945,11 @@ class ItemToolTip(ToolTip):
 
 					if 0 != isActivated:
 						self.AppendTextLine("(%s)" % (localeInfo.TOOLTIP_AUTO_POTION_USING), self.SPECIAL_POSITIVE_COLOR)
+						self.AppendSpace(5)
 						self.AppendHorizontalLine()
 						#self.AppendSpace(5)
 						
-					self.AppendTextLine(localeInfo.TOOLTIP_AUTO_POTION_REST % (100.0 - ((usedAmount / totalAmount) * 100.0)), self.POSITIVE_COLOR)
+					# self.AppendTextLine(localeInfo.TOOLTIP_AUTO_POTION_REST % (100.0 - ((usedAmount / totalAmount) * 100.0)), self.POSITIVE_COLOR)
 								
 			## ±ÍÈ¯ ±â¾ïºÎ
 			elif itemVnum in WARP_SCROLLS:
