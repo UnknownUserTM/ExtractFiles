@@ -2467,6 +2467,8 @@ class GameWindow(ui.ScriptWindow):
 			
 			"debug"				: self.SetDebugMode,
 			"requestWarpToCharcater" : self.__RequestWarpToCharacter,
+			
+			"refresh_c"	: self.RefreshCharacterNow,
 		
 		}
 		
@@ -3818,4 +3820,8 @@ class GameWindow(ui.ScriptWindow):
 		
 	def WarpCancelEvent(self):
 		self.questionDialogWarp.Close()
+		
+	def RefreshCharacterNow(self):
+		self.interface.RefreshStatus()
+		self.interface.RefreshSkill()
 		

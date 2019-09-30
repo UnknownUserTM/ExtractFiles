@@ -40,8 +40,9 @@ class GMPanel(ui.ScriptWindow):
 	BUTTON_QUEST_TEXT_TOOL = 9
 	BUTTON_MULTISHOP_EDITOR = 10
 	BUTTON_ITEM_MAKER = 11
+	BUTTON_RACE_CHANGE = 12
 	
-	BUTTON_MAX = 12
+	BUTTON_MAX = 13
 
 	gm_permission_list = []
 	
@@ -70,6 +71,7 @@ class GMPanel(ui.ScriptWindow):
 		self.multiShopEditor = uimultishop.MultiShopEditorWindow()
 		
 		self.itemMaker = ItemMakerWindow(self.BUTTON_ITEM_MAKER)
+		self.raceChanger = RaceChangerWindow(self.BUTTON_RACE_CHANGE)
 		
 		self.GetChild("TitleBar").SetCloseEvent(self.Close)
 		self.gmPanelButtons = []
@@ -88,9 +90,10 @@ class GMPanel(ui.ScriptWindow):
 		self.gmPanelButtons[self.BUTTON_QUEST_TEXT_TOOL].SetEvent(self.ToggleQuestTextMaker)
 		self.gmPanelButtons[self.BUTTON_MULTISHOP_EDITOR].SetEvent(self.ToggleMultiShopEditor)
 		self.gmPanelButtons[self.BUTTON_ITEM_MAKER].SetEvent(self.ToggleItemMaker)
+		self.gmPanelButtons[self.BUTTON_RACE_CHANGE].SetEvent(self.ToggleRaceChanger)
 		
 		# self.ActivateButton(self.BUTTON_INVINCIBILITY)
-		# self.InsertGMPermission(self.BUTTON_MULTISHOP_EDITOR)
+		# self.InsertGMPermission(self.BUTTON_RACE_CHANGE)
 		
 		# self.InsertGMPermission(self.BUTTON_ITEM_MAKER)
 		
@@ -173,6 +176,9 @@ class GMPanel(ui.ScriptWindow):
 		
 	def ToggleItemMaker(self):
 		self.itemMaker.Open()
+		
+	def ToggleRaceChanger(self):
+		self.raceChanger.Open()
 		
 class SupportWindow(ui.ScriptWindow):
 	
@@ -1234,4 +1240,219 @@ class ItemMakerWindow(ui.ScriptWindow):
 	def Destroy(self):
 		self.__del__()	
 
+class RaceChangerWindow(ui.ScriptWindow):
+
+	SYSTEM_INDEX = 0
+	
+	
+	raceNames = [
+		localeInfo.JOB_WARRIOR,
+		localeInfo.JOB_ASSASSIN,
+		localeInfo.JOB_SURA,
+		localeInfo.JOB_SHAMAN,
+	]
+	NO_JOB_TEXT = "Wähle eine Klasse"
+	JOB_NONE = len(raceNames)
+	
+	sexNames = [
+		localeInfo.CHARACTER_CREATE_MALE,
+		localeInfo.CHARACTER_CREATE_FEMALE,
+	
+	]
+	NO_SEX_TEXT = "Wähle das Geschlecht"
+	SEX_NONE = len(sexNames)
+	
+	skillGroupNames = [
+		[
+			localeInfo.SKILL_GROUP_WARRIOR_1,
+			localeInfo.SKILL_GROUP_WARRIOR_2,
+		],
+		[
+			localeInfo.SKILL_GROUP_ASSASSIN_1,
+			localeInfo.SKILL_GROUP_ASSASSIN_2,
+		],
+		[
+			localeInfo.SKILL_GROUP_SURA_1,
+			localeInfo.SKILL_GROUP_SURA_2,
+		],
+		[
+			localeInfo.SKILL_GROUP_SHAMAN_1,
+			localeInfo.SKILL_GROUP_SHAMAN_2,
+		],
+	
+	]
+	NO_SKILL_TEXT = "Wähle eine Skillgruppe"
+	raceGroup = [
+		[0,4],
+		[5,1],
+		[2,6],
+		[7,3],
+	]
+	
+	COLOR_INACTIVE = grp.GenerateColor(1.0, 0.0, 0.0, 0.2)
+	
+	def __init__(self,systemIndex):
+		ui.ScriptWindow.__init__(self)
+		self.SYSTEM_INDEX = systemIndex
+		self.job = self.JOB_NONE
+		self.sex = self.SEX_NONE
+		self.skillGroup = 0
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/racechanger.py")
+		except:
+			import exception
+			exception.Abort("SystemPanelWindow.LoadWindow.LoadObject")
 		
+		self.GetChild("TitleBar").SetCloseEvent(self.Close)
+		
+		self.raceSelectBoard = self.GetChild("raceSelectBoard")
+		self.raceSelectBoard.SetOnClickEvent(self.ShowRaceSelectDropDownBoard)
+		self.raceSelectTextLine = self.GetChild("raceSelectTextLine")
+		
+		self.raceSelectDropDownBoard = self.GetChild("raceSelectDropDownBoard")
+		self.raceSelectDropDownBoard.Hide()
+		self.raceSelectListBox = self.GetChild("raceSelectListBox")
+		self.raceSelectListBox.SetEvent(ui.__mem_func__(self.OnSelectRace))
+		for i in xrange(len(self.raceNames)):
+			self.raceSelectListBox.InsertItem(i,self.raceNames[i])
+		
+		self.sexSelectBoard = self.GetChild("sexSelectBoard")
+		self.sexSelectBoard.SetOnClickEvent(self.ShowSexSelectDropDownBoard)
+		self.sexSelectTextLine = self.GetChild("sexSelectTextLine")
+		self.sexSelectDropDownBoard = self.GetChild("sexSelectDropDownBoard")
+		self.sexSelectDropDownBoard.Hide()
+		self.sexSelectListBox = self.GetChild("sexSelectListBox")
+		self.sexSelectListBox.SetEvent(ui.__mem_func__(self.OnSelectSex))
+		
+		for i in xrange(len(self.sexNames)):
+			self.sexSelectListBox.InsertItem(i,self.sexNames[i])
+			
+			
+		self.skillGroupSelectBoard = self.GetChild("skillGroupSelectBoard")
+		self.skillGroupSelectBoard.SetOnClickEvent(self.ShowSkillGroupSelectDropDownBoard)
+		self.skillGroupSelectTextLine = self.GetChild("skillGroupSelectTextLine")
+		self.skillGroupRedBar = self.GetChild("skillGroupSelectBoardRedBar")
+		self.skillGroupRedBar.SetColor(self.COLOR_INACTIVE)
+		self.skillGroupSelectDropDownBoard = self.GetChild("skillGroupSelectDropDownBoard")
+		self.skillGroupSelectDropDownBoard.Hide()
+		self.skillGroupSelectListBox = self.GetChild("skillGroupSelectListBox")
+		self.skillGroupSelectListBox.SetEvent(ui.__mem_func__(self.OnSelectSkillGroup))		
+		
+		
+		self.changeButton = self.GetChild("changeButton")
+		self.changeButton.SetEvent(self.Change)
+		self.UpdateTextLines()
+	
+	def UpdateTextLines(self):
+		if self.job == self.JOB_NONE:
+			self.raceSelectTextLine.SetText(self.NO_JOB_TEXT)
+		else:
+			self.raceSelectTextLine.SetText(self.raceNames[self.job])
+
+		if self.sex == self.SEX_NONE:
+			self.sexSelectTextLine.SetText(self.NO_SEX_TEXT)
+		else:
+			self.sexSelectTextLine.SetText(self.sexNames[self.sex])
+
+		if self.skillGroup == 0:
+			self.skillGroupSelectTextLine.SetText(self.NO_SKILL_TEXT)
+		else:
+			self.skillGroupSelectTextLine.SetText(self.skillGroupNames[self.job][self.skillGroup-1])
+			
+	# self.UpdateTextLines()
+	
+	def DoCheckForButton(self):
+		self.changeButton.Enable()
+		if self.job == self.JOB_NONE:
+			self.changeButton.Disable()
+			
+		if self.sex == self.SEX_NONE:
+			self.changeButton.Disable()
+			
+		if self.skillGroup == 0:
+			self.changeButton.Disable()
+
+
+			
+	def Change(self):
+		if self.job == self.JOB_NONE:
+			return
+			
+		if self.sex == self.SEX_NONE:
+			return
+			
+		if self.skillGroup == 0:
+			return
+		
+		race = self.raceGroup[self.job][self.sex]
+		skill = self.skillGroup
+		# Reset!
+		self.Close()
+		self.skillGroupRedBar.Show()
+		self.job = self.JOB_NONE
+		self.sex = self.SEX_NONE
+		self.skillGroup = 0
+		self.UpdateTextLines()
+		
+		GFHhg54GHGhh45GHGH.SendChatPacket("/change_race " + str(race) + " " + str(skill))
+
+	def ShowRaceSelectDropDownBoard(self):
+		self.raceSelectDropDownBoard.Show()
+		
+	def OnSelectRace(self):
+		self.raceSelectDropDownBoard.Hide()
+		self.job = self.raceSelectListBox.GetSelectedItem()
+		self.skillGroup = 0
+		self.skillGroupRedBar.Hide()
+		self.LoadSkillGroupListBox()
+		self.DoCheckForButton()
+		self.UpdateTextLines()
+
+	def ShowSexSelectDropDownBoard(self):
+		self.sexSelectDropDownBoard.Show()
+
+	def OnSelectSex(self):
+		self.sexSelectDropDownBoard.Hide()
+		self.sex = self.sexSelectListBox.GetSelectedItem()
+		self.DoCheckForButton()
+		self.UpdateTextLines()
+	
+	
+	def ShowSkillGroupSelectDropDownBoard(self):
+		self.skillGroupSelectDropDownBoard.Show()
+	
+	def OnSelectSkillGroup(self):
+		self.skillGroupSelectDropDownBoard.Hide()
+		self.skillGroup = self.skillGroupSelectListBox.GetSelectedItem() + 1
+		self.DoCheckForButton()
+		self.UpdateTextLines()
+	
+	def LoadSkillGroupListBox(self):
+		self.skillGroupSelectTextLine.SetText("Wähle die Skillgruppe")
+		self.skillGroupSelectListBox.ClearItem()
+		skillGroup = self.job
+		for i in xrange(len(self.skillGroupNames[skillGroup])):
+			self.skillGroupSelectListBox.InsertItem(i,self.skillGroupNames[skillGroup][i])		
+	
+	def OnPressEscapeKey(self):
+		self.Close()
+		return True
+
+	def Open(self):
+		if self.IsShow():
+			self.Close()
+		else:
+			self.Show()
+			
+	def Close(self):
+		self.Hide()
+		
+	def Destroy(self):
+		self.__del__()		
