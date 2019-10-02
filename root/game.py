@@ -3800,10 +3800,10 @@ class GameWindow(ui.ScriptWindow):
 		self.isDebugMode = int(debug)
 		
 	def BiologistIconText(self):
-		import uigame
-		self.gameOptionDialog = uigame.GameOptionWindow()
-		self.gameOptionDialog.Show()
-		
+		# import uifortunefountain
+		# self.gameOptionDialog = uifortunefountain.FortuneFountainWindow()
+		# self.gameOptionDialog.Show()
+		return
 	def __RequestWarpToCharacter(self, name):
 		import uiCommon
 		questionDialogWarp=uiCommon.QuestionDialog()

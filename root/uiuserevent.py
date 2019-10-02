@@ -39,7 +39,7 @@ class UserEventButtonWindow(ui.ScriptWindow):
 		
 		self.eventButton = self.GetChild("event_button")
 		self.eventButton.SetEvent(self.OpenEventGuide)
-		self.Open()
+		# self.Open()
 
 	def Open(self):
 		if self.IsShow():

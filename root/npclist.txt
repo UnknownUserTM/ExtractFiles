@@ -141,6 +141,8 @@
 0	trent_soldier2	trent_soldier
 0	trent_magic2	trent_magic
 0	metinstone_16	metinstone
+0	obj_well	obj_well
+0	obj_fire	obj_fire
 101	stray_dog	
 102	wolf	
 103	wolf	
@@ -1637,8 +1639,8 @@
 20408	ridack2_mount10	
 20409	keyto_npc	
 20410	keyto_npc1	
-20420	sailor
-20421	scholar_brown_m
+20420	obj_well
+20421	obj_fire
 20422	scholar_brown_m
 20423	scholar_brown_m
 20424	#season1/npc/mailbox/
