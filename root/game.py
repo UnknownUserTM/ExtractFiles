@@ -2469,6 +2469,8 @@ class GameWindow(ui.ScriptWindow):
 			"requestWarpToCharcater" : self.__RequestWarpToCharacter,
 			
 			"refresh_c"	: self.RefreshCharacterNow,
+			
+			"statistic" : self.SetPlayerStatistic,
 		
 		}
 		
@@ -3801,9 +3803,9 @@ class GameWindow(ui.ScriptWindow):
 		
 	def BiologistIconText(self):
 		# import uifortunefountain
-		# self.gameOptionDialog = uifortunefountain.FortuneFountainWindow()
-		# self.gameOptionDialog.Show()
-		return
+		self.interface.ctrlAchievement.AppendAchievement(1,10,3345,5)
+		
+		
 	def __RequestWarpToCharacter(self, name):
 		import uiCommon
 		questionDialogWarp=uiCommon.QuestionDialog()
@@ -3824,4 +3826,22 @@ class GameWindow(ui.ScriptWindow):
 	def RefreshCharacterNow(self):
 		self.interface.RefreshStatus()
 		self.interface.RefreshSkill()
+		
+	def SetPlayerStatistic(self,command):
+		cmd = command.split("#")
+		
+		try:
+			settinginfo.PLAYER_STATISTIC_DICT[int(cmd[0])] = int(cmd[1])
+		
+		except:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Error in PlayerStatistic! Failed to SetData.")
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		

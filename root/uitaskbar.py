@@ -268,6 +268,7 @@ class PlayerFrame(ui.ScriptWindow):
 			self.playerStatisticToolTip.AppendTextLine(localeInfo.PLAYER_STATISTIC_TITLE_PVM,self.playerStatisticToolTip.TITLE_COLOR)	
 			self.playerStatisticToolTip.AppendStatisticTextLine(localeInfo.PLAYER_STATISTIC_MONSTER_COMP,settinginfo.PLAYER_STATISTIC_DICT[settinginfo.PVM_MONSTER_KILL])
 			self.playerStatisticToolTip.AppendStatisticTextLine(localeInfo.PLAYER_STATISTIC_METIN_COMP,settinginfo.PLAYER_STATISTIC_DICT[settinginfo.PVM_STONE_KILL])
+			self.playerStatisticToolTip.AppendStatisticTextLine("Tode:",settinginfo.PLAYER_STATISTIC_DICT[settinginfo.PVM_STONE_KILL])
 			self.playerStatisticToolTip.AppendStatisticTextLine(localeInfo.PLAYER_STATISTIC_DUNGEON_COMP,settinginfo.PLAYER_STATISTIC_DICT[settinginfo.PVM_DUNGEON_COMPL])
 			self.playerStatisticToolTip.AppendStatisticTextLine(localeInfo.PLAYER_STATISTIC_ACHIEVEMENTS_COMP,settinginfo.PLAYER_STATISTIC_DICT[settinginfo.PVM_ACHIEVEMENT])
 			self.playerStatisticToolTip.AppendSpace(5)
@@ -286,7 +287,8 @@ class PlayerFrame(ui.ScriptWindow):
 		self.playerStatisticToolTip.AppendStatisticTextLine(localeInfo.PLAYER_STATISTIC_SESSION_TIME,self.FormatTime(timeGone))
 	
 	def AppendPlayTime(self):
-		sec = int(settinginfo.PLAYER_STATISTIC_DICT[settinginfo.PLAYER_PLAYTIME] * 60)
+		timeGone = app.GetTime() - self.TIME_GAME_START
+		sec = int(settinginfo.PLAYER_STATISTIC_DICT[settinginfo.PLAYER_PLAYTIME] * 60) + timeGone
 		self.playerStatisticToolTip.AppendStatisticTextLine(localeInfo.PLAYER_STATISTIC_PLAYTIME,localeInfo.SecondToDHM(sec))
 	# def CheckPlayerEarnedGold(self):
 		# money = 0
