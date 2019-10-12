@@ -2001,23 +2001,12 @@ class GuildWindow(ui.ScriptWindow):
 
 class BuildGuildBuildingWindow(ui.ScriptWindow):
 
-	if localeInfo.IsJAPAN():
-		GUILD_CATEGORY_LIST = (
-				("HEADQUARTER", "딈멳뙕뭱븿"),
-				("FACILITY", "둮뮗뙕뭱븿"),
-				("OBJECT", "궩궻뫜"),
-			)
-	elif localeInfo.IsYMIR() or localeInfo.IsWE_KOREA():
-		GUILD_CATEGORY_LIST = (
-				("HEADQUARTER", "본건물"),
-				("FACILITY", "기능건물"),
-				("OBJECT", "조경물"),
-			)
-	elif localeInfo.IsEUROPE() or localeInfo.IsHONGKONG():
+	if localeInfo.IsEUROPE() or localeInfo.IsHONGKONG():
 		GUILD_CATEGORY_LIST = (
 				("HEADQUARTER", localeInfo.GUILD_HEADQUARTER),
 				("FACILITY", 	localeInfo.GUILD_FACILITY),
 				("OBJECT", 	localeInfo.GUILD_OBJECT),
+				("WALL", 	"Mauern"),
 			)
 	else:
 		try :
@@ -2025,12 +2014,14 @@ class BuildGuildBuildingWindow(ui.ScriptWindow):
 					("HEADQUARTER", localeInfo.GUILD_HEADQUARTER),
 					("FACILITY", 	localeInfo.GUILD_FACILITY),
 					("OBJECT", 	localeInfo.GUILD_OBJECT),
+					("WALL", 	"Mauern"),
 				)
 		except:
 			GUILD_CATEGORY_LIST = (
 					("HEADQUARTER", "Main Building"),
 					("FACILITY", "Facility"),
 					("OBJECT", "Object"),
+					("WALL", 	"Mauern"),
 				)
 
 	MODE_VIEW = 0
@@ -2298,7 +2289,7 @@ class BuildGuildBuildingWindow(ui.ScriptWindow):
 		else:
 			GFHhg54GHGhh45GHGH.SendChatPacket("/build c %d %d %d %d %d %d" % (self.race, int(self.x), int(self.y), self.rot_x, self.rot_y, self.rot_z))
 
-		self.Close()
+		# self.Close()
 
 	def Open(self):
 		x, y, z = fgGHGjjFHJghjfFG1545gGG.GetMainCharacterPosition()
