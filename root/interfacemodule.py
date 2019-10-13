@@ -58,6 +58,7 @@ import uiuserevent
 import uimainquest
 import uimultishop
 import uigame
+import uiachievement
 
 
 IsQBHide = 0
@@ -222,6 +223,9 @@ class Interface(object):
 		
 	def __MakeNewGameOptionWindow(self):
 		self.wndGameOption = uigame.GameOptionWindow()
+		
+	def __MakeAchievementController(self):
+		self.ctrlAchievement = uiachievement.AchievementController()
 	
 	def OpenHallOfFame(self):
 		uihalloffame.wnd.OpenRequest()		
@@ -571,6 +575,7 @@ class Interface(object):
 		self.__MakeNewQuestWindow()
 		self.__MakeMultiShop(self.wndInventory)
 		self.__MakeNewGameOptionWindow()
+		self.__MakeAchievementController()
 		# ACCESSORY_REFINE_ADD_METIN_STONE
 		self.__MakeItemSelectWindow()
 		# END_OF_ACCESSORY_REFINE_ADD_METIN_STONE
@@ -750,7 +755,11 @@ class Interface(object):
 		if self.wndItemSelect:
 			self.wndItemSelect.Destroy()
 		# END_OF_ACCESSORY_REFINE_ADD_METIN_STONE
-
+		
+		
+		if self.ctrlAchievement:
+			self.ctrlAchievement.Destroy()
+		
 		self.wndChatLog.Destroy()
 		for btn in self.questButtonList:
 			btn.SetEvent(0)
@@ -818,7 +827,7 @@ class Interface(object):
 		del self.wndNewQuestWindow
 		del self.wndUserEventButton
 		uihalloffame.wnd.Destroy()
-		
+		del self.ctrlAchievement
 		self.questButtonList = []
 		self.whisperButtonList = []
 		self.whisperDialogDict = {}
