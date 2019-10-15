@@ -936,7 +936,7 @@
 8027	metinstone_06	
 8028	metinstone_06	
 8029	metinstone_06	
-8030	metinstone_06	
+8030	estatua_soldado	
 8031	metinstone_09	
 8032	metinstone_01	
 8033	metinstone_06	
