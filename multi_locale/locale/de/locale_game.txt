@@ -236,8 +236,9 @@ JOB_WARRIOR0	Krieger
 JOB_WARRIOR1	Macht von Arahan
 JOB_WARRIOR2	Macht der Partisanen
 LEFT_TIME	Verbl. Zeit
+LOGIN_FAILURE_HWID_BLOCK	Das Konto ist gesperrt.
 LOGIN_CONNECT_FAILURE	Fehler beim Verbinden mit dem Server.
-LOGIN_CONNECT_REBOOT	Login erst nach Reboot möglich.
+LOGIN_CONNECT_REBOOT	Serverneustart. Login nicht möglich..
 LOGIN_CONNECT_PWCHANGE	Bitte ändere dein Kennwort.
 LOGIN_CONNECT_SBLOCK	Sicherheitsbann. Im Ts melden.
 LOGIN_CONNECT_BOT	Wegen Fremdprogramm dauerhaft gesperrt.
