@@ -1198,3 +1198,4 @@ NOT_POSSIBLE	nicht möglich.
 NOTDESTROY	This item can not be destroyed
 TOOLTIP_APPLY_ATTBONUS_ELEC	Strong against Metinstones +%d%%	SA
 TOOLTIP_APPLY_ATTBONUS_FIRE	Strong against Bosses +%d%%	SA
+LOGIN_FAILURE_WRONG_VERSION	Your client is not up to date. Please update!
