@@ -146,6 +146,7 @@ class LoginWindow(ui.ScriptWindow):
 			"NOBILL"	: localeInfo.LOGIN_FAILURE_NOBILL,
 			"BLKLOGIN"	: localeInfo.LOGIN_FAILURE_BLOCK_LOGIN,
 			"WEBBLK"	: localeInfo.LOGIN_FAILURE_WEB_BLOCK,
+			"HWID"		: localeInfo.LOGIN_FAILURE_HWID_BLOCK,
 		}
 
 		self.loginFailureFuncDict = {
