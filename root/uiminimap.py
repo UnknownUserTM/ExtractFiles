@@ -168,6 +168,7 @@ class AtlasWindow(ui.ScriptWindow):
 		self.AtlasMainWindow = None
 		self.mapName = ""
 		self.board = 0
+		self.showLocalMousePosition = True
 
 		ui.ScriptWindow.__init__(self)
 
@@ -192,11 +193,12 @@ class AtlasWindow(ui.ScriptWindow):
 		try:
 			self.board = self.GetChild("board")
 			self.titleBar = self.GetChild("TitleBar")
+			self.toolTipPos = self.GetChild("positionToolTip")
 
 		except:
 			import exception
 			exception.Abort("AtlasWindow.LoadWindow.BindObject")
-
+		self.toolTipPos.Hide()
 		self.AtlasMainWindow = self.AtlasRenderer()
 		self.titleBar.SetCloseEvent(self.Hide)
 		self.AtlasMainWindow.SetParent(self.board)
@@ -228,13 +230,18 @@ class AtlasWindow(ui.ScriptWindow):
 
 		self.infoGuildMark.Hide()
 		self.tooltipInfo.Hide()
-		
+		self.toolTipPos.Hide()
 		if False == self.board.IsIn():
 			return
-
+		(x, y) = self.GetGlobalPosition()
 		(mouseX, mouseY) = wndMgr.GetMousePosition()
-		(bFind, sName, iPosX, iPosY, dwTextColor, dwGuildID) = miniMap.GetAtlasInfo(mouseX, mouseY)
+		(iPosX, iPosY) = miniMap.GetAtlasPositionInfo(mouseX, mouseY)
+		textWidth, textHeight = self.toolTipPos.GetTextSize()
+		self.toolTipPos.SetText("x: " + str(iPosX) + ", y: " + str(iPosY))
+		self.toolTipPos.SetPosition(mouseX - x - textWidth - 18 - 5, mouseY - y - 50)
+		self.toolTipPos.Show()
 
+		(bFind, sName, iPosX, iPosY, dwTextColor, dwGuildID) = miniMap.GetAtlasInfo(mouseX, mouseY)	
 		if False == bFind:
 			return
 
@@ -246,7 +253,8 @@ class AtlasWindow(ui.ScriptWindow):
 		else:
 			self.tooltipInfo.SetText("%s(%d, %d)" % (sName, iPosX, iPosY))
 			
-		(x, y) = self.GetGlobalPosition()
+		
+		
 		self.tooltipInfo.SetTooltipPosition(mouseX - x, mouseY - y - 50)
 		self.tooltipInfo.SetTextColor(dwTextColor)
 		self.tooltipInfo.Show()
@@ -257,7 +265,10 @@ class AtlasWindow(ui.ScriptWindow):
 			self.infoGuildMark.SetIndex(dwGuildID)
 			self.infoGuildMark.SetPosition(mouseX - x - textWidth - 18 - 5, mouseY - y - 50)
 			self.infoGuildMark.Show()
+			
 
+			
+			
 	def Hide(self):
 		if self.AtlasMainWindow:
 			self.AtlasMainWindow.HideAtlas()
