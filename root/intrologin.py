@@ -152,6 +152,10 @@ class LoginWindow(ui.ScriptWindow):
 			"WRONGPWD"	: localeInfo.LOGIN_FAILURE_WRONG_PASSWORD,
 			"WRONGMAT"	: localeInfo.LOGIN_FAILURE_WRONG_MATRIX_CARD_NUMBER,
 			"QUIT"		: app.Exit,
+			
+		if app.NEW_CLIENT_VERSION_CHECK:
+			self.loginFailureMsgDict["WRONGVER"] = localeInfo.LOGIN_FAILURE_WRONG_VERSION
+			self.loginFailureFuncDict["WRONGVER"] = app.Exit
 		}
 		
 		self.__RequestServerStateList()
