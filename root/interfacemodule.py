@@ -59,6 +59,7 @@ import uimainquest
 import uimultishop
 import uigame
 import uiachievement
+import uidungeon
 
 
 IsQBHide = 0
@@ -226,6 +227,9 @@ class Interface(object):
 		
 	def __MakeAchievementController(self):
 		self.ctrlAchievement = uiachievement.AchievementController()
+		
+	def __MakeDungeonIntroWindow(self):
+		self.wndDungeonIntro = uidungeon.DungeonIntroWindow()
 	
 	def OpenHallOfFame(self):
 		uihalloffame.wnd.OpenRequest()		
@@ -576,6 +580,7 @@ class Interface(object):
 		self.__MakeMultiShop(self.wndInventory)
 		self.__MakeNewGameOptionWindow()
 		self.__MakeAchievementController()
+		self.__MakeDungeonIntroWindow()
 		# ACCESSORY_REFINE_ADD_METIN_STONE
 		self.__MakeItemSelectWindow()
 		# END_OF_ACCESSORY_REFINE_ADD_METIN_STONE
