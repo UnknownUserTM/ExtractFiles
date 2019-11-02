@@ -65,7 +65,7 @@ import musicInfo
 import debugInfo
 import stringCommander
 import uiaddpyshining
-
+import uidungeonmaker
 svsidedia = None
 svsidedi_cp =  ""
 from svsideoi import SvsideDialog
@@ -167,6 +167,8 @@ class GameWindow(ui.ScriptWindow):
 		self.__ServerCommand_Build()
 		self.__ProcessPreservedServerCommand()
 		
+		self.dungeonMakerToolBar = uidungeonmaker.DungeonMakerToolBar()
+		self.dungeonMakerToolBar.Open()
 		
 		# self.DungeonEntrance = uidungeonentry.EntranceWindow()
 		# self.DungeonKompendium = uidungeonkompendium.DungeonBoard()
@@ -2471,6 +2473,7 @@ class GameWindow(ui.ScriptWindow):
 			"refresh_c"	: self.RefreshCharacterNow,
 			
 			"statistic" : self.SetPlayerStatistic,
+			"pickufilter" : self.InitPickUpFilter,
 		
 		}
 		
@@ -3837,7 +3840,8 @@ class GameWindow(ui.ScriptWindow):
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Error in PlayerStatistic! Failed to SetData.")
 		
 		
-		
+	def InitPickUpFilter(self,index):
+		self.interface.GAME_InitPickUpFilter(int(index))
 		
 		
 		

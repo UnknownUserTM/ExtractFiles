@@ -15,7 +15,6 @@ import event
 import localeInfo
 from uiGuild import MouseReflector
 import systemSetting
-blockMode = 0
 
 class DungeonIntroWindow(ui.ScriptWindow):
 
@@ -61,7 +60,7 @@ class DungeonIntroWindow(ui.ScriptWindow):
 		self.difficultyPlus.SetEvent(self.PlusDifficulty)
 		self.difficultyMinus.SetEvent(self.MinusDifficulty)
 		self.UpdateChangeButtonStatus()
-		self.Show()
+		# self.Show()
 	
 	def OnUpdate(self):
 		if self.difficultyFrame.IsIn():

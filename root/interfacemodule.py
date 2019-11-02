@@ -194,7 +194,10 @@ class Interface(object):
 		wndGameButton.SetButtonEvent("BUILD", ui.__mem_func__(self.__OnClickBuildButton))
 
 		self.wndGameButton = wndGameButton
-
+	
+	def GAME_InitPickUpFilter(self,index):
+		self.wndGameButton.GAME_InitPickUpFilter(index)
+	
 	def __IsChatOpen(self):
 		return True
 		

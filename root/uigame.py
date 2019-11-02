@@ -53,6 +53,13 @@ class GameOptionWindow(ui.ScriptWindow):
 	OPTION_TYPE_CAMERA_GROUP = 3
 	OPTION_TYPE_TITLE = 4
 	
+	OPTION_PICKUP_WEAPON		= 23
+	OPTION_PICKUP_ARMOR			= 24
+	OPTION_PICKUP_JEWELRY		= 25
+	OPTION_PICKUP_MATERIAL		= 26
+	OPTION_PICKUP_GHOSTSTONE	= 27
+	OPTION_PICKUP_SKILLBOOK		= 28
+	
 	MAX_ITEM = 16
 	
 	optionDict = [
@@ -249,7 +256,67 @@ class GameOptionWindow(ui.ScriptWindow):
 			"button_on"		: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_SHOW,
 			"button_off"	: localeInfo.NEW_GAME_OPTION_DIALOG_BUTTON_HIDE,
 		},
+		# ------------------------------------ #
+		{
+			"name" : "PickUp-Filter",
+			"type" : OPTION_TYPE_TITLE,
+		},
+		{
+			"name" : "Waffen",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_PICKUP_WEAPON,
+			
+			"button_on"		: "Aufheben",
+			"button_off"	: "Liegen lassen",
+		},
+		{
+			"name" : "Rüstungen",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_PICKUP_ARMOR,
+			
+			"button_on"		: "Aufheben",
+			"button_off"	: "Liegen lassen",
+		},
+		{
+			"name" : "Schmuck",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_PICKUP_JEWELRY,
+			
+			"button_on"		: "Aufheben",
+			"button_off"	: "Liegen lassen",
+		},
+		{
+			"name" : "Upp-Items",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_PICKUP_MATERIAL,
+			
+			"button_on"		: "Aufheben",
+			"button_off"	: "Liegen lassen",
+		},
+		{
+			"name" : "Geiststeine",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_PICKUP_GHOSTSTONE,
+			
+			"button_on"		: "Aufheben",
+			"button_off"	: "Liegen lassen",
+		},
+		{
+			"name" : "Fertigkeitsbücher",
+			"type" : OPTION_TYPE_TOGGLE,
+			
+			"id" : OPTION_PICKUP_SKILLBOOK,
+			
+			"button_on"		: "Aufheben",
+			"button_off"	: "Liegen lassen",
+		},
 	]
+	
 
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
@@ -328,10 +395,14 @@ class GameOptionWindow(ui.ScriptWindow):
 
 
 		self.optionList[self.OPTION_INTERFACE_MONSTER_LEVEL].LinkEvent(self.ToggleMonsterLevel)
-
-
-
-
+		
+		# PickUPFilter
+		self.optionList[self.OPTION_PICKUP_WEAPON].LinkEvent(self.TogglePickUpFilter, 1)
+		self.optionList[self.OPTION_PICKUP_ARMOR].LinkEvent(self.TogglePickUpFilter, 2)
+		self.optionList[self.OPTION_PICKUP_JEWELRY].LinkEvent(self.TogglePickUpFilter, 3)
+		self.optionList[self.OPTION_PICKUP_MATERIAL].LinkEvent(self.TogglePickUpFilter, 4)
+		self.optionList[self.OPTION_PICKUP_GHOSTSTONE].LinkEvent(self.TogglePickUpFilter, 5)
+		self.optionList[self.OPTION_PICKUP_SKILLBOOK].LinkEvent(self.TogglePickUpFilter, 6)
 
 		self.HideAllItems()
 		self.RenderOptionList()
@@ -367,6 +438,26 @@ class GameOptionWindow(ui.ScriptWindow):
 		global blockMode
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"/setblockmode " + str(blockMode ^ blockDict[index]))	
 		net.SendChatPacket("/setblockmode " + str(blockMode ^ blockDict[index]))	
+
+	def TogglePickUpFilter(self, index):
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"/change_pickup_filter " + str(index))	
+		net.SendChatPacket("/change_pickup_filter " + str(index))
+		
+	def GAME_InitPickUpFilter(self,index):
+		blockDict = {
+			1 : self.OPTION_PICKUP_WEAPON,
+			2 : self.OPTION_PICKUP_ARMOR,
+			3 : self.OPTION_PICKUP_JEWELRY,
+			4 : self.OPTION_PICKUP_MATERIAL,
+			5 : self.OPTION_PICKUP_GHOSTSTONE,
+			6 : self.OPTION_PICKUP_SKILLBOOK,
+		}
+	
+		idx = blockDict[index]
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"GAME_InitPickUpFilter: " + str(index) + ", " + str(idx))
+		self.optionList[idx].SetStatus(False)
+
+		
 
 	def OnBlockMode(self, mode):
 		global blockMode
@@ -861,6 +952,16 @@ class OptionToggleItem(ui.ScriptWindow):
 
 	def SetIndex(self,index):
 		self.index = int(index)
+		
+	def SetStatus(self,status):
+		self.status = status
+		if status:
+			self.greenBar.Show()
+			self.redBar.Hide()		
+		
+		else:
+			self.greenBar.Hide()
+			self.redBar.Show()			
 		
 	def GetIndex(self):
 		return self.index

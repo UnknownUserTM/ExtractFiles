@@ -1649,3 +1649,10 @@
 20427	spy1
 20428	spy1
 20429	spy1
+20430	jinno_patrol_spear_01
+20431	jinno_patrol_spear_01
+20432	gangyo_patrol_bow
+20433	gangyo_patrol_bow
+20434	gangyo_patrol_bow
+20435	gangyo_patrol_bow
+20436	gangyo_patrol_bow

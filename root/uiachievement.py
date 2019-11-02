@@ -37,8 +37,8 @@ class AchievementController(ui.Window):
 			height = wndMgr.GetScreenHeight() - (50 + (index * 100))
 			self.AchievementWindowList[i] = AchievementWindow(self,index)
 			self.AchievementWindowList[i].SetPosition(25,wndMgr.GetScreenHeight()+200)
-			self.AchievementWindowList[i].Init(height)
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"height: " + str(height))
+			# self.AchievementWindowList[i].Init(height)
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"height: " + str(height))
 			self.AchievementWindowList[i].Show()
 	
 	def __del__(self):
