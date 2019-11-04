@@ -891,7 +891,7 @@ class ItemToolTip(ToolTip):
 		metinSlot = [fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(window_type, slotIndex, i) for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM)]
 		attrSlot = [fgGHGjjFHJghjfFG1545gGG.GetItemAttribute(window_type, slotIndex, i) for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM)]
 
-		self.AddItemData(itemVnum, metinSlot, attrSlot, 1)
+		self.AddItemData(itemVnum, metinSlot, attrSlot)
 		if str(fgGHGjjFHJghjfFG1545gGG.GetName())[0] == "[":	
 			self.AppendSpace(5)	
 			self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
@@ -1012,7 +1012,7 @@ class ItemToolTip(ToolTip):
 		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
 			attrSlot.append(safebox.GetItemAttribute(slotIndex, i))
 		
-		self.AddItemData(itemVnum, metinSlot, attrSlot, 0, safebox.GetItemFlags(slotIndex))
+		self.AddItemData(itemVnum, metinSlot, attrSlot, safebox.GetItemFlags(slotIndex))
 
 	def SetMallItem(self, slotIndex):
 		itemVnum = safebox.GetMallItemID(slotIndex)
@@ -1038,7 +1038,7 @@ class ItemToolTip(ToolTip):
 		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
 			attrSlot.append((0, 0))
 
-		self.AddItemData(itemVnum, metinSlot, attrSlot, 1)
+		self.AddItemData(itemVnum, metinSlot, attrSlot)
 
 	def __AppendAttackSpeedInfo(self, item):
 		atkSpd = item.GetValue(0)
@@ -1344,8 +1344,8 @@ class ItemToolTip(ToolTip):
 		self.AppendDescription(itemSummary, 26, self.CONDITION_COLOR)
 
 	# def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, unbindTime = 0):
-	# def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, window_type = fgGHGjjFHJghjfFG1545gGG.INVENTORY, slotIndex = -1, transmutation = -1,  preview = 1):
-	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, preview = 0, flags = 0, unbindTime = 0):
+	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, window_type = fgGHGjjFHJghjfFG1545gGG.INVENTORY, slotIndex = -1, transmutation = -1,  preview = 1):
+
 		self.itemVnum = itemVnum
 		
 		if itemVnum < 0:
@@ -1508,15 +1508,9 @@ class ItemToolTip(ToolTip):
 			self.__AppendMagicDefenceInfo()
 			self.__AppendAffectInformation()
 			self.__AppendAttributeInformation(attrSlot)
-            if preview != 0 and itemSubType == 0:
-                if self.__ItemGetRace() == player.GetRace() or self.__ItemGetRace() == 3 and player.GetRace() == 7: 
-                    self.__ModelPreview(itemVnum, 2, player.GetRace())    
-                if self.__ItemGetRace() == player.GetRace() or self.__ItemGetRace() == 1 and player.GetRace() == 5: 
-                    self.__ModelPreview(itemVnum, 2, player.GetRace())
-                if self.__ItemGetRace() == player.GetRace() or self.__ItemGetRace() == 0 and player.GetRace() == 4: 
-                    self.__ModelPreview(itemVnum, 2, player.GetRace())
-                else:
-                    self.__ModelPreview(itemVnum, 2, player.GetRace()) 
+			if preview != 0 and itemSubType == 0:
+				if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace():
+					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
 			self.AppendHorizontalLine()
 			self.AppendWearableInformation()
 			self.AppendSpace(5)
@@ -1567,49 +1561,22 @@ class ItemToolTip(ToolTip):
 				self.AppendSpace(5)
 				self.AppendHorizontalLine()
 				#dbg.TraceError("1) REAL_TIME flag On ")
-            if preview != 0:
-                if itemSubType == 0: #body
-                    if self.__ItemGetRace() == player.GetRace():
-                        self.__ModelPreview(itemVnum, 2, player.GetRace())
-                    
-                elif itemSubType == 1: #Hair 
-                    if item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) == False and (player.GetRace() == 4 or player.GetRace() == 0):
-                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(player.GetRace()) == 0):
-                            self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
-                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(player.GetRace()) == 1):
-                            self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
-                    if item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) == False and (player.GetRace() == 5 or player.GetRace() == 1):
-                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(player.GetRace()) == 0):
-                            self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
-                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(player.GetRace()) == 1):
-                            self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
-                    if item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) == False and (player.GetRace() == 2 or player.GetRace() == 6):
-                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(player.GetRace()) == 0):
-                            self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
-                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(player.GetRace()) == 1):
-                            self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
-                    elif item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN) == False and (player.GetRace() == 7 or player.GetRace() == 3):
-                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(player.GetRace()) == 0):
-                            self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
-                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(player.GetRace()) == 1):
-                            self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
-							
-                elif itemSubType == 3: #weapon    
-                    if player.GetRace() != 7 and player.GetRace() != 3:
-                        self.__ModelPreview(itemVnum, 3, player.GetRace())
-                    if player.GetRace() == 5 or player.GetRace() == 1:
-                        self.__ModelPreview(itemVnum, 3, player.GetRace())
-                    if player.GetRace() == 0 or player.GetRace() == 4:
-                        self.__ModelPreview(itemVnum, 3, player.GetRace())        
-                    if player.GetRace() == 7 or player.GetRace() == 3:
-                        self.__ModelPreview(itemVnum, 3, player.GetRace())    
-                    
-                elif itemSubType == 4: #Mount, 
-                    self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #in DB Value3 die Vnum des Model eintragen!
-                    
-                elif itemSubType == 5: #pet    
-                    self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #in DB Value3 die Vnum des Model eintragen! 
+			if preview != 0:
+				if itemSubType == 0: #body
+					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
 					
+				elif itemSubType == 1: #Hair 
+					self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace()) #hier in der DB Value3 prüfen  
+					
+				elif itemSubType == 3: #weapon	
+					self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
+					
+				elif itemSubType == 4: #Mount, siehe item_lenght.h @enum ECostumeSubTypes, könnt auch item.COSTUME_TYPE_MOUNT oder item.*Euer Mount Type* schreiben
+					self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #hier in der DB Value3 die Vnum des Model eintragen !
+					
+				elif itemSubType == 5: #pet	
+					self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #hier in der DB Value3 die Vnum des Model eintragen !
+				
 		## Rod ##
 		elif item.ITEM_TYPE_ROD == itemType:
 
@@ -2400,8 +2367,8 @@ class ItemToolTip(ToolTip):
 
 	def __ModelPreview(self, Vnum, test, model):
 		
-        if constInfo.DISABLE_MODEL_PREVIEW == 1:
-            return
+		#if constInfo.DISABLE_MODEL_PREVIEW == 1: #könnt ihr gern einbauen in constinfo.py
+			#return
 
 		RENDER_TARGET_INDEX = 1
 
@@ -3030,7 +2997,7 @@ class HyperlinkItemToolTip(ItemToolTip):
 				attrSlot = [(0, 0)] * fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM
 
 			self.ClearToolTip()
-			self.AddItemData(itemVnum, metinSlot, attrSlot, 1)
+			self.AddItemData(itemVnum, metinSlot, attrSlot)
 
 			ItemToolTip.OnUpdate(self)
 
