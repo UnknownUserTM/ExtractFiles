@@ -4420,6 +4420,7 @@ class PythonScriptLoader(object):
 	GAUGE_KEY_LIST = ( "width", "color", )
 	SCROLLBAR_KEY_LIST = ( "size", )
 	LIST_BOX_KEY_LIST = ( "width", "height", )
+	RENDER_TARGET_KEY_LIST = ( "index", )
 
 	def __init__(self):
 		self.Clear()
@@ -4533,6 +4534,12 @@ class PythonScriptLoader(object):
 				parent.Children[Index] = Button()
 				parent.Children[Index].SetParent(parent)
 				self.LoadElementButton(parent.Children[Index], ElementValue, parent)
+
+			elif Type == "render_target":	
+				parent.Children[Index] = RenderTarget()
+				parent.Children[Index].SetParent(parent)
+				self.LoadElementRenderTarget(parent.Children[Index], ElementValue, parent)
+
 
 			elif Type == "radio_button":
 				parent.Children[Index] = RadioButton()
@@ -5087,6 +5094,24 @@ class PythonScriptLoader(object):
 
 		window.MakeTitleBar(int(value["width"]), value.get("color", "red"))
 		self.LoadDefaultData(window, value, parentWindow)
+
+	def LoadElementRenderTarget(self, window, value, parentWindow):
+
+		if False == self.CheckKeyList(value["name"], value, self.RENDER_TARGET_KEY_LIST):
+			return False
+
+		window.SetSize(value["width"], value["height"])
+		
+		if True == value.has_key("style"):
+			for style in value["style"]:
+				window.AddFlag(style)
+				
+		self.LoadDefaultData(window, value, parentWindow)
+		
+		if value.has_key("index"):
+			window.SetRenderTarget(int(value["index"]))
+
+		return True
 		
 	## TitleBar
 	def LoadElementTitleBar(self, window, value, parentWindow):
@@ -5501,3 +5526,20 @@ def GetHyperlink():
 
 RegisterToolTipWindow("TEXT", TextLine)
 # import uitooltip
+
+class RenderTarget(Window):
+
+	def __init__(self, layer = "UI"):
+		Window.__init__(self, layer)
+		
+		self.number = -1
+
+	def __del__(self):
+		Window.__del__(self)
+
+	def RegisterWindow(self, layer):
+		self.hWnd = wndMgr.RegisterRenderTarget(self, layer)
+		
+	def SetRenderTarget(self, number):
+		self.number = number
+		wndMgr.SetRenderTarget(self.hWnd, self.number)

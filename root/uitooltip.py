@@ -19,6 +19,8 @@ import ui
 import mouseModule
 import constInfo
 import settinginfo
+import renderTarget
+
 
 GOLD_STORAGE_ITEMS = [80003,80004,80005,80006,30251,30252,30253]
 
@@ -608,6 +610,10 @@ class ItemToolTip(ToolTip):
 		localeInfo.TOOLTIP_SHAMAN 
 	)		
 
+	ModelPreviewBoard = None
+	ModelPreview = None
+	ModelPreviewText = None
+
 	CHARACTER_COUNT = len(CHARACTER_NAMES)
 	WEAR_NAMES = ( 
 		localeInfo.TOOLTIP_ARMOR, 
@@ -773,6 +779,43 @@ class ItemToolTip(ToolTip):
 
 	def __del__(self):
 		ToolTip.__del__(self)
+
+	def CanViewRendering(self):
+		race = player.GetRace()
+		job = chr.RaceToJob(race)
+		if not self.ANTI_FLAG_DICT.has_key(job):
+			return False
+
+		if item.IsAntiFlag(self.ANTI_FLAG_DICT[job]):
+			return False
+
+		sex = chr.RaceToSex(race)
+		
+		MALE = 1
+		FEMALE = 0
+
+		if item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and sex == MALE:
+			return False
+
+		if item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and sex == FEMALE:
+			return False
+
+		return True
+
+	def CanViewRenderingSex(self):
+		race = player.GetRace()
+		sex = chr.RaceToSex(race)
+		
+		MALE = 1
+		FEMALE = 0
+
+		if item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and sex == MALE:
+			return False
+
+		if item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and sex == FEMALE:
+			return False
+
+		return True
 
 	def SetCannotUseItemForceSetDisableColor(self, enable):
 		self.bCannotUseItemForceSetDisableColor = enable
@@ -1300,7 +1343,9 @@ class ItemToolTip(ToolTip):
 		self.AppendDescription(itemDesc, 26)
 		self.AppendDescription(itemSummary, 26, self.CONDITION_COLOR)
 
-	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, unbindTime = 0):
+	# def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, unbindTime = 0):
+	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, window_type = player.INVENTORY, slotIndex = -1, transmutation = -1,  preview = 1):
+
 		self.itemVnum = itemVnum
 		
 		if itemVnum < 0:
@@ -1400,6 +1445,7 @@ class ItemToolTip(ToolTip):
 		#if not constInfo.IS_PET_SEAL(itemVnum):
 		self.__SetItemTitle(itemVnum, metinSlot, attrSlot)	
 		self.AppendHorizontalLine()
+		self.__ModelPreviewClose()
 		### Hair Preview Image ###
 		if self.__IsHair(itemVnum):	
 			self.__AppendHairIcon(itemVnum)
@@ -1434,6 +1480,19 @@ class ItemToolTip(ToolTip):
 			self.AppendSpace(5)
 			self.AppendHorizontalLine()
 			self.__AppendMetinSlotInfo(metinSlot)
+			if preview != 0:
+				if item.WEAPON_SWORD == itemSubType: 
+					if player.GetRace() != 7 and player.GetRace() != 3:
+						self.__ModelPreview(itemVnum, 3, player.GetRace())
+				if item.WEAPON_DAGGER == itemSubType or item.WEAPON_BOW == itemSubType: 
+					if player.GetRace() == 5 or player.GetRace() == 1:
+						self.__ModelPreview(itemVnum, 3, player.GetRace())
+				if item.WEAPON_TWO_HANDED == itemSubType: 
+					if player.GetRace() == 0 or player.GetRace() == 4:
+						self.__ModelPreview(itemVnum, 3, player.GetRace())		
+				if item.WEAPON_BELL == itemSubType or item.WEAPON_FAN == itemSubType: 
+					if player.GetRace() == 7 or player.GetRace() == 3:
+						self.__ModelPreview(itemVnum, 3, player.GetRace())
 
 		### Armor ###
 		elif item.ITEM_TYPE_ARMOR == itemType:
@@ -1449,6 +1508,9 @@ class ItemToolTip(ToolTip):
 			self.__AppendMagicDefenceInfo()
 			self.__AppendAffectInformation()
 			self.__AppendAttributeInformation(attrSlot)
+			if preview != 0 and itemSubType == 0:
+				if self.__ItemGetRace() == player.GetRace():
+					self.__ModelPreview(itemVnum, 2, player.GetRace())
 			self.AppendHorizontalLine()
 			self.AppendWearableInformation()
 			self.AppendSpace(5)
@@ -1499,6 +1561,21 @@ class ItemToolTip(ToolTip):
 				self.AppendSpace(5)
 				self.AppendHorizontalLine()
 				#dbg.TraceError("1) REAL_TIME flag On ")
+			if preview != 0:
+				if itemSubType == 0: #body
+					self.__ModelPreview(itemVnum, 2, player.GetRace())
+					
+				elif itemSubType == 1: #Hair 
+					self.__ModelPreview(item.GetValue(3), 1, player.GetRace()) #hier in der DB Value3 prüfen  
+					
+				elif itemSubType == 3: #weapon	
+					self.__ModelPreview(itemVnum, 3, player.GetRace())
+					
+				elif itemSubType == 4: #Mount, siehe item_lenght.h @enum ECostumeSubTypes, könnt auch item.COSTUME_TYPE_MOUNT oder item.*Euer Mount Type* schreiben
+					self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #hier in der DB Value3 die Vnum des Model eintragen !
+					
+				elif itemSubType == 5: #pet	
+					self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #hier in der DB Value3 die Vnum des Model eintragen !
 				
 		## Rod ##
 		elif item.ITEM_TYPE_ROD == itemType:
@@ -2286,6 +2363,95 @@ class ItemToolTip(ToolTip):
 		#self.toolTipWidth += itemImage.GetWidth()/2
 		self.childrenList.append(itemImage)
 		self.ResizeToolTip()
+
+
+	def __ModelPreview(self, Vnum, test, model):
+		
+		#if constInfo.DISABLE_MODEL_PREVIEW == 1: #könnt ihr gern einbauen in constinfo.py
+			#return
+
+		RENDER_TARGET_INDEX = 1
+
+		self.ModelPreviewBoard = ui.ThinBoard()
+		self.ModelPreviewBoard.SetParent(self)
+		self.ModelPreviewBoard.SetSize(190+10, 210+30)
+		self.ModelPreviewBoard.SetPosition(-202, 0)
+		self.ModelPreviewBoard.Show()
+
+		self.ModelPreview = ui.RenderTarget()
+		self.ModelPreview.SetParent(self.ModelPreviewBoard)
+		self.ModelPreview.SetSize(190, 210)
+		self.ModelPreview.SetPosition(5, 22)
+		self.ModelPreview.SetRenderTarget(RENDER_TARGET_INDEX)
+		self.ModelPreview.Show()
+
+		self.ModelPreviewText = ui.TextLine()
+		self.ModelPreviewText.SetParent(self.ModelPreviewBoard)
+		self.ModelPreviewText.SetFontName(self.defFontName)
+		self.ModelPreviewText.SetPackedFontColor(grp.GenerateColor(0.8824, 0.9804, 0.8824, 1.0))
+		self.ModelPreviewText.SetPosition(0, 5)
+		self.ModelPreviewText.SetText("Vorschau by Volvox")
+		self.ModelPreviewText.SetOutline()
+		self.ModelPreviewText.SetFeather(False)
+		self.ModelPreviewText.SetWindowHorizontalAlignCenter()
+		self.ModelPreviewText.SetHorizontalAlignCenter()
+		self.ModelPreviewText.Show()
+		renderTarget.SetBackground(RENDER_TARGET_INDEX, "d:/ymir work/ui/game/myshop_deco/model_view_bg.sub")
+		renderTarget.SetVisibility(RENDER_TARGET_INDEX, True)
+		renderTarget.SelectModel(RENDER_TARGET_INDEX, model)
+			if test == 1:
+				renderTarget.SetHair(RENDER_TARGET_INDEX, Vnum)
+			elif test == 2:
+				renderTarget.SetArmor(RENDER_TARGET_INDEX, Vnum)	
+			elif test == 3:
+				renderTarget.SetWeapon(RENDER_TARGET_INDEX, Vnum)
+			elif test == 4:
+				renderTarget.SetAcce(RENDER_TARGET_INDEX, Vnum)
+
+			
+	def __ModelPreviewClose(self):
+		RENDER_TARGET_INDEX = 1
+
+		if self.ModelPreviewBoard:
+			self.ModelPreviewBoard.Hide()
+			self.ModelPreview.Hide()
+			self.ModelPreviewText.Hide()
+
+			self.ModelPreviewBoard = None
+			self.ModelPreview = None
+			self.ModelPreviewText = None
+
+			renderTarget.SetVisibility(RENDER_TARGET_INDEX, False)	
+	
+	def __ItemGetRace(self):
+		race = 0
+
+		if item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN):
+			race = 9
+		elif item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN):
+			race = 1
+		elif item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) and item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN):
+			race = 2
+		elif item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) and item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA):
+			race = 3
+
+		sex = chr.RaceToSex(player.GetRace())
+		MALE = 1
+		FEMALE = 0
+
+		if item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and sex == MALE:
+			race = player.GetRace() + 4
+
+		if item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and sex == FEMALE:
+			race = player.GetRace()
+
+		if race == 0:
+			race = player.GetRace()
+
+		if race == 9:
+			race = 0
+
+		return race
 
 	## »çÀÌÁî°¡ Å« Description ÀÏ °æ¿ì ÅøÆÁ »çÀÌÁî¸¦ Á¶Á¤ÇÑ´Ù
 	def __AdjustMaxWidth(self, attrSlot, desc):
