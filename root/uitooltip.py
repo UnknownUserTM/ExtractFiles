@@ -2399,14 +2399,14 @@ class ItemToolTip(ToolTip):
 		renderTarget.SetBackground(RENDER_TARGET_INDEX, "d:/ymir work/ui/game/myshop_deco/model_view_bg.sub")
 		renderTarget.SetVisibility(RENDER_TARGET_INDEX, True)
 		renderTarget.SelectModel(RENDER_TARGET_INDEX, model)
-			if test == 1:
-				renderTarget.SetHair(RENDER_TARGET_INDEX, Vnum)
-			elif test == 2:
-				renderTarget.SetArmor(RENDER_TARGET_INDEX, Vnum)	
-			elif test == 3:
-				renderTarget.SetWeapon(RENDER_TARGET_INDEX, Vnum)
-			elif test == 4:
-				renderTarget.SetAcce(RENDER_TARGET_INDEX, Vnum)
+		if test == 1:
+			renderTarget.SetHair(RENDER_TARGET_INDEX, Vnum)
+		elif test == 2:
+			renderTarget.SetArmor(RENDER_TARGET_INDEX, Vnum)	
+		elif test == 3:
+			renderTarget.SetWeapon(RENDER_TARGET_INDEX, Vnum)
+		elif test == 4:
+			renderTarget.SetAcce(RENDER_TARGET_INDEX, Vnum)
 
 			
 	def __ModelPreviewClose(self):
