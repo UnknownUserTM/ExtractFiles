@@ -11,7 +11,7 @@ if app.ENABLE_REFINE_RENEWAL:
 		"ITEM" : [-1, -1],
 		"NPC" : [0, -1, -1, 0]
 	}
-
+DISABLE_MODEL_PREVIEW = 0
 regengenerator = "0/0/0/0"
 ME_KEY = 0
 avilable = 0
