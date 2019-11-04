@@ -781,7 +781,7 @@ class ItemToolTip(ToolTip):
 		ToolTip.__del__(self)
 
 	def CanViewRendering(self):
-		race = player.GetRace()
+		race = fgGHGjjFHJghjfFG1545gGG.GetRace()
 		job = chr.RaceToJob(race)
 		if not self.ANTI_FLAG_DICT.has_key(job):
 			return False
@@ -803,7 +803,7 @@ class ItemToolTip(ToolTip):
 		return True
 
 	def CanViewRenderingSex(self):
-		race = player.GetRace()
+		race = fgGHGjjFHJghjfFG1545gGG.GetRace()
 		sex = chr.RaceToSex(race)
 		
 		MALE = 1
@@ -1344,7 +1344,7 @@ class ItemToolTip(ToolTip):
 		self.AppendDescription(itemSummary, 26, self.CONDITION_COLOR)
 
 	# def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, unbindTime = 0):
-	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, window_type = player.INVENTORY, slotIndex = -1, transmutation = -1,  preview = 1):
+	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, window_type = fgGHGjjFHJghjfFG1545gGG.INVENTORY, slotIndex = -1, transmutation = -1,  preview = 1):
 
 		self.itemVnum = itemVnum
 		
@@ -1482,17 +1482,17 @@ class ItemToolTip(ToolTip):
 			self.__AppendMetinSlotInfo(metinSlot)
 			if preview != 0:
 				if item.WEAPON_SWORD == itemSubType: 
-					if player.GetRace() != 7 and player.GetRace() != 3:
-						self.__ModelPreview(itemVnum, 3, player.GetRace())
+					if fgGHGjjFHJghjfFG1545gGG.GetRace() != 7 and fgGHGjjFHJghjfFG1545gGG.GetRace() != 3:
+						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
 				if item.WEAPON_DAGGER == itemSubType or item.WEAPON_BOW == itemSubType: 
-					if player.GetRace() == 5 or player.GetRace() == 1:
-						self.__ModelPreview(itemVnum, 3, player.GetRace())
+					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1:
+						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
 				if item.WEAPON_TWO_HANDED == itemSubType: 
-					if player.GetRace() == 0 or player.GetRace() == 4:
-						self.__ModelPreview(itemVnum, 3, player.GetRace())		
+					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 0 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 4:
+						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())		
 				if item.WEAPON_BELL == itemSubType or item.WEAPON_FAN == itemSubType: 
-					if player.GetRace() == 7 or player.GetRace() == 3:
-						self.__ModelPreview(itemVnum, 3, player.GetRace())
+					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3:
+						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
 
 		### Armor ###
 		elif item.ITEM_TYPE_ARMOR == itemType:
@@ -1509,8 +1509,8 @@ class ItemToolTip(ToolTip):
 			self.__AppendAffectInformation()
 			self.__AppendAttributeInformation(attrSlot)
 			if preview != 0 and itemSubType == 0:
-				if self.__ItemGetRace() == player.GetRace():
-					self.__ModelPreview(itemVnum, 2, player.GetRace())
+				if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace():
+					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
 			self.AppendHorizontalLine()
 			self.AppendWearableInformation()
 			self.AppendSpace(5)
@@ -1563,13 +1563,13 @@ class ItemToolTip(ToolTip):
 				#dbg.TraceError("1) REAL_TIME flag On ")
 			if preview != 0:
 				if itemSubType == 0: #body
-					self.__ModelPreview(itemVnum, 2, player.GetRace())
+					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
 					
 				elif itemSubType == 1: #Hair 
-					self.__ModelPreview(item.GetValue(3), 1, player.GetRace()) #hier in der DB Value3 prüfen  
+					self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace()) #hier in der DB Value3 prüfen  
 					
 				elif itemSubType == 3: #weapon	
-					self.__ModelPreview(itemVnum, 3, player.GetRace())
+					self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
 					
 				elif itemSubType == 4: #Mount, siehe item_lenght.h @enum ECostumeSubTypes, könnt auch item.COSTUME_TYPE_MOUNT oder item.*Euer Mount Type* schreiben
 					self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #hier in der DB Value3 die Vnum des Model eintragen !
@@ -2435,18 +2435,18 @@ class ItemToolTip(ToolTip):
 		elif item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) and item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA):
 			race = 3
 
-		sex = chr.RaceToSex(player.GetRace())
+		sex = chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace())
 		MALE = 1
 		FEMALE = 0
 
 		if item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and sex == MALE:
-			race = player.GetRace() + 4
+			race = fgGHGjjFHJghjfFG1545gGG.GetRace() + 4
 
 		if item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and sex == FEMALE:
-			race = player.GetRace()
+			race = fgGHGjjFHJghjfFG1545gGG.GetRace()
 
 		if race == 0:
-			race = player.GetRace()
+			race = fgGHGjjFHJghjfFG1545gGG.GetRace()
 
 		if race == 9:
 			race = 0
