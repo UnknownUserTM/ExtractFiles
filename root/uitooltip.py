@@ -1508,15 +1508,15 @@ class ItemToolTip(ToolTip):
 			self.__AppendMagicDefenceInfo()
 			self.__AppendAffectInformation()
 			self.__AppendAttributeInformation(attrSlot)
-			if preview != 0 and itemSubType == 0:
-				if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 3 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 7: 
-					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())    
-				if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 1 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 5: 
-					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
-				if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 0 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 4: 
-					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
-				else:
-					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace()) 
+            if preview != 0 and itemSubType == 0:
+                if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 3 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 7: 
+                    self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())    
+                if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 1 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 5: 
+                    self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 0 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 4: 
+                    self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                else:
+                    self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace()) 
 			self.AppendHorizontalLine()
 			self.AppendWearableInformation()
 			self.AppendSpace(5)
@@ -1567,49 +1567,49 @@ class ItemToolTip(ToolTip):
 				self.AppendSpace(5)
 				self.AppendHorizontalLine()
 				#dbg.TraceError("1) REAL_TIME flag On ")
-			if preview != 0:
-				if itemSubType == 0: #body
-					if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace():
-						self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
-
-				elif itemSubType == 1: #Hair 
-					if item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 4 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 0):
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					if item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1):
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					if item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 2 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 6):
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					elif item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3):
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-
-				elif itemSubType == 3: #weapon    
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() != 7 and fgGHGjjFHJghjfFG1545gGG.GetRace() != 3:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 0 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 4:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())        
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())    
-
-				elif itemSubType == 4: #Mount, 
-					self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #in DB Value3 die Vnum des Model eintragen!
-
-				elif itemSubType == 5: #pet    
-					self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #in DB Value3 die Vnum des Model eintragen! 
-
+            if preview != 0:
+                if itemSubType == 0: #body
+                    if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace():
+                        self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                    
+                elif itemSubType == 1: #Hair 
+                    if item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 4 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 0):
+                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
+                            self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
+                            self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                    if item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1):
+                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
+                            self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
+                            self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                    if item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 2 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 6):
+                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
+                            self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
+                            self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                    elif item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3):
+                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
+                            self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                        if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
+                            self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
+							
+                elif itemSubType == 3: #weapon    
+                    if fgGHGjjFHJghjfFG1545gGG.GetRace() != 7 and fgGHGjjFHJghjfFG1545gGG.GetRace() != 3:
+                        self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                    if fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1:
+                        self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
+                    if fgGHGjjFHJghjfFG1545gGG.GetRace() == 0 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 4:
+                        self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())        
+                    if fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3:
+                        self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())    
+                    
+                elif itemSubType == 4: #Mount, 
+                    self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #in DB Value3 die Vnum des Model eintragen!
+                    
+                elif itemSubType == 5: #pet    
+                    self.__ModelPreview(itemVnum, 0, item.GetValue(3)) #in DB Value3 die Vnum des Model eintragen! 
+					
 		## Rod ##
 		elif item.ITEM_TYPE_ROD == itemType:
 
