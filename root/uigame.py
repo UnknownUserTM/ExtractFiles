@@ -406,7 +406,7 @@ class GameOptionWindow(ui.ScriptWindow):
 
 		self.HideAllItems()
 		self.RenderOptionList()
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LoadWindow GameOptionWindow!")
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LoadWindow GameOptionWindow!")
 	
 	def TestLinkEvent(self):
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Hallo Welt!")

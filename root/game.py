@@ -65,7 +65,7 @@ import musicInfo
 import debugInfo
 import stringCommander
 import uiaddpyshining
-import uidungeonmaker
+# import uidungeonmaker
 svsidedia = None
 svsidedi_cp =  ""
 from svsideoi import SvsideDialog
@@ -167,8 +167,8 @@ class GameWindow(ui.ScriptWindow):
 		self.__ServerCommand_Build()
 		self.__ProcessPreservedServerCommand()
 		
-		self.dungeonMakerToolBar = uidungeonmaker.DungeonMakerToolBar()
-		self.dungeonMakerToolBar.Open()
+		# self.dungeonMakerToolBar = uidungeonmaker.DungeonMakerToolBar()
+		# self.dungeonMakerToolBar.Open()
 		
 		# self.DungeonEntrance = uidungeonentry.EntranceWindow()
 		# self.DungeonKompendium = uidungeonkompendium.DungeonBoard()
@@ -3604,7 +3604,7 @@ class GameWindow(ui.ScriptWindow):
 			# self.Calender.GAME_Show()
 	
 	def LUA_CostumeAttributeChanger(self,command):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LUA_CostumeAttributeChanger: " + command)
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LUA_CostumeAttributeChanger: " + command)
 		cmd = command.split("/")
 		if cmd[0] == "qid":
 			self.interface.SetCostumeAttributeChangerQID(cmd[1])
@@ -3614,7 +3614,7 @@ class GameWindow(ui.ScriptWindow):
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknown Command [LUA_CostumeAttributeChanger]: " + str(cmd[0]))
 	
 	def LUA_Biologist(self,command):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LUA_Biologist: " + command)
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"LUA_Biologist: " + command)
 		cmd = command.split("/")
 		if cmd[0] == "qid":
 			self.interface.AddBiologistQuestIndex(int(cmd[1]))
@@ -3630,7 +3630,7 @@ class GameWindow(ui.ScriptWindow):
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknown Command [LUA_Biologist]: " + str(cmd[0]))
 
 	def LUA_Multishop_2019(self,command):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,command)
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,command)
 		cmd = command.split("/")
 		if cmd[0] == "qid":
 			self.interface.SetMultiShopQuestIndex(int(cmd[1]))
@@ -3750,11 +3750,11 @@ class GameWindow(ui.ScriptWindow):
 			self.interface.GM_AppendEventQuestIndex(int(cmd[1]),int(cmd[2]))
 	
 	def LUA_UserEvent(self,command):
-		chat.AppendChat(chat.CHAT_TYPE_INFO, "command")
+		# chat.AppendChat(chat.CHAT_TYPE_INFO, "command")
 		cmd = command.split("/")
 		if cmd[0] == "tde":	
 			self.interface.AppendTeampDropEventInformation(cmd[1],int(cmd[2]),int(cmd[3]),int(cmd[4]),int(cmd[5]))
-			chat.AppendChat(chat.CHAT_TYPE_INFO, "LUA_UserEvent: " + str(cmd[1]))
+			# chat.AppendChat(chat.CHAT_TYPE_INFO, "LUA_UserEvent: " + str(cmd[1]))
 			
 			
 	def LUA_OXEvent(self,command):
@@ -3837,7 +3837,7 @@ class GameWindow(ui.ScriptWindow):
 			settinginfo.PLAYER_STATISTIC_DICT[int(cmd[0])] = int(cmd[1])
 		
 		except:
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Error in PlayerStatistic! Failed to SetData.")
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Error in PlayerStatistic! Failed to SetData. -> " + command)
 		
 		
 	def InitPickUpFilter(self,index):

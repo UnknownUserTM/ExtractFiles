@@ -138,13 +138,13 @@ class QuestDialog(ui.ScriptWindow):
 	
 	def SetBottomMode(self,mode):
 		mode = int(mode)
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetBottomMode: " + str(mode))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetBottomMode: " + str(mode))
 		for i in xrange(self.BOTTOM_MODE_MAX):
 			if i == mode:
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetBottomMode: " + str(i) + " set Show!") #+ str(mode))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetBottomMode: " + str(i) + " set Show!") #+ str(mode))
 				self.questDialogBottom[i].Show()
 			else:
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetBottomMode: " + str(i) + " set Hide!") #+ str(mode))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetBottomMode: " + str(i) + " set Hide!") #+ str(mode))
 				self.questDialogBottom[i].Hide()
 		
 		self.QuestPaper.CheckForScrollBar(self.LINES_UNTIL_SHOW_SCROLLBAR)
