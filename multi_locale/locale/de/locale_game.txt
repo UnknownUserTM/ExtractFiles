@@ -236,14 +236,14 @@ JOB_WARRIOR0	Krieger
 JOB_WARRIOR1	Macht von Arahan
 JOB_WARRIOR2	Macht der Partisanen
 LEFT_TIME	Verbl. Zeit
-LOGIN_FAILURE_HWID_BLOCK	Das Konto ist gesperrt.
-LOGIN_CONNECT_FAILURE	Fehler beim Verbinden mit dem Server.
-LOGIN_CONNECT_REBOOT	Serverneustart. Login nicht möglich..
+LOGIN_FAILURE_HWID_BLOCK	Dein Konto wurde gesperrt.
+LOGIN_CONNECT_FAILURE	Verbindung zum Kimiko Server fehlgeschlagen.
+LOGIN_CONNECT_REBOOT	Serverneustart. Login nicht möglich.
 LOGIN_CONNECT_PWCHANGE	Bitte ändere dein Kennwort.
-LOGIN_CONNECT_SBLOCK	Sicherheitsbann. Im Ts melden.
-LOGIN_CONNECT_BOT	Wegen Fremdprogramm dauerhaft gesperrt.
-LOGIN_CONNECT_SUCCESS	Verbindung zum Server hergestellt.
-LOGIN_CONNETING	Du wirst mit dem Server verbunden...
+LOGIN_CONNECT_UBLOCK	Überprüfungssperre. Im Support einfinden.
+LOGIN_CONNECT_BOT	Wegen Fremdprogrammen dauerhaft gesperrt.
+LOGIN_CONNECT_SUCCESS	Verbindung zum Kimiko Server hergestellt.
+LOGIN_CONNETING	Du wirst zum Kimiko Server verbunden...
 LOGIN_FAILURE_ALREAY	Dein Konto ist bereits verbunden.
 LOGIN_FAILURE_BE_SAME_KEY	Anmeldeproblem
 LOGIN_FAILURE_BLOCK_ID	Das Konto ist gesperrt.
