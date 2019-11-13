@@ -14,6 +14,7 @@ import dbg
 from _weakref import proxy
 import serverInfo2
 import ServerStateChecker
+import uirules
 
 import binascii			
 import _winreg
@@ -170,6 +171,10 @@ class LoginWindow(ui.ScriptWindow):
 			
 		self.CheckAccount()
 		
+		
+		if not systemSetting.IsForcedRules():
+			self.OpenRulesBoard()
+			
 		if musicInfo.loginMusic != "":
 			snd.SetMusicVolume(systemSetting.GetMusicVolume())
 			snd.FadeInMusic("BGM/" + musicInfo.loginMusic)
@@ -334,7 +339,38 @@ class LoginWindow(ui.ScriptWindow):
 		self.idEditLine.SetFocus()
 		self.__RequestServerStateList()
 		self.InitLanguageBoard()
+		
+		self.rulesBoard = uirules.RulesWindow()
+		self.rulesBoard.acceptButton.SetEvent(self.OnAcceptGameRules)
+		self.rulesBoard.declineButton.SetEvent(self.OnDeclineGameRules)
+		
+		# self.OpenRulesBoard()
+		
+	def OpenRulesBoard(self):
+		self.scrollBoard.Hide()
+
+		for i in xrange(8):
+			self.fKeyTextLine[i].Hide()
+			self.accountButton[i].Hide()
+			self.accountDeleteButton[i].Hide()
+		self.showPasteBoardButton.Hide()
+		self.rulesBoard.Show()
+		
+		
+	def OnAcceptGameRules(self):
+		self.scrollBoard.Show()
+		self.rulesBoard.Hide()	
+		for i in xrange(8):
+			if get_reg("acc_%d" % i):
+				self.fKeyTextLine[i].Show()
+			self.accountButton[i].Show()
+			self.accountDeleteButton[i].Show()
+		self.showPasteBoardButton.Show()	
+		systemSetting.SetForcedRulesDone()
 	
+	def OnDeclineGameRules(self):
+		app.Exit()
+			
 	def OpenPasteBoard(self):
 		self.scrollBoard.Hide()
 		self.pasteBoard.Show()
@@ -488,6 +524,8 @@ class LoginWindow(ui.ScriptWindow):
 		self.channelLabel[i] = (window, text)
 		
 	def LoadAccount(self, i):
+		if self.rulesBoard.IsShow():
+			return
 		self.Connect(get_reg("acc_%d" % i).split("|")[0], get_reg("acc_%d" % i).split("|")[1])
 
 		

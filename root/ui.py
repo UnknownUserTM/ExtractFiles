@@ -21,7 +21,7 @@ BRIGHT_COLOR = grp.GenerateColor(0.7, 0.7, 0.7, 1.0)
 if localeInfo.IsCANADA():
 	SELECT_COLOR = grp.GenerateColor(0.9, 0.03, 0.01, 0.4)
 else:
-	SELECT_COLOR = grp.GenerateColor(0.0, 0.0, 0.5, 0.3)
+	SELECT_COLOR = grp.GenerateColor(1.0, 0.7843, 0.0, 0.3)
 
 WHITE_COLOR = grp.GenerateColor(1.0, 1.0, 1.0, 0.5)
 HALF_WHITE_COLOR = grp.GenerateColor(1.0, 1.0, 1.0, 0.2)
@@ -2123,7 +2123,10 @@ class RoofBar(Window):
 		self.SetSize(width, self.BLOCK_HEIGHT)
 
 	def SetCloseEvent(self, event):
-		self.btnClose.SetEvent(event)		
+		self.btnClose.SetEvent(event)	
+	
+	def HideCloseButton(self):
+		self.btnClose.Hide()
 		
 class TitleBar(Window):
 
@@ -2574,6 +2577,145 @@ class BoardWithTitleBar(Board):
 		self.titleBar.SetWidth(width - 15)
 		#self.pickRestrictWindow.SetSize(width, height - 30)
 		Board.SetSize(self, width, height)
+		self.titleName.UpdateRect()
+
+	def SetTitleColor(self, color):
+		self.titleName.SetPackedFontColor(color)
+
+	def SetTitleName(self, name):
+		self.titleName.SetText(name)
+
+	def SetCloseEvent(self, event):
+		self.titleBar.SetCloseEvent(event)
+
+class BoardOLDM2(Window):
+
+	CORNER_WIDTH = 32
+	CORNER_HEIGHT = 32
+	LINE_WIDTH = 128
+	LINE_HEIGHT = 128
+
+	LT = 0
+	LB = 1
+	RT = 2
+	RB = 3
+	L = 0
+	R = 1
+	T = 2
+	B = 3
+
+	def __init__(self):
+		Window.__init__(self)
+
+		self.MakeBoard("d:/ymir work/ui/pattern/Board_Corner_", "d:/ymir work/ui/pattern/Board_Line_")
+		self.MakeBase()
+
+	def MakeBoard(self, cornerPath, linePath):
+
+		CornerFileNames = [ cornerPath+dir+".tga" for dir in ("LeftTop", "LeftBottom", "RightTop", "RightBottom", ) ]
+		LineFileNames = [ linePath+dir+".tga" for dir in ("Left", "Right", "Top", "Bottom", ) ]
+		"""
+		CornerFileNames = (
+							"d:/ymir work/ui/pattern/Board_Corner_LeftTop.tga",
+							"d:/ymir work/ui/pattern/Board_Corner_LeftBottom.tga",
+							"d:/ymir work/ui/pattern/Board_Corner_RightTop.tga",
+							"d:/ymir work/ui/pattern/Board_Corner_RightBottom.tga",
+							)
+		LineFileNames = (
+							"d:/ymir work/ui/pattern/Board_Line_Left.tga",
+							"d:/ymir work/ui/pattern/Board_Line_Right.tga",
+							"d:/ymir work/ui/pattern/Board_Line_Top.tga",
+							"d:/ymir work/ui/pattern/Board_Line_Bottom.tga",
+							)
+		"""
+
+		self.Corners = []
+		for fileName in CornerFileNames:
+			Corner = ExpandedImageBox()
+			Corner.AddFlag("not_pick")
+			Corner.LoadImage(fileName)
+			Corner.SetParent(self)
+			Corner.SetPosition(0, 0)
+			Corner.Show()
+			self.Corners.append(Corner)
+
+		self.Lines = []
+		for fileName in LineFileNames:
+			Line = ExpandedImageBox()
+			Line.AddFlag("not_pick")
+			Line.LoadImage(fileName)
+			Line.SetParent(self)
+			Line.SetPosition(0, 0)
+			Line.Show()
+			self.Lines.append(Line)
+
+		self.Lines[self.L].SetPosition(0, self.CORNER_HEIGHT)
+		self.Lines[self.T].SetPosition(self.CORNER_WIDTH, 0)
+
+	def MakeBase(self):
+		self.Base = ExpandedImageBox()
+		self.Base.AddFlag("not_pick")
+		self.Base.LoadImage("d:/ymir work/ui/pattern/Board_Base.tga")
+		self.Base.SetParent(self)
+		self.Base.SetPosition(self.CORNER_WIDTH, self.CORNER_HEIGHT)
+		self.Base.Show()
+
+	def __del__(self):
+		Window.__del__(self)
+
+	def SetSize(self, width, height):
+
+		width = max(self.CORNER_WIDTH*2, width)
+		height = max(self.CORNER_HEIGHT*2, height)
+		Window.SetSize(self, width, height)
+
+		self.Corners[self.LB].SetPosition(0, height - self.CORNER_HEIGHT)
+		self.Corners[self.RT].SetPosition(width - self.CORNER_WIDTH, 0)
+		self.Corners[self.RB].SetPosition(width - self.CORNER_WIDTH, height - self.CORNER_HEIGHT)
+		self.Lines[self.R].SetPosition(width - self.CORNER_WIDTH, self.CORNER_HEIGHT)
+		self.Lines[self.B].SetPosition(self.CORNER_HEIGHT, height - self.CORNER_HEIGHT)
+
+		verticalShowingPercentage = float((height - self.CORNER_HEIGHT*2) - self.LINE_HEIGHT) / self.LINE_HEIGHT
+		horizontalShowingPercentage = float((width - self.CORNER_WIDTH*2) - self.LINE_WIDTH) / self.LINE_WIDTH
+		self.Lines[self.L].SetRenderingRect(0, 0, 0, verticalShowingPercentage)
+		self.Lines[self.R].SetRenderingRect(0, 0, 0, verticalShowingPercentage)
+		self.Lines[self.T].SetRenderingRect(0, 0, horizontalShowingPercentage, 0)
+		self.Lines[self.B].SetRenderingRect(0, 0, horizontalShowingPercentage, 0)
+
+		if self.Base:
+			self.Base.SetRenderingRect(0, 0, horizontalShowingPercentage, verticalShowingPercentage)
+
+class BoardWithTitleBarOLDM2(BoardOLDM2):
+	def __init__(self):
+		BoardOLDM2.__init__(self)
+
+		titleBar = TitleBar()
+		titleBar.SetParent(self)
+		titleBar.MakeTitleBar(0, "red")
+		titleBar.SetPosition(8, 7)
+		titleBar.Show()
+
+		titleName = TextLine()
+		titleName.SetParent(titleBar)
+		titleName.SetPosition(0, 4)
+		titleName.SetWindowHorizontalAlignCenter()
+		titleName.SetHorizontalAlignCenter()
+		titleName.Show()
+
+		self.titleBar = titleBar
+		self.titleName = titleName
+
+		self.SetCloseEvent(self.Hide)
+
+	def __del__(self):
+		BoardOLDM2.__del__(self)
+		self.titleBar = None
+		self.titleName = None
+
+	def SetSize(self, width, height):
+		self.titleBar.SetWidth(width - 15)
+		#self.pickRestrictWindow.SetSize(width, height - 30)
+		BoardOLDM2.SetSize(self, width, height)
 		self.titleName.UpdateRect()
 
 	def SetTitleColor(self, color):
@@ -3284,6 +3426,7 @@ class ListBox(Window):
 
 		textLine = TextLine()
 		textLine.SetParent(self)
+		textLine.SetOutline()
 		textLine.SetText(text)
 		textLine.Show()
 
@@ -3409,6 +3552,215 @@ class ListBox(Window):
 					self.overLine = -1
 				if self.overLine >= len(self.itemList):
 					self.overLine = -1
+
+	def OnRender(self):
+		xRender, yRender = self.GetGlobalPosition()
+		yRender -= self.TEMPORARY_PLACE
+		widthRender = self.width
+		heightRender = self.height + self.TEMPORARY_PLACE*2
+
+		if localeInfo.IsCIBN10:
+			if -1 != self.overLine and self.keyDict[self.overLine] != -1:
+				grp.SetColor(HALF_WHITE_COLOR)
+				grp.RenderBar(xRender + 2, yRender + self.overLine*self.stepSize + 4, self.width - 3, self.stepSize)				
+
+			if -1 != self.selectedLine and self.keyDict[self.selectedLine] != -1:
+				if self.selectedLine >= self.basePos:
+					if self.selectedLine - self.basePos < self.showLineCount:
+						grp.SetColor(SELECT_COLOR)
+						grp.RenderBar(xRender + 2, yRender + (self.selectedLine-self.basePos)*self.stepSize + 4, self.width - 3, self.stepSize)
+
+		else:		
+			if -1 != self.overLine:
+				grp.SetColor(HALF_WHITE_COLOR)
+				grp.RenderBar(xRender + 2, yRender + self.overLine*self.stepSize + 4, self.width - 3, self.stepSize)				
+
+			if -1 != self.selectedLine:
+				if self.selectedLine >= self.basePos:
+					if self.selectedLine - self.basePos < self.showLineCount:
+						grp.SetColor(SELECT_COLOR)
+						grp.RenderBar(xRender + 2, yRender + (self.selectedLine-self.basePos)*self.stepSize + 4, self.width - 3, self.stepSize)
+
+
+class RulesListBox(Window):
+
+	TEMPORARY_PLACE = 3
+	
+	TITLE_COLOR = grp.GenerateColor(1.0, 0.7843, 0.0, 1.0)
+	
+	def __init__(self, layer = "UI"):
+		Window.__init__(self, layer)
+		self.overLine = -1
+		self.selectedLine = -1
+		self.width = 0
+		self.height = 0
+		self.stepSize = 17
+		self.basePos = 0
+		self.showLineCount = 0
+		self.itemCenterAlign = False
+		self.itemList = []
+		self.keyDict = {}
+		self.textDict = {}
+		self.event = lambda *arg: None
+	def __del__(self):
+		Window.__del__(self)
+
+	def SetWidth(self, width):
+		self.SetSize(width, self.height)
+
+	def SetSize(self, width, height):
+		Window.SetSize(self, width, height)
+		self.width = width
+		self.height = height
+
+	def SetTextCenterAlign(self, flag):
+		self.itemCenterAlign = flag
+
+	def SetBasePos(self, pos):
+		self.basePos = pos
+		self._LocateItem()
+
+	def ClearItem(self):
+		self.keyDict = {}
+		self.textDict = {}
+		self.itemList = []
+		self.overLine = -1
+		self.selectedLine = -1
+
+	def InsertItem(self, number, text, isTitle):
+		self.keyDict[len(self.itemList)] = number
+		self.textDict[len(self.itemList)] = text
+
+		textLine = TextLine()
+		textLine.SetParent(self)
+		textLine.SetOutline()
+		textLine.SetText(text)
+		if isTitle:
+			textLine.SetFontColor(1.0, 0.7843, 0.0)
+		textLine.Show()
+
+		if self.itemCenterAlign:
+			textLine.SetWindowHorizontalAlignCenter()
+			textLine.SetHorizontalAlignCenter()
+
+		self.itemList.append(textLine)
+
+		self._LocateItem()
+		
+	def InsertSupportItem(self, number, text, language, supportStatus):
+		self.keyDict[len(self.itemList)] = number
+		self.textDict[len(self.itemList)] = text
+
+		textLine = TextLine()
+		textLine.SetParent(self)
+		
+		textLine.Show()
+		
+		if supportStatus == 0: # Negativ
+			textLine.SetFontColor(0.9, 0.4745, 0.4627)
+			textLine.SetText(text + " - [" + str(language) + "][Offen]")
+			
+		elif supportStatus == 1: # Positiv
+			textLine.SetFontColor(1.0, 0.7843, 0.0)		
+			textLine.SetText(text + " - [" + str(language) + "][In bearbeitung]")
+
+		if self.itemCenterAlign:
+			textLine.SetWindowHorizontalAlignCenter()
+			textLine.SetHorizontalAlignCenter()
+
+		self.itemList.append(textLine)
+
+		self._LocateItem()
+		
+	def ChangeItem(self, number, text):
+		for key, value in self.keyDict.items():
+			if value == number:
+				self.textDict[key] = text
+
+				if number < len(self.itemList):
+					self.itemList[key].SetText(text)
+
+				return
+
+	def LocateItem(self):
+		self._LocateItem()
+
+	def _LocateItem(self):
+
+		skipCount = self.basePos
+		yPos = 0
+		self.showLineCount = 0
+
+		for textLine in self.itemList:
+			textLine.Hide()
+
+			if skipCount > 0:
+				skipCount -= 1
+				continue
+
+			if localeInfo.IsARABIC():
+				w, h = textLine.GetTextSize()
+				textLine.SetPosition(w+10, yPos + 3)
+			else:
+				textLine.SetPosition(0, yPos + 3)
+
+			yPos += self.stepSize
+
+			if yPos <= self.GetHeight():
+				self.showLineCount += 1
+				textLine.Show()
+
+	def ArrangeItem(self):
+		self.SetSize(self.width, len(self.itemList) * self.stepSize)
+		self._LocateItem()
+
+	def GetViewItemCount(self):
+		return int(self.GetHeight() / self.stepSize)
+
+	def GetItemCount(self):
+		return len(self.itemList)
+
+	def SetEvent(self, event):
+		self.event = event
+
+	def SelectItem(self, line):
+
+		if not self.keyDict.has_key(line):
+			return
+
+		if line == self.selectedLine:
+			return
+
+		self.selectedLine = line
+		self.event(self.keyDict.get(line, 0), self.textDict.get(line, "None"))
+
+	def GetSelectedItem(self):
+		return self.keyDict.get(self.selectedLine, 0)
+
+	def OnMouseLeftButtonDown(self):
+		if self.overLine < 0:
+			return
+
+	def OnMouseLeftButtonUp(self):
+		if self.overLine >= 0:
+			self.SelectItem(self.overLine+self.basePos)
+
+	# def OnUpdate(self):
+
+		# self.overLine = -1
+
+		# if self.IsIn():
+			# x, y = self.GetGlobalPosition()
+			# height = self.GetHeight()
+			# xMouse, yMouse = wndMgr.GetMousePosition()
+
+			# if yMouse - y < height - 1:
+				# self.overLine = (yMouse - y) / self.stepSize
+
+				# if self.overLine < 0:
+					# self.overLine = -1
+				# if self.overLine >= len(self.itemList):
+					# self.overLine = -1
 
 	def OnRender(self):
 		xRender, yRender = self.GetGlobalPosition()
@@ -4614,6 +4966,11 @@ class PythonScriptLoader(object):
 				parent.Children[Index] = BoardWithTitleBar()
 				parent.Children[Index].SetParent(parent)
 				self.LoadElementBoardWithTitleBar(parent.Children[Index], ElementValue, parent)
+
+			elif Type == "board_with_titlebar_oldm2":
+				parent.Children[Index] = BoardWithTitleBarOLDM2()
+				parent.Children[Index].SetParent(parent)
+				self.LoadElementBoardWithTitleBar(parent.Children[Index], ElementValue, parent)
 			
 			elif Type == "board_with_roofbar":
 				parent.Children[Index] = BoardWithRoofBar()
@@ -4695,6 +5052,11 @@ class PythonScriptLoader(object):
 				parent.Children[Index].SetParent(parent)
 				self.LoadElementListBox(parent.Children[Index], ElementValue, parent)			
 			
+			elif Type == "ruleslistbox":
+				parent.Children[Index] = RulesListBox()
+				parent.Children[Index].SetParent(parent)
+				self.LoadElementListBox(parent.Children[Index], ElementValue, parent)	
+				
 			elif Type == "questviewlistbox":
 				parent.Children[Index] = QuestViewListBox()
 				parent.Children[Index].SetParent(parent)
@@ -5088,6 +5450,9 @@ class PythonScriptLoader(object):
 		window.MakeTitleBar(int(value["width"]), value.get("color", "red"))
 		self.LoadDefaultData(window, value, parentWindow)
 		
+		if value.has_key("hide_close_button"):
+			window.HideCloseButton()	
+			
 	## TitleBar
 	def LoadElementTitleBar(self, window, value, parentWindow):
 

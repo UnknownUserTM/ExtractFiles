@@ -1,0 +1,85 @@
+TITLE	Das Regelwerk von Kimiko. Jeder Spieler hat sich an diese zu halten. Wird gegen das Regelwerk verstoßen
+TITLE	werden Temporäre oder permanente Accountsperren vollzogen. Kimiko steht es frei, Accounts, Charaktere,
+TITLE	Gegenstände oder Währungen des Charakters zu löschen/sperren/ändern.
+SPACE	
+TITLE	Übersicht:
+DESC	§1 - Allgemeines Verhalten
+DESC	§2 - Chat
+DESC	§3 - Fremdwerbung
+DESC	§4 - Namensgebung
+DESC	§5 - Cheats & Bugs
+DESC	§6 - Aktivitäten im Spiel
+DESC	§7 - GM-Unterstützung
+DESC	§8 - EQ & ACC Handel
+DESC	§9 - Sonstiges
+SPACE	
+TITLE	§1 - Allgemeines Verhalten (1.0 - 1.3)
+DESC	1.0)    Der Umgang mit anderen Spielern muss respektvoll und freundlich sein. 
+DESC	1.1)    Beleidigungen und Drohungen werden nicht geduldet. 
+DESC	1.2)    Ebenfalls ist es ausdrücklich verboten Rassismus, Antisemitismus oder sonstige 
+DESC	        negative Verhaltensweisen auszuüben. 
+DESC	1.3)    Zudem sind Aufforderungen zum Suizid verboten.
+SPACE		
+TITLE	§2 - Chat (2.0 - 2.3)
+DESC	2.0)    Der Chat im allgemeinen verfügt über einen Filter. Diesen zu umgehen egal in welcher Art
+DESC	        und Weise, ist nicht gestattet.
+DESC	2.1)    Das verbreiten von Internetseiten im Chat im allgemeinen ist ebenso nicht gestattet.
+DESC	2.2)    Spam im Chat im allgemeinen ist nicht gestattet. Mehrfaches Absenden einer identischen
+DESC	        Nachricht und Capslock zählt u.a als Spam
+DESC	2.3)    Hier gelten ebenso '§1 - Allgemeines Verhalten'
+SPACE		
+TITLE	§3 - Fremdwerbung (9.0)
+DESC	9.1)    Das Nennen/Verbreiten anderer Servernamen egal in welcher Form ist nicht gestattet.
+SPACE	
+TITLE	$4 - Accounts (4.0 - 4.3)
+DESC	4.0)    Es ist jedem Spieler gestattet beliebig viele Accounts auf dem Server zu besitzen.
+DESC	4.1)    Jedem Spieler unterliegt die Eigenverantwortung über seinen Account.
+DESC	            Zusatz zu 4.1: Wenn keine Absicherung des Charakters mit der im Spiel
+DESC	                           verfügbaren "Fremdzugriffsschutz" Option erfolgt ist,
+DESC	                           gibt es keinerlei Erstattung.
+DESC	4.2)    Wer seine Accountdaten an dritte weiter gibt, und diesem somit Zugriff gewährt,
+DESC	        bekommt keine Erstattung im allgemeinen.
+DESC	4.3)    Das verkaufen eines Accountes und deren Gegenstände ist nicht gestattet.
+SPACE	
+TITLE	§5 - Namensgebung (5.0 - 5.2)
+DESC	5.0)    Sämtliche Spieler-, Gilden- und Shopnamen, die beleidigende, rassistische, rechtsradikale 
+DESC	        oder vulgäre Ausdrücke enthalten oder in sonstiger Weise negativ auffallend sind,
+DESC	        sind nicht gestattet.
+DESC	             Zusatz zu 5.0: Kimiko endscheidet ob der Name einmal geändert werden kann.
+DESC	5.1)    Spieler, die Namen des Kimiko Teams benutzen, vorgeben sie gehören dem Kimiko Team
+DESC	        an, werden ohne Vorwarnung Ausnahmlos permanent gesperrt.
+DESC	5.2)    Kimiko steht es frei eure Namen gegebenenfalls umzubenennen.
+SPACE		
+TITLE	$6 - Bugs/Bugabuse (6.0 - 6.1)
+DESC	6.0)    Das Ausnutzen von Bugs, egal welcher Art, ist untersagt und wird sofort mit einer
+DESC	        permanenten Sperre aller Accounts auf euerer IP Adresse bestraft. Zusätzlich wird
+DESC	        deine Hardware-ID komplett gesperrt.
+DESC	6.1)    Sollten Bugs auftreten, müssen diese sofort im entsprechenden Bereich gemeldet werden.
+DESC	            Zusatz zu 6.1: Kimiko steht es frei Accounts auf Verdacht zu überprüfen.
+SPACE					
+TITLE	$7 - Fremdprogramme/Fremdsteuerung (7.0 - 7.1)
+DESC	7.0)    Das Benutzen von Fremdprogrammen/Fremdsteuerung egal in welcher Art
+DESC	        ist nicht gestattet.
+DESC	7.1)    Kimiko steht es frei, Accounts auf Verdacht temporär zu sperren und zu überprüfen.
+SPACE		
+TITLE	$8 - Teammitglieder (8.0 - 8.1)
+DESC	8.0)    Den Anweisungen der Teammitglieder von Kimiko ist Folge zu leisten. Sollten Unstimmigkeiten 
+DESC	        zwischen Personen entstehen, muss ein höheres Teammitglied hinzugezogen werden.
+DESC	8.1)    Die Privatcharaktere der Teammitglieder dürfen nicht veröffentlicht werden. 
+DESC	        Ebenso ist das Ansprechen mit dem Teamnamen (und umgekehrt) untersagt.
+SPACE				
+TITLE	§9 - Account, Charakter, Itemhandel (9.0)
+DESC	9.0)    Das Handeln von Equipment oder Accounts von Kimiko gegen Equipment oder Accounts 
+DESC	        auf anderen Servern oder gegen Echtgeld (und umgekehrt) ist untersagt.
+SPACE	
+TITLE	$10 - Sonstiges (10.0 - 10.4)
+DESC	10.0)   Kimiko behält sich das Recht vor, bei einem Verstoß gegen das Regelwerk, 
+DESC	        den Nutzer zeitweise oder dauerhaft von Kimiko auszuschließen.
+DESC	10.1)   Ob ein Verstoß gegen das Regelwerk vorliegt, liegt im Ermessen des Kimiko Teams.
+DESC	10.2)   Kimiko steht es frei das Regelwerk zu ändern, anzupassen oder ggf. eine 
+DESC	        neue Regelung hinzuzufügen.
+DESC	10.3)   Das Akzeptieren des Regelwerkes erfolgt über den Spielclienten.
+DESC	10.4)   Nach EU-DSGVO besteht das Recht auf Löschung aller Accounts
+SPACE	
+SPACE	
+SPACE	
