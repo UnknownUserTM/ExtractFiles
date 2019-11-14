@@ -19,7 +19,7 @@ import uirules
 import binascii			
 import _winreg
 REG_PATH = r"SOFTWARE\Origins"
-
+RULES_VALUE = 3
 class SentryDialog(ui.ScriptWindow):
 
 	def __init__(self, event):
@@ -172,7 +172,7 @@ class LoginWindow(ui.ScriptWindow):
 		self.CheckAccount()
 		
 		
-		if not systemSetting.IsForcedRules():
+		if systemSetting.IsForcedRules() != RULES_VALUE:
 			self.OpenRulesBoard()
 			
 		if musicInfo.loginMusic != "":
@@ -348,7 +348,6 @@ class LoginWindow(ui.ScriptWindow):
 		
 	def OpenRulesBoard(self):
 		self.scrollBoard.Hide()
-
 		for i in xrange(8):
 			self.fKeyTextLine[i].Hide()
 			self.accountButton[i].Hide()
@@ -366,7 +365,7 @@ class LoginWindow(ui.ScriptWindow):
 			self.accountButton[i].Show()
 			self.accountDeleteButton[i].Show()
 		self.showPasteBoardButton.Show()	
-		systemSetting.SetForcedRulesDone()
+		systemSetting.SetForcedRulesDone(RULES_VALUE)
 	
 	def OnDeclineGameRules(self):
 		app.Exit()
