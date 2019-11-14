@@ -579,7 +579,7 @@ class MiniMap(ui.ScriptWindow):
 			self.bossMapTimer.SetFontColor(0.5411, 0.7254, 0.5568)
 	
 	def UpdateServerInfo(self):
-		self.serverInfo.SetText("Yunari2, Channel " + str(settinginfo.realChannel) + "")
+		self.serverInfo.SetText("Kimiko, Channel " + str(settinginfo.realChannel) + "")
 		#chat.AppendChat(chat.CHAT_TYPE_NOTICE,GFHhg54GHGhh45GHGH.GetServerInfo())
 		
 	def OnUpdate(self):

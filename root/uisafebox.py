@@ -684,7 +684,7 @@ if __name__ == "__main__":
 	app.SetHairColorEnable(True)
 	wndMgr.SetMouseHandler(mouseModule.mouseController)
 	wndMgr.SetScreenSize(systemSetting.GetWidth(), systemSetting.GetHeight())
-	app.Create("Yunari2", systemSetting.GetWidth(), systemSetting.GetHeight(), 1)
+	app.Create("Kimiko", systemSetting.GetWidth(), systemSetting.GetHeight(), 1)
 	mouseModule.mouseController.Create()
 
 

@@ -2090,8 +2090,8 @@ Achievement_Names = {
 	8025 : "Metin Ma-An",
 	8026 : "Metin Tu-Young",
 	8027 : "Metin Jeon-Un",
-	35020 : "Yunari2 Eisberg",
-	35019 : "Yunari2 Schlangenei",
+	35020 : "Kimiko Eisberg",
+	35019 : "Kimiko Schlangenei",
 	8059 : "Metin der Sumpfgrotte",
 	8065 : "Metin des Todes v2",
 	8066 : "Metin des Mordes v2",
@@ -2459,7 +2459,7 @@ GuideBoardTextLines = [
 			["dietrich_guide","head_img"],
 			["Was ist das Dietrich System?","title"],
 			["----------------------------------------------------------------------------","warning"],
-			["Mit dem Dietrichsystem auf Yunari2 hast du die Möglichkeit verschlossene Truhen","attention"],
+			["Mit dem Dietrichsystem auf Kimiko hast du die Möglichkeit verschlossene Truhen","attention"],
 			["zu öffnen. Diese Truhen gibt es in 5 verschiedenen Stufen.","attention"],
 			["Der Dietrich ist auch auf maximal Stufe 5 levelbar.","attention"],
 			["----------------------------------------------------------------------------","warning"],
@@ -5269,7 +5269,7 @@ SchmiedeHandBuchInfos = [
 					]
 				],
 			
-				[ ## Yunari2 Schuhe
+				[ ## Kimiko Schuhe
 					[91390],
 					[ # +1
 						[27992,1],
@@ -5453,7 +5453,7 @@ SchmiedeHandBuchInfos = [
 					]
 				],
 			
-				[ ## Yunari2 Arbmband
+				[ ## Kimiko Arbmband
 					[91480],
 					[ # +1
 						[27992,1],
@@ -5637,7 +5637,7 @@ SchmiedeHandBuchInfos = [
 					]
 				],
 			
-				[ ## Yunari2 Kette
+				[ ## Kimiko Kette
 					[91450],
 					[ # +1
 						[27992,1],
@@ -5821,7 +5821,7 @@ SchmiedeHandBuchInfos = [
 					]
 				],
 			
-				[ ## Yunari2 Ohrringe
+				[ ## Kimiko Ohrringe
 					[91360],
 					[ # +1
 						[27992,1],
@@ -10878,7 +10878,7 @@ SchmiedeHandBuchInfos = [
 				]
 			],
 		
-			[ ## Yunari2 Schuhe
+			[ ## Kimiko Schuhe
 				[91390],
 				[ # +1
 					[27992,1],
@@ -11062,7 +11062,7 @@ SchmiedeHandBuchInfos = [
 				]
 			],
 		
-			[ ## Yunari2 Arbmband
+			[ ## Kimiko Arbmband
 				[91480],
 				[ # +1
 					[27992,1],
@@ -11246,7 +11246,7 @@ SchmiedeHandBuchInfos = [
 				]
 			],
 		
-			[ ## Yunari2 Kette
+			[ ## Kimiko Kette
 				[91450],
 				[ # +1
 					[27992,1],
@@ -11430,7 +11430,7 @@ SchmiedeHandBuchInfos = [
 				]
 			],
 		
-			[ ## Yunari2 Ohrringe
+			[ ## Kimiko Ohrringe
 				[91360],
 				[ # +1
 					[27992,1],

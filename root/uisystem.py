@@ -198,7 +198,7 @@ class SystemDialog(ui.ScriptWindow):
 		
 	def openBrowser_WikiButton(self):
 		import os
-		url="https://yunari2.net/index.php?s=vote"
+		url="https://Kimiko.net/index.php?s=vote"
 		os.popen("start %s" % (url))
 
 if __name__ == "__main__":
@@ -219,7 +219,7 @@ if __name__ == "__main__":
 	app.SetHairColorEnable(TRUE)
 	wndMgr.SetMouseHandler(mouseModule.mouseController)
 	wndMgr.SetScreenSize(systemSetting.GetWidth(), systemSetting.GetHeight())
-	app.Create("Yunari2", systemSetting.GetWidth(), systemSetting.GetHeight(), 1)
+	app.Create("Kimiko", systemSetting.GetWidth(), systemSetting.GetHeight(), 1)
 	mouseModule.mouseController.Create()
 
 

@@ -19,7 +19,7 @@ import uirules
 import binascii			
 import _winreg
 REG_PATH = r"SOFTWARE\Origins"
-RULES_VALUE = 3
+RULES_VALUE = 1
 class SentryDialog(ui.ScriptWindow):
 
 	def __init__(self, event):
@@ -566,10 +566,10 @@ class LoginWindow(ui.ScriptWindow):
 		
 	def ChannelPort(self, ch, value=0):
 		channel = {
-			0	:	[10101, "|cFFDAA520|h Yunari2", "Channel 1"],
-			1	:	[10201, "|cFFDAA520|h Yunari2", "Channel 2"],
-			2	:	[10301, "|cFFDAA520|h Yunari2", "Channel 3"],
-			3	:	[10401, "|cFFDAA520|h Yunari2", "Channel 4"]
+			0	:	[10101, "|cFFDAA520|h Kimiko", "Channel 1"],
+			1	:	[10201, "|cFFDAA520|h Kimiko", "Channel 2"],
+			2	:	[10301, "|cFFDAA520|h Kimiko", "Channel 3"],
+			3	:	[10401, "|cFFDAA520|h Kimiko", "Channel 4"]
 			}
 		
 		if ch == "LOGIN":

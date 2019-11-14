@@ -1,5 +1,5 @@
 import wndMgr,ui,grp,event,chat,app,localeInfo,constInfo,nonplayer,settinginfo
-# Developed by Locutos, 2017 @ Yunari2
+# Developed by Locutos, 2017 @ Kimiko
 class AchievementWindow(ui.Window):
 	
 	def __init__(self):

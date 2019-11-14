@@ -105,12 +105,12 @@ class HallOfFame(ui.ScriptWindow):
 							'players' : [],
 						},
 						{
-							'name' : 'Yunari2 Eisbergstück',
+							'name' : 'Kimiko Eisbergstück',
 							'achievement_value_name' : 'Kills',
 							'players' : [],
 						},
 						{
-							'name' : 'Yunari2 Schlangenei',
+							'name' : 'Kimiko Schlangenei',
 							'achievement_value_name' : 'Kills',
 							'players' : [],
 						},
