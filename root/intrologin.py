@@ -19,7 +19,7 @@ import uirules
 import binascii			
 import _winreg
 REG_PATH = r"SOFTWARE\Origins"
-RULES_VALUE = 2
+RULES_VALUE = 3
 class SentryDialog(ui.ScriptWindow):
 
 	def __init__(self, event):
@@ -348,7 +348,6 @@ class LoginWindow(ui.ScriptWindow):
 		
 	def OpenRulesBoard(self):
 		self.scrollBoard.Hide()
-
 		for i in xrange(8):
 			self.fKeyTextLine[i].Hide()
 			self.accountButton[i].Hide()
