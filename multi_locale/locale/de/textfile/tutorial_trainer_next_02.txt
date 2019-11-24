@@ -1,0 +1,5 @@
+Das Land ist voller Metinsteinen die das Land um sich herum korrumpieren...	NORMAL
+Ich weiß nicht ob wir diesen Kampf jemals gewinnen können aber wir müssen es versuchen.	LONG
+Nach deiner Ausbildung wirst du in das Tal von Seungryong reisen.	NORMAL
+In diesen Ländern sieht es sehr schlecht aus. Unterschätze niemals die Macht des Bösen.	NORMAL
+Nun gut. Zurück zum Training. Zerstöre nun die Metinsteine!	NORMAL

@@ -1,0 +1,3 @@
+Ah ein weitere Rekrut der seinen Wert beweisen will?	NORMAL
+Solltest du das Tutorial verlassen wollen sprich mit mir.	LONG
+Aber du kannst nur bis lv.30 zurückkehren. Alles klar?	NORMAL

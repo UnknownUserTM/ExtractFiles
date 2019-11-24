@@ -1,0 +1,3 @@
+Das kleine Fenster zeigt dir an wieviele Achievementpoints du soeben erhalten hast.	LONG
+Du wirst stets Achievementpoints im laufe deiner Abenteuer brauchen.	NORMAL
+Also gut. Machen wir weiter! Erreiche lv.10!	NORMAL

@@ -60,6 +60,7 @@ import uimultishop
 import uigame
 import uiachievement
 import uidungeon
+import uitutorial
 
 
 IsQBHide = 0
@@ -233,6 +234,9 @@ class Interface(object):
 		
 	def __MakeDungeonIntroWindow(self):
 		self.wndDungeonIntro = uidungeon.DungeonIntroWindow()
+		
+	def __MakeTutorialWindow(self):
+		self.wndTutorialJoin = uitutorial.TutorialJoinWindow()
 	
 	def OpenHallOfFame(self):
 		uihalloffame.wnd.OpenRequest()		
@@ -584,6 +588,7 @@ class Interface(object):
 		self.__MakeNewGameOptionWindow()
 		self.__MakeAchievementController()
 		self.__MakeDungeonIntroWindow()
+		self.__MakeTutorialWindow()
 		# ACCESSORY_REFINE_ADD_METIN_STONE
 		self.__MakeItemSelectWindow()
 		# END_OF_ACCESSORY_REFINE_ADD_METIN_STONE
@@ -767,6 +772,9 @@ class Interface(object):
 		
 		if self.ctrlAchievement:
 			self.ctrlAchievement.Destroy()
+			
+		if self.wndTutorialJoin:
+			self.wndTutorialJoin.Hide()
 		
 		self.wndChatLog.Destroy()
 		for btn in self.questButtonList:

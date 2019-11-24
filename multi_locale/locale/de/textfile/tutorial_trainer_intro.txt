@@ -1,0 +1,4 @@
+Willkommen in den Trainingshallen!	NORMAL
+Ich werde dir zeigen wie du in der Wildnis überleben kannst.	LONG
+Als erstes solltest du mir mal zeigen was du kannst...	NORMAL
+Erreiche Level 5 und wähle eine Lehre aus. LOS!!!	NORMAL

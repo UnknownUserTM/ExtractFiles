@@ -1,0 +1,5 @@
+Du machst sehr gute fortschritte! Nun zeige ich dir das Interface.	LONG
+Oben Links siehst du deine Character-Informationen wie TP, MP und EXP. Fahre mit der Maus darüber um weitere Infos zu erhalten.	LONG
+Rechts oben ist die Minimap. Dort kannst du Support vom Team anfordern und den Switchbot öffnen.	LONG
+Unten Links sind der Eventkalender, Bonusboard, Teleportation, Schmiedehandbuch und Hall of Fame.	LONG
+Wollen wir weiter machen? Ich habe noch etwas Ausrüstung für dich.	NORMAL

@@ -48,7 +48,7 @@ import uihalloffame
 # import uicalender
 import uiox
 # import uibugreport
-
+import uidialog
 
 # PRIVATE_SHOP_PRICE_LIST
 import uiPrivateShopBuilder
@@ -2474,6 +2474,12 @@ class GameWindow(ui.ScriptWindow):
 			
 			"statistic" : self.SetPlayerStatistic,
 			"pickufilter" : self.InitPickUpFilter,
+			
+			"fd"		: self.LUA_FloatingDialog,
+			
+			
+			"showtutorialjoin" : self.LUA_ShowTutorialJoinDialog,
+			"hidetutorialjoin" : self.LUA_HideTutorialJoinDialog,
 		
 		}
 		
@@ -3806,8 +3812,10 @@ class GameWindow(ui.ScriptWindow):
 		
 	def BiologistIconText(self):
 		# import uifortunefountain
-		self.interface.ctrlAchievement.AppendAchievement(1,10,3345,5)
-		
+		# self.interface.ctrlAchievement.AppendAchievement(1,10,3345,5)
+		import uitutorial
+		self.advent = uitutorial.TutorialJoinWindow()
+		self.advent.Show()
 		
 	def __RequestWarpToCharacter(self, name):
 		import uiCommon
@@ -3844,8 +3852,14 @@ class GameWindow(ui.ScriptWindow):
 		self.interface.GAME_InitPickUpFilter(int(index))
 		
 		
+	def LUA_FloatingDialog(self,command):
+		cmd = command.split("#")
+		uidialog.MakeNewFloatingDialog(int(cmd[0]),cmd[1],int(cmd[2]))
 		
-		
-		
-		
+	def LUA_ShowTutorialJoinDialog(self,qid):
+		self.interface.wndTutorialJoin.Open(int(qid))
+	
+	def LUA_HideTutorialJoinDialog(self):
+		self.interface.wndTutorialJoin.Close()
+	
 		

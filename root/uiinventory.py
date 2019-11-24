@@ -1832,7 +1832,7 @@ class InventoryWindow(ui.ScriptWindow):
 	def OnUpdate(self): ##Inventar AP Anzeige
 		if self.wndAps == None:
 			return
-		self.wndAps.SetText(constInfo.NumberToPointString(constInfo.aps) + " AP's")
+		self.wndAps.SetText(str(constInfo.NumberToPointString(constInfo.aps)) + " AP's")
 		
 		# if self.wndDps == None:
 			# return

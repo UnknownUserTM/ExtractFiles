@@ -1656,3 +1656,8 @@
 20434	gangyo_patrol_bow
 20435	gangyo_patrol_bow
 20436	gangyo_patrol_bow
+20440	santa
+20437	metinstone_01	
+20438	metinstone_05	
+20439	metinstone_06	
+20441	metinstone_07	
