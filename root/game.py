@@ -3813,9 +3813,9 @@ class GameWindow(ui.ScriptWindow):
 	def BiologistIconText(self):
 		# import uifortunefountain
 		# self.interface.ctrlAchievement.AppendAchievement(1,10,3345,5)
-		import uitutorial
-		self.advent = uitutorial.TutorialJoinWindow()
-		self.advent.Show()
+		import uidungeon
+		# self.advent = uidungeon.DungeonGuideWindow()
+		# self.advent.Show()
 		
 	def __RequestWarpToCharacter(self, name):
 		import uiCommon

@@ -1,0 +1,40 @@
+TITLE	- Ebene 1:
+DESC	    Zerstöre alle Metinsteine.
+SPACE	
+TITLE	- Ebene 2:
+DESC	    Besiege alle Monster und anschließend den Boss.
+SPACE	
+TITLE	- Ebene 3:
+DESC	    Keine Ahnung,spring aus dem Fenster? Ja! Tuh das!
+SPACE	
+TITLE	- Ebene 4:
+DESC	    Ich will die Scrollbar testen also muss ich ja irgendwie
+DESC	    genug zeilen zusammen bekommen...
+SPACE	
+TITLE	- Ebene 5:
+DESC	    Und sonst so? Es regnet mal wieder... Willkommen in Hamburg!
+SPACE	
+TITLE	- Ebene 6:
+DESC	    Nagut zurück zum Thema. Als nächstes müsst ihr tapferen
+DESC	    Kämpfer 2.000 Siegel öffnen, tötet dafür solange Monster
+DESC	    bis ihr einen Schlüsselstein droppt. Dann zieht ihn auf
+DESC	    eines der Siegel. Glückwunsch nurnoch 1.999 verbleiben.
+DESC	    Viel Spaß! Das sollte nicht länger als 4 Tage dauer.
+SPACE	
+TITLE	- Ebene 7:
+DESC	    Opfert einen eurer Mitstreiter um weiter zu kommen.
+DESC	    Der geopferte fliegt aus dem Spiel und wird gelöscht!
+SPACE	
+TITLE	- Ebene 8
+DESC	    Sollte ich diese Box kleiner machen? Aber dann sieht es doof aus.
+DESC	    Zulange sätze am stück sind aber nicht gut fürs UI.
+DESC	    Liest sich besser in kurzen sätzen...
+SPACE	
+TITLE	- Ebene 9
+DESC	    Endlich am ziel! Es ist echt nicht leicht soviel mist zu schreiben.
+DESC	    Aber irgendwie bekomme ich es immer wieder hin. 
+SPACE	
+TITLE	- Ebene 10
+DESC	    Ob wir überhaupt so große Dungeons haben? Muss ja immer alles schnell
+DESC	    gehen... 
+SPACE	

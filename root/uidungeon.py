@@ -16,6 +16,150 @@ import localeInfo
 from uiGuild import MouseReflector
 import systemSetting
 
+class DungeonGuideMiniMapButton(ui.Window):
+
+	def __init__(self):
+		ui.Window.__init__(self)
+		self.SetSize(27,27)
+		self.SetPosition(wndMgr.GetScreenWidth() - 149,58)
+		self.dungeonGuideWindow = DungeonGuideWindow()
+		self.dungeonGuideWindow.Close()
+		self.MakeButton()
+		self.Show()
+		
+	def __del__(self):
+		ui.Window.__del__(self)	
+
+	def MakeButton(self):
+		self.button = ui.Button()
+		self.button.SetParent(self)
+		self.button.SetPosition(0,0)
+		self.button.SetUpVisual("yamato_dungeoncompendium/dc_button_n.tga")
+		self.button.SetOverVisual("yamato_dungeoncompendium/dc_button_h.tga")
+		self.button.SetDownVisual("yamato_dungeoncompendium/dc_button_n.tga")
+		# self.button.ShowToolTip = lambda arg=1: self.ShowToolTip(arg)
+		# self.button.HideToolTip = lambda arg=1: self.HideToolTip()
+		self.button.SetEvent(self.OpenDungeonGuide)
+		self.button.Show()
+	
+	def OpenDungeonGuide(self):
+		self.dungeonGuideWindow.Open()
+	
+class DungeonGuideWindow(ui.ScriptWindow):
+	
+	TEXT_MIN_LEVEL 			= 0
+	TEXT_MAX_LEVEL 			= 1
+	TEXT_PARTY				= 2
+	TEXT_COOLDOWN			= 3
+	TEXT_EFF_BONUS			= 4
+	TEXT_DEF_BONUS			= 5
+	TEXT_DUNGEONPOINTS		= 6
+	TEXT_ITEM				= 7
+	TEXT_PERS_COOLDOWN		= 8
+	TEXT_PERS_COUNT			= 9
+	TEXT_PERS_BESTTIME		= 10
+	TEXT_PERS_M_KILLS		= 11
+	TEXT_PERS_B_KILLS		= 12
+	TEXT_PERS_S_KILLS		= 13
+	TEXT_SERVER_COUNT		= 14
+	TEXT_SERVER_BESTTIME	= 15
+
+	def __init__(self):
+		ui.ScriptWindow.__init__(self)
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/dungeoncompendium.py")
+		except:
+			import exception
+			exception.Abort("DungeonIntroWindow.LoadWindow.LoadObject")
+		
+		
+		
+		self.selectBoard = self.GetChild("selectBackground")
+		self.infoBoard = self.GetChild("infoBackground")
+		
+		self.dungeonButton0 = self.GetChild("dungeon_0")
+		self.dungeonButton0.SetEvent(self.ShowInfoBoard)
+		
+		self.descListBox = self.GetChild("dungeonDescBox")
+		self.descScrollBar = self.GetChild("descScrollBar")
+		self.descScrollBar.SetScrollEvent(self.__OnScrollDesc)
+		self.infoBoard.Hide()
+		
+		
+		self.backButton = self.GetChild("backButton")
+		self.forwardButton = self.GetChild("forwardButton")
+		self.forwardButton.Disable()
+		self.backButton.SetEvent(self.ShowSelectBoard)
+		
+		self.LoadDungeonDesc()
+		# self.Show()
+
+	def ShowSelectBoard(self):
+		self.infoBoard.Hide()
+		self.selectBoard.Show()
+		
+	def ShowInfoBoard(self):
+		self.selectBoard.Hide()
+		self.infoBoard.Show()
+	
+	def OnRunMouseWheel(self, nLen):
+		if nLen > 0:
+			self.descScrollBar.OnUp()
+		else:
+			self.descScrollBar.OnDown()
+		
+	def __OnScrollDesc(self):
+		viewItemCount = self.descListBox.GetViewItemCount()
+		itemCount = self.descListBox.GetItemCount()
+		pos = self.descScrollBar.GetPos() * (itemCount - viewItemCount)
+		self.descListBox.SetBasePos(int(pos))
+		
+	def LoadDungeonDesc(self):
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,app.GetLocalePath())
+		try:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG,app.GetLocalePath() + "/textfile/dungeon_01.txt")
+			lines = pack_open(app.GetLocalePath() + "/textfile/dungeon_01.txt", "r").readlines()
+		except IOError:
+			import dbg
+			dbg.LogBox("LoadDungeonDESCError")
+			app.Abort()
+		
+		i = 0
+		for line in lines:
+			tokens = line[:-1].split("\t")
+			if len(tokens) == 2:
+				if tokens[0] == "TITLE":
+					self.descListBox.InsertItem(i,tokens[1],True)
+				else:
+					self.descListBox.InsertItem(i,tokens[1],False)
+			else:
+				self.descListBox.InsertItem(i,"",False)
+			i = i + 1
+
+		
+	def Destroy(self):
+		self.Hide()
+			
+	def OnPressEscapeKey(self):
+		self.Close()
+		return True
+
+	def Open(self):
+		if self.IsShow():
+			self.Close()
+		else:
+			self.Show()
+		
+	def Close(self):
+		self.Hide()
+
 class DungeonIntroWindow(ui.ScriptWindow):
 
 	MAX_DIFF = 5
@@ -115,3 +259,6 @@ class DungeonIntroWindow(ui.ScriptWindow):
 		
 	def Close(self):
 		self.Hide()
+
+
+# DungeonGuideMiniMapButton()

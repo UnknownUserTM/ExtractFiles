@@ -1601,7 +1601,9 @@ WODMapNameList={
 	"map_farm_4_all_empires"				: "Farmmap 4",
 	"map_farm_5_all_empires"				: "Farmmap 5",
 	"map_ayu_bossmap"						: "Bossmap",
-	"metin2_map_dawnmist_dungeon_01"		: "Verwunschener Wald"
+	"metin2_map_dawnmist_dungeon_01"		: "Verwunschener Wald",
+	
+	"map_dungeon_tutorial_hall"				: "Tutorial",
 
 }
 

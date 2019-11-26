@@ -234,6 +234,7 @@ class Interface(object):
 		
 	def __MakeDungeonIntroWindow(self):
 		self.wndDungeonIntro = uidungeon.DungeonIntroWindow()
+		self.wndDungeonGuideButton = uidungeon.DungeonGuideMiniMapButton()
 		
 	def __MakeTutorialWindow(self):
 		self.wndTutorialJoin = uitutorial.TutorialJoinWindow()
