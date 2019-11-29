@@ -8168,3 +8168,4 @@
 160485	ETC	icon/item/160485.tga
 160486	ETC	icon/item/160486.tga
 160487	ETC	icon/item/160487.tga
+160490	ETC	icon/item/50187.tga
