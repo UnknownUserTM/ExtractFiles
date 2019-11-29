@@ -12537,6 +12537,18 @@ Switchbot_BonusList = [
 		[5,10],
 	],
 	
+	
+	[					
+		[71,"DSS <- Braucht noch localeInfo!"],
+		[0],
+		[5,10,15,20,30,40,50,60,70],
+	],
+	[					
+		[92,"FKS <- Braucht noch localeInfo!"],
+		[0],
+		[5,10,15,20,30,40,50,60,70],
+	],
+	
 ]
 
 
