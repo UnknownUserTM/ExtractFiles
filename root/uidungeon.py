@@ -84,9 +84,10 @@ class DungeonGuideWindow(ui.ScriptWindow):
 		self.selectBoard = self.GetChild("selectBackground")
 		self.infoBoard = self.GetChild("infoBackground")
 		
-		self.dungeonButton0 = self.GetChild("dungeon_0")
-		self.dungeonButton0.SetEvent(self.ShowInfoBoard)
 		
+		# self.dungeonButton = []
+		# self.dungeonButton.append(self.GetChild("dungeon_0")
+				
 		self.descListBox = self.GetChild("dungeonDescBox")
 		self.descScrollBar = self.GetChild("descScrollBar")
 		self.descScrollBar.SetScrollEvent(self.__OnScrollDesc)
@@ -98,7 +99,7 @@ class DungeonGuideWindow(ui.ScriptWindow):
 		self.forwardButton.Disable()
 		self.backButton.SetEvent(self.ShowSelectBoard)
 		
-		self.LoadDungeonDesc()
+		# self.LoadDungeonDesc()
 		# self.Show()
 
 	def ShowSelectBoard(self):

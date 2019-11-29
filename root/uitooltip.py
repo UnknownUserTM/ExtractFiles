@@ -847,8 +847,9 @@ class ItemToolTip(ToolTip):
 
 		metinSlot = [fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(window_type, slotIndex, i) for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM)]
 		attrSlot = [fgGHGjjFHJghjfFG1545gGG.GetItemAttribute(window_type, slotIndex, i) for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM)]
-
-		self.AddItemData(itemVnum, metinSlot, attrSlot)
+		stackCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(slotIndex)
+		self.AddItemData(itemVnum, metinSlot, attrSlot, 0, 0, stackCount)
+				
 		if str(fgGHGjjFHJghjfFG1545gGG.GetName())[0] == "[":	
 			self.AppendSpace(5)	
 			self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
@@ -1064,9 +1065,22 @@ class ItemToolTip(ToolTip):
 				else:
 					self.AppendTextLine(affectString, self.POSITIVE_COLOR)
 				
-				
-				
 	def __AppendAttributeInformation(self, attrSlot):
+		if 0 != attrSlot:
+
+			for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+				type = attrSlot[i][0]
+				value = attrSlot[i][1]
+
+				if 0 == value:
+					continue
+
+				affectString = self.__GetAffectString(type, value)
+				if affectString:
+					affectColor = self.__GetAttributeColor(i, value)
+					self.AppendTextLine(affectString, affectColor)				
+				
+	def __AppendAttributeInformation_SORT(self, attrSlot):
 		if 0 != attrSlot:
 			AttrIndexSettingInfo = settinginfo.AttributeIndex
 			# -----------------------------------------------------------
@@ -1236,21 +1250,27 @@ class ItemToolTip(ToolTip):
 			itemName+=item.GetItemName()
 		self.SetTitle(itemName)
 
-	def __SetNormalItemTitle(self):
+	def __SetNormalItemTitle(self, stackCount):
 		if app.ENABLE_SEND_TARGET_INFO:
 			if self.isStone:
 				itemName = item.GetItemName()
 				realName = itemName[:itemName.find("+")]
 				self.SetTitle(realName + " +0 - +4")
 			else:
-				self.SetTitle(item.GetItemName())
+				if stackCount > 1:
+					self.SetTitle(item.GetItemName() + " (" + str(stackCount) + ")")
+				else:
+					self.SetTitle(item.GetItemName())
 		else:
 			self.SetTitle(item.GetItemName())
 
-	def __SetSpecialItemTitle(self):
-		self.AppendTextLine(item.GetItemName(), self.SPECIAL_TITLE_COLOR)
-
-	def __SetItemTitle(self, itemVnum, metinSlot, attrSlot):
+	def __SetSpecialItemTitle(self, stackCount):
+		if stackCount > 1:
+			self.AppendTextLine(item.GetItemName() + " (" + str(stackCount) + ")", self.SPECIAL_TITLE_COLOR)
+		else:
+			self.AppendTextLine(item.GetItemName(), self.SPECIAL_TITLE_COLOR)
+			
+	def __SetItemTitle(self, itemVnum, metinSlot, attrSlot, stackCount):
 		if localeInfo.IsCANADA():
 			if 72726 == itemVnum or 72730 == itemVnum:
 				self.AppendTextLine(item.GetItemName(), grp.GenerateColor(1.0, 0.7843, 0.0, 1.0))
@@ -1265,10 +1285,10 @@ class ItemToolTip(ToolTip):
 			self.__SetPolymorphItemTitle(metinSlot[0])
 		else:
 			if self.__IsAttr(attrSlot):
-				self.__SetSpecialItemTitle()
+				self.__SetSpecialItemTitle(stackCount)
 				return
 
-			self.__SetNormalItemTitle()
+			self.__SetNormalItemTitle(stackCount)
 
 	def __IsAttr(self, attrSlot):
 		if not attrSlot:
@@ -1300,7 +1320,7 @@ class ItemToolTip(ToolTip):
 		self.AppendDescription(itemDesc, 26)
 		self.AppendDescription(itemSummary, 26, self.CONDITION_COLOR)
 
-	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, unbindTime = 0):
+	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, unbindTime = 0, stackCount = 0):
 		self.itemVnum = itemVnum
 		
 		if itemVnum < 0:
@@ -1398,7 +1418,7 @@ class ItemToolTip(ToolTip):
 
 		self.__AdjustMaxWidth(attrSlot, itemDesc)
 		#if not constInfo.IS_PET_SEAL(itemVnum):
-		self.__SetItemTitle(itemVnum, metinSlot, attrSlot)	
+		self.__SetItemTitle(itemVnum, metinSlot, attrSlot, stackCount)	
 		self.AppendHorizontalLine()
 		### Hair Preview Image ###
 		if self.__IsHair(itemVnum):	
