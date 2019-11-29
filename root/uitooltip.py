@@ -1556,6 +1556,16 @@ class ItemToolTip(ToolTip):
 		# Developed by Exterminatus
 		
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #	
+		# Lehrlingstruhe
+		
+		if itemVnum == 160490:
+			
+			self.AppendSpace(5)
+			self.AppendTextLine("Ab Level: " +  str(metinSlot[1]), self.NORMAL_COLOR)		
+		
+		
+		
+		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #	
 		# FB-Preis
 		elif itemVnum in settinginfo.SkillBookItemVnumList:
 			if metinSlot[1] == 3:
