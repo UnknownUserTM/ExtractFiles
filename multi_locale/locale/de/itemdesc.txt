@@ -1410,7 +1410,7 @@
 71140	Königstiger-Siegel(grün)	Der Zauber des Siegels ruft dein Reittier, den majestätischen Königstiger (grün), herbei.
 71141	Königstiger-Siegel(grau)	Der Zauber des Siegels ruft dein Reittier, den majestätischen Königstiger (grau), herbei.
 71142	Königstiger-Siegel(weiß)	Der Zauber des Siegels ruft dein Reittier, den majestätischen Königstiger (weiß), herbei.
-71143	Ring der Freude	Ring mit einer wertvollen Verzierung aus Jade und Türkis. Er stärkt dich mit Stark gegen Feuer +20% & Chance, eine doppelte Menge Yang fallen zu lassen +20%, Chance auf krit. Treffer +5%.
+71143	Ring der Freude	Ring mit einer wertvollen Verzierung aus Jade und Türkis.| Stark gegen Metinsteine +10%|Stark gegen Monster +5%|Stark gegen Bosse +5%
 71144	Weihnachtstruhe	Das liebevoll verpackte Weihnachtsgeschenk enthält eine festliche Überraschung.
 71145	Amulett der Ewigen Liebe	Ein silberner Kettenanhänger in Herzform, besetzt mit magischen Edelsteinen.
 71146	Amors Truhe (rosa)	Truhe in Herzform mit 10-fach überraschendem Inhalt. Lässt sich alle 30 Min. erneut öffnen.
