@@ -1181,10 +1181,15 @@ class ImageBox(Window):
 	def __init__(self, layer = "UI"):
 		Window.__init__(self, layer)
 
-		self.eventDict={}
-
+		self.eventDict={}			
+		self.eventFunc = None
+		self.eventArgs = None
+		
 	def __del__(self):
-		Window.__del__(self)
+		Window.__del__(self)	
+		self.eventFunc = None
+		self.eventArgs = None
+
 
 	def RegisterWindow(self, layer):
 		self.hWnd = wndMgr.RegisterImageBox(self, layer)
@@ -1219,6 +1224,15 @@ class ImageBox(Window):
 
 	def SAFE_SetStringEvent(self, event, func):
 		self.eventDict[event]=__mem_func__(func)
+
+	def SetOnClickEvent(self, func, *args):
+		self.eventFunc = func
+		self.eventArgs = args
+	
+	def OnMouseLeftButtonUp(self):
+		if self.eventFunc:
+			snd.PlaySound("sound/ui/click.wav")
+			apply(self.eventFunc, self.eventArgs)
 
 
 class ExpandedImageBox(ImageBox):

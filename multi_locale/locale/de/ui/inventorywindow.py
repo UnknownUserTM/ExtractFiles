@@ -13,7 +13,7 @@ window = {
 	"style" : ("movable", "float",),
  
 	"width" : 236,
-	"height" : 400 + 70 + 60 + 15 - 15 + 110 - 10 + 30 + 20,
+	"height" : 400 + 70 + 60 + 15 - 15 + 110 - 10 + 30 + 20 - 20,
  
 	"children" :
 	(
@@ -38,7 +38,7 @@ window = {
 			"y" : 50,
 			
 			"width" : 236-30-5,
-			"height": 400 + 100 + 60 + 15 - 15 + 60 - 10 + 20,
+			"height": 400 + 100 + 60 + 15 - 15 + 60 - 10 + 20 - 20,
  
             "children" :
             (
@@ -642,43 +642,43 @@ window = {
 					),
 				},
 				
-				{
+				# {
 				
-					"name" : "inventory_sort_bg",
-					"type" : "thinboard_circle",
+					# "name" : "inventory_sort_bg",
+					# "type" : "thinboard_circle",
 					
-					"x" : 20,
-					# "y" : 33-20-3+20+288+ 5,
-					"y" : 224+20,
-					"width" : 160,
-					"height" : 20,	
+					# "x" : 20,
+					# # "y" : 33-20-3+20+288+ 5,
+					# "y" : 224+20,
+					# "width" : 160,
+					# "height" : 20,	
 
-					"children" : (
-						{
-							"name" : "inventory_sort_textline",
-							"type" : "text",
-							"x" : 0,
-							"y" : 0,
-							"horizontal_align" : "center", 
-							"text_horizontal_align":"center",
-							"vertical_align" : "center",
-							"text_vertical_align" : "center",
-							"color" : 0xffd8a055,
-							"outline" : 1,
-							"text" : "Unsortiert",
-						},	
-						{
-							"name" : "inventory_sort_button",
-							"type" : "button",
+					# "children" : (
+						# {
+							# "name" : "inventory_sort_textline",
+							# "type" : "text",
+							# "x" : 0,
+							# "y" : 0,
+							# "horizontal_align" : "center", 
+							# "text_horizontal_align":"center",
+							# "vertical_align" : "center",
+							# "text_vertical_align" : "center",
+							# "color" : 0xffd8a055,
+							# "outline" : 1,
+							# "text" : "Unsortiert",
+						# },	
+						# {
+							# "name" : "inventory_sort_button",
+							# "type" : "button",
 							
-							"x" : 0,
-							"y" : 0,
+							# "x" : 0,
+							# "y" : 0,
 							
-							"width" : 160,
-							"height" : 20,
-						},
-					),
-				},	
+							# "width" : 160,
+							# "height" : 20,
+						# },
+					# ),
+				# },	
 
 
 				{
@@ -686,7 +686,7 @@ window = {
 					"type" : "thinboard_circle",
 					
 					"x" : 20,
-					"y" : 224 + 20+20,
+					"y" : 224 + 20+20-20,
 					
 					"width" : 160,
 					"height" : 288,
@@ -768,7 +768,7 @@ window = {
 					
 					
 					"x" : 20,
-					"y" : 224+288+ 20+20,
+					"y" : 224+288+ 20+20-20,
 					
 					"width" : 160,
 					"height" : 20,
@@ -814,7 +814,7 @@ window = {
 					
 					
 					"x" : 20,
-					"y" : 224+288+ 20 + 20+20,
+					"y" : 224+288+ 20 + 20+20-20,
 					
 					"width" : 160,
 					"height" : 20,
@@ -849,7 +849,7 @@ window = {
 					
 					
 					"x" : 20,
-					"y" : 224+288+ 20 + 20 + 20+20,
+					"y" : 224+288+ 20 + 20 + 20+20-20,
 					
 					"width" : 160,
 					"height" : 20,

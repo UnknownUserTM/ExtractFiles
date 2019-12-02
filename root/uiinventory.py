@@ -507,23 +507,29 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		bx, by = self.GetBasePosition()
 		self.SetPosition(bx, by)		
 			
-class SuperAwesomeIMBAKrassSideBarPrototypeJaKriegtNochAnderenCLASSNameHaHa(ui.ScriptWindow):
+class EasySideBar(ui.ScriptWindow):
 
 	COLOR_HOVER = grp.GenerateColor(1.0, 0.0, 0.0, 0.2)
-	SIDEBAR_HEIGHT = 32 * 3
+	SIDEBAR_HEIGHT = 32 * 2
 	BUTTON_DICT = [
 		{
-			"button_name" : "TestButton 1",
-			"button_desc" : "Das ist eine Beschreibung der Funktion des TestButton 1. So noch etwas mehr Text da es sonst echt ... Naja aussieht.",
-			"button_icon" : "icon/item/27001.tga",
-			"button_func" : "",
+			"button_name" : "FB-Lager",
+			"button_desc" : "Anpassbar in uiinventory.py in der class EasySideBar bei button_desc.",
+			"button_icon" : "icon/item/book_01.tga",
+			"button_func" : "skb",
 		},
 		{
-			"button_name" : "TestButton 2",
-			"button_desc" : "Das ist eine Beschreibung der Funktion des TestButton 2. So noch etwas mehr Text da es sonst echt ... Naja aussieht.",
-			"button_icon" : "icon/item/27002.tga",
-			"button_func" : "",
+			"button_name" : "Upptem-Lager",
+			"button_desc" : "Anpassbar in uiinventory.py in der class EasySideBar bei button_desc.",
+			"button_icon" : "icon/item/71009.tga",
+			"button_func" : "upp",
 		},
+		# {
+			# "button_name" : "TestButton 2",
+			# "button_desc" : "Das ist eine Beschreibung der Funktion des TestButton 2. So noch etwas mehr Text da es sonst echt ... Naja aussieht.",
+			# "button_icon" : "icon/item/27002.tga",
+			# "button_func" : "",
+		# },
 	]
 
 	def __init__(self, wndInventory):
@@ -550,17 +556,34 @@ class SuperAwesomeIMBAKrassSideBarPrototypeJaKriegtNochAnderenCLASSNameHaHa(ui.S
 			self.sideBarItem[i] = EasySideBarItem(self)
 			self.sideBarItem[i].SetParent(self)
 			self.sideBarItem[i].SetPosition(1,y)
-			self.sideBarItem[i].SetInfo(Info["button_name"],Info["button_desc"],Info["button_icon"],"no")
+			self.sideBarItem[i].SetInfo(Info["button_name"],Info["button_desc"],Info["button_icon"],Info["button_func"])
 			self.sideBarItem[i].Show()
 			y = y + 32
 
 		self.Show()
+		
+	def OnClick(self,func):
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(func))
+		
+		if func == "skb":
+			if settinginfo.SkillBookStorageOpen == 0:
+				import uiskillbook
+				uiskillbook.SkillBookBoard().Show()		
 
+		elif func == "upp":
+			if settinginfo.UppItemStorageOpen == 0:
+				import uiuppstorage
+				uiuppstorage.UppStorageBoard().Show()		
+		
+		else:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknow EasySideBar command: " + str(func))
+		
 class EasySideBarItem(ui.ScriptWindow):
 
 	def __init__(self, wndSideBar):
 		ui.ScriptWindow.__init__(self)
 		self.wndSideBar = wndSideBar
+		self.func = ""
 		self.LoadWindow()
 
 	def __del__(self):
@@ -607,7 +630,9 @@ class EasySideBarItem(ui.ScriptWindow):
 			self.icon.LoadImage(image)
 		except:
 			self.icon.LoadImage("icon/item/30001.tga")
-			
+		
+		self.func = func
+		
 		self.toolTip.ClearToolTip()
 		self.toolTip.AppendSpace(2)
 		self.toolTip.SetTitle(title)
@@ -615,7 +640,7 @@ class EasySideBarItem(ui.ScriptWindow):
 		self.toolTip.AppendSpace(5)
 		self.toolTip.ResizeToolTip()
 		self.toolTip.Show()
-			
+		self.icon.SetOnClickEvent(self.wndSideBar.OnClick,self.func)			
 			
 	def OnUpdate(self):
 		if self.icon.IsIn():
@@ -650,7 +675,7 @@ class CurrencyDescriptionToolTip(ui.Window):
 		
 	def AdjustPosition(self):
 		x, y = self.wndInventory.GetGlobalPosition()
-		self.SetPosition(x - self.normalWidth - 10 + 22,(y + 650)-self.toolTip.toolTipHeight)
+		self.SetPosition(x - self.normalWidth - 10 + 22,(y + 630)-self.toolTip.toolTipHeight)
 		
 	def MakeToolTip(self):
 		toolTip = uiToolTip.ToolTip()
@@ -1228,9 +1253,9 @@ class InventoryWindow(ui.ScriptWindow):
 			# self.wndDCs = self.GetChild("DC") ##Inventar AP Anzeige
 			# self.wndDCSlot = self.GetChild("DC_Slot") ##Inventar AP Anzeige
 			
-			self.wndSortBG = self.GetChild("inventory_sort_bg")
-			self.wndSortText = self.GetChild("inventory_sort_textline")
-			self.wndSortButton = self.GetChild("inventory_sort_button")
+			# self.wndSortBG = self.GetChild("inventory_sort_bg")
+			# self.wndSortText = self.GetChild("inventory_sort_textline")
+			# self.wndSortButton = self.GetChild("inventory_sort_button")
 			# self.inventoryTab = []
 			# self.inventoryTab.append(self.GetChild("Inventory_Tab_01"))
 			# self.inventoryTab.append(self.GetChild("Inventory_Tab_02"))
@@ -1294,7 +1319,7 @@ class InventoryWindow(ui.ScriptWindow):
 			# self.DropDownButton4.SetEvent(self.__OnClickDropDownButton,4)	
 			# self.DropDownButton5.SetEvent(self.__OnClickDropDownButton,5)	
 
-			self.wndSortButton.SetEvent(self.OpenInventorySortDialog)
+			# self.wndSortButton.SetEvent(self.OpenInventorySortDialog)
 
 			
 			if self.costumeButton and not app.ENABLE_COSTUME_SYSTEM:
@@ -1337,16 +1362,16 @@ class InventoryWindow(ui.ScriptWindow):
 		## SafeGoldDialog
 		
 		self.dlgCreateGoldSafe = GoldSafeWindow(self)
-		self.dlgSelectInventorySort = InventorySortDropDownMenu(self)
-		self.dlgSelectInventorySort.SetParent(self)
-		self.dlgSelectInventorySort.SetPosition(20+22,294+20)
-		self.dlgSelectInventorySort.SetMenuSize(6*20)
+		# self.dlgSelectInventorySort = InventorySortDropDownMenu(self)
+		# self.dlgSelectInventorySort.SetParent(self)
+		# self.dlgSelectInventorySort.SetPosition(20+22,294+20)
+		# self.dlgSelectInventorySort.SetMenuSize(6*20)
 		
 		
 		self.currencyToolTip = CurrencyDescriptionToolTip(self)
 		self.devItemToolTip = DEVItemInformation(self)
 		
-		self.sideBar = SuperAwesomeIMBAKrassSideBarPrototypeJaKriegtNochAnderenCLASSNameHaHa(self)
+		self.sideBar = EasySideBar(self)
 		self.sideBar.SetParent(self)
 		self.sideBar.SetPosition(0, 90)
 		# self.dlgCrateGoldSafe.Open()
@@ -1371,9 +1396,9 @@ class InventoryWindow(ui.ScriptWindow):
 		# self.mouseReflector.SetPosition(5,5)
 		self.mouseReflector.UpdateRect()
 
-		self.mouseReflector1 = MouseReflector(self.wndSortBG)
-		self.mouseReflector1.SetSize(160, 20)
-		self.mouseReflector1.UpdateRect()
+		# self.mouseReflector1 = MouseReflector(self.wndSortBG)
+		# self.mouseReflector1.SetSize(160, 20)
+		# self.mouseReflector1.UpdateRect()
 		
 		self.inventoryPageButton[0].SetEvent(lambda arg=0: self.SetInventoryPage(arg))
 		self.inventoryPageButton[1].SetEvent(lambda arg=1: self.SetInventoryPage(arg))
@@ -1861,10 +1886,10 @@ class InventoryWindow(ui.ScriptWindow):
 		else:
 			self.currencyToolTip.Close(2)			
 			
-		if self.wndSortButton.IsIn():
-			self.mouseReflector1.Show()
-		else:
-			self.mouseReflector1.Hide()			
+		# if self.wndSortButton.IsIn():
+			# self.mouseReflector1.Show()
+		# else:
+			# self.mouseReflector1.Hide()			
 			
 		#self.wndDps.SetText(str(constInfo.dps) + " DP's")
 
