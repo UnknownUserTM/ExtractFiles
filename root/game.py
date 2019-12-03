@@ -3658,7 +3658,7 @@ class GameWindow(ui.ScriptWindow):
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknown Command [LUA_Multishop_2019]: " + str(cmd[0]))	
 			
 	def LUA_Quest(self,command):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,command)
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,command)
 		cmd = command.split("/")
 		if cmd[0] == "qd":
 			if cmd[1] == "qid":

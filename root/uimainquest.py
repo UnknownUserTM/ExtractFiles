@@ -132,7 +132,7 @@ class QuestDialog(ui.ScriptWindow):
 		self.QuestPaper.SetRewardTitle()
 	
 	def SetReward(self,type,vnum,count):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetReward QD: " + str(type) + ", " + str(vnum) + ", " + str(count))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetReward QD: " + str(type) + ", " + str(vnum) + ", " + str(count))
 		self.QuestPaper.SetReward(type,vnum,count)
 		self.QuestPaper.CheckForScrollBar(self.LINES_UNTIL_SHOW_SCROLLBAR)
 	
@@ -164,7 +164,7 @@ class QuestDialog(ui.ScriptWindow):
 		
 	# QUEST_INPUT END!
 	def OnClickQuestDialogButton(self,buttonType):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(buttonType))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(buttonType))
 		constInfo.INPUT_CMD = str(buttonType) + "/"
 		event.QuestButtonClick(self.quest_index)
 
@@ -240,7 +240,7 @@ class QuestPaper(ui.ScriptWindow):
 		self.questListBox.InsertTitleItem(localeInfo.QUEST_INTRO_REWARD_TITLE)
 	
 	def SetReward(self,type,vnum,count):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetReward: " + str(type) + ", " + str(vnum) + ", " + str(count))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"SetReward: " + str(type) + ", " + str(vnum) + ", " + str(count))
 		if type >= self.QUEST_REWARD_TYPE_GOLD and type <= self.QUEST_REWARD_TYPE_ACHIEVEMENTPOINTS:
 			self.questListBox.InsertCurrencyItem(constInfo.NumberToPointString(count),self.QUEST_REWARD_ICON[type])
 			
@@ -465,11 +465,11 @@ class QuestWindow(ui.ScriptWindow):
 				max_count	= myQuest[self.QUEST_DATA_TARGET][i][self.QUEST_DATA_TARGET_MAX_COUNT]
 				status		= myQuest[self.QUEST_DATA_TARGET][i][self.QUEST_DATA_TARGET_STATUS]
 				
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"type : " + str(type))
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"vnum : " + str(vnum))
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"min_count : " + str(min_count))
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"max_count : " + str(max_count))
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"status : " + str(status))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"type : " + str(type))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"vnum : " + str(vnum))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"min_count : " + str(min_count))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"max_count : " + str(max_count))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"status : " + str(status))
 
 				if type == self.TARGET_TYPE_KILL:
 					string = str(min_count) + " / " + str(max_count) + " " + str(nonplayer.GetMonsterName(vnum)) + " " + localeInfo.QUEST_INTRO_OBJECTIVE_KILL
@@ -492,9 +492,9 @@ class QuestWindow(ui.ScriptWindow):
 				vnum	= myQuest[self.QUEST_DATA_REWARD][i][self.QUEST_DATA_REWARD_VNUM]
 				count	= myQuest[self.QUEST_DATA_REWARD][i][self.QUEST_DATA_REWARD_COUNT]
 				
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"type : " + str(type))
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"vnum : " + str(vnum))
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"count : " + str(count))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"type : " + str(type))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"vnum : " + str(vnum))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"count : " + str(count))
 				
 				self.QuestPaper.SetReward(type,vnum,count)
 			self.QuestPaper.questListBox.InsertEmptyItem()
@@ -505,10 +505,10 @@ class QuestWindow(ui.ScriptWindow):
 			self.declineButton.Enable()
 			
 		if len(myQuest[self.QUEST_DATA_TARGET]) > 0:
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FollowButton Enable!")
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FollowButton Enable!")
 			self.followButton.Enable()
 		else:
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FollowButton Disable!")
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FollowButton Disable!")
 			self.followButton.Disable()
 			
 	def UpdateQuestPaperTarget(self,qid,questType): #,type,vnum,min_count,max_count,status):
@@ -532,11 +532,11 @@ class QuestWindow(ui.ScriptWindow):
 			max_count	= myQuest[self.QUEST_DATA_TARGET][i][self.QUEST_DATA_TARGET_MAX_COUNT]
 			status		= myQuest[self.QUEST_DATA_TARGET][i][self.QUEST_DATA_TARGET_STATUS]
 					
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"type : " + str(type))
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"vnum : " + str(vnum))
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"min_count : " + str(min_count))
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"max_count : " + str(max_count))
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"status : " + str(status))
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"type : " + str(type))
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"vnum : " + str(vnum))
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"min_count : " + str(min_count))
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"max_count : " + str(max_count))
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"status : " + str(status))
 
 			if type == self.TARGET_TYPE_KILL:
 				string = str(min_count) + " / " + str(max_count) + " " + str(nonplayer.GetMonsterName(vnum)) + " " + localeInfo.QUEST_INTRO_OBJECTIVE_KILL
@@ -585,9 +585,9 @@ class QuestWindow(ui.ScriptWindow):
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FEHLER: Quest mit der ID " + str(qid) + " wurde nicht gefunden!")
 			return
 
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(len(self.questContent[questType])))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(len(self.questContent[questType])))
 		del self.questContent[questType][quest]
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(len(self.questContent[questType])))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(len(self.questContent[questType])))
 		self.Refresh()
 		
 	def AppendTarget(self,qid,questType,type,vnum,min_count,max_count,status):
@@ -606,7 +606,7 @@ class QuestWindow(ui.ScriptWindow):
 		
 		self.questContent[questType][quest][self.QUEST_DATA_TARGET].append(target)
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(self.questContent[questType][quest][self.QUEST_DATA_TARGET][0][self.QUEST_DATA_TARGET_VNUM]))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(self.questContent[questType][quest][self.QUEST_DATA_TARGET][0][self.QUEST_DATA_TARGET_VNUM]))
 		
 	def UpdateQuestTarget(self,qid,questType,index,min_count,max_count,status):
 		quest = self.FindQuestByQID(qid,questType)
@@ -614,11 +614,11 @@ class QuestWindow(ui.ScriptWindow):
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FEHLER: Quest mit der ID " + str(qid) + " wurde nicht gefunden!")
 			return	
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(self.questContent[questType][quest][self.QUEST_DATA_TARGET][0][self.QUEST_DATA_TARGET_MIN_COUNT]))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(self.questContent[questType][quest][self.QUEST_DATA_TARGET][0][self.QUEST_DATA_TARGET_MIN_COUNT]))
 		self.questContent[questType][quest][self.QUEST_DATA_TARGET][index][self.QUEST_DATA_TARGET_MIN_COUNT] = int(min_count)
 		self.questContent[questType][quest][self.QUEST_DATA_TARGET][index][self.QUEST_DATA_TARGET_MAX_COUNT] = int(max_count)
 		self.questContent[questType][quest][self.QUEST_DATA_TARGET][index][self.QUEST_DATA_TARGET_STATUS] = status
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(self.questContent[questType][quest][self.QUEST_DATA_TARGET][0][self.QUEST_DATA_TARGET_MIN_COUNT]))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(self.questContent[questType][quest][self.QUEST_DATA_TARGET][0][self.QUEST_DATA_TARGET_MIN_COUNT]))
 		
 		self.UpdateQuestPaperTarget(qid,questType)
 		
@@ -637,7 +637,7 @@ class QuestWindow(ui.ScriptWindow):
 		
 		self.questContent[questType][quest][self.QUEST_DATA_REWARD].append(reward)
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(self.questContent[questType][quest][self.QUEST_DATA_REWARD][0][self.QUEST_DATA_REWARD_VNUM]))		
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(self.questContent[questType][quest][self.QUEST_DATA_REWARD][0][self.QUEST_DATA_REWARD_VNUM]))		
 	
 
 	
@@ -800,10 +800,10 @@ class QuestView(ui.ScriptWindow):
 					max_count	= questObjective[b][self.QUEST_OBJECTIVE_MAX_COUNT]
 					# status		= questObjective[b][self.QUEST_OBJECTIVE_STATUS]
 
-					chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: type : " + str(type))
-					chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: vnum : " + str(vnum))
-					chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: min_count : " + str(min_count))
-					chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: max_count : " + str(max_count))					
+					# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: type : " + str(type))
+					# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: vnum : " + str(vnum))
+					# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: min_count : " + str(min_count))
+					# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: max_count : " + str(max_count))					
 				
 					if type == self.TARGET_TYPE_KILL:
 						string = str(min_count) + " / " + str(max_count) + " " + str(nonplayer.GetMonsterName(vnum)) + " " + localeInfo.QUEST_INTRO_OBJECTIVE_KILL
@@ -813,11 +813,14 @@ class QuestView(ui.ScriptWindow):
 						item.SelectItem(vnum)
 						string = str(min_count) + " / " + str(max_count) + " " + str(item.GetItemName()) + " " + localeInfo.QUEST_INTRO_OBJECTIVE_COLLECT
 					else:
-						string = questinfo.GetQuestString(vnum)
+						if max_count > 0:
+							string = str(min_count) + " / " + str(max_count) + " " + questinfo.GetQuestString(vnum)
+						else:
+							string = questinfo.GetQuestString(vnum)
 				
 					index = self.questViewListBox.InsertObjectiveItem(string,self.StatusToQuestViewStatus(type,min_count,max_count))
 					self.questViewList[i][self.QUEST_VIEW_OBJECTIVE][b][self.QUEST_OBJECTIVE_ITEM] = index
-					chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: index : " + str(index))
+					# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"QUESTVIEW: index : " + str(index))
 				self.questViewListBox.InsertEmptyItem()
 				
 	def Clear(self):
@@ -828,8 +831,8 @@ class QuestView(ui.ScriptWindow):
 		self.BuildQuestView()
 		
 	def AppendQuestView(self,qid,title):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView Count BEFORE: " + str(len(self.questViewList)))
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView QID: " + str(qid))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView Count BEFORE: " + str(len(self.questViewList)))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView QID: " + str(qid))
 	
 	
 		questView = {
@@ -837,20 +840,20 @@ class QuestView(ui.ScriptWindow):
 			self.QUEST_VIEW_TITLE 		: title,
 			self.QUEST_VIEW_OBJECTIVE	: [],
 		}
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView QID: " + str(qid))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView QID: " + str(qid))
 	
 		self.questViewList.append(questView)
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView Count AFTER: " + str(len(self.questViewList)))
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView Count TEST: " + str(self.questViewList))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView Count AFTER: " + str(len(self.questViewList)))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestView Count TEST: " + str(self.questViewList))
 		# self.Clear()
 		# self.BuildQuestView()		
 		
 		
 	def AppendQuestViewObjective(self,qid,type,vnum,min_count,max_count):#,status):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestViewObjective: START!")
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestViewObjective: START!")
 		quest = self.FindQuestViewItemByQID(qid)
 		if quest < 0:
-			chat.AppendChat(chat.CHAT_TYPE_NOTICE,"AppendQuestViewObjective: Keine Quest mit ID " + str(qid) + " in QuestView gefunden!")
+			# chat.AppendChat(chat.CHAT_TYPE_NOTICE,"AppendQuestViewObjective: Keine Quest mit ID " + str(qid) + " in QuestView gefunden!")
 			return
 			
 		objective = {
@@ -862,17 +865,17 @@ class QuestView(ui.ScriptWindow):
 			# self.QUEST_OBJECTIVE_STATUS		: status,
 		}
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestViewObjective Count BEFORE: " + str(len(self.questViewList[quest][self.QUEST_VIEW_OBJECTIVE])))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestViewObjective Count BEFORE: " + str(len(self.questViewList[quest][self.QUEST_VIEW_OBJECTIVE])))
 		self.questViewList[quest][self.QUEST_VIEW_OBJECTIVE].append(objective)
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestViewObjective Count AFTER: " + str(len(self.questViewList[quest][self.QUEST_VIEW_OBJECTIVE])))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestViewObjective Count AFTER: " + str(len(self.questViewList[quest][self.QUEST_VIEW_OBJECTIVE])))
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestViewObjective: END!")
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"AppendQuestViewObjective: END!")
 		
 		
 	def UpdateQuestViewObjective(self,qid,index,min_count,max_count):#,status):
 		quest = self.FindQuestViewItemByQID(qid)
 		if quest < 0:
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"UpdateQuestViewObjective: Keine Quest mit ID " + str(qid) + " in QuestView gefunden!")
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"UpdateQuestViewObjective: Keine Quest mit ID " + str(qid) + " in QuestView gefunden!")
 			return		
 
 		self.questViewList[quest][self.QUEST_VIEW_OBJECTIVE][index][self.QUEST_OBJECTIVE_MIN_COUNT] = min_count
@@ -888,10 +891,10 @@ class QuestView(ui.ScriptWindow):
 		# status		= questObjective[index][self.QUEST_OBJECTIVE_STATUS]
 		list_index	= questObjective[index][self.QUEST_OBJECTIVE_ITEM]
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"questObjective: type : " + str(type))
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"questObjective: vnum : " + str(vnum))
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"questObjective: min_count : " + str(min_count))
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"questObjective: max_count : " + str(max_count))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"questObjective: type : " + str(type))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"questObjective: vnum : " + str(vnum))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"questObjective: min_count : " + str(min_count))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"questObjective: max_count : " + str(max_count))
 					
 		if type == self.TARGET_TYPE_KILL:
 			string = str(min_count) + " / " + str(max_count) + " " + str(nonplayer.GetMonsterName(vnum)) + " " + localeInfo.QUEST_INTRO_OBJECTIVE_KILL
@@ -901,7 +904,10 @@ class QuestView(ui.ScriptWindow):
 			item.SelectItem(vnum)
 			string = str(min_count) + " / " + str(max_count) + " " + str(item.GetItemName()) + " " + localeInfo.QUEST_INTRO_OBJECTIVE_COLLECT
 		else:
-			string = questinfo.GetQuestString(vnum)
+			if max_count > 0:
+				string = str(min_count) + " / " + str(max_count) + " " + questinfo.GetQuestString(vnum)
+			else:
+				string = questinfo.GetQuestString(vnum)
 		
 		if list_index >= 0:
 			self.questViewListBox.ChangeObjectiveItem(list_index,string,self.StatusToQuestViewStatus(type,min_count,max_count))
@@ -909,10 +915,10 @@ class QuestView(ui.ScriptWindow):
 	def RemoveQuestViewItem(self,qid):
 		quest = self.FindQuestViewItemByQID(qid)
 		if quest < 0:
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"RemoveQuestViewItem: Keine Quest mit ID " + str(qid) + " in QuestView gefunden!")
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"RemoveQuestViewItem: Keine Quest mit ID " + str(qid) + " in QuestView gefunden!")
 			return	
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Quest " + str(quest) + " wurde aus QuestView gelöscht!")
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Quest " + str(quest) + " wurde aus QuestView gelöscht!")
 		
 		del self.questViewList[quest]
 		# self.Clear()
@@ -933,7 +939,7 @@ class QuestView(ui.ScriptWindow):
 		
 	def FindQuestViewItemByQID(self,qid):
 		for i in xrange(len(self.questViewList)):
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FindQuestViewItemByQID CHECK: " + str(self.questViewList[i][self.QUEST_VIEW_INDEX]) + " == " + str(qid))
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FindQuestViewItemByQID CHECK: " + str(self.questViewList[i][self.QUEST_VIEW_INDEX]) + " == " + str(qid))
 			if self.questViewList[i][self.QUEST_VIEW_INDEX] == qid:
 				return i
 		

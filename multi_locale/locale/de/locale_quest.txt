@@ -7,5 +7,11 @@ TUTORIAL_INTRO_LETTER2	Ich sollte schnell mit Ausbilder Hong reden.[ENTER]
 TUTORIAL_INTRO_TALK_TRAINER	Na nu, was bist du denn für eine halbe Portion?[ENTER]Willst du dich als Zahnstocher des Razador bewerben. [ENTER]HaHaHa!!![ENTER][ENTER]Ein Held willst du werden? Oh je die Rekruten sind [ENTER]auch nicht mehr was sie mal waren. [ENTER][ENTER]Naja was solls, versuchen wir es! Bist du bereit?[ENTER]
 TUTORIAL_INTRO_TALK_TRAINER_TITLE	Ausbilder Hong
 TUTORIAL_INTRO_TITLE3	Ausbildung abschließen!
-TUTORIAL_INTRO_LETTER3	Gang schön, schön hier. Ich sollte mich [ENTER]Beim Stadtwächter vorstellen.
+TUTORIAL_INTRO_LETTER3	Ganz schön, schön hier. Ich sollte mich [ENTER]Beim Stadtwächter vorstellen.
 TUTORIAL_INTRO_TALK_CITYGUARD	Du hast die Ausbildung bei Meister Hong überlebt?[ENTER]Nicht schlecht, er ist der totale Sadist und liebt es[ENTER]seine Schüler umkommen zu lassen. Seid[ENTER]Monaten kam niemand mehr lebend zurück. [ENTER][ENTER]So jemanden wie dich können wir hier jedoch[ENTER]gut gebrauchen! Ein Krieg steht kurz bevor und[ENTER]die Metinseuche breitet sich auch immer weiter aus.[ENTER]Lange werden wir nicht mehr standhalten können.[ENTER]Ich habe noch etwas Yang für dich, am besten[ENTER]gehst du schnell ins Tal von Seungryong. Dort kannst[ENTER]du noch stärker werden. [ENTER][ENTER]Nun geh, tu was getan werden muss. Zögere nicht![ENTER]Zeige kein Mitgefühl! [ENTER]
+TUTORIAL_OBJECTIVE_LV5	Erreiche Lv.5
+TUTORIAL_OBJECTIVE_TEACHER	Wähle eine Lehre aus.
+TUTORIAL_OBJECTIVE_LV10	Erreiche Lv.10
+TUTORIAL_OBJECTIVE_LV20	Erreiche Lv.20
+TUTORIAL_OBJECTIVE_LV30	Erreiche Lv.30
+TUTORIAL_OBJECTIVE_LISTEN	Höre Ausbilder Hong zu.

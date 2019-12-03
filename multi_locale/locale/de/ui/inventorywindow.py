@@ -8,7 +8,7 @@ window = {
 
 	## Open Inventar Positio
 	"x" : SCREEN_WIDTH - 226 + 5 - SIDEBAR_WIDTH,
-	"y" : SCREEN_HEIGHT - 715 - 20,
+	"y" : SCREEN_HEIGHT - 715 +	20 - 15,
  
 	"style" : ("movable", "float",),
  

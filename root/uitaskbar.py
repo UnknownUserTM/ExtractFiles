@@ -13,6 +13,7 @@ import playerSettingModule
 import uiToolTip
 import settinginfo
 import exterminatus
+import background
 
 MOUSE_SETTINGS = [0, 0]
 
@@ -890,6 +891,7 @@ class TaskBar(ui.ScriptWindow):
 		self.RefreshStatus()
 		self.RefreshQuickSlot()
 		self.InitYamatoUI()
+		self.CheckIfPlayerIsTutorial()
 
 	def __OverInTaskbarButton(self,button):
 		self.wndButtonToolTip.Open(button)
@@ -897,6 +899,12 @@ class TaskBar(ui.ScriptWindow):
 	def __OverOutTaskbarButton(self):
 		self.wndButtonToolTip.Close()
 
+	
+	def CheckIfPlayerIsTutorial(self):
+		if background.GetCurrentMapName() == "map_dungeon_tutorial_hall":
+			self.toggleButtonDict[TaskBar.BUTTON_WARP].Disable()
+		else:
+			self.toggleButtonDict[TaskBar.BUTTON_WARP].Enable()
 	
 	def InitYamatoUI(self):
 		self.hpGauge.Hide()
