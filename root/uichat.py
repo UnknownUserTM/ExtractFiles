@@ -212,24 +212,24 @@ class ChatLine(ui.EditLine):
 
 	def __SendChatPacket(self, text, type):
 	
-		# if text[0] == '/' and text[1] == 'n' and text[2] == ' ':
-			# newtext = text.split(' ', 1)
-			# Spam = antisp.AntiSpam()
-			# Spam.SendChatPacket(newtext[0] + " " + fgGHGjjFHJghjfFG1545gGG.GetName() + ": " + newtext[1], type) 	
-		# else:
-			# Spam = antisp.AntiSpam()
-			# Spam.SendChatPacket(text, type) 
-		if text == "(b1)":
-			return
-			
-		elif text == "(b2)":
-			return
-
-		elif GFHhg54GHGhh45GHGH.IsChatInsultIn(text):
-			chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.CHAT_INSULT_STRING)
+		if text[0] == '/' and text[1] == 'n' and text[2] == ' ':
+			newtext = text.split(' ', 1)
+			Spam = antisp.AntiSpam()
+			Spam.SendChatPacket(newtext[0] + " " + fgGHGjjFHJghjfFG1545gGG.GetName() + ": " + newtext[1], type) 	
 		else:
-			#chat.AppendChat(chat.CHAT_TYPE_INFO, text)
-			GFHhg54GHGhh45GHGH.SendChatPacket(text, type)
+			Spam = antisp.AntiSpam()
+			Spam.SendChatPacket(text, type) 
+		# if text == "(b1)":
+			# return
+			
+		# elif text == "(b2)":
+			# return
+
+		# elif GFHhg54GHGhh45GHGH.IsChatInsultIn(text):
+			# chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.CHAT_INSULT_STRING)
+		# else:
+			# #chat.AppendChat(chat.CHAT_TYPE_INFO, text)
+			# GFHhg54GHGhh45GHGH.SendChatPacket(text, type)
 		
 	def __SendPartyChatPacket(self, text):
 

@@ -64,7 +64,7 @@ window = {
 							"down_image" : "yamato_helpboard/normal_button_p.tga",
 							"disable_image" : "yamato_helpboard/normal_button_d.tga",
 
-							"text" : "Neue Quest",
+							"text" : "New Quest",
 										
 						},	
 						{
@@ -79,53 +79,37 @@ window = {
 							"down_image" : "yamato_helpboard/normal_button_p.tga",
 							"disable_image" : "yamato_helpboard/normal_button_d.tga",
 
-							"text" : "Quest erstellen",
+							"text" : "Make quest",
 										
 						},
 						{
-							"name" : "statusMessage",
-							"type" : "text",
-							
-							"x" : 15,
-							"y" : 0,
-							
-							"text" : "Bereit!",
-							"outline" : 1,
-						
-							"horizontal_align" : "right", 
-							"text_horizontal_align":"right",
-							"vertical_align" : "center",
-							"text_vertical_align" : "center",						
-						
-						},
-						# {
-							# "name" : "SaveImportButton",
-							# "type" : "button",
+							"name" : "SaveImportButton",
+							"type" : "button",
 											
-							# "x" : 7 + 98 + 98,
-							# "y" : 7,
+							"x" : 7 + 98 + 98,
+							"y" : 7,
 										
-							# "default_image" : "yamato_helpboard/normal_button_n.tga",
-							# "over_image" : "yamato_helpboard/normal_button_h.tga",
-							# "down_image" : "yamato_helpboard/normal_button_p.tga",
-							# "disable_image" : "yamato_helpboard/normal_button_d.tga",
+							"default_image" : "yamato_helpboard/normal_button_n.tga",
+							"over_image" : "yamato_helpboard/normal_button_h.tga",
+							"down_image" : "yamato_helpboard/normal_button_p.tga",
+							"disable_image" : "yamato_helpboard/normal_button_d.tga",
 
-							# "text" : "Save ImportFile",
-						# },	
-						# {
-							# "name" : "LoadImportButton",
-							# "type" : "button",
+							"text" : "Save ImportFile",
+						},	
+						{
+							"name" : "LoadImportButton",
+							"type" : "button",
 											
-							# "x" : 7 + 98 + 98 + 98,
-							# "y" : 7,
+							"x" : 7 + 98 + 98 + 98,
+							"y" : 7,
 										
-							# "default_image" : "yamato_helpboard/normal_button_n.tga",
-							# "over_image" : "yamato_helpboard/normal_button_h.tga",
-							# "down_image" : "yamato_helpboard/normal_button_p.tga",
-							# "disable_image" : "yamato_helpboard/normal_button_d.tga",
+							"default_image" : "yamato_helpboard/normal_button_n.tga",
+							"over_image" : "yamato_helpboard/normal_button_h.tga",
+							"down_image" : "yamato_helpboard/normal_button_p.tga",
+							"disable_image" : "yamato_helpboard/normal_button_d.tga",
 
-							# "text" : "Load ImportFile",
-						# },							
+							"text" : "Load ImportFile",
+						},							
 					
 					),
 				},
@@ -228,7 +212,7 @@ window = {
 
 					"children" : (
 						{
-							"name" : "stateTypeINITWindow",
+							"name" : "stateTypeSTARTWindow",
 							"type" : "window",
 							"style" : ("movable","attach",),
 							
@@ -240,13 +224,13 @@ window = {
 							
 							"children" : (
 								{
-									"name" : "stateTypeINITTitle",
+									"name" : "stateTypeSTARTTitle",
 									"type" : "text",
 									
 									"x" : 15,
 									"y" : 10,
 									
-									"text" : "STATE: INITIALIZER",
+									"text" : "STATE: start",
 									
 									"outline" : 1,
 								},
@@ -255,7 +239,7 @@ window = {
 								## MIN_LEVEL
 								######################################################
 								{
-									"name" : "stateTypeINITMinLevelTitle",
+									"name" : "stateTypeSTARTMinLevelTitle",
 									"type" : "text",
 									
 									"x" : 25,
@@ -266,7 +250,7 @@ window = {
 									"outline" : 1,
 								},								
 								{
-									"name" : "stateTypeINITMinLevelInputBoard",
+									"name" : "stateTypeSTARTMinLevelInputBoard",
 									"type" : "thinboard_circle",
 											
 									"x" : 8 + 100,
@@ -277,7 +261,7 @@ window = {
 																						
 									"children" : (
 										{
-											"name" : "stateTypeINITMinLevelEditLine",
+											"name" : "stateTypeSTARTMinLevelEditLine",
 											"type" : "editline",
 													
 											"x" : 4,
@@ -297,7 +281,7 @@ window = {
 								## MAX_LEVEL	
 								######################################################
 								{
-									"name" : "stateTypeINITMaxLevelTitle",
+									"name" : "stateTypeSTARTMaxLevelTitle",
 									"type" : "text",
 									
 									"x" : 25,
@@ -308,7 +292,7 @@ window = {
 									"outline" : 1,
 								},								
 								{
-									"name" : "stateTypeINITMaxLevelInputBoard",
+									"name" : "stateTypeSTARTMaxLevelInputBoard",
 									"type" : "thinboard_circle",
 											
 									"x" : 8 + 100,
@@ -319,7 +303,7 @@ window = {
 																						
 									"children" : (
 										{
-											"name" : "stateTypeINITMaxLevelEditLine",
+											"name" : "stateTypeSTARTMaxLevelEditLine",
 											"type" : "editline",
 													
 											"x" : 4,
@@ -336,256 +320,32 @@ window = {
 									),
 								},
 								######################################################
-								## JobSelect	
-								######################################################								
+								## eventflag	
+								######################################################
 								{
-									"name" : "stateTypeINITJobSelectTitle",
+									"name" : "stateTypeSTARTEventFlagTitle",
 									"type" : "text",
 									
 									"x" : 25,
 									"y" : 35 + 25 + 35,
-									
-									"text" : "Klasse:",
-									
-									"outline" : 1,
-								},
-
-								{
-									"name" : "stateTypeINITJobSelectAllTitle",
-									"type" : "text",
-									
-									"x" : 35,
-									"y" : 35 + 25 + 25 + 35,
-									
-									"text" : "Für Alle:",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINITJobSelectAllButton",
-									"type" : "button",
-											
-									"x" : 35 + 80,
-									"y" : 35 + 25 + 25 + 35 - 3,
-																			
-									"default_image" : "yamato_button/radio_n.tga",
-									"over_image" : "yamato_button/radio_h.tga",
-									"down_image" : "yamato_button/radio_n.tga",
-									"disable_image" : "yamato_button/radio_p.tga",
-								},
-								## Krieger
-								{
-									"name" : "stateTypeINITJobSelectWarriorTitle",
-									"type" : "text",
-									
-									"x" : 35,
-									"y" : 35 + 25 + 25 + 35 + 25,
-									
-									"text" : "Für Krieger:",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINITJobSelectWarriorButton",
-									"type" : "button",
-											
-									"x" : 35 + 80,
-									"y" : 35 + 25 + 25 + 35 + 25 - 3,
-																			
-									"default_image" : "yamato_button/radio_n.tga",
-									"over_image" : "yamato_button/radio_h.tga",
-									"down_image" : "yamato_button/radio_n.tga",
-									"disable_image" : "yamato_button/radio_p.tga",
-								},
-								## Ninja
-								{
-									"name" : "stateTypeINITJobSelectNinjaTitle",
-									"type" : "text",
-									
-									"x" : 35,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25,
-									
-									"text" : "Für Ninja:",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINITJobSelectNinjaButton",
-									"type" : "button",
-											
-									"x" : 35 + 80,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 - 3,
-																			
-									"default_image" : "yamato_button/radio_n.tga",
-									"over_image" : "yamato_button/radio_h.tga",
-									"down_image" : "yamato_button/radio_n.tga",
-									"disable_image" : "yamato_button/radio_p.tga",
-								},
-						
-								## Sura
-								{
-									"name" : "stateTypeINITJobSelectSuraTitle",
-									"type" : "text",
-									
-									"x" : 35,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25,
-									
-									"text" : "Für Sura:",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINITJobSelectSuraButton",
-									"type" : "button",
-											
-									"x" : 35 + 80,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 - 3,
-																			
-									"default_image" : "yamato_button/radio_n.tga",
-									"over_image" : "yamato_button/radio_h.tga",
-									"down_image" : "yamato_button/radio_n.tga",
-									"disable_image" : "yamato_button/radio_p.tga",
-								},
-								
-								## Shaman
-								{
-									"name" : "stateTypeINITJobSelectShamanTitle",
-									"type" : "text",
-									
-									"x" : 35,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 + 25,
-									
-									"text" : "Für Schamanen:",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINITJobSelectShamanButton",
-									"type" : "button",
-											
-									"x" : 35 + 80,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 + 25 - 3,
-																			
-									"default_image" : "yamato_button/radio_n.tga",
-									"over_image" : "yamato_button/radio_h.tga",
-									"down_image" : "yamato_button/radio_n.tga",
-									"disable_image" : "yamato_button/radio_p.tga",
-								},
-								######################################################
-								## SexSelect	
-								######################################################								
-								{
-									"name" : "stateTypeINITSexSelectTitle",
-									"type" : "text",
-									
-									"x" : 25,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 + 25 + 35,
-									
-									"text" : "Geschlecht:",
-									
-									"outline" : 1,
-								},
-
-								{
-									"name" : "stateTypeINITSexSelectAllTitle",
-									"type" : "text",
-									
-									"x" : 35,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 + 25 + 35 + 25,
-									
-									"text" : "Alle:",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINITSexSelectAllButton",
-									"type" : "button",
-											
-									"x" : 35 + 80,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 + 25 + 35 + 25 - 3,
-																			
-									"default_image" : "yamato_button/radio_n.tga",
-									"over_image" : "yamato_button/radio_h.tga",
-									"down_image" : "yamato_button/radio_n.tga",
-									"disable_image" : "yamato_button/radio_p.tga",
-								},	
-
-								{
-									"name" : "stateTypeINITSexSelectMaleTitle",
-									"type" : "text",
-									
-									"x" : 35,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 + 25 + 35 + 25 + 25,
-									
-									"text" : "Männlich:",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINITSexSelectMaleButton",
-									"type" : "button",
-											
-									"x" : 35 + 80,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 + 25 + 35 + 25 + 25 - 3,
-																			
-									"default_image" : "yamato_button/radio_n.tga",
-									"over_image" : "yamato_button/radio_h.tga",
-									"down_image" : "yamato_button/radio_n.tga",
-									"disable_image" : "yamato_button/radio_p.tga",
-								},
-								
-								{
-									"name" : "stateTypeINITSexSelectFemaleTitle",
-									"type" : "text",
-									
-									"x" : 35,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 + 25 + 35 + 25 + 25 + 25,
-									
-									"text" : "Weiblich:",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINITSexSelectFemaleButton",
-									"type" : "button",
-											
-									"x" : 35 + 80,
-									"y" : 35 + 25 + 25 + 35 + 25 + 25 + 25 + 25 + 35 + 25 + 25 + 25 - 3,
-																			
-									"default_image" : "yamato_button/radio_n.tga",
-									"over_image" : "yamato_button/radio_h.tga",
-									"down_image" : "yamato_button/radio_n.tga",
-									"disable_image" : "yamato_button/radio_p.tga",
-								},
-
-								
-								######################################################
-								## eventflag	
-								######################################################
-								{
-									"name" : "stateTypeINITEventFlagTitle",
-									"type" : "text",
-									
-									"x" : 25,
-									"y" : 35 + 25 + 35 + 270,
 									
 									"text" : "Eventflag:",
 									
 									"outline" : 1,
 								},								
 								{
-									"name" : "stateTypeINITEventFlagInputBoard",
+									"name" : "stateTypeSTARTEventFlagInputBoard",
 									"type" : "thinboard_circle",
 											
 									"x" : 8 + 100,
-									"y" : 35 + 25 + 35 + 270,
+									"y" : 35 + 25 + 35,
 											
 									"width" : 100,
 									"height" : 18,
 																						
 									"children" : (
 										{
-											"name" : "stateTypeINITEventFlagEditLine",
+											"name" : "stateTypeSTARTEventFlagEditLine",
 											"type" : "editline",
 													
 											"x" : 4,
@@ -593,7 +353,7 @@ window = {
 													
 											"input_limit" : 20,
 											
-											"text" : "no_flag",
+											"text" : "flag-name",
 													
 											"width" : 100,
 											"height" : 20,
@@ -601,18 +361,18 @@ window = {
 									),
 								},
 								{
-									"name" : "stateTypeINITEventFlagInputBoardValue",
+									"name" : "stateTypeSTARTEventFlagInputBoardValue",
 									"type" : "thinboard_circle",
 											
 									"x" : 8 + 100 + 101,
-									"y" : 35 + 25 + 35 + 270,
+									"y" : 35 + 25 + 35,
 											
 									"width" : 30,
 									"height" : 18,
 																						
 									"children" : (
 										{
-											"name" : "stateTypeINITEventFlagEditLineValue",
+											"name" : "stateTypeSTARTEventFlagEditLineValue",
 											"type" : "editline",
 													
 											"x" : 4,
@@ -631,29 +391,29 @@ window = {
 								## questFlag	
 								######################################################
 								{
-									"name" : "stateTypeINITQuestFlagTitle",
+									"name" : "stateTypeSTARTQuestFlagTitle",
 									"type" : "text",
 									
 									"x" : 25,
-									"y" : 35 + 25 + 35 + 25 + 270,
+									"y" : 35 + 25 + 35 + 25,
 									
 									"text" : "Questflag:",
 									
 									"outline" : 1,
 								},								
 								{
-									"name" : "stateTypeINITQuestFlagQuestInputBoard",
+									"name" : "stateTypeSTARTQuestFlagInputBoard",
 									"type" : "thinboard_circle",
 											
 									"x" : 8 + 100,
-									"y" : 35 + 25 + 35 + 25 + 270,
+									"y" : 35 + 25 + 35 + 25,
 											
 									"width" : 100,
 									"height" : 18,
 																						
 									"children" : (
 										{
-											"name" : "stateTypeINITQuestFlagQuestEditLine",
+											"name" : "stateTypeSTARTQuestFlagEditLine",
 											"type" : "editline",
 													
 											"x" : 4,
@@ -661,7 +421,7 @@ window = {
 													
 											"input_limit" : 20,
 											
-											"text" : "no_quest",
+											"text" : "flag-name",
 													
 											"width" : 100,
 											"height" : 20,
@@ -669,45 +429,18 @@ window = {
 									),
 								},
 								{
-									"name" : "stateTypeINITQuestFlagFlagInputBoard",
+									"name" : "stateTypeSTARTQuestFlagInputBoardValue",
 									"type" : "thinboard_circle",
 											
-									"x" : 8 + 100 + 100,
-									"y" : 35 + 25 + 35 + 25 + 270,
-											
-									"width" : 100,
-									"height" : 18,
-																						
-									"children" : (
-										{
-											"name" : "stateTypeINITQuestFlagFlagEditLine",
-											"type" : "editline",
-													
-											"x" : 4,
-											"y" : 2,
-													
-											"input_limit" : 20,
-											
-											"text" : "no_flag",
-													
-											"width" : 100,
-											"height" : 20,
-										},
-									),
-								},
-								{
-									"name" : "stateTypeINITQuestFlagInputBoardValue",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100 + 101 + 101,
-									"y" : 35 + 25 + 35 + 25 + 270,
+									"x" : 8 + 100 + 101,
+									"y" : 35 + 25 + 35 + 25,
 											
 									"width" : 30,
 									"height" : 18,
 																						
 									"children" : (
 										{
-											"name" : "stateTypeINITQuestFlagEditLineValue",
+											"name" : "stateTypeSTARTQuestFlagEditLineValue",
 											"type" : "editline",
 													
 											"x" : 4,
@@ -723,100 +456,32 @@ window = {
 									),
 								},
 								######################################################
-								## OtherQuestProgress	
+								## questFlag	
 								######################################################
 								{
-									"name" : "stateTypeINITOtherQuestProgressTitle",
+									"name" : "stateTypeSTARTQuestStateTitle",
 									"type" : "text",
 									
 									"x" : 25,
-									"y" : 35 + 25 + 35 + 25 + 270 + 35,
+									"y" : 35 + 25 + 35 + 25 + 35,
 									
-									"text" : "Anderer Questfortschritt:",
+									"text" : "Quest-State:",
 									
 									"outline" : 1,
-								},								
-								{
-									"name" : "stateTypeINITOtherQuestProgressInputBoard",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100 + 60,
-									"y" : 35 + 25 + 35 + 25 + 270 + 35,
-											
-									"width" : 100,
-									"height" : 18,
-																						
-									"children" : (
-										{
-											"name" : "stateTypeINITOtherQuestProgressEditLine",
-											"type" : "editline",
-													
-											"x" : 4,
-											"y" : 2,
-													
-											"input_limit" : 20,
-											
-											"text" : "quest_name",
-													
-											"width" : 100,
-											"height" : 20,
-										},
-									),
-								},
-								{
-									"name" : "stateTypeINITOtherQuestProgressInputBoardValue",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100 + 101 + 60,
-									"y" : 35 + 25 + 35 + 25 + 270 + 35,
-											
-									"width" : 30,
-									"height" : 18,
-																						
-									"children" : (
-										{
-											"name" : "stateTypeINITOtherQuestProgressEditLineValue",
-											"type" : "editline",
-													
-											"x" : 4,
-											"y" : 2,
-													
-											"input_limit" : 20,
-											"only_number" : 1,
-											"text" : "0",
-													
-											"width" : 30,
-											"height" : 20,
-										},
-									),
 								},	
-								######################################################
-								## CheckOtherQuestDone	
-								######################################################
 								{
-									"name" : "stateTypeINITCheckOtherQuestDoneTitle",
-									"type" : "text",
-									
-									"x" : 25,
-									"y" : 35 + 25 + 35 + 25 + 270 + 35 + 25,
-									
-									"text" : "Andere Quest abgeschlossen?:",
-									
-									"outline" : 1,
-								},								
-								{
-									"name" : "stateTypeINITCheckOtherQuestDoneInputBoard",
+									"name" : "stateTypeSTARTQuestStateInputBoard",
 									"type" : "thinboard_circle",
 											
-									"x" : 8 + 100 + 60,
-									"y" : 35 + 25 + 35 + 25 + 270 + 35 + 25,
+									"x" : 8 + 100,
+									"y" : 35 + 25 + 35 + 25 + 35,
 											
-									"width" : 100,
+									"width" : 30,
 									"height" : 18,
 																						
 									"children" : (
 										{
-											"name" : "stateTypeINITCheckOtherQuestDoneEditLine",
+											"name" : "stateTypeSTARTQuestStateEditLine",
 											"type" : "editline",
 													
 											"x" : 4,
@@ -824,27 +489,28 @@ window = {
 													
 											"input_limit" : 20,
 											
-											"text" : "quest_name",
+											"text" : "0",
+											"only_number" : 1,
 													
-											"width" : 100,
+											"width" : 30,
 											"height" : 20,
 										},
 									),
 								},	
 								
 								{
-									"name" : "stateTypeINITSaveButton",
+									"name" : "stateTypeSTARTSaveButton",
 									"type" : "button",
 											
 									"x" : 25,
-									"y" : 35 + 25 + 35 + 25 + 35 + 35 + 270 + 25,
+									"y" : 35 + 25 + 35 + 25 + 35 + 35,
 										
 									"default_image" : "yamato_helpboard/wide_button_n.tga",
 									"over_image" : "yamato_helpboard/wide_button_h.tga",
 									"down_image" : "yamato_helpboard/wide_button_p.tga",
 									"disable_image" : "yamato_helpboard/wide_button_d.tga",
 
-									"text" : "Speichern",
+									"text" : "Save changes",
 										
 								},								
 							),
@@ -852,269 +518,7 @@ window = {
 						######################################################
 						}, ## STATE_START_END
 						######################################################
-
-
-						{
-							"name" : "stateTypeINTROWindow",
-							"type" : "window",
-							"style" : ("movable","attach",),
-							
-							"x" : 0,
-							"y" : 0,
-							
-							"width" : 430,
-							"height" : WINDOW_HEIGTH - 50,
-							
-							"children" : (
-								{
-									"name" : "stateTypeINTROTitle",
-									"type" : "text",
-									
-									"x" : 15,
-									"y" : 10,
-									
-									"text" : "STATE: Intro",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINITMinLevelTitle",
-									"type" : "text",
-									
-									"x" : 25,
-									"y" : 35,
-									
-									"text" : "Quest Typ:",
-									
-									"outline" : 1,
-								},	
-								{
-									"name" : "stateTypeINTROTabInputBoard",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100,
-									"y" : 35,
-											
-									"width" : 100,
-									"height" : 18,
-																						
-									"children" : (
-										{
-											"name" : "stateTypeINTROTabEditLine",
-											"type" : "editline",
-													
-											"x" : 4,
-											"y" : 2,
-													
-											"input_limit" : 20,
-											"only_number" : 1,
-											
-											"text" : "Hauptquest",
-													
-											"width" : 100,
-											"height" : 20,
-										},
-									),
-								},
-								{
-									"name" : "stateTypeINTROTargetTitle",
-									"type" : "text",
-									
-									"x" : 25,
-									"y" : 35 + 25,
-									
-									"text" : "Ziel (NPC Vnum):",
-									
-									"outline" : 1,
-								},	
-								{
-									"name" : "stateTypeINTROTargetInputBoard",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100,
-									"y" : 35 + 25,
-											
-									"width" : 100,
-									"height" : 18,
-																						
-									"children" : (
-										{
-											"name" : "stateTypeINTROTargetEditLine",
-											"type" : "editline",
-													
-											"x" : 4,
-											"y" : 2,
-													
-											"input_limit" : 20,
-											"only_number" : 1,
-											
-											"text" : "0",
-													
-											"width" : 100,
-											"height" : 20,
-										},
-									),
-								},
-								{
-									"name" : "stateTypeINTROLetterTitle",
-									"type" : "text",
-									
-									"x" : 25,
-									"y" : 35 + 25 + 25,
-									
-									"text" : "Brief:",
-									
-									"outline" : 1,
-								},	
-								{
-									"name" : "stateTypeINTROLetterInputBoard",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100,
-									"y" : 35 + 25 + 25,
-											
-									"width" : 30,
-									"height" : 18,
-																						
-									"children" : (
-										{
-											"name" : "stateTypeINTROLetterTitleTextEditLine",
-											"type" : "editline",
-													
-											"x" : 4,
-											"y" : 2,
-													
-											"input_limit" : 20,
-											"only_number" : 1,
-											
-											"text" : "0",
-													
-											"width" : 30,
-											"height" : 20,
-										},
-									),
-								},
-								{
-									"name" : "stateTypeINTROLetterTextInputBoard",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100 + 31,
-									"y" : 35 + 25 + 25,
-											
-									"width" : 30,
-									"height" : 18,
-																						
-									"children" : (
-										{
-											"name" : "stateTypeINTROLetterTextEditLine",
-											"type" : "editline",
-													
-											"x" : 4,
-											"y" : 2,
-													
-											"input_limit" : 20,
-											"only_number" : 1,
-											
-											"text" : "0",
-													
-											"width" : 30,
-											"height" : 20,
-										},
-									),
-								},
-								
-								{
-									"name" : "stateTypeINTRODialogTitle",
-									"type" : "text",
-									
-									"x" : 25,
-									"y" : 35 + 25 + 25 + 35,
-									
-									"text" : "Dialog:",
-									
-									"outline" : 1,
-								},	
-								{
-									"name" : "stateTypeINTRODialogInputBoard",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100,
-									"y" : 35 + 25 + 25 + 35,
-											
-									"width" : 30,
-									"height" : 18,
-																						
-									"children" : (
-										{
-											"name" : "stateTypeINTRODialogTitleTextEditLine",
-											"type" : "editline",
-													
-											"x" : 4,
-											"y" : 2,
-													
-											"input_limit" : 20,
-											"only_number" : 1,
-											
-											"text" : "0",
-													
-											"width" : 30,
-											"height" : 20,
-										},
-									),
-								},
-								{
-									"name" : "stateTypeINTRODialogTextInputBoard",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100 + 31,
-									"y" : 35 + 25 + 25 + 35,
-											
-									"width" : 30,
-									"height" : 18,
-																						
-									"children" : (
-										{
-											"name" : "stateTypeINTRODialogTextEditLine",
-											"type" : "editline",
-													
-											"x" : 4,
-											"y" : 2,
-													
-											"input_limit" : 20,
-											"only_number" : 1,
-											
-											"text" : "0",
-													
-											"width" : 30,
-											"height" : 20,
-										},
-									),
-								},
-				
-								{
-									"name" : "stateTypeINTROTargetList",
-									"type" : "text",
-									
-									"x" : 25,
-									"y" : 35 + 25 + 25 + 35 + 35,
-									
-									"text" : "Ziele:",
-									
-									"outline" : 1,
-								},
-								{
-									"name" : "stateTypeINTROTargetListBoard",
-									"type" : "thinboard_circle",
-											
-									"x" : 8 + 100,
-									"y" : 35 + 25 + 25 + 35 + 35,
-											
-									"width" : 250,
-									"height" : 130,
-								},
-								
-							),
-						},
+					
 					
 					),
 			
