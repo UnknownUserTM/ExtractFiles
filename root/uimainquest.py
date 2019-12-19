@@ -303,17 +303,17 @@ class QuestWindow(ui.ScriptWindow):
 	TARGET_TYPE_COLLECT = 2
 	
 	TAB_BUTTON_MAIN_QUEST		= 0
-	TAB_BUTTON_BIOLOGIST_QUEST	= 1
+	TAB_BUTTON_SIDE_QUEST		= 1
 	TAB_BUTTON_DUNGEON_QUEST	= 2
 	TAB_BUTTON_EVENT_QUEST		= 3
-	TAB_BUTTON_SCROLL_QUEST		= 4
+	TAB_BUTTON_CHALLENGE_QUEST	= 4
 	
 	QUEST_CATEGORY_NAME = {
 		TAB_BUTTON_MAIN_QUEST		: localeInfo.QUEST_WINDOW_CATEGORY_MAINQUEST,
-		TAB_BUTTON_BIOLOGIST_QUEST	: localeInfo.QUEST_WINDOW_CATEGORY_BIOLOGIST,
+		TAB_BUTTON_SIDE_QUEST		: localeInfo.QUEST_WINDOW_CATEGORY_SIDEQUEST,
 		TAB_BUTTON_DUNGEON_QUEST	: localeInfo.QUEST_WINDOW_CATEGORY_DUNGEON,
 		TAB_BUTTON_EVENT_QUEST		: localeInfo.QUEST_WINDOW_CATEGORY_EVENT,
-		TAB_BUTTON_SCROLL_QUEST		: localeInfo.QUEST_WINDOW_CATEGORY_BOOK,
+		TAB_BUTTON_CHALLENGE_QUEST	: localeInfo.QUEST_WINDOW_CATEGORY_CHALLENGE,
 	}
 	
 	QUEST_TAB_COUNT = 5
@@ -329,10 +329,10 @@ class QuestWindow(ui.ScriptWindow):
 		self.questContent = [
 			[], # <- placeholder
 			[], # <- TAB_BUTTON_MAIN_QUEST
-			[], # <- TAB_BUTTON_BIOLOGIST_QUEST
-			[], # <- TAB_BUTTON_HUNT_QUEST
 			[], # <- TAB_BUTTON_SIDE_QUEST
-			[], # <- TAB_BUTTON_SCROLL_QUEST
+			[], # <- TAB_BUTTON_HUNT_QUEST
+			[], # <- TAB_BUTTON_EVENT_QUEST
+			[], # <- TAB_BUTTON_CHALLENGE_QUEST
 		]
 		self.questCategory = self.TAB_BUTTON_MAIN_QUEST
 		self.LoadWindow()
@@ -398,10 +398,10 @@ class QuestWindow(ui.ScriptWindow):
 		self.questListScrollBar.Hide()
 		self.questListContentCarv.Hide()
 		self.questTab[0].SetEvent(lambda arg=self.TAB_BUTTON_MAIN_QUEST: self.SetQuestCategory(arg))
-		self.questTab[1].SetEvent(lambda arg=self.TAB_BUTTON_BIOLOGIST_QUEST: self.SetQuestCategory(arg))
+		self.questTab[1].SetEvent(lambda arg=self.TAB_BUTTON_SIDE_QUEST: self.SetQuestCategory(arg))
 		self.questTab[2].SetEvent(lambda arg=self.TAB_BUTTON_DUNGEON_QUEST: self.SetQuestCategory(arg))
 		self.questTab[3].SetEvent(lambda arg=self.TAB_BUTTON_EVENT_QUEST: self.SetQuestCategory(arg))
-		self.questTab[4].SetEvent(lambda arg=self.TAB_BUTTON_SCROLL_QUEST: self.SetQuestCategory(arg))		
+		self.questTab[4].SetEvent(lambda arg=self.TAB_BUTTON_CHALLENGE_QUEST: self.SetQuestCategory(arg))		
 
 		self.ReArrangeButtons()
 		self.Refresh()
@@ -504,12 +504,17 @@ class QuestWindow(ui.ScriptWindow):
 		else:
 			self.declineButton.Enable()
 			
-		if len(myQuest[self.QUEST_DATA_TARGET]) > 0:
-			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FollowButton Enable!")
-			self.followButton.Enable()
-		else:
-			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FollowButton Disable!")
+		if myQuest[self.QUEST_DATA_FOLLOW] == "false":
 			self.followButton.Disable()
+		else:
+			self.followButton.Enable()
+			
+		# if len(myQuest[self.QUEST_DATA_TARGET]) > 0:
+			# # chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FollowButton Enable!")
+			# self.followButton.Enable()
+		# else:
+			# # chat.AppendChat(chat.CHAT_TYPE_DEBUG,"FollowButton Disable!")
+			# self.followButton.Disable()
 			
 	def UpdateQuestPaperTarget(self,qid,questType): #,type,vnum,min_count,max_count,status):
 		quest = self.FindQuestByQID(qid,questType)
@@ -961,12 +966,26 @@ class QuestMaker(ui.ScriptWindow):
 
 	SYSTEM_INDEX = 0
 
-	QUEST_TYPE_START = 0
-	QUEST_TYPE_INTRO = 1
-	QUEST_TYPE_DIALOG = 2
-	QUEST_TYPE_KILL = 3
-	QUEST_TYPE_COLLECT = 4
-	QUEST_TYPE_COMPLETE = 5
+	STATE_WINDOW_INIT = 0
+	STATE_WINDOW_INTRO = 1
+	# STATE_WINDOW_KILL = 2
+	# STATE_WINDOW_DIALOG = 3
+	# STATE_WINDOW_DROP = 4
+	# STATE_WINDOW_COLLECT = 5
+	# STATE_WINDOW_REWARD = 6
+	
+	QUEST_TAB_MAIN = 0
+	QUEST_TAB_SIDE = 1
+	QUEST_TAB_DUNGEON = 2
+	QUEST_TAB_EVENT = 3
+	QUEST_TAB_CHALLENGE = 4
+	
+	STATUS_MESSAGE_TIME_MESSAGE_SHOW = 3
+	STATUS_MESSAGE_TIMER = 0
+	STATUS_MESSAGE_DEFAULT_TEXT = "Bereit!"
+	STATUS_MESSAGE_COLOR_NORMAL = 1
+	STATUS_MESSAGE_COLOR_POSITIVE = 2
+	STATUS_MESSAGE_COLOR_NEGATIVE = 3
 	
 	max_line = 28
 
@@ -975,6 +994,7 @@ class QuestMaker(ui.ScriptWindow):
 		self.SYSTEM_INDEX = systemIndex
 		self.myQuest = []
 		self.stateSelect = 0
+		self.stateType = 0
 		self.LoadWindow()
 
 	def __del__(self):
@@ -989,26 +1009,53 @@ class QuestMaker(ui.ScriptWindow):
 			exception.Abort("QuestMakerWindow.LoadWindow.LoadObject")
 		
 		self.GetChild("TitleBar").SetCloseEvent(self.Close)
-		
-		self.newQuestButton = self.GetChild("NewButton")
-		self.makeQuestButton = self.GetChild("MakeButton")
-		self.saveImportFileButton = self.GetChild("SaveImportButton")
-		self.loadImportFileButton = self.GetChild("LoadImportButton")
-		
-		self.newQuestButton.SetEvent(self.ShowMakeNewQuestDialog)
 
-		self.makeQuestButton.Disable()
-		
+		self.newQuestButton = self.GetChild("NewButton")
+		self.newQuestButton.SetEvent(self.ShowMakeNewQuestDialog)
+		self.makeQuestButton = self.GetChild("MakeButton")
+		self.statusMessage = self.GetChild("statusMessage")
 		self.stateListBox = self.GetChild("stateListBox")
+		self.stateListBox.SetEvent(ui.__mem_func__(self.OnSelectState))
 		self.stateScrollBar = self.GetChild("scrollBar")
 		self.stateAddButton = self.GetChild("AddStateButton")
 		self.stateAddButton.SetEvent(self.OpenStateMakeDialog)
+
+		self.stateDelButton = self.GetChild("DeleteStateButton")
+		self.stateDelButton.SetEvent(self.DeletateState)
 		
-		self.stateWindowDict = []
-		self.stateWindowDict.append(self.GetChild("stateTypeSTARTWindow"))
+		## STATE_WINDOW_DICT
+		self.stateWindowDict = {}
+		self.stateWindowDict[self.STATE_WINDOW_INIT] = self.GetChild("stateTypeINITWindow")
+		self.stateWindowDict[self.STATE_WINDOW_INTRO] = self.GetChild("stateTypeINTROWindow")
 		
 		
-		# statePickDialog
+		
+		# stateTypeINTROWindow
+		# STATE_WINDOW_INIT = 0
+		# STATE_WINDOW_INTRO = 1
+		# STATE_WINDOW_KILL = 2
+		# STATE_WINDOW_DIALOG = 3
+
+		
+		## INIT WINDOWS
+		self.InitStatePickDialog()
+		self.InitNewQuestDialog()
+		self.InitStateInitWindow()
+		
+		## Final Initialisation
+		self.InitGUI()
+		
+		
+	def InitNewQuestDialog(self):
+		self.newQuestBackground = self.GetChild("makeNewQuestBackground")
+		self.newQuestNewButton = self.GetChild("makeNewQuestYESButton")
+		self.newQuestCloseButton = self.GetChild("makeNewQuestNOButton")
+		self.newQuestBackground.Hide()
+		
+		self.newQuestNewButton.SetEvent(self.MakeNewQuest)
+		self.newQuestCloseButton.SetEvent(self.CloseMakeNewQuestDialog)		
+	
+	def InitStatePickDialog(self):
 		self.statePickDialog = self.GetChild("stateSelectBackground")
 		self.stateNameEditLine = self.GetChild("statePickNameEditLine")
 		self.statePickListBox = self.GetChild("statePickListBox")
@@ -1020,37 +1067,243 @@ class QuestMaker(ui.ScriptWindow):
 		self.statePickCloseButton.SetEvent(self.CloseStateMakeDialog)
 		
 		self.questTypes = [
-			["QUEST_TYPE_INTRO",self.QUEST_TYPE_INTRO],
-			["QUEST_TYPE_DIALOG",self.QUEST_TYPE_DIALOG],
-			["QUEST_TYPE_KILL",self.QUEST_TYPE_KILL],
-			["QUEST_TYPE_COLLECT",self.QUEST_TYPE_COLLECT],
-			["QUEST_TYPE_COMPLETE",self.QUEST_TYPE_COMPLETE],
+			["INTRO",self.STATE_WINDOW_INTRO],
 		]
 		for i in xrange(len(self.questTypes)):
-			self.statePickListBox.InsertItem(self.questTypes[i][1],self.questTypes[i][0])
+			self.statePickListBox.InsertItem(self.questTypes[i][1],self.questTypes[i][0])	
+	
+	
+	
+	###############################
+	## STATE_WINDOW_INIT!
+	
+	def InitStateInitWindow(self):
+		## BIND
+		self.stateWindow_INIT_minLevel_EditLine = self.GetChild("stateTypeINITMinLevelEditLine")
+		self.stateWindow_INIT_maxLevel_EditLine = self.GetChild("stateTypeINITMaxLevelEditLine")
 		
+		self.stateWindow_INIT_Job_ButtonDict = {}
+		self.stateWindow_INIT_Job_ButtonDict[0] = self.GetChild("stateTypeINITJobSelectAllButton")
+		self.stateWindow_INIT_Job_ButtonDict[1] = self.GetChild("stateTypeINITJobSelectWarriorButton")
+		self.stateWindow_INIT_Job_ButtonDict[2] = self.GetChild("stateTypeINITJobSelectNinjaButton")
+		self.stateWindow_INIT_Job_ButtonDict[3] = self.GetChild("stateTypeINITJobSelectSuraButton")
+		self.stateWindow_INIT_Job_ButtonDict[4] = self.GetChild("stateTypeINITJobSelectShamanButton")
 		
-		self.newQuestBackground = self.GetChild("makeNewQuestBackground")
-		self.newQuestNewButton = self.GetChild("makeNewQuestYESButton")
-		self.newQuestCloseButton = self.GetChild("makeNewQuestNOButton")
-		self.newQuestBackground.Hide()
+		self.stateWindow_INIT_Sex_ButtonDict = {}
+		self.stateWindow_INIT_Sex_ButtonDict[0] = self.GetChild("stateTypeINITSexSelectAllButton")
+		self.stateWindow_INIT_Sex_ButtonDict[1] = self.GetChild("stateTypeINITSexSelectMaleButton")
+		self.stateWindow_INIT_Sex_ButtonDict[2] = self.GetChild("stateTypeINITSexSelectFemaleButton")	
 		
-		self.newQuestNewButton.SetEvent(self.MakeNewQuest)
-		self.newQuestCloseButton.SetEvent(self.CloseMakeNewQuestDialog)
-		# self.statePickDialog.Hide()
+		self.stateWindow_INIT_eventFlagName_EditLine = self.GetChild("stateTypeINITEventFlagEditLine")
+		self.stateWindow_INIT_eventFlagValue_EditLine = self.GetChild("stateTypeINITEventFlagEditLineValue")
+
+		self.stateWindow_INIT_questFlagQuestName_EditLine = self.GetChild("stateTypeINITQuestFlagQuestEditLine")
+		self.stateWindow_INIT_questFlagName_EditLine = self.GetChild("stateTypeINITQuestFlagFlagEditLine")
+		self.stateWindow_INIT_questFlagValue_EditLine = self.GetChild("stateTypeINITQuestFlagEditLineValue")		
+
+		self.stateWindow_INIT_otherQuestProgressName_EditLine = self.GetChild("stateTypeINITOtherQuestProgressEditLine")
+		self.stateWindow_INIT_otherQuestProgressValue_EditLine = self.GetChild("stateTypeINITOtherQuestProgressEditLineValue")
 		
-		# self.stateListBox.InsertItem(0,"start")
-		# self.stateListBox.InsertItem(1,"GOTO_QUESTMASTER")
-		# self.stateListBox.InsertItem(2,"KILL_WILDDOG")
-		# self.stateListBox.InsertItem(3,"BACK_TO_QUESTMASTER")
-		# self.stateListBox.InsertItem(4,"QUEST_COMPLETE")
+		self.stateWindow_INIT_otherQuestDone_EditLine = self.GetChild("stateTypeINITCheckOtherQuestDoneEditLine")
 		
+		self.stateWindow_INIT_SaveButton = self.GetChild("stateTypeINITSaveButton")
+		
+		## VARs
+		self.stateWindow_INIT_Job_ALL = 0
+		self.stateWindow_INIT_Job_WARRIOR = 1
+		self.stateWindow_INIT_Job_NINJA = 2
+		self.stateWindow_INIT_Job_SURA = 3
+		self.stateWindow_INIT_Job_SHAMAN = 4
+		
+		self.stateWindow_INIT_Sex_ALL = 0
+		self.stateWindow_INIT_Sex_MALE = 1
+		self.stateWindow_INIT_Sex_FEMALE = 2
+		
+		self.stateWindow_INIT_Job_Select = [self.stateWindow_INIT_Job_ALL]	# <- ALL
+		self.stateWindow_INIT_Sex_Select = [self.stateWindow_INIT_Sex_ALL]	# <- ALL	
+
+		## FUNCTION
+		
+		self.stateWindow_INIT_Job_ButtonDict[0].SetEvent(self.SW_INIT_Job_ButtonClick,self.stateWindow_INIT_Job_ALL)
+		self.stateWindow_INIT_Job_ButtonDict[1].SetEvent(self.SW_INIT_Job_ButtonClick,self.stateWindow_INIT_Job_WARRIOR)
+		self.stateWindow_INIT_Job_ButtonDict[2].SetEvent(self.SW_INIT_Job_ButtonClick,self.stateWindow_INIT_Job_NINJA)
+		self.stateWindow_INIT_Job_ButtonDict[3].SetEvent(self.SW_INIT_Job_ButtonClick,self.stateWindow_INIT_Job_SURA)
+		self.stateWindow_INIT_Job_ButtonDict[4].SetEvent(self.SW_INIT_Job_ButtonClick,self.stateWindow_INIT_Job_SHAMAN)
+		self.SW_INIT_Job_ButtonClick(self.stateWindow_INIT_Job_ALL)
+
+		self.stateWindow_INIT_Sex_ButtonDict[0].SetEvent(self.SW_INIT_Sex_ButtonClick,self.stateWindow_INIT_Sex_ALL)
+		self.stateWindow_INIT_Sex_ButtonDict[1].SetEvent(self.SW_INIT_Sex_ButtonClick,self.stateWindow_INIT_Sex_MALE)
+		self.stateWindow_INIT_Sex_ButtonDict[2].SetEvent(self.SW_INIT_Sex_ButtonClick,self.stateWindow_INIT_Sex_FEMALE)
+		self.SW_INIT_Sex_ButtonClick(self.stateWindow_INIT_Sex_ALL)
+		
+		self.stateWindow_INIT_SaveButton.SetEvent(self.SW_INIT_SaveData)
+
+
+			# "state_name"			: "INITIALIZER",
+			# "min_level"				: 0,
+			# "max_level"				: 135,
+			# "job"					: [self.stateWindow_INIT_Job_ALL],
+			# "sex"					: [self.stateWindow_INIT_Sex_ALL],
+			# "eventflag"				: ["no_flag",0],
+			# "questflag"				: ["no_quest","no_flag",0],
+			# "other_quest_progress"  : ["no_quest",0],
+			# "other_quest_done" 		: ["no_quest"],
+			
+			# "deletable"				: False,
+			# "window_id"				: self.STATE_WINDOW_INIT,	
+	def SW_INIT_LoadData(self,data):
+		self.AppendStatusMessage("State " + data["state_name"] + " wird geladen...",self.STATUS_MESSAGE_COLOR_NORMAL,15)
+		self.stateWindow_INIT_minLevel_EditLine.SetText(str(data["min_level"]))
+		self.stateWindow_INIT_maxLevel_EditLine.SetText(str(data["max_level"]))	
+
+		self.stateWindow_INIT_Job_Select = data["job"]
+		for i in xrange(len(self.stateWindow_INIT_Job_ButtonDict)):
+			self.stateWindow_INIT_Job_ButtonDict[i].Enable()
+		
+		for i in xrange(len(self.stateWindow_INIT_Job_Select)):
+			index = self.stateWindow_INIT_Job_Select[i]
+			self.stateWindow_INIT_Job_ButtonDict[index].Disable()
+		
+		self.stateWindow_INIT_Sex_Select = data["sex"]
+		for i in xrange(len(self.stateWindow_INIT_Sex_ButtonDict)):
+			self.stateWindow_INIT_Sex_ButtonDict[i].Enable()
+		
+		for i in xrange(len(self.stateWindow_INIT_Sex_Select)):
+			index = self.stateWindow_INIT_Sex_Select[i]
+			self.stateWindow_INIT_Sex_ButtonDict[index].Disable()
+
+		self.stateWindow_INIT_eventFlagName_EditLine.SetText(data["eventflag"][0])
+		self.stateWindow_INIT_eventFlagValue_EditLine.SetText(data["eventflag"][1])
+
+		self.stateWindow_INIT_questFlagQuestName_EditLine.SetText(data["questflag"][0])
+		self.stateWindow_INIT_questFlagName_EditLine.SetText(data["questflag"][1])
+		self.stateWindow_INIT_questFlagValue_EditLine.SetText(data["questflag"][2])
+
+		self.stateWindow_INIT_otherQuestProgressName_EditLine.SetText(data["other_quest_progress"][0])
+		self.stateWindow_INIT_otherQuestProgressValue_EditLine.SetText(data["other_quest_progress"][1])
+		
+		self.stateWindow_INIT_otherQuestDone_EditLine.SetText(data["other_quest_done"][0])		
+
+		self.AppendStatusMessage("State " + data["state_name"] + " wurde erfolgreich geladen!",self.STATUS_MESSAGE_COLOR_POSITIVE)	
+	
+	def SW_INIT_SaveData(self):
+		stateIndex = self.stateSelect
+
+		self.myQuest[stateIndex]["min_level"] = self.stateWindow_INIT_minLevel_EditLine.GetText()
+		self.myQuest[stateIndex]["max_level"] = self.stateWindow_INIT_maxLevel_EditLine.GetText()
+		
+		self.myQuest[stateIndex]["job"] = self.stateWindow_INIT_Job_Select
+		self.myQuest[stateIndex]["sex"] = self.stateWindow_INIT_Sex_Select
+		
+		self.myQuest[stateIndex]["eventflag"] = [
+			self.stateWindow_INIT_eventFlagName_EditLine.GetText(),
+			self.stateWindow_INIT_eventFlagValue_EditLine.GetText()		
+		]
+		
+		self.myQuest[stateIndex]["questflag"] = [
+			self.stateWindow_INIT_questFlagQuestName_EditLine.GetText(),
+			self.stateWindow_INIT_questFlagName_EditLine.GetText(),
+			self.stateWindow_INIT_questFlagValue_EditLine.GetText()		
+		]
+		
+		self.myQuest[stateIndex]["other_quest_progress"] = [
+			self.stateWindow_INIT_otherQuestProgressName_EditLine.GetText(),
+			self.stateWindow_INIT_otherQuestProgressValue_EditLine.GetText()		
+		]
+		
+		self.myQuest[stateIndex]["other_quest_done"] = [
+			self.stateWindow_INIT_otherQuestDone_EditLine.GetText()
+		]
+		
+		self.AppendStatusMessage("Daten gespeichert!",self.STATUS_MESSAGE_COLOR_POSITIVE)
+	
+	
+	def SW_INIT_Job_ButtonClick(self,job):
+		if job == self.stateWindow_INIT_Job_ALL:
+			self.stateWindow_INIT_Job_Select = [self.stateWindow_INIT_Job_ALL]
+		else:
+			if self.stateWindow_INIT_Job_Select[0] == self.stateWindow_INIT_Job_ALL:
+				self.stateWindow_INIT_Job_Select = []
+				
+			self.stateWindow_INIT_Job_Select.append(job)
+		
+		for i in xrange(len(self.stateWindow_INIT_Job_ButtonDict)):
+			self.stateWindow_INIT_Job_ButtonDict[i].Enable()
+		
+		for i in xrange(len(self.stateWindow_INIT_Job_Select)):
+			index = self.stateWindow_INIT_Job_Select[i]
+			self.stateWindow_INIT_Job_ButtonDict[index].Disable()
+
+	def SW_INIT_Sex_ButtonClick(self,job):
+		if job == self.stateWindow_INIT_Sex_ALL:
+			self.stateWindow_INIT_Sex_Select = [self.stateWindow_INIT_Sex_ALL]
+		else:
+			if self.stateWindow_INIT_Sex_Select[0] == self.stateWindow_INIT_Sex_ALL:
+				self.stateWindow_INIT_Sex_Select = []
+				
+			self.stateWindow_INIT_Sex_Select.append(job)
+		
+		for i in xrange(len(self.stateWindow_INIT_Sex_ButtonDict)):
+			self.stateWindow_INIT_Sex_ButtonDict[i].Enable()
+		
+		for i in xrange(len(self.stateWindow_INIT_Sex_Select)):
+			index = self.stateWindow_INIT_Sex_Select[i]
+			self.stateWindow_INIT_Sex_ButtonDict[index].Disable()			
+				
+			
+		
+	###############################
+	def InitGUI(self):
+		self.makeQuestButton.Disable()
+		self.stateAddButton.Disable()
+		self.stateDelButton.Disable()
+		for i in xrange(len(self.stateWindowDict)):
+			self.stateWindowDict[i].Hide()
+			
+		self.newQuestButton.Flash()
+	
+	def InitQuest(self):
+		self.AppendInitState()
+		self.BuildStateList()
+
+		self.stateAddButton.Enable()
+		self.stateDelButton.Enable()	
+	
+	## MAKE_NEW_QUEST_FUNCTION
 	def ShowMakeNewQuestDialog(self):
-		self.newQuestBackground.Show()
+		if len(self.myQuest) > 0:
+			self.newQuestBackground.Show()
+		else:
+			self.InitQuest()
+			
+	def MakeNewQuest(self):
+		self.InitQuest()	
 		
 	def CloseMakeNewQuestDialog(self):
 		self.newQuestBackground.Hide()
 		
+		
+	#####################################	
+		
+		
+	def OnSelectState(self):
+		item = self.stateListBox.GetSelectedItem()
+		self.LoadStateWindow(item)
+		
+	def LoadStateWindow(self,item):
+		self.stateWindowDict[self.stateType].Hide()
+		self.stateSelect = item
+		self.stateType = self.myQuest[item]["window_id"]
+		self.stateWindowDict[self.stateType].Show()
+		
+		if self.stateType == self.STATE_WINDOW_INIT:
+			self.SW_INIT_LoadData(self.myQuest[item])
+		
+		if self.myQuest[item]["deletable"]:
+			self.stateDelButton.Enable()
+		else:
+			self.stateDelButton.Disable()
+	
 	def OpenStateMakeDialog(self):
 		self.stateNameEditLine.SetText("")
 		self.statePickDialog.Show()
@@ -1062,103 +1315,122 @@ class QuestMaker(ui.ScriptWindow):
 		self.CloseStateMakeDialog()
 		state = self.statePickListBox.GetSelectedItem()
 		
-		if state == self.QUEST_TYPE_INTRO:
-			return
-		elif state == self.QUEST_TYPE_DIALOG:
-			self.AppendDialogState(self.stateNameEditLine.GetText())
+		if state == self.STATE_WINDOW_INTRO:
+			self.AppendIntroState(self.stateNameEditLine.GetText())
+		
+		# elif state == self.QUEST_TYPE_DIALOG:
+			# self.AppendDialogState(self.stateNameEditLine.GetText())
 		
 		else:
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknown QuestType: " + str(state))
+			self.AppendStatusMessage(str(state) + " ist kein gültiger QuestType!",self.STATUS_MESSAGE_COLOR_NEGATIVE)
 			return
 			
 		self.BuildStateList()
 		
+	def DeletateState(self):
+		state = self.stateListBox.GetSelectedItem()
 		
+		del self.myQuest[state]
+		self.BuildStateList()
+		self.stateDelButton.Disable()
+		for i in xrange(len(self.stateWindowDict)):
+			self.stateWindowDict[i].Hide()
+			
 	def BuildStateList(self):
+		self.stateScrollBar.Hide()
 		self.ClearStateList()
 		for i in xrange(len(self.myQuest)):
 			stateName = self.myQuest[i]["state_name"]
 			self.stateListBox.InsertItem(i,stateName)
+			
+		if len(self.myQuest) > self.max_line:
+			self.stateScrollBar.Show()
 		
 	def ClearStateList(self):
 		self.stateListBox.ClearItem()
 	
 	
-	def MakeNewQuest(self):
-		self.myQuest = []
-		self.stateSelect = 0		
-		self.ClearStateList()
-		self.CloseMakeNewQuestDialog()
-		
-	def AppendStartState(self):
+	###########################################
+	###########################################
+	###########################################
+	###########################################
+	###########################################
+	## STATE STRUCTURES!
+	
+	def AppendInitState(self):
 		newState = {
-			"state_name"		: "start",
-			"state_type"		: self.QUEST_TYPE_START,
-			"state_deletable"	: False,
-			"min_level"			: 0,
-			"max_level"			: 0,
-			"eventflag"			: 0,
-			"questflag"			: 0,
-			"quest_state"		: 0,
-		}
-		self.myQuest.append(newState)
-		
-	def AppendDialogState(self,name):
-		newState = {
-			"state_name"		: str(name),
-			"state_type"		: self.QUEST_TYPE_DIALOG,
-			"state_deletable"	: True,
-			"npc_vnum"			: 0,
-			"window_title"		: 0,
-			"window_desc"		: 0,
-			"dialog_title"		: 0,
-			"dialog_desc"		: 0,
-			"dialog_type"		: 0,
-			"targets"			: [],
-			"reward"			: [],
-			"set_questflag"		: [],
-			"followable"		: 0,
+			"state_name"			: "INITIALIZER",
+			"min_level"				: 1,
+			"max_level"				: 135,
+			"job"					: [self.stateWindow_INIT_Job_ALL],
+			"sex"					: [self.stateWindow_INIT_Sex_ALL],
+			"eventflag"				: ["no_flag",0],
+			"questflag"				: ["no_quest","no_flag",0],
+			"other_quest_progress"  : ["no_quest",0],
+			"other_quest_done" 		: ["no_quest"],
 			
-		}
-		self.myQuest.append(newState)		
-		
-	def AppendKillState(self,name):
-		newState = {
-			"state_name"		: str(name),
-			"state_type"		: self.QUEST_TYPE_KILL,
-			"state_deletable"	: True,
-			"target_info"		: [],
-			"window_title"		: 0,
-			"window_desc"		: 0,
-			"followable"		: 0,
-			
-		}
-		self.myQuest.append(newState)			
-		
-	def AppendCollectState(self,name):
-		newState = {
-			"state_name"		: str(name),
-			"state_type"		: self.QUEST_TYPE_COLLECT,
-			"state_deletable"	: True,
-			"target_info"		: [],
-			"window_title"		: 0,
-			"window_desc"		: 0,
-			"followable"		: 0,
-		}
-		self.myQuest.append(newState)		
-		
-	def AppendCompleteState(self):
-		newState = {
-			"state_name"		: "COMPLETE",
-			"state_type"		: self.QUEST_TYPE_COMPLETE,
-			"state_deletable"	: True,
-			"set_quest_state"	: [],
-			"repeatable"		: 0,
-			"cooldown"			: 0,			
+			"deletable"				: False,
+			"window_id"				: self.STATE_WINDOW_INIT,
 		}
 		self.myQuest.append(newState)	
+		self.AppendStatusMessage("INITIALIZER wurde erfolgreich erstellt!",self.STATUS_MESSAGE_COLOR_POSITIVE)
+	
+	def AppendIntroState(self,name="intro"):
+		newState = {
+			"state_name"			: name + " (INTRO)",
+			"tab"					: self.QUEST_TAB_MAIN,
+			"target"				: 0,
+			"letter"				: [0,0],
+			
+			"dialog"				: [0,0],
+			"dialog_target"			: [],
+			
+			"show_reward"			: False,
+			"can_decline"			: True,
+			"can_follow"  			: True,
+			"init_follow" 			: False,
+			
+			"deletable"				: True,
+			"window_id"				: self.STATE_WINDOW_INTRO,
+		}
+		self.myQuest.append(newState)	
+		self.AppendStatusMessage(name + " wurde erfolgreich erstellt!",self.STATUS_MESSAGE_COLOR_POSITIVE)
+	
+	###########################################
+	###########################################
+	###########################################
+	###########################################
+	###########################################
+	###########################################
+	
+	
+	# STATUS_MESSAGE_TIME_MESSAGE_SHOW = 3
+	# STATUS_MESSAGE_TIMER = 0
+	# STATUS_MESSAGE_DEFAULT_TEXT = "Bereit!"
+	# STATUS_MESSAGE_COLOR_NORMAL = 1
+	# STATUS_MESSAGE_COLOR_POSITIVE = 2
+	# STATUS_MESSAGE_COLOR_NEGATIVE = 3
+	
+	def AppendStatusMessage(self,text,color,time=STATUS_MESSAGE_TIME_MESSAGE_SHOW):
+		self.STATUS_MESSAGE_TIMER = app.GetTime() + time
+		self.statusMessage.SetText(str(text))
+		if color == self.STATUS_MESSAGE_COLOR_NORMAL:
+			self.statusMessage.SetFontColor(1.0, 1.0, 1.0)
+		elif color == self.STATUS_MESSAGE_COLOR_POSITIVE:
+			self.statusMessage.SetFontColor(0.5411, 0.7254, 0.5568)
+		elif color == self.STATUS_MESSAGE_COLOR_NEGATIVE:
+			self.statusMessage.SetFontColor(0.9, 0.4745, 0.4627)
 
-		
+	def UpdateStatusMessage(self):
+		if self.STATUS_MESSAGE_TIMER > 0:
+			if self.STATUS_MESSAGE_TIMER < app.GetTime():
+				self.STATUS_MESSAGE_TIMER = 0
+				self.statusMessage.SetText(self.STATUS_MESSAGE_DEFAULT_TEXT)
+				self.statusMessage.SetFontColor(1.0, 1.0, 1.0)
+	
+	def OnUpdate(self):
+		self.UpdateStatusMessage()
+	
 	def OnRunMouseWheel(self, nLen):
 		if nLen > 0:
 			self.stateScrollBar.OnUp()
