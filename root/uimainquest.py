@@ -1023,7 +1023,7 @@ class QuestMaker(ui.ScriptWindow):
 		self.stateDelButton = self.GetChild("DeleteStateButton")
 		self.stateDelButton.SetEvent(self.DeletateState)
 		
-		## STATE_WINDOW_DICT
+		## STATE_WINDOW_DICT Geht jetzt?
 		self.stateWindowDict = {}
 		self.stateWindowDict[self.STATE_WINDOW_INIT] = self.GetChild("stateTypeINITWindow")
 		self.stateWindowDict[self.STATE_WINDOW_INTRO] = self.GetChild("stateTypeINTROWindow")
