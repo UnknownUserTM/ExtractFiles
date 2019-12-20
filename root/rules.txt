@@ -1,114 +1,85 @@
-	Das Regelwerk wurde bearbeitet und ist mit sofortiger Wirkung gültig.
-	Bist du mit dem Regelwerk nicht einverstanden, bitten wir dich den Akaya2 Client zu deinstallieren.
-
-
-	Übersicht:
-	§1 - Allgemeines Verhalten
-	§2 - Chat
-	§3 - Accounts
-	§4 - Namensgebung
-	§5 - Cheats & Bugs
-	§6 - Aktivitäten im Spiel
-	§7 - GM-Unterstützung
-	§8 - Voten
-	§9 - EQ & ACC Handel
-	§10 - Sonstiges
-
-	§1 - Allgemeines Verhalten
-	Der Umgang mit anderen Usern muss respektvoll und freundlich sein. Beleidigungen, Drohungen oder 
-	anderweitige Belästigungen werden nicht geduldet. Ebenfalls ist es ausdrücklich verboten Rassismus,
-	Antisemitismus oder sonstige negative Verhaltensweisen auszuüben. Das Nennen von Namen 
-	anderer Server ist untersagt und wird entsprechend geahndet. 
-	Zudem sind Aufforderungen zum Suizid verboten.
-	Sollte dieser Name wieder gegen die Regeln verstoßen wird der Name vom Akaya2 Team 
-	abgeändert oder gesperrt.
-
-	§2 - Chat
-	Der Chat verfügt über einen Filter, welcher Beleidigungen u.Ä. zensiert. Es ist keinem Spieler erlaubt, 
-	diesen Filter zu umgehen. Auch das Veröffentlichen von Links oder Hinweisen,
-	die nichts mit Akaya2 zu tun haben sowie zu anderen Metin2 Privat Servern, ist verboten. 
-	Zusätzlich ist das Posten von Links zu Seiten, die Hacks oder Ähnliches enthalten, ausnahmslos verboten.
-	Spam wird nicht geduldet. Unter Spam verstehen wir das mehrfache Posten von Nachrichten 
-	im (Ruf-/privaten)Chat sowie die permanente Verwendung der Capslock-Taste.
-	Das Verwenden von Namen anderer Server ist vollständig untersagt. 
-	Das Benutzen solcher Namen wird mit einem 3-tägigen Bann bestraft. 
-	Ein weiterer Vorfall wird mit einer permanenten Sperre bestraft.
-	Je nach Vorfall liegt die Dauer der Chatsperre im Ermessen des Teammitgliedes.
-
-	§3 - Accounts
-	Es ist jedem Spieler gestattet beliebig viele Accounts auf dem Server zu besitzen. 
-	Alle Accounts, Charaktere, Gegenstände sind Eigentum von Akaya2.
-	Jedem Spieler unterliegt die Eigenverantwortung über seinen Account. 
-	Kein Teammitglied wird euch nach euren Daten fragen!
-	Bei der Weitergabe von Account-Daten bzw. nicht zureichender Eigensicherung jener, 
-	auch hinsichtlich Fahrlässigkeit, wird es keinen Ersatz für verloren gegangene Items, 
-	Charaktere oder Accounts geben.
-	Accountauflösungen sind nicht erlaubt. Die Auflösung eines Accounts mit Ankündigung 
-	im Chat wird mit einer 3 Tage Sperre geahndet. Ein weiterer Vorfall wird mit einer 
-	permanenten Sperre bestraft. Es werden keine Gegenstände erstattet, 
-	sollte kein Fehler von uns vorliegen.
-
-	§4 - Namensgebung
-	Sämtliche Spieler-, Gilden- und Shopnamen, die beleidigende, rassistische, rechtsradikale 
-	oder vulgäre Ausdrücke enthalten oder in sonstiger Weise negativ auffallend sind, sind verboten.
-	Je nach Name habt ihr die Möglichkeit einmalig kostenlos euren Namen zu ändern. 
-	Sollte dieser Name wieder gegen die Regeln verstoßen wird der Name 
-	vom Akaya2 Team abgeändert oder gesperrt.
-	Spieler, die Namen des Akaya2 Teams benutzen, vorgeben sie gehören dem Akaya2 Team an 
-	oder mit einem Teammitglied verwechselt werden können, werden ohne Vorwarnung gesperrt 
-	Der Akaya2 Serverleitung ist es erlaubt, euren Namen gegebenenfalls umzubenennen, 
-	solltet ihr euren Namen nach Aufforderung nicht von selbst ändern.
-
-	§5 - Cheats & Bugs
-	Das Ausnutzen von Bugs, egal welcher Art, ist untersagt und wird sofort geahndet. 
-	Sollten Bugs auftreten, müssen diese sofort im Forum im entsprechenden Bereich gemeldet werden.
-	Betrugsversuche mittels Cheats oder Hacks sind verboten und werden ausnahmslos mit einem 
-	permanenten Bann auf allen Accounts der IP bestraft. Das benutzen von Macros wird mit einer 
-	temporären Accountsperre von 3 Tage beim ersten Vergehen geahndet. Ein weiterer Vorfall wird 
-	mit einer permanenten Sperre bestraft.
-	Ebenfalls verboten ist es, sich durch das Ausnutzen von Bugs einen Vorteil zu verschaffen. 
-	Bitte meldet gefundene Bugs im Forum oder einem Teammitglied. 
-	Bei merkwürdigen Vorkommnissen sollte ein Teammitglied möglichst schnell eingeschaltet werden.
-
-	§6 - Aktivitäten im Spiel
-	Das Ausführen von Aktivitäten im Spiel, sei es leveln oder farmen während man nicht am Computer, 
-	Laptop o.ä sitzt, ist auf Akaya2 nicht gestattet. Du hast die Pflicht einem Akaya2 Teammitglied 
-	innerhalb 5 Minuten zu antworten. Erhält das Teammitglied nach 5 Minuten auf seine Privatnachricht 
-	keine Reaktion wird der Account beim ersten Vergehen für 3 Tage gesperrt. 
-	Ein weiterer Vorfall wird mit einer permanenten Sperre betraft. 
-	Sollte der Charakter, der Aktivitäten im Spiel ausgeübt hat während er nicht aktiv am Computer, 
-	Laptop o.ä ist ein Levelbares Reittier besitzen, wird dies nach der 3 Tage Sperre auf Level 1 resettet. 
-	Diese Regelung greift auch bei dem Pet-System von Akaya2.
-
-	§7 - GM-Unterstützung
-	Den Anweisungen der Teammitglieder von Akaya2 ist Folge zu leisten. Sollten Unstimmigkeiten 
-	zwischen Personen entstehen, muss ein höheres Teammitglied hinzugezogen werden.
-	Die Mitglieder des Teams verschaffen keinem Spieler einen Vorteil, z.B. 
-	durch Items, Yang oder Sonstiges. Sie sind in erster Linie für Fragen da und sind auch 
-	Ansprechpartner, falls irgendwelche
-	Probleme auftreten. Die Privatcharaktere der Teammitglieder dürfen nicht veröffentlicht werden. 
-	Ebenso ist das Ansprechen mit dem Teamnamen (und umgekehrt) untersagt.
-	Das Preisgeben der Privatchars der Akaya2 Teammitglieder 
-	gibt eine temporäre Accountsperre von 3 Tagen.
-
-	§8 - Voten
-	Das Voten mit verschiedenen IP Adressen, Proxy, VPN o.ö über verschiedenen Accounts ist verboten. 
-	Dies zählt unter Votebetrug und wird mit einer permanenten Sperre aller Accounts bestraft.
-	Das Voten über ein Handy Netz ist vom Toplisten Anbieter gesperrt. 
-	Ebenso sind verschiedenen Anbieter gesperrt worden. 
-	Da dies ein externer Voteanbieter ist haben wir keine Möglichkeit IP Adressen zu entsperren.
-
-	§9 - EQ & ACC Handel
-	Das Handeln von Equipment oder Accounts von Akaya2 gegen Equipment oder Accounts 
-	auf anderen Servern (und umgekehrt) ist untersagt.
-	Ebenfalls ist es verboten, sein Equipment oder Account für Echtgeld zu verkaufen.
-	Dies gibt eine temporäre Accountsperre von 3 Tagen beim ersten Vergehen. 
-	Ein weiterer Vorfall wird mit einer permanenten Sperre bestraft.
-	
-	§10 - Sonstiges
-	Das Akaya2 Team behält sich das Recht vor, bei einem Verstoß gegen die Regeln, 
-	den Nutzer zeitweise oder dauerhaft von Akaya2 auszuschließen. Ob ein Verstoß gegen die geltenden 
-	Regeln vorliegt, liegt im Ermessen des Akaya2 Teams. Nach dessen Ermessen fällt auch die Strafe aus.
-	Dem Akaya2 Team steht es frei die Regeln zu ändern, anzupassen oder ggf. eine 
-	neue Regelung hinzuzufügen. Mit der Registration auf der Homepage werden 
-	sämtliche Regeln automatisch akzeptiert und müssen eingehalten werden.
+TITLE	Das Regelwerk von Kimiko. Jeder Spieler hat sich an diese zu halten. Wird gegen das Regelwerk verstoßen
+TITLE	werden Temporäre oder permanente Accountsperren vollzogen. Kimiko steht es frei, Accounts, Charaktere,
+TITLE	Gegenstände oder Währungen des Charakters zu löschen/sperren/ändern.
+SPACE	
+TITLE	Übersicht:
+DESC	§1 - Allgemeines Verhalten
+DESC	§2 - Chat
+DESC	§3 - Fremdwerbung
+DESC	§4 - Namensgebung
+DESC	§5 - Cheats & Bugs
+DESC	§6 - Aktivitäten im Spiel
+DESC	§7 - GM-Unterstützung
+DESC	§8 - EQ & ACC Handel
+DESC	§9 - Sonstiges
+SPACE	
+TITLE	§1 - Allgemeines Verhalten (1.0 - 1.3)
+DESC	1.0)    Der Umgang mit anderen Spielern muss respektvoll und freundlich sein. 
+DESC	1.1)    Beleidigungen und Drohungen werden nicht geduldet. 
+DESC	1.2)    Ebenfalls ist es ausdrücklich verboten Rassismus, Antisemitismus oder sonstige 
+DESC	        negative Verhaltensweisen auszuüben. 
+DESC	1.3)    Zudem sind Aufforderungen zum Suizid verboten.
+SPACE		
+TITLE	§2 - Chat (2.0 - 2.3)
+DESC	2.0)    Der Chat im allgemeinen verfügt über einen Filter. Diesen zu umgehen egal in welcher Art
+DESC	        und Weise, ist nicht gestattet.
+DESC	2.1)    Das verbreiten von Internetseiten im Chat im allgemeinen ist ebenso nicht gestattet.
+DESC	2.2)    Spam im Chat im allgemeinen ist nicht gestattet. Mehrfaches Absenden einer identischen
+DESC	        Nachricht und Capslock zählt u.a als Spam
+DESC	2.3)    Hier gelten ebenso '§1 - Allgemeines Verhalten'
+SPACE		
+TITLE	§3 - Fremdwerbung (9.0)
+DESC	9.1)    Das Nennen/Verbreiten anderer Servernamen egal in welcher Form ist nicht gestattet.
+SPACE	
+TITLE	$4 - Accounts (4.0 - 4.3)
+DESC	4.0)    Es ist jedem Spieler gestattet beliebig viele Accounts auf dem Server zu besitzen.
+DESC	4.1)    Jedem Spieler unterliegt die Eigenverantwortung über seinen Account.
+DESC	            Zusatz zu 4.1: Wenn keine Absicherung des Charakters mit der im Spiel
+DESC	                           verfügbaren "Fremdzugriffsschutz" Option erfolgt ist,
+DESC	                           gibt es keinerlei Erstattung.
+DESC	4.2)    Wer seine Accountdaten an dritte weiter gibt, und diesem somit Zugriff gewährt,
+DESC	        bekommt keine Erstattung im allgemeinen.
+DESC	4.3)    Das verkaufen eines Accountes und deren Gegenstände ist nicht gestattet.
+SPACE	
+TITLE	§5 - Namensgebung (5.0 - 5.2)
+DESC	5.0)    Sämtliche Spieler-, Gilden- und Shopnamen, die beleidigende, rassistische, rechtsradikale 
+DESC	        oder vulgäre Ausdrücke enthalten oder in sonstiger Weise negativ auffallend sind,
+DESC	        sind nicht gestattet.
+DESC	             Zusatz zu 5.0: Kimiko endscheidet ob der Name einmal geändert werden kann.
+DESC	5.1)    Spieler, die Namen des Kimiko Teams benutzen, vorgeben sie gehören dem Kimiko Team
+DESC	        an, werden ohne Vorwarnung Ausnahmlos permanent gesperrt.
+DESC	5.2)    Kimiko steht es frei eure Namen gegebenenfalls umzubenennen.
+SPACE		
+TITLE	$6 - Bugs/Bugabuse (6.0 - 6.1)
+DESC	6.0)    Das Ausnutzen von Bugs, egal welcher Art, ist untersagt und wird sofort mit einer
+DESC	        permanenten Sperre aller Accounts auf euerer IP Adresse bestraft. Zusätzlich wird
+DESC	        deine Hardware-ID komplett gesperrt.
+DESC	6.1)    Sollten Bugs auftreten, müssen diese sofort im entsprechenden Bereich gemeldet werden.
+DESC	            Zusatz zu 6.1: Kimiko steht es frei Accounts auf Verdacht zu überprüfen.
+SPACE					
+TITLE	$7 - Fremdprogramme/Fremdsteuerung (7.0 - 7.1)
+DESC	7.0)    Das Benutzen von Fremdprogrammen/Fremdsteuerung egal in welcher Art
+DESC	        ist nicht gestattet.
+DESC	7.1)    Kimiko steht es frei, Accounts auf Verdacht temporär zu sperren und zu überprüfen.
+SPACE		
+TITLE	$8 - Teammitglieder (8.0 - 8.1)
+DESC	8.0)    Den Anweisungen der Teammitglieder von Kimiko ist Folge zu leisten. Sollten Unstimmigkeiten 
+DESC	        zwischen Personen entstehen, muss ein höheres Teammitglied hinzugezogen werden.
+DESC	8.1)    Die Privatcharaktere der Teammitglieder dürfen nicht veröffentlicht werden. 
+DESC	        Ebenso ist das Ansprechen mit dem Teamnamen (und umgekehrt) untersagt.
+SPACE				
+TITLE	§9 - Account, Charakter, Itemhandel (9.0)
+DESC	9.0)    Das Handeln von Equipment oder Accounts von Kimiko gegen Equipment oder Accounts 
+DESC	        auf anderen Servern oder gegen Echtgeld (und umgekehrt) ist untersagt.
+SPACE	
+TITLE	$10 - Sonstiges (10.0 - 10.4)
+DESC	10.0)   Kimiko behält sich das Recht vor, bei einem Verstoß gegen das Regelwerk, 
+DESC	        den Nutzer zeitweise oder dauerhaft von Kimiko auszuschließen.
+DESC	10.1)   Ob ein Verstoß gegen das Regelwerk vorliegt, liegt im Ermessen des Kimiko Teams.
+DESC	10.2)   Kimiko steht es frei das Regelwerk zu ändern, anzupassen oder ggf. eine 
+DESC	        neue Regelung hinzuzufügen.
+DESC	10.3)   Das Akzeptieren des Regelwerkes erfolgt über den Spielclienten.
+DESC	10.4)   Nach EU-DSGVO besteht das Recht auf Löschung aller Accounts
+SPACE	
+SPACE	
+SPACE	
