@@ -141,10 +141,12 @@ class DungeonGuideWindow(ui.ScriptWindow):
 	TEXT_SERVER_COUNT		= 14
 	TEXT_SERVER_BESTTIME	= 15
 
-	PARTY_TYPE_SOLO_ONLY = 0
-	PARTY_TYPE_PARTY_AND_SOLO = 1
-	PARTY_TYPE_PARTY_ONLY = 2
-	PARTY_TYPE_GUILD_ONLY = 3
+	PARTY_TYPE_SOLO_ONLY = "Nein"
+	PARTY_TYPE_PARTY_AND_SOLO = "Nein aber möglich"
+	PARTY_TYPE_PARTY_ONLY = "Ja"
+	PARTY_TYPE_GUILD_ONLY = "Nur mit Gilde!"
+	
+	COOLDOWN_READY = "Bereit!"
 	
 	DUNGEON_01_TUTORIAL = 0
 	DUNGEON_30_TEMPLE = 1
@@ -163,27 +165,27 @@ class DungeonGuideWindow(ui.ScriptWindow):
 			"dungeon_desc"	: "dungeon_01.txt",
 			
 			# REQs
-			"min_level"	: 100,
-			"max_level" : 135,
-			"party" : PARTY_TYPE_SOLO_ONLY,
-			"cooldown" : 30,
-			"eff_bonus" : "Stark gegen Schwachköpfe",
-			"def_bonus" : "Abwehr gegen Schwachköpfe",
-			"dungeonpoints" : 0,
+			"min_level"					: 100,
+			"max_level"					: 135,
+			"party"						: PARTY_TYPE_SOLO_ONLY,
+			"cooldown"					: 30,
+			"eff_bonus" 				: "Stark gegen Schwachköpfe",
+			"def_bonus" 				: "Abwehr gegen Schwachköpfe",
+			"dungeonpoints"				: 50,
 			"dungeonpoints_local_event"	: 0,
 			"item" : [],
 
 			# PERS_STAT
-			"pers_cooldown" : 0,
-			"pers_count" : 0,
-			"pers_besttime" : 0,
-			"pers_m_kills" : 0,
-			"pers_b_kills" : 0,
-			"pers_s_kills" : 0,
+			"pers_cooldown" 	: 0,
+			"pers_count" 		: 0,
+			"pers_besttime" 	: 0,
+			"pers_m_kills" 		: 0,
+			"pers_b_kills" 		: 0,
+			"pers_s_kills" 		: 0,
 
 			# SERVER_STAT
-			"server_count" : 0,
-			"server_besttime" : [0,"NoName"],
+			"server_count" 		: 0,
+			"server_besttime" 	: [0,"NoName"],
 		},
 	
 	

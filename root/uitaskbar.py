@@ -106,6 +106,19 @@ class ButtonToolTipWindow(ui.Window):
 		self.SetPosition(5,(wndMgr.GetScreenHeight() - 100)-self.toolTip.toolTipHeight)
 		self.Show()
 		
+	def AppendCurrencyInfo(self,text,cur):
+		self.toolTip.AppendStatisticTextLine(text,cur)
+		self.toolTip.ResizeToolTip()	
+		self.SetPosition(5,(wndMgr.GetScreenHeight() - 100)-self.toolTip.toolTipHeight)
+	
+	
+	def AppendSpaceLine(self):
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendHorizontalLine()
+		self.toolTip.ResizeToolTip()	
+		self.SetPosition(5,(wndMgr.GetScreenHeight() - 100)-self.toolTip.toolTipHeight)		
+		
+		
 	def Close(self):
 		self.Hide()
 	
@@ -895,6 +908,15 @@ class TaskBar(ui.ScriptWindow):
 
 	def __OverInTaskbarButton(self,button):
 		self.wndButtonToolTip.Open(button)
+		
+		if button == TaskBar.BUTTON_INVENTORY:
+			money = fgGHGjjFHJghjfFG1545gGG.GetElk()
+			
+			self.wndButtonToolTip.AppendSpaceLine()
+			self.wndButtonToolTip.AppendCurrencyInfo("Yang:",constInfo.NumberToPointString(money))
+			self.wndButtonToolTip.AppendCurrencyInfo("Achievement-Points:",constInfo.NumberToPointString(constInfo.aps))
+			self.wndButtonToolTip.AppendCurrencyInfo("Dungeonpoints:",constInfo.NumberToPointString(0))
+			self.wndButtonToolTip.AppendSpaceLine()
 		
 	def __OverOutTaskbarButton(self):
 		self.wndButtonToolTip.Close()
