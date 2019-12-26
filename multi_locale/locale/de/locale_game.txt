@@ -1119,10 +1119,11 @@ EVENT_TEMP_DROP_ERROR_NO_DROPCHANCE	Bitte gib dem Temp. Drop-Event eine Drop-Cha
 EVENT_TEMP_DROP_ERROR_NO_MIN_LEVEL	Bitte gib dem Temp. Drop-Event ein mindest Level. (Min. 1)
 EVENT_TEMP_DROP_ERROR_NO_MAX_LEVEL	Bitte gib dem Temp. Drop-Event ein maximales Level. (Max. 135)
 EVENT_TEMP_DROP_GLOBAL	Du kannst dieses Item überall droppen.
-QUEST_TAB_BUTTON_MAIN_QUEST	Hauptquests (%s)
-QUEST_TAB_BUTTON_BIOLOGIST_QUEST	Forschung des Biologen (%s)
-QUEST_TAB_BUTTON_HUNT_QUEST	Jagdquests (%s)
-QUEST_TAB_BUTTON_SIDE_QUEST	Nebenquests (%s)
+QUEST_WINDOW_CATEGORY_MAINQUEST	Hauptquests
+QUEST_WINDOW_CATEGORY_SIDEQUEST	Nebenquests
+QUEST_WINDOW_CATEGORY_DUNGEON	Dungeons
+QUEST_WINDOW_CATEGORY_EVENT	Events
+QUEST_WINDOW_CATEGORY_CHALLENGE	Herausforderungen
 QUEST_TAB_BUTTON_SCROLL_QUEST	Missionsbücher (%s)
 TOOLTIP_GIFTBOX_SHORTCUT_PREVIEW	|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Vorschau
 TOOLTIP_GIFTBOX_SHORTCUT_OPEN_ALL	|Eemoji/key_alt|e + |Eemoji/key_rclick|e - 100 Stk. öffnen
@@ -1133,11 +1134,6 @@ QUEST_INTRO_OBJECTIVE_KILL	getötet
 QUEST_INTRO_OBJECTIVE_TALK	Mit
 QUEST_INTRO_OBJECTIVE_TALK2	geredet
 QUEST_INTRO_OBJECTIVE_COLLECT	gesammelt
-QUEST_WINDOW_CATEGORY_MAINQUEST	Hauptquests
-QUEST_WINDOW_CATEGORY_BIOLOGIST	Forschung des Biologen
-QUEST_WINDOW_CATEGORY_DUNGEON	Dungeons
-QUEST_WINDOW_CATEGORY_EVENT	Events
-QUEST_WINDOW_CATEGORY_BOOK	Herausforderungen
 MESSENGER_DO_YOU_WARP	Möchtest du dich zu deinem Freund Teleportieren?
 REQUEST_WARP_TO_CHARACTER	%s möchte sich zu dir Teleportieren.
 CURRENCY_GOLD_DESCRIPTION	Yang ist die Standartwährung, du benötigst es um Ausrüstung zu verbessern, einzukaufen uvm. Sorge stets dafür das du einen großen vorrat hast.

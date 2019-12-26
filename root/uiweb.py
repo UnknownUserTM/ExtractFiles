@@ -1,1 +1,132 @@
-›Ÿÿwÿq˜ÿwž¬ÿd‡ÿXv|ÿQu{ÿ}¢«ÿY}‡ÿLmrÿ*DEÿ/MLÿ?cfÿa“›ÿ_™ ÿ0WVÿ#FIÿ)O`ÿ8eyÿ>Hÿ:9ÿ&KQÿ+-ÿ=?ÿ7@ÿ17ÿ14ÿ8:ÿ$@Hÿ-Vcÿ'OUÿ*XXÿ20ÿ;>ÿDyˆÿh¡±ÿp¨ÿe™©ÿZš«ÿi§¼ÿv­Áÿx®Áÿe«ÿS‰”ÿ\žÿjšªÿX‡˜ÿ`•¡ÿeŸ§ÿSˆ”ÿ!<Aÿÿ-0ÿ"$ÿ8j€ÿ[š°ÿR†ŒÿVˆŠÿi—¢ÿPz…ÿ5Z\ÿ8`dÿ5bhÿ/b`ÿ@xwÿK„ÿc”žÿh›©ÿhš¬ÿi˜©ÿCltÿ0-ÿ.(ÿ63ÿ44ÿ!!ÿ"ÿ:6ÿ&INÿ(0ÿ+3ÿ5>ÿ=Dÿ:\_ÿDpyÿ$NYÿ,3ÿ'-ÿ/1ÿ47ÿ4/ÿ95ÿ'VLÿCr{ÿd›¯ÿpªÇÿ€¶ÍÿˆµÆÿ”½Ìÿxª¼ÿrŸ¯ÿcÿ]†“ÿXƒŽÿYˆ“ÿYŠ•ÿ>dmÿ++ÿ0,ÿ6/ÿE=ÿUCÿ%fZÿ#NPÿEyŒÿX‡–ÿp¡®ÿ`ÿb’šÿ_’˜ÿ_‹–ÿYˆ”ÿUŠ‘ÿW†ÿUƒŽÿVÿMyÿW’ÿOˆÿGr{ÿGqwÿJ{ÿHw|ÿDs}ÿAlsÿ<afÿCfsÿ3Q^ÿ2UZÿ;alÿ/^hÿ2ahÿ>Aÿ#IOÿ4;ÿ/2ÿ#%ÿ	ÿ$#ÿ:ltÿe²ÿ†¹Ñÿy´Îÿo¦ÀÿU‹¤ÿJ…šÿM‚–ÿ8Yaÿ<bbÿFqpÿHuvÿrž«ÿ³¹ÿ6deÿ=@ÿ+QbÿDizÿcœ®ÿc«ÿd™©ÿ]“ŸÿN“ÿQ…ÿW„ÿT€ŒÿX‚“ÿYˆ™ÿL}Œÿ=krÿ'JGÿ!:5ÿZ‚‘ÿ¼Ìÿ‰¿Ìÿƒ·Äÿ€´Áÿ‚³Âÿt¦³ÿp£ªÿnž¥ÿl›¤ÿb”ÿZŠ”ÿR‹šÿ7lrÿ#MMÿ@Bÿ@CÿAHÿd ¶ÿj§¸ÿhœ©ÿj¡­ÿv¬·ÿŒÃÑÿ€·ÇÿŽÀÏÿ…«¸ÿ¬¸ÿ‹©´ÿ… ¥ÿš¡ÿp‡ŽÿZyxÿNprÿGtwÿ2`dÿ(QSÿ@Cÿ'RXÿGmpÿ\•ÿE>ÿ0\_ÿDzÿKƒ‰ÿe¡¯ÿh¡­ÿK€ƒÿ6ejÿ,aeÿ2dnÿCp|ÿ/UZÿ CKÿ,^aÿBqrÿS„Œÿ!=Dÿ6YcÿHmqÿ'LSÿ=fsÿ.R\ÿ+MTÿ2\gÿ/`gÿ>@ÿ KHÿ/zgÿ!cOÿFHÿ18ÿ#AKÿ[¥ÿj” ÿl‘ÿuŽ’ÿm‹Žÿyœ¤ÿe…ÿLdgÿ;PPÿBY]ÿHgiÿ)@7ÿ-PMÿ0NLÿCiqÿZ‡“ÿc—£ÿ9iqÿ'NOÿ"JHÿ%QTÿ35ÿ97ÿ9gnÿAnyÿ5^cÿ79ÿ0.ÿ74ÿ($ÿ/3ÿ2]eÿ:<ÿ EEÿ1UZÿ`œÿcœ®ÿ¶Æÿ…·Æÿr¥´ÿq§·ÿp¥¶ÿf˜ªÿož®ÿ^‹šÿ^’Ÿÿdš«ÿb˜¦ÿY‰•ÿ^™ÿfž¨ÿe¯ÿ2U_ÿÿ./ÿ-0ÿ9k€ÿd£»ÿ]• ÿ]Š•ÿ[†“ÿMtÿ7ccÿ?rtÿH†ÿ<rvÿJ„‡ÿX“™ÿ_•Ÿÿg™©ÿg•«ÿW€–ÿAgxÿ.0ÿ75ÿ66ÿ31ÿ*+ÿ?>ÿ<5ÿ56ÿ25ÿ8:ÿ=Cÿ7:ÿLwwÿ?~‰ÿ%S[ÿ%'ÿ&*ÿ5;ÿ=Dÿ:6ÿIDÿArnÿ’½Ãÿ‹ºÎÿuªÉÿeœ¼ÿ{®Æÿ„±Æÿz©ºÿnž¬ÿ^˜ÿ`”ÿ[‡ÿu©ÿ]‹˜ÿi¬ÿKwÿ:<ÿ65ÿ&XLÿ$PEÿM;ÿBDÿ:l}ÿJ|‰ÿXÿMr€ÿPy€ÿJx~ÿOy„ÿ[šÿR…ŽÿQŒÿKv…ÿPxƒÿLuzÿ]•ÿTŠÿO~ˆÿKvÿIs|ÿBirÿ9_jÿ6Zaÿ*HLÿ&AGÿ!??ÿ6geÿ$EFÿBGÿDGÿCBÿ'UTÿ2eoÿBJÿ#*ÿ#*ÿÿ-+ÿ/YeÿKƒ›ÿ[™²ÿi¦¾ÿM…œÿE|–ÿ>oÿ5X^ÿ9Z]ÿCgmÿHu~ÿ\šÿWŠ‘ÿ+U\ÿ DMÿ=Gÿ<Kÿ>j~ÿ:blÿ6[eÿ.]_ÿ'u[ÿHDÿ'CDÿ(DHÿ+LTÿ-NVÿ*MSÿ%BCÿ2/ÿ*EIÿy¤¶ÿ‘½ÏÿƒµÃÿ{¯¾ÿw©¹ÿy¨¸ÿt¨µÿq¢«ÿu ­ÿl˜¥ÿ_‹“ÿX‹”ÿL‰•ÿA~‰ÿ/bpÿ%NYÿ>glÿ7t}ÿ\¡µÿS”§ÿ\™ªÿu­½ÿ”ÇÒÿ“ÆÔÿ”ÃÏÿ€®·ÿ}¥¯ÿ} ¨ÿyšŸÿ~˜›ÿv’ÿkˆŽÿXwuÿMlmÿQ}…ÿ>ptÿ@;ÿ@Dÿ??ÿB|}ÿ=uwÿ)RSÿN„Œÿi¡­ÿƒ¶Âÿ‘ÅÐÿÀÌÿ²»ÿ}±»ÿh¡¦ÿ^–¢ÿ]•¡ÿSŠŽÿ:lqÿ/Z`ÿ0[fÿT†’ÿ0\dÿ;gsÿ;dmÿ1[bÿX…’ÿ&FNÿ+MWÿ*SZÿ/[eÿ)\\ÿ?~ÿD“{ÿN‰ÿ1ekÿ03ÿ!?KÿSƒ˜ÿ;blÿMy„ÿcŠ˜ÿiŠ“ÿVuxÿ^ŠÿF]dÿ6MIÿ6LIÿ0G<ÿ(;/ÿ3UWÿ=gjÿDltÿU„‘ÿaš§ÿAxƒÿ2]bÿKzuÿ+ZWÿ&QQÿA{}ÿ\š¥ÿf­ÿn¦°ÿQ~†ÿ66ÿ#JJÿLJÿFMÿ=?ÿ/0ÿ8=ÿ¹Éÿ}µÄÿl¦¶ÿeŸ¨ÿd›£ÿ_“›ÿ[Ž—ÿ^•žÿ_Œ›ÿ[‰˜ÿbŸÿP‡ÿa“ŸÿW‹•ÿ]Š˜ÿh•¡ÿ^•¢ÿb¬ÿ9_gÿ#ÿ11ÿ-3ÿ?r‡ÿe¥½ÿ_•¡ÿR}ˆÿMu‚ÿHtÿDw~ÿ[œÿh¢®ÿV‹˜ÿWŽšÿL€ŒÿK|…ÿL{†ÿ;bpÿ$CNÿ(-ÿ/4ÿ8<ÿ/0ÿ--ÿ/0ÿ$'ÿAIÿ8@ÿ4\gÿ#GUÿ?JÿMMÿ&`Wÿ)obÿ6,ÿ1,ÿ02ÿAGÿAIÿCCÿ1YWÿv«¹ÿ¿Óÿx°Åÿ_œ¹ÿa»ÿs«Ãÿtª¾ÿjž°ÿk¢¯ÿo¢®ÿx±»ÿx­·ÿl˜£ÿMr{ÿd‘ÿx§²ÿQ€Œÿ7:ÿOIÿTŠ‚ÿ4qdÿ92ÿ%IQÿ=m|ÿLuÿHoxÿEpsÿN}‚ÿO}ƒÿKyƒÿM{„ÿMx‚ÿNz‡ÿEs|ÿJuzÿZ…‘ÿKy€ÿEs}ÿ;doÿ@jwÿ4aeÿ.X^ÿ65ÿ65ÿ"MFÿ@{rÿ7aeÿ$LTÿ;CÿA@ÿ"VTÿ>v|ÿCv†ÿ7=ÿÿÿ!#ÿÿ!ABÿ.^nÿD{“ÿX”¬ÿNˆ ÿM…ÿBk|ÿ8[dÿ=^dÿ<`hÿJx„ÿOŠ”ÿ;utÿ,Z_ÿ HKÿ!NSÿ?@ÿ@Iÿ'NVÿ)R]ÿDGÿSJÿ?/ÿ6,ÿ*$ÿ$!ÿ(%ÿ67ÿ>>ÿ#BLÿN{ÿ…¸ÉÿŒ¹Çÿz¯¸ÿv«¹ÿu©¸ÿx«·ÿy«¶ÿr¥¬ÿlž©ÿj–¡ÿ[’ÿQ„ŒÿWÿBx‹ÿ*Ybÿ"DJÿIlrÿ2eoÿI•£ÿV ³ÿb¥¹ÿ‚½ÌÿˆºÆÿˆ°½ÿ|¦¯ÿsž¥ÿrž¦ÿp™ ÿo•œÿu”šÿlˆ“ÿ`‚‹ÿPuyÿDgiÿ<_cÿ7beÿ=:ÿ7:ÿ(OVÿ+^]ÿ<;ÿLt{ÿw­·ÿ‚³¾ÿ†¶Ãÿ¾Ëÿ®¸
+import ui
+import uiScriptLocale
+import GFHhg54GHGhh45GHGH
+import snd
+import app
+import mouseModule
+import constInfo
+
+class WebWindow(ui.ScriptWindow):
+	def __init__(self):
+		ui.ScriptWindow.__init__(self, "TOP_MOST")
+
+		self.oldPos = None
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			if constInfo.IN_GAME_SHOP_ENABLE:
+				pyScrLoader.LoadScriptFile(self, uiScriptLocale.LOCALE_UISCRIPT_PATH + "WebWindow.py")
+			else:
+				pyScrLoader.LoadScriptFile(self, "UIScript/WebWindow.py")
+		except:
+			import exception
+			exception.Abort("WebWindow.LoadDialog.LoadScript")
+
+		try:
+			GetObject=self.GetChild
+			self.titleBar = GetObject("TitleBar")
+
+		except:
+			import exception
+			exception.Abort("WebWindow.LoadDialog.BindObject")
+
+		self.titleBar.SetCloseEvent(ui.__mem_func__(self.__OnCloseButtonClick))
+
+	def Destroy(self):
+		app.HideWebPage()
+		self.ClearDictionary()
+		self.titleBar = None
+
+	def Open(self, url):
+		self.Refresh()
+		self.Show()
+		self.SetCenterPosition()
+
+		x, y = self.GetGlobalPosition()
+		sx, sy = x + 10, y + 30
+		ex, ey = sx + self.GetWidth() - 20, sy + self.GetHeight() - 40
+		
+		url1 = "http://unknownusertm.infinity-hosting.com/ishop"
+		app.ShowWebPage(url, (sx, sy, ex, ey))
+
+		
+
+	def Close(self):
+		app.HideWebPage()
+		self.Hide()
+
+	def Clear(self):
+		self.Refresh()
+
+	def Refresh(self):
+		pass
+
+	def __OnCloseButtonClick(self):
+		print "close_web:click_close_button"
+		self.Close()
+
+	def OnPressEscapeKey(self):
+		print "close_web:esc_key"
+		self.Close()
+		return True
+
+	def OnUpdate(self):
+		newPos = self.GetGlobalPosition()
+		if newPos == self.oldPos:
+			return
+
+		self.oldPos = newPos
+
+		x, y = newPos
+		sx, sy = x + 10, y + 30
+		ex, ey = sx + self.GetWidth() - 20, sy + self.GetHeight() - 40
+		app.MoveWebPage((sx, sy, ex, ey))
+
+if __name__ == "__main__":
+
+	import app
+	import wndMgr
+	import systemSetting
+	import mouseModule
+	import grp
+	import ui
+	import uiToolTip
+	import localeInfo
+
+	app.SetMouseHandler(mouseModule.mouseController)
+	app.SetHairColorEnable(True)
+	wndMgr.SetMouseHandler(mouseModule.mouseController)
+	wndMgr.SetScreenSize(systemSetting.GetWidth(), systemSetting.GetHeight())
+	app.Create("Kimiko", systemSetting.GetWidth(), systemSetting.GetHeight(), 1)
+	mouseModule.mouseController.Create()
+
+	class TestGame(ui.Window):
+		def __init__(self):
+			ui.Window.__init__(self)
+
+			localeInfo.LoadLocaleData()
+
+			self.mallWindow = WebWindow()
+			self.mallWindow.LoadWindow()
+			self.mallWindow.Open()
+
+		def __del__(self):
+			ui.Window.__del__(self)
+
+		def OnUpdate(self):
+			app.UpdateGame()
+
+		def OnRender(self):
+			app.RenderGame()
+			grp.PopState()
+			grp.SetInterfaceRenderState()
+
+	game = TestGame()
+	game.SetSize(systemSetting.GetWidth(), systemSetting.GetHeight())
+	game.Show()
+
+	app.Loop()
