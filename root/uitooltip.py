@@ -19,6 +19,7 @@ import ui
 import mouseModule
 import constInfo
 import settinginfo
+import exterminatus
 
 GOLD_STORAGE_ITEMS = [80003,80004,80005,80006,30251,30252,30253]
 
@@ -419,6 +420,46 @@ class ToolTip(ui.ThinBoard):
 		
 		textLineCount.SetHorizontalAlignRight()
 
+
+		textLine.SetPosition(10, self.toolTipHeight)
+		textLineCount.SetPosition(self.toolTipWidth - 10, self.toolTipHeight)
+
+		self.childrenList.append(textLine)
+		self.childrenList.append(textLineCount)
+
+		self.toolTipHeight += self.TEXT_LINE_HEIGHT
+		self.ResizeToolTip()
+
+		return textLine
+		
+		
+	def AppendCooldownTextLine(self, text, timer, color = FONT_COLOR):
+		textLine = ui.TextLine()
+		textLine.SetParent(self)
+		textLine.SetFontName(self.defFontName)
+		textLine.SetPackedFontColor(color)
+		textLine.SetText(text)
+		textLine.SetOutline()
+		textLine.SetFeather(FALSE)
+		textLine.Show()
+		
+		textLineCount = ui.TextLine()
+		textLineCount.SetParent(self)
+		textLineCount.SetFontName(self.defFontName)
+		
+		realTime = timer - app.GetGlobalTimeStamp()
+		if realTime <= 0:
+			textLineCount.SetPackedFontColor(self.POSITIVE_COLOR)
+			textLineCount.SetText("Bereit!")
+		else:
+			textLineCount.SetPackedFontColor(self.NEGATIVE_COLOR)
+			textLineCount.SetText(exterminatus.SecondToDHMS(realTime))
+		
+		textLineCount.SetOutline()
+		textLineCount.SetFeather(FALSE)
+		textLineCount.Show()
+		
+		textLineCount.SetHorizontalAlignRight()
 
 		textLine.SetPosition(10, self.toolTipHeight)
 		textLineCount.SetPosition(self.toolTipWidth - 10, self.toolTipHeight)

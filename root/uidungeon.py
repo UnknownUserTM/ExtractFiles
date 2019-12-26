@@ -24,6 +24,9 @@ class DungeonGuideMiniMapButton(ui.Window):
 		self.SetPosition(wndMgr.GetScreenWidth() - 149,58)
 		self.dungeonGuideWindow = DungeonGuideWindow()
 		self.dungeonGuideWindow.Close()
+		
+		self.dungeonCoolDownWindow = DungeonCooldownToolTip(self, self.dungeonGuideWindow)
+		
 		self.MakeButton()
 		self.Show()
 		
@@ -45,6 +48,80 @@ class DungeonGuideMiniMapButton(ui.Window):
 	def OpenDungeonGuide(self):
 		self.dungeonGuideWindow.Open()
 	
+	
+	# def ShowToolTip(self,arg):
+	def OnUpdate(self):
+		if self.button.IsIn():
+			self.dungeonCoolDownWindow.Open()
+		else:
+		
+	# def HideToolTip(self):
+			self.dungeonCoolDownWindow.Close()
+	# def HideToolTip(self):
+		
+
+class DungeonCooldownToolTip(ui.Window):
+	normalWidth = 200
+	
+	
+	dungeonCooldown = [
+		app.GetGlobalTimeStamp() + (1*60),
+		app.GetGlobalTimeStamp() + (15*60),
+		app.GetGlobalTimeStamp() + (3*60),
+		app.GetGlobalTimeStamp() + (5*60)
+	]
+	
+	
+	
+	def __init__(self,dgButton,dgWindow):
+		ui.Window.__init__(self)
+		self.dgButton = dgButton
+		self.SetSize(self.normalWidth,100)
+		self.dgWindow = dgWindow
+		self.Hide()
+		self.MakeToolTip()	
+		
+	def __del__(self):
+		ui.Window.__del__(self)
+		
+	def AdjustPosition(self):
+		x, y = self.dgButton.GetGlobalPosition()
+		# self.SetPosition(x - self.normalWidth - 10 + 22,(y + 630)-self.toolTip.toolTipHeight)
+		self.SetPosition(wndMgr.GetScreenWidth() - 256 - 75 - 20,75)
+		
+	def MakeToolTip(self):
+		toolTip = uiToolTip.ToolTip()
+		toolTip.SetParent(self)
+		toolTip.SetPosition(1, 1)
+		toolTip.SetFollow(False)
+		toolTip.Show()
+		self.toolTip = toolTip
+	
+	def Open(self):
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Open!")
+		self.toolTip.ClearToolTip()
+		self.toolTip.AppendTextLine("Dungeonkompendium",self.toolTip.TITLE_COLOR)
+		self.toolTip.AppendDescription("Hier findest du alle Infos zu den Dungeons, so das du ja nichts selber rausfinden musst!",26)
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendHorizontalLine()
+		self.toolTip.AppendTextLine("Abklingzeiten:",self.toolTip.TITLE_COLOR)
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendCooldownTextLine("DungeonName 01 :",0)
+		self.toolTip.AppendCooldownTextLine("Dämonenturm :",0)
+		self.toolTip.AppendCooldownTextLine("Devils Catacomb :",0)
+		self.toolTip.AppendCooldownTextLine("Drachenraum :",self.dungeonCooldown[0])
+		self.toolTip.AppendCooldownTextLine("Tal der Keine Ahnung :",self.dungeonCooldown[1])
+		self.toolTip.AppendCooldownTextLine("Höhlen der Planlosigkeit :",self.dungeonCooldown[2])
+		self.toolTip.AppendCooldownTextLine("WasGibtsNoch-Run :",self.dungeonCooldown[3])
+		self.toolTip.AppendCooldownTextLine("Verlies des Roten Drachen :",0)
+		self.toolTip.AppendSpace(5)
+		self.toolTip.ResizeToolTip()	
+		self.AdjustPosition()
+		self.Show()
+		
+	def Close(self):
+		self.Hide()
+	
 class DungeonGuideWindow(ui.ScriptWindow):
 	
 	TEXT_MIN_LEVEL 			= 0
@@ -63,6 +140,57 @@ class DungeonGuideWindow(ui.ScriptWindow):
 	TEXT_PERS_S_KILLS		= 13
 	TEXT_SERVER_COUNT		= 14
 	TEXT_SERVER_BESTTIME	= 15
+
+	PARTY_TYPE_SOLO_ONLY = 0
+	PARTY_TYPE_PARTY_AND_SOLO = 1
+	PARTY_TYPE_PARTY_ONLY = 2
+	PARTY_TYPE_GUILD_ONLY = 3
+	
+	DUNGEON_01_TUTORIAL = 0
+	DUNGEON_30_TEMPLE = 1
+	DUNGEON_40_DEVILTOWER = 2
+	DUNGEON_70_DEVILCAVE = 3
+	DUNGEON_80_DRAGONROOM = 4
+	DUNGEON_90_SPIDERCAVE = 5
+	DUNGEON_100_RAZADOR = 6
+	DUNGEON_100_NEMERE = 7
+	DUNGEON_110_SHIPBREAK = 8
+	DUNGEON_120_REDDRAGON = 9
+	
+	DATA = [
+		{
+			"dungeon_name"	: "Verlies des Roten Drachen",
+			"dungeon_desc"	: "dungeon_01.txt",
+			
+			# REQs
+			"min_level"	: 100,
+			"max_level" : 135,
+			"party" : PARTY_TYPE_SOLO_ONLY,
+			"cooldown" : 30,
+			"eff_bonus" : "Stark gegen Schwachköpfe",
+			"def_bonus" : "Abwehr gegen Schwachköpfe",
+			"dungeonpoints" : 0,
+			"dungeonpoints_local_event"	: 0,
+			"item" : [],
+
+			# PERS_STAT
+			"pers_cooldown" : 0,
+			"pers_count" : 0,
+			"pers_besttime" : 0,
+			"pers_m_kills" : 0,
+			"pers_b_kills" : 0,
+			"pers_s_kills" : 0,
+
+			# SERVER_STAT
+			"server_count" : 0,
+			"server_besttime" : [0,"NoName"],
+		},
+	
+	
+	
+	]
+	
+	EVENT_GLOBAL_DUNGEONPOINTS = 0
 
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
