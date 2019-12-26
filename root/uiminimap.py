@@ -13,6 +13,69 @@ import time
 import settinginfo
 import chat
 import item
+import uiToolTip
+
+
+class TeamlerOnlineToolTipNEW(ui.Window):
+	normalWidth = 200
+	
+	
+	# dungeonCooldown = [
+		# app.GetGlobalTimeStamp() + (1*60),
+		# app.GetGlobalTimeStamp() + (15*60),
+		# app.GetGlobalTimeStamp() + (3*60),
+		# app.GetGlobalTimeStamp() + (5*60)
+	# ]
+	
+	
+	
+	def __init__(self,wndMinimap):
+		ui.Window.__init__(self)
+		self.wndMinimap = wndMinimap
+		self.SetSize(self.normalWidth,100)
+		# self.dgWindow = dgWindow
+		self.Hide()
+		self.MakeToolTip()	
+		
+	def __del__(self):
+		ui.Window.__del__(self)
+		
+	def AdjustPosition(self):
+		x, y = self.wndMinimap.GetGlobalPosition()
+		# self.SetPosition(x - self.normalWidth - 10 + 22,(y + 630)-self.toolTip.toolTipHeight)
+		self.SetPosition(wndMgr.GetScreenWidth() - 256 - 75 - 15,100)
+		
+	def MakeToolTip(self):
+		toolTip = uiToolTip.ToolTip()
+		toolTip.SetParent(self)
+		toolTip.SetPosition(1, 1)
+		toolTip.SetFollow(False)
+		toolTip.Show()
+		self.toolTip = toolTip
+	
+	def Open(self):
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Open!")
+		self.toolTip.ClearToolTip()
+		self.toolTip.AppendTextLine("Support-Team",self.toolTip.TITLE_COLOR)
+		self.toolTip.AppendDescription("Hier siehst du wer vom Team gerade Online ist. Außerdem kannst du bei Klick auf den Button Support anfordern.",26)
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendHorizontalLine()
+		self.toolTip.AppendTextLine("Team:",self.toolTip.TITLE_COLOR)
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendOnlineTextLine("[GM]Werner:",1)
+		self.toolTip.AppendOnlineTextLine("[GM]Heinrich:",1)
+		self.toolTip.AppendOnlineTextLine("[GM]Walter:",0)
+		self.toolTip.AppendOnlineTextLine("[GM]Günther:",0)
+		self.toolTip.AppendOnlineTextLine("[GM]ObiWan:",1)
+		self.toolTip.AppendOnlineTextLine("[GM]HatHaltEchtKeinPlan:",0)
+		self.toolTip.AppendSpace(5)
+		self.toolTip.ResizeToolTip()	
+		self.AdjustPosition()
+		self.Show()
+		
+	def Close(self):
+		self.Hide()
+
 class TeamlerOnlineToolTip(ui.Window):
 
 	textLine = {}
@@ -327,9 +390,12 @@ class MiniMap(ui.ScriptWindow):
 		self.SwitchBotToolTip.LoadWindow()
 		self.SwitchBotToolTip.Close()
 		
-		self.TeamlerOnlineToolTip = TeamlerOnlineToolTip()
-		self.TeamlerOnlineToolTip.LoadWindow()
-		self.TeamlerOnlineToolTip.Close()
+		# self.TeamlerOnlineToolTip = TeamlerOnlineToolTipNEW()
+		# self.TeamlerOnlineToolTip.LoadWindow()
+		# self.TeamlerOnlineToolTip.Close()
+		
+		self.teamOnlineToolTip = TeamlerOnlineToolTipNEW(self)
+		
 		
 		self.tooltipMiniMapOpen = MapTextToolTip()
 		self.tooltipMiniMapOpen.SetText(localeInfo.MINIMAP)
@@ -619,9 +685,13 @@ class MiniMap(ui.ScriptWindow):
 			self.SwitchBotToolTip.Close()
 			
 		if self.GMPanelButton.IsIn():
-			self.TeamlerOnlineToolTip.Open()
+			# self.TeamlerOnlineToolTip.Open()
+			
+			self.teamOnlineToolTip.Open()
 		else:
-			self.TeamlerOnlineToolTip.Close()
+			# self.TeamlerOnlineToolTip.Close()
+			
+			self.teamOnlineToolTip.Close()
 		# -------------------------------------------------------------------
 		# Battlezone-Infos
 		# if background.GetCurrentMapName() == "metin2_map_battlefield":

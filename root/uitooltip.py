@@ -472,6 +472,44 @@ class ToolTip(ui.ThinBoard):
 
 		return textLine
 		
+	def AppendOnlineTextLine(self, text, onLineStatus, color = FONT_COLOR):
+		textLine = ui.TextLine()
+		textLine.SetParent(self)
+		textLine.SetFontName(self.defFontName)
+		textLine.SetPackedFontColor(color)
+		textLine.SetText(text)
+		textLine.SetOutline()
+		textLine.SetFeather(FALSE)
+		textLine.Show()
+		
+		textLineCount = ui.TextLine()
+		textLineCount.SetParent(self)
+		textLineCount.SetFontName(self.defFontName)
+		
+		if onLineStatus == 1:
+			textLineCount.SetPackedFontColor(self.POSITIVE_COLOR)
+			textLineCount.SetText("Online")
+		else:
+			textLineCount.SetPackedFontColor(self.NEGATIVE_COLOR)
+			textLineCount.SetText("Offline")
+		
+		textLineCount.SetOutline()
+		textLineCount.SetFeather(FALSE)
+		textLineCount.Show()
+		
+		textLineCount.SetHorizontalAlignRight()
+
+		textLine.SetPosition(10, self.toolTipHeight)
+		textLineCount.SetPosition(self.toolTipWidth - 10, self.toolTipHeight)
+
+		self.childrenList.append(textLine)
+		self.childrenList.append(textLineCount)
+
+		self.toolTipHeight += self.TEXT_LINE_HEIGHT
+		self.ResizeToolTip()
+
+		return textLine
+		
 	def AutoAppendNewTextLine(self, text, color = FONT_COLOR, centerAlign = True):
 		textLine = ui.TextLine()
 		textLine.SetParent(self)
