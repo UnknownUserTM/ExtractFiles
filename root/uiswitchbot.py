@@ -50,14 +50,17 @@ class SwitchBoard(ui.ScriptWindow):
 	
 	pageButtons		= {}
 	
-	def __init__(self):
+	def __init__(self, wndMinimap):
 		ui.ScriptWindow.__init__(self)
+		self.wndMinimap = wndMinimap
 		self.SwitchLog = SwitchLog()
 		self.SwitchLog.HideSwitchLogs()
 		self.LoadUI()
 
 	def __del__(self):
 		self.SwitchLog.Destroy()
+		self.wndMinimap.SwitchBotButtonInactive.Show()
+		self.wndMinimap.SwitchBotButton.Hide()
 		settinginfo.switchbot = 0
 		settinginfo.switchbot_Slots = [-1,-1,-1,-1,-1]
 		settinginfo.switchbot_switch_count = [0,0,0,0,0]
@@ -839,6 +842,8 @@ class SwitchBoard(ui.ScriptWindow):
 			if self.BotIsReadyToStart():
 				self.BonusSwitcherBG.SetColor(grp.GenerateColor(0.0, 1.0, 0.0, 0.2))
 				self.BonusSwitcherStartButtonText.SetText(localeInfo.SWITCHBOT_UI_STOP_BUTTON)	
+				self.wndMinimap.SwitchBotButtonInactive.Hide()
+				self.wndMinimap.SwitchBotButton.Show()
 				return 2
 			else:
 				chat.AppendChat(chat.CHAT_TYPE_NOTICE, localeInfo.SWITCHBOT_UI_ERROR_NO_ATTR_CONFIG)
@@ -846,6 +851,8 @@ class SwitchBoard(ui.ScriptWindow):
 		elif botStatus == 2:
 			self.BonusSwitcherBG.SetColor(grp.GenerateColor(1.0, 0.0, 0.0, 0.2))
 			self.BonusSwitcherStartButtonText.SetText(localeInfo.SWITCHBOT_UI_START_BUTTON)		
+			self.wndMinimap.SwitchBotButtonInactive.Show()
+			self.wndMinimap.SwitchBotButton.Hide()
 			return 1
 	
 	def SlotIsAlreadyInUse(self,slot):

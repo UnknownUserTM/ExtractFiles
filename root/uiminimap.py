@@ -14,7 +14,68 @@ import settinginfo
 import chat
 import item
 import uiToolTip
+class SwitchBotToolTipNEW(ui.Window):
+	normalWidth = 200
 
+	def __init__(self,wndMinimap):
+		ui.Window.__init__(self)
+		self.wndMinimap = wndMinimap
+		self.SetSize(self.normalWidth,100)
+		# self.dgWindow = dgWindow
+		self.Hide()
+		self.MakeToolTip()	
+		
+	def __del__(self):
+		ui.Window.__del__(self)
+		
+	def AdjustPosition(self):
+		x, y = self.wndMinimap.GetGlobalPosition()
+		# self.SetPosition(x - self.normalWidth - 10 + 22,(y + 630)-self.toolTip.toolTipHeight)
+		self.SetPosition(wndMgr.GetScreenWidth() - 256 - 75 - 15 + 15,120)
+		
+	def MakeToolTip(self):
+		toolTip = uiToolTip.ToolTip()
+		toolTip.SetParent(self)
+		toolTip.SetPosition(1, 1)
+		toolTip.SetFollow(False)
+		toolTip.Show()
+		self.toolTip = toolTip
+		
+	def GetItemNameBySlot(self,slot):
+		itemvnum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(slot)
+		item.SelectItem(itemvnum)
+		
+		return item.GetItemName()	
+		
+	def Open(self):
+		self.Show()
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Open!")
+		
+		
+	def OnUpdate(self):
+		self.toolTip.ClearToolTip()
+		self.toolTip.AppendTextLine("Switchbot",self.toolTip.TITLE_COLOR)
+		self.toolTip.AppendDescription("Switchbot halt, was soll man dazu sonst noch schreiben. Grün = Aktiv, Rot = Inaktiv.",26)
+		self.toolTip.AppendSpace(5)
+		self.toolTip.AppendHorizontalLine()
+		self.toolTip.AppendTextLine("Status:",self.toolTip.TITLE_COLOR)
+		self.toolTip.AppendSpace(5)
+			
+		for i in xrange(5):
+			realSlot = i + 1
+			if settinginfo.switchbot_switch_count[i] > 0:
+				self.toolTip.AppendStatusTextLine("Slot " + str(realSlot) + " (" + self.GetItemNameBySlot(settinginfo.switchbot_Slots[i]) + ")",1)
+			else:
+				self.toolTip.AppendStatusTextLine("Slot " + str(realSlot),0)
+
+		self.toolTip.AppendSpace(5)
+		self.toolTip.ResizeToolTip()	
+		self.AdjustPosition()
+		# self.Show()
+		
+	def Close(self):
+		self.Hide()
+	
 
 class TeamlerOnlineToolTipNEW(ui.Window):
 	normalWidth = 200
@@ -386,16 +447,17 @@ class MiniMap(ui.ScriptWindow):
 		self.AtlasWindow.LoadWindow()
 		self.AtlasWindow.Hide()
 		
-		self.SwitchBotToolTip = SwitchBotToolTip()
-		self.SwitchBotToolTip.LoadWindow()
-		self.SwitchBotToolTip.Close()
+		# self.SwitchBotToolTip = SwitchBotToolTip()
+		# self.SwitchBotToolTip.LoadWindow()
+		# self.SwitchBotToolTip.Close()
 		
 		# self.TeamlerOnlineToolTip = TeamlerOnlineToolTipNEW()
 		# self.TeamlerOnlineToolTip.LoadWindow()
 		# self.TeamlerOnlineToolTip.Close()
 		
 		self.teamOnlineToolTip = TeamlerOnlineToolTipNEW(self)
-		
+		self.switchBotToolTip = SwitchBotToolTipNEW(self)
+		self.switchBotToolTip2 = SwitchBotToolTipNEW(self)
 		
 		self.tooltipMiniMapOpen = MapTextToolTip()
 		self.tooltipMiniMapOpen.SetText(localeInfo.MINIMAP)
@@ -521,7 +583,8 @@ class MiniMap(ui.ScriptWindow):
 			self.ScaleDownButton = self.GetChild("ScaleDownButton")
 			self.MiniMapHideButton = self.GetChild("MiniMapHideButton")
 			self.AtlasShowButton = self.GetChild("AtlasShowButton")
-			self.SwitchBotButton = self.GetChild("SwitchBotButton")
+			self.SwitchBotButton = self.GetChild("SwitchBotButton_Active")
+			self.SwitchBotButtonInactive = self.GetChild("SwitchBotButton_InActive")
 			self.GMPanelButton = self.GetChild("GMPanelButton")
 			
 			# self.BattlezoneLeaveButton = self.GetChild("BattlezoneLeaveButton")
@@ -559,7 +622,10 @@ class MiniMap(ui.ScriptWindow):
 		self.MiniMapHideButton.SetEvent(ui.__mem_func__(self.HideMiniMap))
 		self.MiniMapShowButton.SetEvent(ui.__mem_func__(self.ShowMiniMap))
 		
+		
+		self.SwitchBotButton.Hide()
 		self.SwitchBotButton.SetEvent(self.Switchbot)
+		self.SwitchBotButtonInactive.SetEvent(self.Switchbot)
 		# self.GMPanelButton.Hide()
 		# self.battlezoneLeaveTime.Hide()
 		# self.battlezoneLeaveTimeTitle.Hide()		
@@ -606,7 +672,7 @@ class MiniMap(ui.ScriptWindow):
 	def Switchbot(self):
 		if settinginfo.switchbot == 0:
 			import uiswitchbot
-			uiswitchbot.SwitchBoard().Show()	
+			uiswitchbot.SwitchBoard(self).Show()	
 		else:
 			if settinginfo.switchbot_minimize == 1:
 				settinginfo.switchbot_minimize = 2		
@@ -680,9 +746,14 @@ class MiniMap(ui.ScriptWindow):
 		
 		
 		if self.SwitchBotButton.IsIn():
-			self.SwitchBotToolTip.Open()
+			self.switchBotToolTip.Open()
 		else:
-			self.SwitchBotToolTip.Close()
+			self.switchBotToolTip.Close()
+			
+		if self.SwitchBotButtonInactive.IsIn():
+			self.switchBotToolTip2.Open()
+		else:
+			self.switchBotToolTip2.Close()			
 			
 		if self.GMPanelButton.IsIn():
 			# self.TeamlerOnlineToolTip.Open()

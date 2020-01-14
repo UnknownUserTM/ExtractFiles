@@ -78,15 +78,26 @@ window = {
 					"down_image" : "yamato_mm/gm_button.tga",
 				},
 				{
-					"name" : "SwitchBotButton",
+					"name" : "SwitchBotButton_Active",
 					"type" : "button",
 
 					"x" : 12 - 5,
 					"y" : 103 + 5,
 
-					"default_image" : "yamato_mm/switchbot_button.tga",
-					"over_image" : "yamato_mm/switchbot_button.tga",
-					"down_image" : "yamato_mm/switchbot_button.tga",
+					"default_image" : "yamato_mm/minimap_switchbot_button_a_n.tga",
+					"over_image" : "yamato_mm/minimap_switchbot_button_a_h.tga",
+					"down_image" : "yamato_mm/minimap_switchbot_button_a_p.tga",
+				},
+				{
+					"name" : "SwitchBotButton_InActive",
+					"type" : "button",
+
+					"x" : 12 - 5,
+					"y" : 103 + 5,
+
+					"default_image" : "yamato_mm/minimap_switchbot_button_i_n.tga",
+					"over_image" : "yamato_mm/minimap_switchbot_button_i_h.tga",
+					"down_image" : "yamato_mm/minimap_switchbot_button_i_p.tga",
 				},
 				## MiniMapHideButton
 				{
