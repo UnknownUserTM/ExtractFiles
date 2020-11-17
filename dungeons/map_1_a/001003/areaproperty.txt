@@ -2,5 +2,5 @@ ScriptType AreaProperty
 
 AreaName ""
 
-NumWater 0
+NumWater 1
 

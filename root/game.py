@@ -3813,7 +3813,8 @@ class GameWindow(ui.ScriptWindow):
 	def BiologistIconText(self):
 		# import uifortunefountain
 		# self.interface.ctrlAchievement.AppendAchievement(1,10,3345,5)
-		import uidungeon
+		import uicrafting
+		self.craftingWnd = uicrafting.CraftingWindow()
 		# self.advent = uidungeon.DungeonGuideWindow()
 		# self.advent.Show()
 		

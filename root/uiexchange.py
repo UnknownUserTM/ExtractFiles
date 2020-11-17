@@ -14,6 +14,7 @@ import mouseModule
 import uiPickMoney
 import playerSettingModule
 import constInfo
+import exterminatus
 
 class ExchangeDialog(ui.ScriptWindow):
 	FACE_IMAGE_DICT = {
@@ -188,6 +189,8 @@ class ExchangeDialog(ui.ScriptWindow):
 		self.dlgPickMoney.Open(fgGHGjjFHJghjfFG1545gGG.GetElk())
 
 	def OnPickMoney(self, money):
+		money = money.replace("k", "000")
+		chat.AppendChat(chat.CHAT_TYPE_INFO,money)
 		GFHhg54GHGhh45GHGH.SendExchangeElkAddPacket(str(money))
 
 	def AcceptExchange(self):

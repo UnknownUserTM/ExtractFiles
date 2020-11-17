@@ -49,8 +49,8 @@ window = {
 							"width" : 60,
 							"height" : 18,
 
-							"input_limit" : 6,
-							"only_number" : 1,
+							"input_limit" : 10,
+							# "only_number" : 1,
 
 							"text" : "1",
 						},

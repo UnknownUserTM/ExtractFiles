@@ -209,7 +209,8 @@ class DungeonGuideWindow(ui.ScriptWindow):
 			import exception
 			exception.Abort("DungeonIntroWindow.LoadWindow.LoadObject")
 		
-		
+		self.introDev = DungeonIntroWindow()
+		self.introDev.Show()
 		
 		self.selectBoard = self.GetChild("selectBackground")
 		self.infoBoard = self.GetChild("infoBackground")

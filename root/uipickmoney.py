@@ -96,13 +96,13 @@ class PickMoneyDialog(ui.ScriptWindow):
 
 		text = self.pickValueEditLine.GetText()
 
-		if len(text) > 0 and text.isdigit():
+		# if len(text) > 0 and text.isdigit():
 
-			money = int(text)
-			money = min(money, self.maxValue)
+			# money = int(text)
+			# money = min(money, self.maxValue)
 
-			if money > 0:
-				if self.eventAccept:
-					self.eventAccept(money)
+			# if money > 0:
+		if self.eventAccept:
+			self.eventAccept(text)
 
 		self.Close()

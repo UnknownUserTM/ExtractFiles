@@ -3,7 +3,7 @@ import localeInfo
 import chat
 import uiToolTip
 
-
+#Halloooo
 def StringBoolToRealBool(boolString):
 	if boolString == "true":
 		return True
