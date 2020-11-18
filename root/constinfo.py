@@ -12,6 +12,7 @@ if app.ENABLE_REFINE_RENEWAL:
 		"NPC" : [0, -1, -1, 0]
 	}
 
+lastSentenceStack = []
 regengenerator = "0/0/0/0"
 ME_KEY = 0
 avilable = 0

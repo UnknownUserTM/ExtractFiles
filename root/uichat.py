@@ -314,9 +314,9 @@ class ChatLine(ui.EditLine):
 		if not ENABLE_LAST_SENTENCE_STACK:
 			return
 
-		if self.lastSentenceStack and self.lastSentencePos < len(self.lastSentenceStack):
+		if constInfo.lastSentenceStack and self.lastSentencePos < len(constInfo.lastSentenceStack):
 			self.lastSentencePos += 1
-			lastSentence = self.lastSentenceStack[-self.lastSentencePos]
+			lastSentence = constInfo.lastSentenceStack[-self.lastSentencePos]
 			self.SetText(lastSentence)				
 			self.SetEndPosition()			
 
@@ -325,9 +325,9 @@ class ChatLine(ui.EditLine):
 		if not ENABLE_LAST_SENTENCE_STACK:
 			return
 
-		if self.lastSentenceStack and self.lastSentencePos > 1:
+		if constInfo.lastSentenceStack and self.lastSentencePos > 1:
 			self.lastSentencePos -= 1
-			lastSentence = self.lastSentenceStack[-self.lastSentencePos]
+			lastSentence = constInfo.lastSentenceStack[-self.lastSentencePos]
 			self.SetText(lastSentence)				
 			self.SetEndPosition()			
 
@@ -340,10 +340,10 @@ class ChatLine(ui.EditLine):
 			return
 			
 		LAST_SENTENCE_STACK_SIZE = 32
-		if len(self.lastSentenceStack) > LAST_SENTENCE_STACK_SIZE:
-			self.lastSentenceStack.pop(0)
+		if len(constInfo.lastSentenceStack) > LAST_SENTENCE_STACK_SIZE:
+			constInfo.lastSentenceStack.pop(0)
 
-		self.lastSentenceStack.append(text)
+		constInfo.lastSentenceStack.append(text)
 	# END_OF_LAST_SENTENCE_STACK
 
 	def OnIMEReturn(self):
