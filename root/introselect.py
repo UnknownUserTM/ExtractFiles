@@ -694,7 +694,7 @@ class SelectCharacterWindow(ui.Window):
 
 	## Event
 	def OnKeyUp(self, key):
-		self.StartGame()
+		# self.StartGame()
 		if 1 == key:
 			self.ExitSelect()
 		if 2 == key:
