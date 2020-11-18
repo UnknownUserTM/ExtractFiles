@@ -558,8 +558,8 @@ class LoginWindow(ui.ScriptWindow):
 				self.channelLabel[i][0].SetColor(0x00000000)
 				self.channelLabel[i][1].SetOutline(0)
 
-		self.stream.SetConnectInfo("167.86.91.179", self.ChannelPort(ch, 0), "167.86.91.179", self.ChannelPort("LOGIN"))
-		GFHhg54GHGhh45GHGH.SetMarkServer("167.86.91.179", self.ChannelPort("LOGO"))
+		self.stream.SetConnectInfo("144.91.65.109", self.ChannelPort(ch, 0), "144.91.65.109", self.ChannelPort("LOGIN"))
+		GFHhg54GHGhh45GHGH.SetMarkServer("144.91.65.109", self.ChannelPort("LOGO"))
 		app.SetGuildMarkPath("10.tga")
 		app.SetGuildSymbolPath("10")
 		GFHhg54GHGhh45GHGH.SetServerInfo(self.ChannelPort(ch, 2))
