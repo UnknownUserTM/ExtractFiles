@@ -149,6 +149,7 @@ class SelectCharacterWindow(ui.Window):
 		self.dlgBoard.Show()
 		self.SetWindowName("SelectCharacterWindow")
 		self.Show()
+		self.SetFocus()
 
 		if self.slot>=0:
 			self.SelectSlot(self.slot)
@@ -692,8 +693,8 @@ class SelectCharacterWindow(ui.Window):
 		self.GuildName.SetText(localeInfo.SELECT_NOT_JOIN_GUILD)
 
 	## Event
-	def OnKeyDown(self, key):
-
+	def OnKeyUp(self, key):
+		self.StartGame()
 		if 1 == key:
 			self.ExitSelect()
 		if 2 == key:

@@ -216,7 +216,12 @@ class LoginWindow(ui.ScriptWindow):
 	
 		if self.stream.popupWindow:
 			self.stream.popupWindow.Close()
-	
+		
+		self.KillFocus()
+		self.pwdEditLine.Enable()
+		self.pwdEditLine = 0
+		self.idEditLine.Enable()
+		self.idEditLine = 0
 		self.Hide()
 		app.HideCursor()
 		ime.ClearExceptKey()
@@ -525,6 +530,10 @@ class LoginWindow(ui.ScriptWindow):
 	def LoadAccount(self, i):
 		if self.rulesBoard.IsShow():
 			return
+			
+		self.KillFocus()
+		self.pwdEditLine.OnKillFocus()
+		self.idEditLine.OnKillFocus()
 		self.Connect(get_reg("acc_%d" % i).split("|")[0], get_reg("acc_%d" % i).split("|")[1])
 
 		
