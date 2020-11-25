@@ -534,6 +534,7 @@ class GameWindow(ui.ScriptWindow):
 		onPressKeyDict[app.DIK_ADD]			= lambda : self.interface.MiniMapScaleUp()
 		onPressKeyDict[app.DIK_SUBTRACT]	= lambda : self.interface.MiniMapScaleDown()
 		onPressKeyDict[app.DIK_L]			= lambda : self.interface.ToggleChatLogWindow()
+		onPressKeyDict[app.DIK_U]			= lambda : self.interface.ToggleSpecialStorageWindow()
 #		onPressKeyDict[app.DIK_COMMA]		= lambda : self.ShowConsole()		# "`" key
 		onPressKeyDict[app.DIK_LSHIFT]		= lambda : self.__SetQuickPageMode()
 		
