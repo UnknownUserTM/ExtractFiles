@@ -275,8 +275,24 @@ class ExchangeDialog(ui.ScriptWindow):
 					mouseModule.mouseController.DeattachObject()
 					return
 				
-				GFHhg54GHGhh45GHGH.SendExchangeItemAddPacket(attachedInvenType, SrcSlotNumber, DstSlotNumber)
-		
+				# GFHhg54GHGhh45GHGH.SendExchangeItemAddPacket(attachedInvenType, SrcSlotNumber, DstSlotNumber)
+			if app.ENABLE_SPECIAL_STORAGE:
+				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY == attachedSlotType or\
+					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY == attachedSlotType or\
+					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY == attachedSlotType:
+					attachedInvenType = fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(attachedSlotType)
+					SrcSlotNumber = mouseModule.mouseController.GetAttachedSlotNumber()
+					DstSlotNumber = SlotIndex
+	
+					itemID = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(attachedSlotType, SrcSlotNumber)
+					item.SelectItem(itemID)
+					
+					if item.IsAntiFlag(item.ANTIFLAG_GIVE):
+						chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.EXCHANGE_CANNOT_GIVE)
+						mouseModule.mouseController.DeattachObject()
+						return
+						
+					GFHhg54GHGhh45GHGH.SendExchangeItemAddPacket(attachedInvenType, SrcSlotNumber, DstSlotNumber)		
 		mouseModule.mouseController.DeattachObject()
 
 	def SelectOwnerItemSlot(self, SlotIndex):

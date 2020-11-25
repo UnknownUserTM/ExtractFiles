@@ -209,7 +209,19 @@ class CMouseController(object):
 					return
 
 				(width, height) = item.GetItemSize()
-
+			# if app.ENABLE_SPECIAL_STORAGE:
+			elif Type == fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY or\
+				Type == fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY or\
+				Type == fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY:
+				item.SelectItem(self.AttachedItemIndex)
+				self.AttachedIconHandle = item.GetIconInstance()
+		
+				if not self.AttachedIconHandle:
+					self.AttachedIconHandle = 0
+					self.DeattachObject()
+					return
+		
+				(width, height) = item.GetItemSize()
 			elif Type == fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_SKILL:
 				skillGrade = fgGHGjjFHJghjfFG1545gGG.GetSkillGrade(SlotNumber)
 				self.AttachedIconHandle = skill.GetIconInstanceNew(self.AttachedItemIndex, skillGrade)

@@ -326,33 +326,119 @@ class ShopDialog(ui.ScriptWindow):
 				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedSlotType:
 					itemtype = fgGHGjjFHJghjfFG1545gGG.DRAGON_SOUL_INVENTORY
 			
-			if fgGHGjjFHJghjfFG1545gGG.IsValuableItem(itemtype, attachedSlotPos):
+			# if fgGHGjjFHJghjfFG1545gGG.IsValuableItem(itemtype, attachedSlotPos):
 
-				itemPrice = item.GetISellItemPrice()
+				# itemPrice = item.GetISellItemPrice()
 
-				if item.Is1GoldItem():
-					itemPrice = attachedCount / itemPrice / 5
-				else:
-					itemPrice = itemPrice * max(1, attachedCount) / 5
+				# if item.Is1GoldItem():
+					# itemPrice = attachedCount / itemPrice / 5
+				# else:
+					# itemPrice = itemPrice * max(1, attachedCount) / 5
 
-				itemName = item.GetItemName()
+				# itemName = item.GetItemName()
 
-				questionDialog = uiCommon.QuestionDialog()
-				questionDialog.SetText(localeInfo.DO_YOU_SELL_ITEM(itemName, attachedCount, itemPrice))
+				# questionDialog = uiCommon.QuestionDialog()
+				# questionDialog.SetText(localeInfo.DO_YOU_SELL_ITEM(itemName, attachedCount, itemPrice))
 
-				questionDialog.SetAcceptEvent(lambda arg1=attachedSlotPos, arg2=attachedCount, arg3 = itemtype: self.OnSellItem(arg1, arg2, arg3))
-				questionDialog.SetCancelEvent(ui.__mem_func__(self.OnCloseQuestionDialog))
-				questionDialog.Open()
-				self.questionDialog = questionDialog
+				# questionDialog.SetAcceptEvent(lambda arg1=attachedSlotPos, arg2=attachedCount, arg3 = itemtype: self.OnSellItem(arg1, arg2, arg3))
+				# questionDialog.SetCancelEvent(ui.__mem_func__(self.OnCloseQuestionDialog))
+				# questionDialog.Open()
+				# self.questionDialog = questionDialog
 		
-				constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
+				# constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
 
+			# else:
+				# self.OnSellItem(attachedSlotPos, attachedCount, itemtype)
+
+		# else:
+			# snd.PlaySound("sound/ui/loginfail.wav")
+		if app.ENABLE_SPECIAL_STORAGE:
+			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedSlotType or\
+				fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedSlotType or\
+				fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY == attachedSlotType or\
+				fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY == attachedSlotType or\
+				fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY == attachedSlotType:
+	
+				item.SelectItem(attachedItemIndex)
+	
+				if item.IsAntiFlag(item.ANTIFLAG_SELL):
+					popup = uiCommon.PopupDialog()
+					popup.SetText(localeInfo.SHOP_CANNOT_SELL_ITEM)
+					popup.SetAcceptEvent(self.__OnClosePopupDialog)
+					popup.Open()
+					self.popup = popup
+					return
+	
+				itemtype = fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(attachedSlotType)
+	
+				if fgGHGjjFHJghjfFG1545gGG.IsValuableItem(itemtype, attachedSlotPos):
+	
+					itemPrice = item.GetISellItemPrice()
+	
+					if item.Is1GoldItem():
+						itemPrice = attachedCount / itemPrice / 5
+					else:
+						itemPrice = itemPrice * max(1, attachedCount) / 5
+	
+					itemName = item.GetItemName()
+	
+					questionDialog = uiCommon.QuestionDialog()
+					questionDialog.SetText(localeInfo.DO_YOU_SELL_ITEM(itemName, attachedCount, itemPrice))
+	
+					questionDialog.SetAcceptEvent(lambda arg1=attachedSlotPos, arg2=attachedCount, arg3 = itemtype: self.OnSellItem(arg1, arg2, arg3))
+					questionDialog.SetCancelEvent(ui.__mem_func__(self.OnCloseQuestionDialog))
+					questionDialog.Open()
+					self.questionDialog = questionDialog
+	
+					#constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
+	
+				else:
+					self.OnSellItem(attachedSlotPos, attachedCount, itemtype)
 			else:
-				self.OnSellItem(attachedSlotPos, attachedCount, itemtype)
-
+				snd.PlaySound("sound/ui/loginfail.wav")
 		else:
-			snd.PlaySound("sound/ui/loginfail.wav")
+			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedSlotType or fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedSlotType:
+	
+				item.SelectItem(attachedItemIndex)
+	
+				if item.IsAntiFlag(item.ANTIFLAG_SELL):
+					popup = uiCommon.PopupDialog()
+					popup.SetText(localeInfo.SHOP_CANNOT_SELL_ITEM)
+					popup.SetAcceptEvent(self.__OnClosePopupDialog)
+					popup.Open()
+					self.popup = popup
+					return
+	
+				itemtype = fgGHGjjFHJghjfFG1545gGG.INVENTORY
+	
+				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedSlotType:
+					itemtype = fgGHGjjFHJghjfFG1545gGG.DRAGON_SOUL_INVENTORY
 
+				if fgGHGjjFHJghjfFG1545gGG.IsValuableItem(itemtype, attachedSlotPos):
+	
+					itemPrice = item.GetISellItemPrice()
+	
+					if item.Is1GoldItem():
+						itemPrice = attachedCount / itemPrice / 5
+					else:
+						itemPrice = itemPrice * max(1, attachedCount) / 5
+	
+					itemName = item.GetItemName()
+	
+					questionDialog = uiCommon.QuestionDialog()
+					questionDialog.SetText(localeInfo.DO_YOU_SELL_ITEM(itemName, attachedCount, itemPrice))
+	
+					questionDialog.SetAcceptEvent(lambda arg1=attachedSlotPos, arg2=attachedCount, arg3 = itemtype: self.OnSellItem(arg1, arg2, arg3))
+					questionDialog.SetCancelEvent(ui.__mem_func__(self.OnCloseQuestionDialog))
+					questionDialog.Open()
+					self.questionDialog = questionDialog
+	
+					#constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
+	
+				else:
+					self.OnSellItem(attachedSlotPos, attachedCount, itemtype)
+			else:
+				snd.PlaySound("sound/ui/loginfail.wav")
 		mouseModule.mouseController.DeattachObject()
 
 	def OnSellItem(self, slotPos, count, itemtype):

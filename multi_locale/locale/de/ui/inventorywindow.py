@@ -90,6 +90,19 @@ window = {
 										{"index":item.EQUIPMENT_BELT, "x":39, "y":106, "width":32, "height":32},
 									),
 								},
+								{
+									"name" : "SpecialStorageButton",
+									"type" : "button",
+
+									"x" : 3,
+									"y" : 107,
+
+									"tooltip_text" : "",
+
+									"default_image" : "d:/ymir work/ui/game/TaskBar/Mall_Button_01.tga",
+									"over_image" : "d:/ymir work/ui/game/TaskBar/Mall_Button_02.tga",
+									"down_image" : "d:/ymir work/ui/game/TaskBar/Mall_Button_03.tga",
+								},
 							),
 						}, 
                         ## CostumeButton

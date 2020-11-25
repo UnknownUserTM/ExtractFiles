@@ -61,7 +61,8 @@ import uigame
 import uiachievement
 import uidungeon
 import uitutorial
-
+# if app.ENABLE_SPECIAL_STORAGE:
+import uiSpecialStorage
 
 IsQBHide = 0
 class Interface(object):
@@ -93,7 +94,9 @@ class Interface(object):
 		self.wndGuild = None
 		self.wndGuildBuilding = None
 		self.HideQuestButtonsStatus = 0
-
+		# if app.ENABLE_SPECIAL_STORAGE:
+		self.wndSpecialStorage = None
+			
 		self.listGMName = {}
 		self.wndQuestWindow = {}
 		self.wndQuestWindowNewKey = 0
@@ -479,9 +482,14 @@ class Interface(object):
 			self.wndDragonSoul.SetDragonSoulRefineWindow(self.wndDragonSoulRefine)
 			self.wndDragonSoulRefine.SetInventoryWindows(self.wndInventory, self.wndDragonSoul)
 			self.wndInventory.SetDragonSoulRefineWindow(self.wndDragonSoulRefine)
+		# if app.ENABLE_SPECIAL_STORAGE:
 		
-		
-		
+	def __MakeSpecialStorage(self):
+		# if app.ENABLE_SPECIAL_STORAGE:
+		self.wndSpecialStorage = uiSpecialStorage.SpecialStorageWindow()
+		# else:
+			# self.wndSpecialStorage = None		
+		self.wndSpecialStorage.SetItemToolTip(self.tooltipItem)
 	def __MakeDialogs(self):
 		self.GuildStorageWindow = uiguildstorage.GuildStorage()
 		self.dlgExchange = uiExchange.ExchangeDialog()
@@ -569,6 +577,7 @@ class Interface(object):
 		self.__MakeParty()
 		self.__MakeWindows()
 		self.__MakeDialogs()
+		self.__MakeSpecialStorage()
 		self.__MakeGMPanel()
 		self.__MakeUICurtain()
 		self.__MakeTaskBar()
@@ -683,7 +692,11 @@ class Interface(object):
 
 		if self.wndDragonSoulRefine:
 			self.wndDragonSoulRefine.Destroy()
-
+			
+		if app.ENABLE_SPECIAL_STORAGE:
+			if self.wndSpecialStorage:
+				self.wndSpecialStorage.Destroy()
+				
 		if self.dlgExchange:
 			self.dlgExchange.Destroy()
 
@@ -808,6 +821,9 @@ class Interface(object):
 			del self.wndDragonSoul
 		if self.wndDragonSoulRefine:
 			del self.wndDragonSoulRefine
+		if app.ENABLE_SPECIAL_STORAGE:
+			if self.wndSpecialStorage:
+				del self.wndSpecialStorage
 		del self.dlgExchange
 		del self.dlgPointReset
 		del self.dlgShop
@@ -899,7 +915,9 @@ class Interface(object):
 		self.wndInventory.RefreshItemSlot()
 		if app.ENABLE_DRAGON_SOUL_SYSTEM:
 			self.wndDragonSoul.RefreshItemSlot()
-
+		if app.ENABLE_SPECIAL_STORAGE:
+			self.wndSpecialStorage.RefreshItemSlot()
+			
 	def RefreshCharacter(self): ## Character 페이지의 얼굴, Inventory 페이지의 전신 그림 등의 Refresh
 		self.wndCharacter.RefreshCharacter()
 		self.wndTaskBar.RefreshQuickSlot()
@@ -1393,6 +1411,14 @@ class Interface(object):
 						self.wndDragonSoul.Show()
 				else:
 					self.wndDragonSoul.Close()
+
+	if app.ENABLE_SPECIAL_STORAGE:
+		def ToggleSpecialStorageWindow(self):
+			if False == fgGHGjjFHJghjfFG1545gGG.IsObserverMode():
+				if False == self.wndSpecialStorage.IsShow():
+					self.wndSpecialStorage.Show()
+				else:
+					self.wndSpecialStorage.Close()
 				
 	def FailDragonSoulRefine(self, reason, inven_type, inven_pos):
 		if False == fgGHGjjFHJghjfFG1545gGG.IsObserverMode():

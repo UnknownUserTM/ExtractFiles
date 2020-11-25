@@ -49,7 +49,7 @@ import uihalloffame
 import uiox
 # import uibugreport
 import uidialog
-
+import uimount
 # PRIVATE_SHOP_PRICE_LIST
 import uiPrivateShopBuilder
 # END_OF_PRIVATE_SHOP_PRICE_LIST
@@ -166,6 +166,9 @@ class GameWindow(ui.ScriptWindow):
 
 		self.__ServerCommand_Build()
 		self.__ProcessPreservedServerCommand()
+		
+		self.mountWindow = uimount.MountWindow()
+		self.mountWindow.Close()
 		
 		# self.dungeonMakerToolBar = uidungeonmaker.DungeonMakerToolBar()
 		# self.dungeonMakerToolBar.Open()
@@ -527,7 +530,7 @@ class GameWindow(ui.ScriptWindow):
 		onPressKeyDict[app.DIK_I]			= lambda : self.interface.ToggleInventoryWindow()
 		onPressKeyDict[app.DIK_O]			= lambda : self.interface.ToggleDragonSoulWindowWithNoInfo()
 		onPressKeyDict[app.DIK_M]			= lambda : self.interface.PressMKey()
-#		onPressKeyDict[app.DIK_H]			= lambda : self.__summon_horse()
+		onPressKeyDict[app.DIK_H]			= lambda : self.mountWindow.Open()
 		onPressKeyDict[app.DIK_ADD]			= lambda : self.interface.MiniMapScaleUp()
 		onPressKeyDict[app.DIK_SUBTRACT]	= lambda : self.interface.MiniMapScaleDown()
 		onPressKeyDict[app.DIK_L]			= lambda : self.interface.ToggleChatLogWindow()
@@ -1530,7 +1533,12 @@ class GameWindow(ui.ScriptWindow):
 			## DragonSoul
 			elif fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedType:
 				self.__PutItem(attachedType, attachedItemIndex, attachedItemSlotPos, attachedItemCount, self.PickingCharacterIndex)
-			
+			if app.ENABLE_SPECIAL_STORAGE:
+				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY == attachedType or\
+					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY == attachedType or\
+					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY == attachedType:
+					self.__PutItem(attachedType, attachedItemIndex, attachedItemSlotPos, attachedItemCount, self.PickingCharacterIndex)
+				
 			mouseModule.mouseController.DeattachObject()
 
 		else:
@@ -1548,30 +1556,72 @@ class GameWindow(ui.ScriptWindow):
 		#fgGHGjjFHJghjfFG1545gGG.EndMouseWalking()
 		return True
 
+
 	def __PutItem(self, attachedType, attachedItemIndex, attachedItemSlotPos, attachedItemCount, dstChrID):
-		if constInfo.BlockItemsSystem["Block"] == 1:
-			chat.AppendChat(1, "Sicherheitssystem ist Aktiviert.")
-			return
-		if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedType or fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedType:
-			attachedInvenType = fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(attachedType)
-			if True == chr.HasInstance(self.PickingCharacterIndex) and fgGHGjjFHJghjfFG1545gGG.GetMainCharacterIndex() != dstChrID:
-				if fgGHGjjFHJghjfFG1545gGG.IsEquipmentSlot(attachedItemSlotPos) and fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY != attachedType:
-					self.stream.popupWindow.Close()
-					self.stream.popupWindow.Open(localeInfo.EXCHANGE_FAILURE_EQUIP_ITEM, 0, localeInfo.UI_OK)
-				else:
-					if chr.IsNPC(dstChrID):
-						GFHhg54GHGhh45GHGH.SendGiveItemPacket(dstChrID, attachedInvenType, attachedItemSlotPos, attachedItemCount)
-					if app.ENABLE_REFINE_RENEWAL:
-						constInfo.AUTO_REFINE_TYPE = 2
-						constInfo.AUTO_REFINE_DATA["NPC"][0] = dstChrID
-						constInfo.AUTO_REFINE_DATA["NPC"][1] = attachedInvenType
-						constInfo.AUTO_REFINE_DATA["NPC"][2] = attachedItemSlotPos
-						constInfo.AUTO_REFINE_DATA["NPC"][3] = attachedItemCount
+		if app.ENABLE_SPECIAL_STORAGE:
+			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedType or\
+				fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedType or\
+				fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY == attachedType or\
+				fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY == attachedType or\
+				fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY == attachedType:
+				attachedInvenType = fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(attachedType)
+				if True == chr.HasInstance(self.PickingCharacterIndex) and fgGHGjjFHJghjfFG1545gGG.GetMainCharacterIndex() != dstChrID:
+					if fgGHGjjFHJghjfFG1545gGG.IsEquipmentSlot(attachedItemSlotPos) and\
+						fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY != attachedType and\
+						fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY != attachedType and\
+						fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY != attachedType and\
+						fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY != attachedType:
+						self.stream.popupWindow.Close()
+						self.stream.popupWindow.Open(localeInfo.EXCHANGE_FAILURE_EQUIP_ITEM, 0, localeInfo.UI_OK)
 					else:
-						GFHhg54GHGhh45GHGH.SendExchangeStartPacket(dstChrID)
-						GFHhg54GHGhh45GHGH.SendExchangeItemAddPacket(attachedInvenType, attachedItemSlotPos, 0)
-			else:
-				self.__DropItem(attachedType, attachedItemIndex, attachedItemSlotPos, attachedItemCount)
+						if chr.IsNPC(dstChrID):
+							GFHhg54GHGhh45GHGH.SendGiveItemPacket(dstChrID, attachedInvenType, attachedItemSlotPos, attachedItemCount)
+						else:
+							GFHhg54GHGhh45GHGH.SendExchangeStartPacket(dstChrID)
+							GFHhg54GHGhh45GHGH.SendExchangeItemAddPacket(attachedInvenType, attachedItemSlotPos, 0)
+				else:
+					self.__DropItem(attachedType, attachedItemIndex, attachedItemSlotPos, attachedItemCount)
+		else:
+			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedType or fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedType:
+				attachedInvenType = fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(attachedType)
+				if True == chr.HasInstance(self.PickingCharacterIndex) and fgGHGjjFHJghjfFG1545gGG.GetMainCharacterIndex() != dstChrID:
+					if fgGHGjjFHJghjfFG1545gGG.IsEquipmentSlot(attachedItemSlotPos) and fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY != attachedType:
+						self.stream.popupWindow.Close()
+						self.stream.popupWindow.Open(localeInfo.EXCHANGE_FAILURE_EQUIP_ITEM, 0, localeInfo.UI_OK)
+					else:
+						if chr.IsNPC(dstChrID):
+							GFHhg54GHGhh45GHGH.SendGiveItemPacket(dstChrID, attachedInvenType, attachedItemSlotPos, attachedItemCount)
+						else:
+							GFHhg54GHGhh45GHGH.SendExchangeStartPacket(dstChrID)
+							GFHhg54GHGhh45GHGH.SendExchangeItemAddPacket(attachedInvenType, attachedItemSlotPos, 0)
+				else:
+					self.__DropItem(attachedType, attachedItemIndex, attachedItemSlotPos, attachedItemCount)
+					
+
+	# def __PutItem(self, attachedType, attachedItemIndex, attachedItemSlotPos, attachedItemCount, dstChrID):
+		# if constInfo.BlockItemsSystem["Block"] == 1:
+			# chat.AppendChat(1, "Sicherheitssystem ist Aktiviert.")
+			# return
+		# if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == attachedType or fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY == attachedType:
+			# attachedInvenType = fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(attachedType)
+			# if True == chr.HasInstance(self.PickingCharacterIndex) and fgGHGjjFHJghjfFG1545gGG.GetMainCharacterIndex() != dstChrID:
+				# if fgGHGjjFHJghjfFG1545gGG.IsEquipmentSlot(attachedItemSlotPos) and fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY != attachedType:
+					# self.stream.popupWindow.Close()
+					# self.stream.popupWindow.Open(localeInfo.EXCHANGE_FAILURE_EQUIP_ITEM, 0, localeInfo.UI_OK)
+				# else:
+					# if chr.IsNPC(dstChrID):
+						# GFHhg54GHGhh45GHGH.SendGiveItemPacket(dstChrID, attachedInvenType, attachedItemSlotPos, attachedItemCount)
+					# if app.ENABLE_REFINE_RENEWAL:
+						# constInfo.AUTO_REFINE_TYPE = 2
+						# constInfo.AUTO_REFINE_DATA["NPC"][0] = dstChrID
+						# constInfo.AUTO_REFINE_DATA["NPC"][1] = attachedInvenType
+						# constInfo.AUTO_REFINE_DATA["NPC"][2] = attachedItemSlotPos
+						# constInfo.AUTO_REFINE_DATA["NPC"][3] = attachedItemCount
+					# else:
+						# GFHhg54GHGhh45GHGH.SendExchangeStartPacket(dstChrID)
+						# GFHhg54GHGhh45GHGH.SendExchangeItemAddPacket(attachedInvenType, attachedItemSlotPos, 0)
+			# else:
+				# self.__DropItem(attachedType, attachedItemIndex, attachedItemSlotPos, attachedItemCount)
 
 	def __PutMoney(self, attachedType, attachedMoney, dstChrID):
 		if constInfo.BlockItemsSystem["Block"] == 1:
@@ -1690,7 +1740,32 @@ class GameWindow(ui.ScriptWindow):
 				self.itemDropQuestionDialog = itemDropQuestionDialog
 
 				constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
-
+				
+			if app.ENABLE_SPECIAL_STORAGE:
+				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY == attachedType or\
+					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY == attachedType or\
+					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY == attachedType:
+					dropItemIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(attachedType), attachedItemSlotPos)
+	
+					item.SelectItem(dropItemIndex)
+					dropItemName = item.GetItemName()
+	
+					## Question Text
+					questionText = localeInfo.HOW_MANY_ITEM_DO_YOU_DROP(dropItemName, attachedItemCount)
+	
+					## Dialog
+					itemDropQuestionDialog = uiCommon.QuestionDialog()
+					itemDropQuestionDialog.SetText(questionText)
+					itemDropQuestionDialog.SetAcceptEvent(lambda arg=True: self.RequestDropItem(arg))
+					itemDropQuestionDialog.SetCancelEvent(lambda arg=False: self.RequestDropItem(arg))
+					itemDropQuestionDialog.Open()
+					itemDropQuestionDialog.dropType = attachedType
+					itemDropQuestionDialog.dropNumber = attachedItemSlotPos
+					itemDropQuestionDialog.dropCount = attachedItemCount
+					self.itemDropQuestionDialog = itemDropQuestionDialog
+	
+					constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
+					
 	def RequestDropItem(self, answer):
 		if constInfo.BlockItemsSystem["Block"] == 1:
 			chat.AppendChat(1, "Sicherheitssystem ist Aktiviert.")
@@ -1715,7 +1790,12 @@ class GameWindow(ui.ScriptWindow):
 					# PRIVATESHOP_DISABLE_ITEM_DROP
 					self.__SendDropItemPacket(dropNumber, dropCount, fgGHGjjFHJghjfFG1545gGG.DRAGON_SOUL_INVENTORY)
 					# END_OF_PRIVATESHOP_DISABLE_ITEM_DROP
-
+			if app.ENABLE_SPECIAL_STORAGE:
+				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY == dropType or\
+					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY == dropType or\
+					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY == dropType:
+					self.__SendDropItemPacket(dropNumber, dropCount, fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(dropType))
+					
 		self.itemDropQuestionDialog.Close()
 		self.itemDropQuestionDialog = None
 
@@ -3813,8 +3893,13 @@ class GameWindow(ui.ScriptWindow):
 	def BiologistIconText(self):
 		# import uifortunefountain
 		# self.interface.ctrlAchievement.AppendAchievement(1,10,3345,5)
-		import uicrafting
-		self.craftingWnd = uicrafting.CraftingWindow()
+		# import uicrafting
+		# self.craftingWnd = uicrafting.CraftingWindow()
+		
+		
+		import uimount
+		self.mountDEV = uimount.MountWindow()
+		self.mountDEV.Open()
 		# self.advent = uidungeon.DungeonGuideWindow()
 		# self.advent.Show()
 		

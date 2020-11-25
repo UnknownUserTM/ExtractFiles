@@ -510,19 +510,19 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 class EasySideBar(ui.ScriptWindow):
 
 	COLOR_HOVER = grp.GenerateColor(1.0, 0.0, 0.0, 0.2)
-	SIDEBAR_HEIGHT = 32 * 2
+	SIDEBAR_HEIGHT = 32 * 1
 	BUTTON_DICT = [
+		# {
+			# "button_name" : "FB-Lager",
+			# "button_desc" : "Anpassbar in uiinventory.py in der class EasySideBar bei button_desc.",
+			# "button_icon" : "icon/item/book_01.tga",
+			# "button_func" : "skb",
+		# },
 		{
-			"button_name" : "FB-Lager",
-			"button_desc" : "Anpassbar in uiinventory.py in der class EasySideBar bei button_desc.",
-			"button_icon" : "icon/item/book_01.tga",
-			"button_func" : "skb",
-		},
-		{
-			"button_name" : "Upptem-Lager",
-			"button_desc" : "Anpassbar in uiinventory.py in der class EasySideBar bei button_desc.",
+			"button_name" : "Spezial-Lager",
+			"button_desc" : "Ja lager halt. Beschreibung und Name sollte noch angepasst werden.",
 			"button_icon" : "icon/item/71009.tga",
-			"button_func" : "upp",
+			"button_func" : "specialstorage",
 		},
 		# {
 			# "button_name" : "TestButton 2",
@@ -564,16 +564,17 @@ class EasySideBar(ui.ScriptWindow):
 		
 	def OnClick(self,func):
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(func))
-		
-		if func == "skb":
-			if settinginfo.SkillBookStorageOpen == 0:
-				import uiskillbook
-				uiskillbook.SkillBookBoard().Show()		
+		if func == "specialstorage":
+			self.wndInventory.ClickSpecialStorage()
+		# if func == "skb":
+			# if settinginfo.SkillBookStorageOpen == 0:
+				# import uiskillbook
+				# uiskillbook.SkillBookBoard().Show()		
 
-		elif func == "upp":
-			if settinginfo.UppItemStorageOpen == 0:
-				import uiuppstorage
-				uiuppstorage.UppStorageBoard().Show()		
+		# elif func == "upp":
+			# if settinginfo.UppItemStorageOpen == 0:
+				# import uiuppstorage
+				# uiuppstorage.UppStorageBoard().Show()		
 		
 		else:
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknow EasySideBar command: " + str(func))
@@ -1246,6 +1247,10 @@ class InventoryWindow(ui.ScriptWindow):
 			
 			# self.DSSButton = self.GetChild2("DSSButton")
 			self.costumeButton = self.GetChild2("CostumeButton")
+			if app.ENABLE_SPECIAL_STORAGE:
+				self.SpecialStorageButton = self.GetChild2("SpecialStorageButton")
+				self.SpecialStorageButton.Hide()
+				
 			self.wndAps = self.GetChild("AchievementPoints")
 			# self.wndApsSlot = self.GetChild("Aps_Slot") ##Inventar AP Anzeige
 			# self.wndDps = self.GetChild("DPs") ##Inventar DP Anzeige				
@@ -1450,6 +1455,9 @@ class InventoryWindow(ui.ScriptWindow):
 
 		# if self.DSSButton:
 			# self.DSSButton.SetEvent(ui.__mem_func__(self.ClickDSSButton)) 
+		if app.ENABLE_SPECIAL_STORAGE:
+			if self.SpecialStorageButton:
+				self.SpecialStorageButton.SetEvent(ui.__mem_func__(self.ClickSpecialStorage))
 			
 		# Geldspeicher
 		# if self.YangSpeicher:
@@ -1532,7 +1540,8 @@ class InventoryWindow(ui.ScriptWindow):
 		# self.mallButton = None
 		# self.DSSButton = None
 		self.interface = None
-		
+		if app.ENABLE_SPECIAL_STORAGE:
+			self.SpecialStorageButton = None		
 		self.wndAps = 0 ##Iventar AP Anzeige
 		# self.wndApsSlot = 0 ##Inventar AP Anzeige
 
@@ -1621,6 +1630,10 @@ class InventoryWindow(ui.ScriptWindow):
 	# def ClickDSSButton(self):
 		# print "click_dss_button"
 		# self.interface.ToggleDragonSoulWindow()
+		
+	if app.ENABLE_SPECIAL_STORAGE:
+		def ClickSpecialStorage(self):
+			self.interface.ToggleSpecialStorageWindow()
 
 	def ClickCostumeButton(self):
 		print "Click Costume Button"
@@ -1933,10 +1946,10 @@ class InventoryWindow(ui.ScriptWindow):
 			attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
 			attachedItemCount = mouseModule.mouseController.GetAttachedItemCount()
 			attachedItemIndex = mouseModule.mouseController.GetAttachedItemIndex()
-
+			attachedCount = mouseModule.mouseController.GetAttachedItemCount()
 			if player.SLOT_TYPE_INVENTORY == attachedSlotType:
 				itemCount = player.GetItemCount(attachedSlotPos)
-				attachedCount = mouseModule.mouseController.GetAttachedItemCount()
+				# attachedCount = mouseModule.mouseController.GetAttachedItemCount()
 				self.__SendMoveItemPacket(attachedSlotPos, selectedSlotPos, attachedCount)
 
 				if item.IsRefineScroll(attachedItemIndex):
@@ -1967,6 +1980,14 @@ class InventoryWindow(ui.ScriptWindow):
 
 			elif player.SLOT_TYPE_MALL == attachedSlotType:
 				GFHhg54GHGhh45GHGH.SendMallCheckoutPacket(attachedSlotPos, selectedSlotPos)
+			elif app.ENABLE_SPECIAL_STORAGE and player.SLOT_TYPE_UPGRADE_INVENTORY == attachedSlotType:
+				GFHhg54GHGhh45GHGH.SendSpecialMovePacket(player.UPGRADE_INVENTORY, attachedSlotPos, selectedSlotPos, attachedCount)
+				
+			elif app.ENABLE_SPECIAL_STORAGE and player.SLOT_TYPE_BOOK_INVENTORY == attachedSlotType:
+				GFHhg54GHGhh45GHGH.SendSpecialMovePacket(player.BOOK_INVENTORY, attachedSlotPos, selectedSlotPos, attachedCount)
+				
+			elif app.ENABLE_SPECIAL_STORAGE and player.SLOT_TYPE_STONE_INVENTORY == attachedSlotType:
+				GFHhg54GHGhh45GHGH.SendSpecialMovePacket(player.STONE_INVENTORY, attachedSlotPos, selectedSlotPos, attachedCount)
 
 			mouseModule.mouseController.DeattachObject()
 
@@ -1985,8 +2006,14 @@ class InventoryWindow(ui.ScriptWindow):
 			attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
 			attachedItemVID = mouseModule.mouseController.GetAttachedItemIndex()
 
-			if player.SLOT_TYPE_INVENTORY == attachedSlotType:
-				self.__DropSrcItemToDestItemInInventory(attachedItemVID, attachedSlotPos, itemSlotIndex)
+			# if player.SLOT_TYPE_INVENTORY == attachedSlotType:
+				# self.__DropSrcItemToDestItemInInventory(attachedItemVID, attachedSlotPos, itemSlotIndex)
+			if app.ENABLE_SPECIAL_STORAGE:
+				if player.SLOT_TYPE_INVENTORY == attachedSlotType or player.SLOT_TYPE_STONE_INVENTORY == attachedSlotType:
+					self.__DropSrcItemToDestItemInInventory(attachedItemVID, attachedSlotPos, itemSlotIndex)
+			else:
+				if player.SLOT_TYPE_INVENTORY == attachedSlotType:
+					self.__DropSrcItemToDestItemInInventory(attachedItemVID, attachedSlotPos, itemSlotIndex)
 
 			mouseModule.mouseController.DeattachObject()
 
@@ -2057,9 +2084,14 @@ class InventoryWindow(ui.ScriptWindow):
 		self.OnCloseQuestionDialog()		
 	
 	def __DropSrcItemToDestItemInInventory(self, srcItemVID, srcItemSlotPos, dstItemSlotPos):
-		if srcItemSlotPos == dstItemSlotPos:
+		# if srcItemSlotPos == dstItemSlotPos:
+			# return
+		# if app.ENABLE_SPECIAL_STORAGE:
+		if srcItemSlotPos == dstItemSlotPos and not item.IsMetin(srcItemVID):
 			return
-			
+		# else:
+			# if srcItemSlotPos == dstItemSlotPos:
+				# return			
 		elif srcItemVID == player.GetItemIndex(dstItemSlotPos):
 			self.__SendMoveItemPacket(srcItemSlotPos, dstItemSlotPos, 0)
 			return
@@ -2234,7 +2266,15 @@ class InventoryWindow(ui.ScriptWindow):
 		self.questionDialog.targetPos = targetSlotPos
 
 	def AttachMetinToItem(self, metinSlotPos, targetSlotPos):
-		metinIndex = player.GetItemIndex(metinSlotPos)
+		# metinIndex = player.GetItemIndex(metinSlotPos)
+		if app.ENABLE_SPECIAL_STORAGE:
+			attachedSlotType = mouseModule.mouseController.GetAttachedType()
+			if player.INVENTORY == attachedSlotType:
+				metinIndex = player.GetItemIndex(metinSlotPos)
+			else:
+				metinIndex = player.GetItemIndex(player.STONE_INVENTORY, metinSlotPos)
+		else:
+			metinIndex = player.GetItemIndex(metinSlotPos)
 		targetIndex = player.GetItemIndex(targetSlotPos)
 		if targetIndex >= 45182 and targetIndex <= 45187:
 			return
@@ -2278,16 +2318,34 @@ class InventoryWindow(ui.ScriptWindow):
 		
 		if mouseModule.mouseController.isAttached():
 			attachedItemType = mouseModule.mouseController.GetAttachedType()
-			if player.SLOT_TYPE_INVENTORY == attachedItemType:
+			# if player.SLOT_TYPE_INVENTORY == attachedItemType:
 				
-				attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
-				attachedItemVNum = mouseModule.mouseController.GetAttachedItemIndex()
+				# attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
+				# attachedItemVNum = mouseModule.mouseController.GetAttachedItemIndex()
 				
-				if self.__CanUseSrcItemToDstItem(attachedItemVNum, attachedSlotPos, overSlotPosGlobal):
-					self.wndItem.SetUsableItem(True)
-					self.ShowToolTip(overSlotPosGlobal)
-					return
-		
+				# if self.__CanUseSrcItemToDstItem(attachedItemVNum, attachedSlotPos, overSlotPosGlobal):
+					# self.wndItem.SetUsableItem(True)
+					# self.ShowToolTip(overSlotPosGlobal)
+					# return
+			if app.ENABLE_SPECIAL_STORAGE:
+				if player.SLOT_TYPE_INVENTORY == attachedItemType or player.SLOT_TYPE_STONE_INVENTORY == attachedItemType:
+					attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
+					attachedItemVNum = mouseModule.mouseController.GetAttachedItemIndex()
+	
+					if self.__CanUseSrcItemToDstItem(attachedItemVNum, attachedSlotPos, overSlotPos):
+						self.wndItem.SetUsableItem(True)
+						self.wndItem.SetUseMode(True)
+						self.ShowToolTip(overSlotPos)
+						return
+			else:
+				if player.SLOT_TYPE_INVENTORY == attachedItemType:
+					attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
+					attachedItemVNum = mouseModule.mouseController.GetAttachedItemIndex()
+	
+					if self.__CanUseSrcItemToDstItem(attachedItemVNum, attachedSlotPos, overSlotPos):
+						self.wndItem.SetUsableItem(True)
+						self.ShowToolTip(overSlotPos)
+						return		
 		self.ShowToolTip(overSlotPosGlobal)
 
 	
@@ -2326,8 +2384,14 @@ class InventoryWindow(ui.ScriptWindow):
 	def __CanUseSrcItemToDstItem(self, srcItemVNum, srcSlotPos, dstSlotPos):
 		"대상 아이템에 사용할 수 있는가?"
 
-		if srcSlotPos == dstSlotPos:
-			return False
+		# if srcSlotPos == dstSlotPos:
+			# return False
+		if app.ENABLE_SPECIAL_STORAGE:
+			if srcSlotPos == dstSlotPos and not item.IsMetin(srcItemVNum):
+				return False
+		else:
+			if srcSlotPos == dstSlotPos:
+				return False
 		if srcItemVNum >= 55102 and player.GetItemIndex(dstSlotPos) == 55001:			
 			return True	
 		if srcItemVNum >= 55102 and player.GetItemIndex(dstSlotPos) == 55002:			
