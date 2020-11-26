@@ -6,9 +6,7 @@ import snd
 import ui
 import uiToolTip
 import localeInfo
-import app
-import mouseModule
-		
+
 class AttachMetinDialog(ui.ScriptWindow):
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
@@ -16,10 +14,7 @@ class AttachMetinDialog(ui.ScriptWindow):
 
 		self.metinItemPos = 0
 		self.targetItemPos = 0
-		if app.ENABLE_SPECIAL_STORAGE:
-			self.baseinv = 0
-			self.stoneinv = 0
-			
+
 	def __LoadScript(self):
 		try:
 			pyScrLoader = ui.PythonScriptLoader()
@@ -64,10 +59,7 @@ class AttachMetinDialog(ui.ScriptWindow):
 		self.titleBar = 0
 		self.metinImage = 0
 		self.toolTip = 0
-		if app.ENABLE_SPECIAL_STORAGE:
-			self.baseinv = 0
-			self.stoneinv = 0
-			
+
 	def CanAttachMetin(self, slot, metin):
 		if item.METIN_NORMAL == metin:
 			if fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_SILVER == slot or fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_GOLD == slot:
@@ -81,17 +73,7 @@ class AttachMetinDialog(ui.ScriptWindow):
 		self.metinItemPos = metinItemPos
 		self.targetItemPos = targetItemPos
 
-		# metinIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(metinItemPos)
-		if app.ENABLE_SPECIAL_STORAGE:
-			attachedSlotType = mouseModule.mouseController.GetAttachedType()
-			if fgGHGjjFHJghjfFG1545gGG.INVENTORY == attachedSlotType:
-				metinIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(metinItemPos)
-				self.baseinv = 1
-			else:
-				metinIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(fgGHGjjFHJghjfFG1545gGG.STONE_INVENTORY, metinItemPos)
-				self.stoneinv = 1
-		else:
-			metinIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(metinItemPos)
+		metinIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(metinItemPos)
 		itemIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(targetItemPos)
 		self.oldToolTip.ClearToolTip()
 		self.newToolTip.ClearToolTip()
@@ -146,21 +128,9 @@ class AttachMetinDialog(ui.ScriptWindow):
 		self.SetPosition(x, y)
 
 	def Accept(self):
-		# GFHhg54GHGhh45GHGH.SendItemUseToItemPacket(self.metinItemPos, self.targetItemPos)
-		if app.ENABLE_SPECIAL_STORAGE:
-			if self.stoneinv == 1:
-				GFHhg54GHGhh45GHGH.SendItemUseToItemPacket(fgGHGjjFHJghjfFG1545gGG.STONE_INVENTORY, self.metinItemPos, fgGHGjjFHJghjfFG1545gGG.INVENTORY, self.targetItemPos)
-			elif self.baseinv == 1:
-				GFHhg54GHGhh45GHGH.SendItemUseToItemPacket(self.metinItemPos, self.targetItemPos)
-		else:
-			GFHhg54GHGhh45GHGH.SendItemUseToItemPacket(self.metinItemPos, self.targetItemPos)
-
+		GFHhg54GHGhh45GHGH.SendItemUseToItemPacket(self.metinItemPos, self.targetItemPos)
 		snd.PlaySound("sound/ui/metinstone_insert.wav")
 		self.Close()
 
 	def Close(self):
 		self.Hide()
-		if app.ENABLE_SPECIAL_STORAGE:
-			self.stoneinv = 0
-			self.baseinv = 0
-			
