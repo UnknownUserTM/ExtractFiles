@@ -2139,7 +2139,11 @@ class ItemToolTip(ToolTip):
 						## 실시간 이용 Flag
 						if 1 == item.GetValue(2):
 							self.AppendMallItemLastTime(time)
-			
+							
+				if app.ENABLE_NEW_TYPE_OF_POTION and constInfo.IS_NEW_SPEED_POTION(itemVnum):
+                    self.AppendSpace(5)
+                    self.AppendTextLine(localeInfo.ITEM_PERMANENT, self.POSITIVE_COLOR)	
+					
 			elif item.USE_TIME_CHARGE_PER == itemSubType:
 				bHasRealtimeFlag = 0
 				for i in xrange(item.LIMIT_MAX_NUM):
