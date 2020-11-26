@@ -365,4 +365,16 @@ def IS_PET_SEAL(itemVnum):
 		return 1
 	else:
 		return 0
-	
+
+if app.ENABLE_NEW_TYPE_OF_POTION:
+	def IS_NEW_SPEED_POTION(itemVnum):
+		return IS_NEW_MOVE_SPEED_POTION(itemVnum) or IS_NEW_ATT_SPEED_POTION(itemVnum)
+	def IS_NEW_MOVE_SPEED_POTION(itemVnum):
+		if itemVnum == 27122:
+			return 1
+		return 0
+	def IS_NEW_ATT_SPEED_POTION(itemVnum):
+		if itemVnum == 27123:
+			return 1
+		return 0
+		

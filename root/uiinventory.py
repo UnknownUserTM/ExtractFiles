@@ -1189,7 +1189,8 @@ class InventoryWindow(ui.ScriptWindow):
 	isLoaded = 0
 	isOpenedCostumeWindowWhenClosingInventory = 0		# 인벤토리 닫을 때 코스츔이 열려있었는지 여부-_-; 네이밍 ㅈㅅ
 	isOpenedBeltWindowWhenClosingInventory = 0		# 인벤토리 닫을 때 벨트 인벤토리가 열려있었는지 여부-_-; 네이밍 ㅈㅅ
-
+	snowBallTargetVID = 0
+	
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
 
@@ -1505,7 +1506,12 @@ class InventoryWindow(ui.ScriptWindow):
 			# if settinginfo.UppItemStorageOpen == 0:
 				# import uiuppstorage
 				# uiuppstorage.UppStorageBoard().Show()		
-				
+	
+	def SetSnowballTargetVID(self,vid):
+		self.snowBallTargetVID = vid
+		
+	def ClearSnowballTargetVID(self):
+		self.snowBallTargetVID = 0
 		
 	def Destroy(self):
 		self.ClearDictionary()
@@ -1515,7 +1521,9 @@ class InventoryWindow(ui.ScriptWindow):
 
 		self.refineDialog.Destroy()
 		self.refineDialog = 0
-
+		
+		self.snowBallTargetVID = 0
+		
 		self.attachMetinDialog.Destroy()
 		self.attachMetinDialog = 0
 		
@@ -1738,6 +1746,18 @@ class InventoryWindow(ui.ScriptWindow):
 					
 				else:
 					self.wndItem.DeactivateSlot(slotNumber)
+					
+			if app.ENABLE_NEW_TYPE_OF_POTION:
+				if constInfo.IS_NEW_SPEED_POTION(itemVnum):
+					metinSocket = [player.GetItemMetinSocket(slotNumber, j) for j in xrange(3)] ## player.METIN_SOCKET_MAX_NUM -> 3
+					if slotNumber >= player.INVENTORY_PAGE_SIZE * self.inventoryPageIndex:
+						slotNumber -= player.INVENTORY_PAGE_SIZE * self.inventoryPageIndex
+						isActivated = 0 != metinSocket[0]
+						if isActivated:
+							self.wndItem.ActivateSlot(slotNumber)
+						else:
+							self.wndItem.DeactivateSlot(slotNumber)
+					
 		self.wndItem.RefreshSlot()
 		
 		if self.wndCostume:
@@ -2546,6 +2566,11 @@ class InventoryWindow(ui.ScriptWindow):
 			constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
 
 		else:
+			if ItemVNum == 55401:
+				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"/snowball " + str(self.snowBallTargetVID))
+				GFHhg54GHGhh45GHGH.SendChatPacket("/snowball " + str(self.snowBallTargetVID))
+				return
+				
 			self.__SendUseItemPacket(slotIndex)
 			#GFHhg54GHGhh45GHGH.SendItemUsePacket(slotIndex)	
 
