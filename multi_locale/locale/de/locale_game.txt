@@ -1198,3 +1198,4 @@ NOTDESTROY	Dieser Gegenstand kann nicht zerstört werden
 TOOLTIP_APPLY_ATTBONUS_STONE	Stark gegen Metinstein +%d%%	SA
 TOOLTIP_APPLY_ATTBONUS_BOSS	Stark gegen Bosse +%d%%	SA
 LOGIN_FAILURE_WRONG_VERSION	Dein Client ist nicht aktuell. Bitte aktualisieren!
+ITEM_PERMANENT	Permanentt

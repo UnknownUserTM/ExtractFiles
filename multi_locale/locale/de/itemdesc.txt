@@ -2015,3 +2015,5 @@
 160486	Kritischer Kampf (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
 160487	Durchbohrender Kampf (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
 160490	Lehrlingstruhe	Diese Truhe wird dich während deines Levelns immer mit wertvollen und wichtigen Gegenständen versorgen!
+27122	Violetter Trank (P)	Erhöht deine Bewegungsgeschwindigkeit um 30.
+27123	Grüner Trank (P)	Erhöht deine Angriffsgeschwindigkeit um 30.
