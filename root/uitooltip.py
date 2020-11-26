@@ -2141,8 +2141,8 @@ class ItemToolTip(ToolTip):
 							self.AppendMallItemLastTime(time)
 							
 				if app.ENABLE_NEW_TYPE_OF_POTION and constInfo.IS_NEW_SPEED_POTION(itemVnum):
-                    self.AppendSpace(5)
-                    self.AppendTextLine(localeInfo.ITEM_PERMANENT, self.POSITIVE_COLOR)	
+					self.AppendSpace(5)
+					self.AppendTextLine(localeInfo.ITEM_PERMANENT, self.POSITIVE_COLOR)	
 					
 			elif item.USE_TIME_CHARGE_PER == itemSubType:
 				bHasRealtimeFlag = 0
