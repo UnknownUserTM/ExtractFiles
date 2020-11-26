@@ -368,7 +368,7 @@ def IS_PET_SEAL(itemVnum):
 
 if app.ENABLE_NEW_TYPE_OF_POTION:
 	def IS_NEW_SPEED_POTION(itemVnum):
-		return IS_NEW_MOVE_SPEED_POTION(itemVnum) or IS_NEW_ATT_SPEED_POTION(itemVnum)
+		return IS_NEW_MOVE_SPEED_POTION(itemVnum) or IS_NEW_ATT_SPEED_POTION(itemVnum) or WEISSER_TAU(itemVnum) or BLAUER_TAU(itemVnum) or GELBER_TAU(itemVnum) or DRACHENGOTT_ANGRIFF(itemVnum) or DRACHENGOTT_VERTEIDIGUNG(itemVnum) or DRACHENGOTT_LEBEN(itemVnum) or KRITISCHER_KAMPF(itemVnum) or DURCHBOHRENDER_KAMPF(itemVnum)
 	def IS_NEW_MOVE_SPEED_POTION(itemVnum):
 		if itemVnum == 27122:
 			return 1
@@ -377,4 +377,35 @@ if app.ENABLE_NEW_TYPE_OF_POTION:
 		if itemVnum == 27123:
 			return 1
 		return 0
-		
+	def WEISSER_TAU(itemVnum):
+		if itemVnum == 160480:
+			return 1
+		return 0
+	def BLAUER_TAU(itemVnum):
+		if itemVnum == 160481:
+			return 1
+		return 0
+	def GELBER_TAU(itemVnum):
+		if itemVnum == 160482:
+			return 1
+		return 0
+	def DRACHENGOTT_ANGRIFF(itemVnum):
+		if itemVnum == 160483:
+			return 1
+		return 0
+	def DRACHENGOTT_LEBEN(itemVnum):
+		if itemVnum == 160484:
+			return 1
+		return 0
+	def DRACHENGOTT_VERTEIDIGUNG(itemVnum):
+		if itemVnum == 160485:
+			return 1
+		return 0
+	def KRITISCHER_KAMPF(itemVnum):
+		if itemVnum == 160486:
+			return 1
+		return 0
+	def DURCHBOHRENDER_KAMPF(itemVnum):
+		if itemVnum == 160487:
+			return 1
+		return 0
