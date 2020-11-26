@@ -60,13 +60,6 @@ class GameOptionWindow(ui.ScriptWindow):
 	OPTION_PICKUP_GHOSTSTONE	= 27
 	OPTION_PICKUP_SKILLBOOK		= 28
 	
-	
-	OPTION_MINIMAP_MAPNAME	= 29
-	OPTION_MINIMAP_TIME_FPS = 30
-	OPTION_MINIMAP_LOCAL_POS = 31
-	OPTION_MINIMAP_SAFEZONE = 32
-	
-	
 	MAX_ITEM = 16
 	
 	optionDict = [
@@ -322,48 +315,6 @@ class GameOptionWindow(ui.ScriptWindow):
 			"button_on"		: "Aufheben",
 			"button_off"	: "Liegen lassen",
 		},
-		
-		# ------------------------------------ #
-		{
-			"name" : "MiniMap Informationen",
-			"type" : OPTION_TYPE_TITLE,
-		},		
-		{
-			"name" : "Map Name und Channel",
-			"type" : OPTION_TYPE_TOGGLE,
-			
-			"id" : OPTION_MINIMAP_MAPNAME,
-			
-			"button_on"		: "Anzeigen",
-			"button_off"	: "Ausblenden",
-		},	
-		{
-			"name" : "Lokale Uhrzeit und FPS",
-			"type" : OPTION_TYPE_TOGGLE,
-			
-			"id" : OPTION_MINIMAP_TIME_FPS,
-			
-			"button_on"		: "Anzeigen",
-			"button_off"	: "Ausblenden",
-		},			
-		{
-			"name" : "Lokale Spielerposition",
-			"type" : OPTION_TYPE_TOGGLE,
-			
-			"id" : OPTION_MINIMAP_LOCAL_POS,
-			
-			"button_on"		: "Anzeigen",
-			"button_off"	: "Ausblenden",
-		},			
-		{
-			"name" : "Safezone (Wird nur in der Safezone angezeigt)",
-			"type" : OPTION_TYPE_TOGGLE,
-			
-			"id" : OPTION_MINIMAP_SAFEZONE,
-			
-			"button_on"		: "Anzeigen",
-			"button_off"	: "Ausblenden",
-		},		
 	]
 	
 

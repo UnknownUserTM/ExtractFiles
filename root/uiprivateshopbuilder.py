@@ -10,7 +10,7 @@ import localeInfo
 import chat
 import item
 import systemSetting #±Ë¡ÿ»£
-# import fgGHGjjFHJghjfFG1545gGG #±Ë¡ÿ»£
+import fgGHGjjFHJghjfFG1545gGG #±Ë¡ÿ»£
 import constInfo
 
 g_isBuildingPrivateShop = False
@@ -226,18 +226,8 @@ class PrivateShopBuilder(ui.ScriptWindow):
 			attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
 			mouseModule.mouseController.DeattachObject()
 
-			# if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY != attachedSlotType and fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY != attachedSlotType:
-				# return
-			if app.ENABLE_SPECIAL_STORAGE:
-				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY != attachedSlotType and\
-					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY != attachedSlotType and\
-					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY != attachedSlotType and\
-					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY != attachedSlotType and\
-					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY != attachedSlotType:
-					return
-			else:
-				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY != attachedSlotType and fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY != attachedSlotType:
-					return
+			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY != attachedSlotType and fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_DRAGON_SOUL_INVENTORY != attachedSlotType:
+				return
 			attachedInvenType = fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(attachedSlotType)
 				
 			itemVNum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(attachedInvenType, attachedSlotPos)

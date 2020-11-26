@@ -402,35 +402,14 @@ class CubeWindow(ui.ScriptWindow):
 				self.cubeSlot.ClearSlot(slotPos)
 				continue
 
-			# invenPos = self.cubeItemInfo[slotPos]
-			# itemCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(invenPos)
-			# if itemCount > 0:
-				# self.cubeSlot.SetItemSlot(slotPos, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(invenPos), itemCount)
-			# else:
-				# del self.cubeItemInfo[slotPos]
-				# self.cubeSlot.ClearSlot(slotPos)
-			if app.ENABLE_SPECIAL_STORAGE:
-				invenPos = self.cubeItemInfo[slotPos][0]
-				invenType = fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(self.cubeItemInfo[slotPos][1])
-			
-				itemIndex = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(invenType, invenPos)
-				itemCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(invenType, invenPos)
-				
-				if itemCount > 0:
-					self.cubeSlot.SetItemSlot(slotPos, itemIndex, itemCount)
-				else:
-					del self.cubeItemInfo[slotPos]
-					self.cubeSlot.ClearSlot(slotPos)
+			invenPos = self.cubeItemInfo[slotPos]
+			itemCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(invenPos)
+			if itemCount > 0:
+				self.cubeSlot.SetItemSlot(slotPos, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(invenPos), itemCount)
 			else:
-				invenPos = self.cubeItemInfo[slotPos][0]
-				
-				itemCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(invenPos)
-				
-				if itemCount > 0:
-					self.cubeSlot.SetItemSlot(slotPos, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(invenPos), itemCount)
-				else:
-					del self.cubeItemInfo[slotPos]
-					self.cubeSlot.ClearSlot(slotPos)
+				del self.cubeItemInfo[slotPos]
+				self.cubeSlot.ClearSlot(slotPos)
+
 		i = 0
 		for itemVnum, count in self.cubeResultInfos[self.firstSlotIndex:]:
 			currentSlot = self.resultSlots[i]
@@ -519,30 +498,15 @@ class CubeWindow(ui.ScriptWindow):
 			attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
 			mouseModule.mouseController.DeattachObject()
 
-			# if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY != attachedSlotType:
-				# return
-			if app.ENABLE_SPECIAL_STORAGE:
-				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY != attachedSlotType and\
-					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_UPGRADE_INVENTORY != attachedSlotType and\
-					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_BOOK_INVENTORY != attachedSlotType and\
-					fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_STONE_INVENTORY != attachedSlotType:
-					return
-			else:
-				if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY != attachedSlotType:
-					return
-					
+			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY != attachedSlotType:
+				return
+
 			for slotPos, invenPos in self.cubeItemInfo.items():
 				if invenPos == attachedSlotPos:
 					del self.cubeItemInfo[slotPos]
 			
 			self.cubeItemInfo[selectedSlotPos] = attachedSlotPos
-			# GFHhg54GHGhh45GHGH.SendChatPacket("/cube add %d %d" % (selectedSlotPos, attachedSlotPos))
-			if app.ENABLE_SPECIAL_STORAGE:
-				self.cubeItemInfo[selectedSlotPos] = [attachedSlotPos, attachedSlotType]
-				GFHhg54GHGhh45GHGH.SendChatPacket("/cube add %d %d %d" % (selectedSlotPos, attachedSlotPos, fgGHGjjFHJghjfFG1545gGG.SlotTypeToInvenType(attachedSlotType)))
-			else:
-				self.cubeItemInfo[selectedSlotPos] = attachedSlotPos
-				GFHhg54GHGhh45GHGH.SendChatPacket("/cube add %d %d" % (selectedSlotPos, attachedSlotPos))
+			GFHhg54GHGhh45GHGH.SendChatPacket("/cube add %d %d" % (selectedSlotPos, attachedSlotPos))
 
 			self.Refresh()
 
@@ -567,11 +531,7 @@ class CubeWindow(ui.ScriptWindow):
 	def __OnOverInItem(self, slotIndex):
 		if self.tooltipItem:
 			if self.cubeItemInfo.has_key(slotIndex):
-				# self.tooltipItem.SetInventoryItem(self.cubeItemInfo[slotIndex])
-				if app.ENABLE_SPECIAL_STORAGE:
-					self.tooltipItem.SetInventoryItem(self.cubeItemInfo[slotIndex][0])
-				else:
-					self.tooltipItem.SetInventoryItem(self.cubeItemInfo[slotIndex])
+				self.tooltipItem.SetInventoryItem(self.cubeItemInfo[slotIndex])
 
 	def __OnOverOutItem(self):
 		if self.tooltipItem:
