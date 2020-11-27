@@ -845,6 +845,8 @@ class ItemToolTip(ToolTip):
 		136 : localeInfo.TOOLTIP_ANTI_CRITICAL_PCT,
 		137 : localeInfo.TOOLTIP_ANTI_PENETRATE_PCT,
 		
+		92 : localeInfo.TOOLTIP_APPLY_ATTBONUS_STONE,
+		
 		item.APPLY_ATTBONUS_STONE : localeInfo.TOOLTIP_APPLY_ATTBONUS_STONE,
 		item.APPLY_ATTBONUS_BOSS : localeInfo.TOOLTIP_APPLY_ATTBONUS_BOSS,
 	}
@@ -2582,7 +2584,7 @@ class ItemToolTip(ToolTip):
 		for i in xrange(item.ITEM_APPLY_MAX_NUM):
 
 			(affectType, affectValue) = item.GetAffect(i)
-
+			# self.AppendTextLine(str(affectType) + ", " + str(affectValue))
 			affectString = self.__GetAffectString(affectType, affectValue)
 			if affectString:
 				self.AppendTextLine(affectString, self.GetChangeTextLineColor(affectValue))
