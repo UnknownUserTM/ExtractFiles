@@ -151,3 +151,6 @@ metin2_map_dawnmist_dungeon_01_gelb	8872000	2051600	3	4
 metin2_map_dawnmist_dungeon_01_rot	80700800	27918300	3	4
 map_tutorial	9300000	9300000	4	4
 map_dungeon_tutorial_hall	9500000	9500000	2	2
+metin2_map_eastplain_01	1049600	435200	4	5
+metin2_map_eastplain_02	1152000	435200	3	6
+metin2_map_eastplain_03	1228800	435200	4	2
