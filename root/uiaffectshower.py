@@ -8,6 +8,7 @@ import fgGHGjjFHJghjfFG1545gGG
 import uiToolTip
 import math
 import constInfo
+import chat
 
 if app.ENABLE_NEW_AFFECT_POTION:				
 	AFFECT_POTION = {
@@ -493,7 +494,16 @@ class AffectShower(ui.Window):
 			chr.NEW_AFFECT_AUTO_SP_RECOVERY : (localeInfo.TOOLTIP_AUTO_POTION_REST, "d:/ymir work/ui/pattern/auto_spgauge/05.dds"),
 			#chr.NEW_AFFECT_AUTO_HP_RECOVERY : (localeInfo.TOOLTIP_AUTO_POTION_REST, "d:/ymir work/ui/skill/common/affect/gold_premium.sub"),			
 			#chr.NEW_AFFECT_AUTO_SP_RECOVERY : (localeInfo.TOOLTIP_AUTO_POTION_REST, "d:/ymir work/ui/skill/common/affect/gold_bonus.sub"),	
-			
+
+			316 : ("Verteidigung+200", "icon/item/160480.tga",),
+			317 : ("Angriffswer+120", "icon/item/160481.tga",),
+			318 : ("Durchb. Trefferchance+20%", "icon/item/160482.tga",),
+			319 : ("Angriffswert+20%", "icon/item/160483.tga",),
+			320 : ("Verteidigung+20%", "icon/item/160484.tga",),
+			321 : ("Max. TP+20%", "icon/item/160485.tga",),
+			322 : ("Krit. Trefferchance+20%", "icon/item/160486.tga",),
+			323 : ("Durchb. Trefferchance+20%", "icon/item/160487.tga",),
+
 			900 : ("Du erhalst zurzeit keine Erfahrungspunkte!", "affect_icons_wod/wod_no_exp.tga",),
 			901 : ("Der Yang-Chat wurde ausgeblendet.", "affect_icons_wod/no_yang_chat.tga",),
 			902 : ("Haustier", "affect_icons_wod/pet_summon.tga",),
@@ -560,11 +570,14 @@ class AffectShower(ui.Window):
 		self.__ArrangeImageList()
 
 	def BINARY_NEW_AddAffect(self, type, pointIdx, value, duration):
-
+		
+		if self.IS_PERMA_AFFECT(type):
+			self.SetAffect(type)
+			return
 		print "BINARY_NEW_AddAffect", type, pointIdx, value, duration
 
 		if app.ENABLE_NEW_AFFECT_POTION:
-			if type < 500 and not type == AFFECT_POTION["affect"][0] and not type == AFFECT_POTION["affect"][1] and not type == AFFECT_POTION["affect"][2] and not type == AFFECT_POTION["affect"][3] and not type == AFFECT_POTION["affect"][4] and not type == AFFECT_POTION["affect"][5]:
+			if type < 500 and not type == AFFECT_POTION["affect"][0] and not type == AFFECT_POTION["affect"][1] and not type == AFFECT_POTION["affect"][2] and not type == AFFECT_POTION["affect"][3] and not type == AFFECT_POTION["affect"][4] and not type == AFFECT_POTION["affect"][5] and not self.IS_PERMA_AFFECT(type):
 				return
 		else:
 			if type < 500:
@@ -592,7 +605,7 @@ class AffectShower(ui.Window):
 		affectData = self.AFFECT_DATA_DICT[affect]
 		description = affectData[0]
 		filename = affectData[1]
-
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "test 1")
 		if pointIdx == fgGHGjjFHJghjfFG1545gGG.POINT_MALL_ITEMBONUS or\
 		   pointIdx == fgGHGjjFHJghjfFG1545gGG.POINT_MALL_GOLDBONUS:
 			value = 1 + float(value) / 100.0
@@ -631,6 +644,8 @@ class AffectShower(ui.Window):
 
 			try:
 				print "Add affect %s" % affect
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"  Add affect " + str(affect))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"  description " + str(description))
 				image = AffectImage()
 				image.SetParent(self)
 				image.LoadImage(filename)
@@ -660,6 +675,11 @@ class AffectShower(ui.Window):
 				pass
 
 	def BINARY_NEW_RemoveAffect(self, type, pointIdx):
+
+		if self.IS_PERMA_AFFECT(type):
+			self.ResetAffect(type)
+			return
+	
 		if type == chr.NEW_AFFECT_MALL:
 			affect = self.MALL_DESC_IDX_START + pointIdx
 		else:
@@ -668,7 +688,14 @@ class AffectShower(ui.Window):
 		print "Remove Affect %s %s" % ( type , pointIdx )
 		self.__RemoveAffect(affect)
 		self.__ArrangeImageList()
-
+	
+	def IS_PERMA_AFFECT(self,type):
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "IS_PERMA_AFFECT: " + str(type))
+		if type >= 316 and type <= 323:
+			return True
+		else:
+			return False
+	
 	def SetAffect(self, affect):
 		self.__AppendAffect(affect)
 		self.__ArrangeImageList()

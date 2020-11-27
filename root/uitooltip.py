@@ -1673,6 +1673,21 @@ class ItemToolTip(ToolTip):
 		# ------------------------------------------------------------------------------------------ #
 		# Developed by Exterminatus
 		
+		if self.IS_PERMA_POTION(itemVnum):
+			value0 = item.GetValue(1)
+			value2 = item.GetValue(2)
+			socket = metinSlot[0]
+			affectStr = self.__GetAffectString(value0, value2)
+			self.AppendSpace(5)
+			self.AppendTextLine("Bonus: " + str(affectStr), self.SPECIAL_POSITIVE_COLOR)
+			
+			if socket == 0:
+				self.AppendTextLine("(Deaktiviert)", self.NEGATIVE_COLOR)		
+			else:
+				self.AppendTextLine("(Aktiviert)", self.POSITIVE_COLOR)			
+			self.AppendSpace(5)
+			self.AppendHorizontalLine()
+			
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #	
 		# Lehrlingstruhe
 		
@@ -1681,7 +1696,7 @@ class ItemToolTip(ToolTip):
 			self.AppendSpace(5)
 			self.AppendTextLine("Ab Level: " +  str(metinSlot[1]), self.NORMAL_COLOR)		
 		
-		
+			
 		
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #	
 		# FB-Preis
@@ -2438,7 +2453,11 @@ class ItemToolTip(ToolTip):
 		#self.toolTipWidth += itemImage.GetWidth()/2
 		self.childrenList.append(itemImage)
 		self.ResizeToolTip()
-
+	
+	def IS_PERMA_POTION(self,vnum):
+		return (vnum >= 160480 and vnum <= 160487)
+	
+	
 	## 사이즈가 큰 Description 일 경우 툴팁 사이즈를 조정한다
 	def __AdjustMaxWidth(self, attrSlot, desc):
 		newToolTipWidth = self.toolTipWidth

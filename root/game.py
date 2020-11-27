@@ -913,7 +913,7 @@ class GameWindow(ui.ScriptWindow):
 
 	# UNKNOWN_UPDATE
 	def BINARY_NEW_AddAffect(self, type, pointIdx, value, duration):
-		#chat.AppendChat(chat.CHAT_TYPE_INFO,"BINARY_NEW_AddAffect: type: " + str(type) + ", pointIdx: " + str(pointIdx) + ", value: " + str(value) + ", duration: " + str(duration))
+		# chat.AppendChat(chat.CHAT_TYPE_INFO,"BINARY_NEW_AddAffect: type: " + str(type) + ", pointIdx: " + str(pointIdx) + ", value: " + str(value) + ", duration: " + str(duration))
 		self.affectShower.BINARY_NEW_AddAffect(type, pointIdx, value, duration)
 		if chr.NEW_AFFECT_DRAGON_SOUL_DECK1 == type or chr.NEW_AFFECT_DRAGON_SOUL_DECK2 == type:
 			self.interface.DragonSoulActivate(type - chr.NEW_AFFECT_DRAGON_SOUL_DECK1)
@@ -921,6 +921,8 @@ class GameWindow(ui.ScriptWindow):
 			self.BINARY_DragonSoulGiveQuilification()
 
 	def BINARY_NEW_RemoveAffect(self, type, pointIdx):
+		# chat.AppendChat(chat.CHAT_TYPE_INFO,"BINARY_NEW_RemoveAffect: type: " + str(type) + ", pointIdx: " + str(pointIdx))
+
 		self.affectShower.BINARY_NEW_RemoveAffect(type, pointIdx)
 		if chr.NEW_AFFECT_DRAGON_SOUL_DECK1 == type or chr.NEW_AFFECT_DRAGON_SOUL_DECK2 == type:
 			self.interface.DragonSoulDeactivate()

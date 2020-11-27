@@ -1746,7 +1746,22 @@ class InventoryWindow(ui.ScriptWindow):
 					
 				else:
 					self.wndItem.DeactivateSlot(slotNumber)
+			
+			if itemVnum >= 160480 and itemVnum <= 160487:
+				metinSocket = [player.GetItemMetinSocket(slotNumber, j) for j in xrange(player.METIN_SOCKET_MAX_NUM)]	
+				if slotNumber >= player.INVENTORY_PAGE_SIZE and slotNumber < player.INVENTORY_PAGE_SIZE*2:
+					slotNumber -= player.INVENTORY_PAGE_SIZE
+				elif slotNumber >= player.INVENTORY_PAGE_SIZE*2 and slotNumber < player.INVENTORY_PAGE_SIZE*3:
+					slotNumber -= player.INVENTORY_PAGE_SIZE*2
+				elif slotNumber >= player.INVENTORY_PAGE_SIZE*3:
+					slotNumber -= player.INVENTORY_PAGE_SIZE*3	
 					
+				if metinSocket[0] == 1:
+					self.wndItem.ActivateSlot(slotNumber)
+				else:
+					self.wndItem.DeactivateSlot(slotNumber)
+
+			
 			if app.ENABLE_NEW_TYPE_OF_POTION:
 				if constInfo.IS_NEW_SPEED_POTION(itemVnum):
 					metinSocket = [player.GetItemMetinSocket(slotNumber, j) for j in xrange(3)] ## player.METIN_SOCKET_MAX_NUM -> 3
