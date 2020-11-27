@@ -70,9 +70,9 @@ warps = [
 	[
 		["Farmmaps"],
 		[
-			["Farmmap 1",10,22,"NOFLAG",0,70,0,0],
-			["Farmmap 2",50,23,"NOFLAG",0,90,0,0],
-			["Verwunschener Wald",50,35,"NOFLAG",0,90,60002,1],
+			["Orktal",10,22,"NOFLAG",0,70,0,0],
+			["Eisland",50,23,"NOFLAG",0,90,0,0],
+			["Feuerland",50,35,"NOFLAG",0,90,60002,1],
 			["Farmmap 3",75,24,"NOFLAG",0,135,0,0],
 			["Farmmap 4",100,25,"NOFLAG",0,0,0,0],
 			["Farmmap 5",135,26,"NOFLAG",0,0,0,0]

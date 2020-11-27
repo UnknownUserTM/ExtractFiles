@@ -243,8 +243,8 @@ class WarpWindow(ui.ScriptWindow):
 				{
 					"name" : localeInfo.WARP_MAP_NAME_FARM1,
 					"min_level" : 10,
-					"max_level" : 70,
-					"default_image" : "map_22",
+					"max_level" : 55,
+					"default_image" : "map_18",
 					"disable_image" : "",
 					
 					"item" : [],
@@ -255,34 +255,8 @@ class WarpWindow(ui.ScriptWindow):
 				},
 				{
 					"name" : localeInfo.WARP_MAP_NAME_FARM2,
-					"min_level" : 50,
-					"max_level" : 90,
-					"default_image" : "map_23",
-					"disable_image" : "",
-					
-					"item" : [],
-					
-					"is_avail" : MAP_AVAILABLE,
-					
-					"f_key" : 0,
-				},
-				{
-					"name" : localeInfo.WARP_MAP_NAME_FARM3,
-					"min_level" : 50,
-					"max_level" : 90,
-					"default_image" : "map_35",
-					"disable_image" : "",
-					
-					"item" : [],
-					
-					"is_avail" : MAP_AVAILABLE,
-					
-					"f_key" : 0,
-				},
-				{
-					"name" : localeInfo.WARP_MAP_NAME_FARM4,
-					"min_level" : 75,
-					"max_level" : 0,
+					"min_level" : 55,
+					"max_level" : 75,
 					"default_image" : "map_24",
 					"disable_image" : "",
 					
@@ -293,10 +267,36 @@ class WarpWindow(ui.ScriptWindow):
 					"f_key" : 0,
 				},
 				{
+					"name" : localeInfo.WARP_MAP_NAME_FARM3,
+					"min_level" : 55,
+					"max_level" : 90,
+					"default_image" : "map_20",
+					"disable_image" : "",
+					
+					"item" : [],
+					
+					"is_avail" : MAP_AVAILABLE,
+					
+					"f_key" : 0,
+				},
+				{
+					"name" : localeInfo.WARP_MAP_NAME_FARM4,
+					"min_level" : 90,
+					"max_level" : 105,
+					"default_image" : "map_fm4",
+					"disable_image" : "",
+					
+					"item" : [],
+					
+					"is_avail" : MAP_AVAILABLE,
+					
+					"f_key" : 0,
+				},
+				{
 					"name" : localeInfo.WARP_MAP_NAME_FARM5,
-					"min_level" : 100,
-					"max_level" : 0,
-					"default_image" : "map_25",
+					"min_level" : 105,
+					"max_level" : 115,
+					"default_image" : "map_fm5",
 					"disable_image" : "",
 					
 					"item" : [],
@@ -307,9 +307,9 @@ class WarpWindow(ui.ScriptWindow):
 				},
 				{
 					"name" : localeInfo.WARP_MAP_NAME_FARM6,
-					"min_level" : 135,
-					"max_level" : 0,
-					"default_image" : "map_26",
+					"min_level" : 115,
+					"max_level" : 125,
+					"default_image" : "map_fm6",
 					"disable_image" : "",
 					
 					"item" : [],
@@ -431,46 +431,7 @@ class WarpWindow(ui.ScriptWindow):
 					"is_avail" : MAP_AVAILABLE,
 					
 					"f_key" : 0,
-				},		
-				{
-					"name" : localeInfo.WARP_MAP_NAME_ORC,
-					"min_level" : 0,
-					"max_level" : 0,
-					"default_image" : "map_18",
-					"disable_image" : "",
-					
-					"item" : [],
-					
-					"is_avail" : MAP_AVAILABLE,
-					
-					"f_key" : 0,
-				},		
-				{
-					"name" : localeInfo.WARP_MAP_NAME_SOHAN,
-					"min_level" : 0,
-					"max_level" : 0,
-					"default_image" : "map_19",
-					"disable_image" : "",
-					
-					"item" : [],
-					
-					"is_avail" : MAP_AVAILABLE,
-					
-					"f_key" : 0,
-				},		
-				{
-					"name" : localeInfo.WARP_MAP_NAME_DOYY,
-					"min_level" : 0,
-					"max_level" : 0,
-					"default_image" : "map_20",
-					"disable_image" : "",
-					
-					"item" : [],
-					
-					"is_avail" : MAP_AVAILABLE,
-					
-					"f_key" : 0,
-				},		
+				},					
 				{
 					"name" : localeInfo.WARP_MAP_NAME_YONGBI,
 					"min_level" : 0,
