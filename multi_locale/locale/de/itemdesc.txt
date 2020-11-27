@@ -461,7 +461,7 @@
 39013	Segen des Drachen	Ein Segen, der deine TP und MP augenblicklich vollständig regeneriert. Dieses Item ist handelbar.
 39014	Schriftrolle des Krieges	Die Verbesserung von Gegenständen gelingt vollständig. Nur anwendbar bei Gegenständen +0 bis +3. Dieses Item ist handelbar.
 39017	Drachengott-Leben	Erhöht deine maximalen TP 30 Minuten lang um 20%. Dieses Item ist handelbar.
-39018	Drachengott-Angriff	Erhöht den Schaden, den du anderen im Kampf zufügst, 30 Minuten lang um 12 bis 15%. Dieses Item ist handelbar.
+39018	Drachengott-Angriff	Unterstützt dich 30 Minuten lang
 39019	Drachengott-Intelligenz	Erhöht deine maximalen MP 30 Minuten lang um 20%. Dieses Item ist handelbar.
 39020	Drachengott-Verteidigung	Verringert den Schaden, den du im Kampf erleidest, 30 Minuten lang um 12 bis 15%. Dieses Item ist handelbar.
 39021	Drachengottunterstützung	Vitalität, Stärke, Intelligenz und Beweglichkeit deines Charakters erhöhen sich vorübergehend auf das Fünffache. Dieses Item ist handelbar.
@@ -1458,10 +1458,10 @@
 72031	Drachengott-Angriff	Erhöht deinen Angriffswert 30 Minuten lang um 12 bis 15%.
 72032	Drachengott-Angriff	Erhöht deinen Angriffswert 30 Minuten lang um 12 bis 15%.
 72033	Drachengott-Angriff	Erhöht deinen Angriffswert 30 Minuten lang um 12 bis 15%.
-72034	Drachengott-Verteidigung	Verringert den Schaden, den du bei der Verteidigung erleidest, um 12-15 %.
+72034	Drachengott-Verteidigung	Unterstützt dich 30 Minuten lang
 72035	Drachengott-Verteidigung	Verringert den Schaden, den du bei der Verteidigung erleidest, um 12-15 %.
 72036	Drachengott-Verteidigung	Verringert den Schaden, den du bei der Verteidigung erleidest, um 12-15 %.
-72037	Drachengott-Leben	Erhöht deine maximalen TP 30 Minuten lang um 20%.
+72037	Drachengott-Leben	Unterstützt dich 30 Minuten lang
 72038	Drachengott-Leben	Erhöht deine maximalen TP 30 Minuten lang um 20%.
 72039	Drachengott-Leben	Erhöht deine maximalen TP 30 Minuten lang um 20%.
 72040	Drachengott-Intelligenz	Erhöht deine maximalen MP 30 Minuten lang um 20%.
@@ -2006,16 +2006,16 @@
 79998	Kostüm verwandeln	Fügt auf einem Kostüm einen zufälligen Boni hinzu. Maximal können 3 Boni hinzugefügt werden.
 79999	Kostüm verzaubern	Ändert die Boni auf einem Kostüm.
 80000	Kostüm verzaubern(+)	Ändert einen ausgewählten Boni auf einem Kostüm.
-160480	Weißer Tau (Permanent)	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
-160481	Blauer Tau (Permanent)	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
-160482	Gelber Tau (Permanent)	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
-160483	Drachengott Angriff (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
-160484	Drachengott Verteidigung (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
-160485	Drachengott Leben (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
-160486	Kritischer Kampf (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
-160487	Durchbohrender Kampf (Permanent)	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
-160488	Durchbohrender Kampf	test
-160489	Kritischer Kampf	test
+160480	Weißer Tau +	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
+160481	Blauer Tau +	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
+160482	Gelber Tau +	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
+160483	Drachengott Angriff +	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
+160484	Drachengott Verteidigung +	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
+160485	Drachengott Leben +	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
+160486	Kritischer Kampf +	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
+160487	Durchbohrender Kampf +	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
+160488	Durchbohrender Kampf	Unterstützt dich 30 Minuten lang
+160489	Kritischer Kampf	Unterstützt dich 30 Minuten lang
 160490	Lehrlingstruhe	Diese Truhe wird dich während deines Levelns immer mit wertvollen und wichtigen Gegenständen versorgen!
 27122	Violetter Trank (P)	Erhöht deine Bewegungsgeschwindigkeit um 30.
 27123	Grüner Trank (P)	Erhöht deine Angriffsgeschwindigkeit um 30.
