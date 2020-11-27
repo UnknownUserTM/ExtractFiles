@@ -268,6 +268,10 @@ class CostumeAttributeChanger(ui.ScriptWindow):
 		15 : "Chance auf krit. Treffer",
 		16 : "Chance auf durchbohrenden Treffer",
 		17 : "Stark gegen Halbmenschen",
+		1 : "Max. TP",
+		92 : "Stark gegen Metinsteine",
+		93 : "Stark gegen Bosse",
+		63 : "Stark gegen Monster",
 	}
 	
 	def __init__(self, wndInventory):
