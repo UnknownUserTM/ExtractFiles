@@ -4964,7 +4964,7 @@
 39022	ETC	icon/item/71032.tga
 39023	ETC	season1/icon/item/71035.tga
 39024	ETC	icon/item/71044.tga
-39025	ETC	icon/item/71045.tga
+39025	ETC	icon/item/39025.tga
 39026	ETC	icon/item/27103.tga
 39027	ETC	icon/item/71083.tga
 39028	ETC	icon/item/newchanger.tga
@@ -8150,6 +8150,8 @@
 160485	ETC	icon/item/160485.tga
 160486	ETC	icon/item/160486.tga
 160487	ETC	icon/item/160487.tga
+160488	ETC	icon/item/160487.tga
+160489	ETC	icon/item/160489.tga
 160490	ETC	icon/item/50187.tga
 27122	ETC	icon/item/27105.tga
 27123	ETC	icon/item/27102.tga
