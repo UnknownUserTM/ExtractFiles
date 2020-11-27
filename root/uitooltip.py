@@ -1678,7 +1678,10 @@ class ItemToolTip(ToolTip):
 			value2 = item.GetValue(2)
 			socket = metinSlot[0]
 			affectStr = self.__GetAffectString(value0, value2)
-			self.AppendSpace(5)
+			self.AppendSpace(3)
+			
+			self.__AppendLimitInformation()
+			
 			self.AppendTextLine("Bonus: " + str(affectStr), self.SPECIAL_POSITIVE_COLOR)
 			
 			if socket == 0:
