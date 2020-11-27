@@ -935,8 +935,10 @@ Group ShapeData
 	Group ShapeData45
 	{
 		
+		SpecialPath			"d:/ymir Work/pc/warrior/"
+		
 		ShapeIndex			40032
-		Model				"warrior_assasin1.GR2"
+		Model				"warrior_assasin1.gr2"
 		SourceSkin			"warrior_assassin1.dds"
 		TargetSkin			"warrior_assassin1.dds"
 	}
