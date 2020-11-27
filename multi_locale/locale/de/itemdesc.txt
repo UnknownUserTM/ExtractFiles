@@ -1347,7 +1347,7 @@
 71081	Metinstein (normal)	Lässt einen normal großen Metinstein neben dir abstürzen.
 71082	Metinstein (schwer)	Lässt einen schweren Metinstein neben dir abstürzen.
 71083	Stein-Handbuch	Entfernt alle zerbrochenen Steine aus einem Gegenstand. Somit erhältst du einen weiteren Versuch, Waffe oder Rüstung zu verbessern.
-71084	Gegenstand verzaubern	Entfernt die Boni eines deiner Gegenstände und fügt neue hinzu.|Dieses Gegenstand verzaubern ist permanent.|
+71084	Gegenstand verzaubern	Entfernt die Boni eines deiner Gegenstände und fügt neue hinzu.
 71085	Gegenstand verstärken	Fügt sofort 5 Boni in dein Ausrüstungsgegenstand ein.
 71088	Missionsbuch (leicht)	Das in braunes Leder gebundene Werk enthält eine Mission, die auch von unerfahrenen Kämpfern gelöst werden kann.
 71089	Missionsbuch (normal)	Das in braunes Leder gebundene Werk enthält eine Mission, die nur von jenen gelöst werden kann, die bereits über Erfahrung im Kampf verfügen.
