@@ -73,6 +73,11 @@ ITEM_WITH_TEXT_NEW = [
 			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
 		]
 	],
+	[
+		[71149],[
+			[localeInfo.NOTDESTROY,grp.GenerateColor(0.0, 1.0, 0.0, 1.0)] # 000, 255, 000 (Grün)
+		]
+	],
 ]
 QUESTBOOK_QUEST = [
 	[ # Leicht

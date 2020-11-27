@@ -5109,7 +5109,7 @@
 52706	ETC	icon/item/52701.tga
 52707	ETC	icon/item/52701.tga	
 71148	ETC	icon/item/71148.tga
-71149	ETC	icon/item/71149.tga
+71149	ETC	icon/item/71143.tga
 71150	ETC	icon/item/71150.tga
 38100	ETC	season1/icon/item/50709.tga
 38101	ETC	season1/icon/item/50709.tga
