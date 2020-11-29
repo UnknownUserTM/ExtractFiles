@@ -58,7 +58,6 @@ class OptionDialog(ui.ScriptWindow):
 		self.showHideCostumeButtonList = []
 		self.showHideCostumeButtonList2 = []
 		self.bindMultiShopButton = []
-		self.renderTarget = []
 
 	def Destroy(self):
 		self.ClearDictionary()
@@ -100,7 +99,6 @@ class OptionDialog(ui.ScriptWindow):
 			self.showDamageButtonList.append(GetObject("show_damage_off_button"))
 			self.showsalesTextButtonList.append(GetObject("salestext_on_button"))
 			self.showsalesTextButtonList.append(GetObject("salestext_off_button"))
-			self.renderTarget.append(GetObject("RenderTarget_on_off"))
 			
 			if app.WJ_SHOW_MOB_INFO:
 				self.showMobInfoButtonList.append(GetObject("show_mob_level_button"))
@@ -176,11 +174,8 @@ class OptionDialog(ui.ScriptWindow):
 		self.showDamageButtonList[1].SAFE_SetEvent(self.__OnClickShowDamageOffButton)
 		
 		self.showsalesTextButtonList[0].SAFE_SetEvent(self.__OnClickSalesTextOnButton)
-		self.showsalesTextButtonList[1].SAFE_SetEvent(self.__OnClickSalesTextOffButton)
-
-		self.renderTarget[0].SetToggleUpEvent(self.__OnClickRenderTargetOnButton)
-		self.renderTarget[0].SetToggleDownEvent(self.__OnClickRenderTargetOffButton)
-
+		self.showsalesTextButtonList[1].SAFE_SetEvent(self.__OnClickSalesTextOffButton)		
+		
 		if app.WJ_SHOW_MOB_INFO:
 			self.showMobInfoButtonList[0].SetToggleUpEvent(self.__OnClickShowMobLevelButton)
 			self.showMobInfoButtonList[1].SetToggleUpEvent(self.__OnClickShowMobAIFlagButton)
@@ -219,21 +214,6 @@ class OptionDialog(ui.ScriptWindow):
 			eachButton.SetUp()
 
 		selButton.Down()
-
-	def UpdateRenderSystem(self):
-		if constInfo.DISABLE_MODEL_PREVIEW == 1:
-			self.renderTarget[0].Down()
-		else:
-			self.renderTarget[0].SetUp()
-
-			
-	def __OnClickRenderTargetOnButton(self):
-		constInfo.DISABLE_MODEL_PREVIEW = 0
-		self.UpdateRenderSystem()
-
-	def __OnClickRenderTargetOffButton(self):
-		constInfo.DISABLE_MODEL_PREVIEW = 1
-		self.UpdateRenderSystem()
 
 	def __SetNameColorMode(self, index):
 		constInfo.SET_CHRNAME_COLOR_INDEX(index)

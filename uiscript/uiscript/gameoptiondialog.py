@@ -431,28 +431,7 @@ window = {
 					"over_image" : ROOT_PATH + "middle_button_02.sub",
 					"down_image" : ROOT_PATH + "middle_button_03.sub",
 				},
-				## Render Target An/Aus
-				{
-					"name" : "RenderTarget",
-					"type" : "text",
-
-					"x" : LINE_LABEL_X,
-					"y" : 260+2,
-
-					"text" : "Render Target",
-				},
-				{
-					"name" : "RenderTarget_on_off",
-					"type" : "toggle_button",
-
-					"x" : LINE_DATA_X,
-					"y" : 265,
-
-					"text" : "ON / OFF",
-					"default_image" : ROOT_PATH + "middle_button_01.sub",
-					"over_image" : ROOT_PATH + "middle_button_02.sub",
-					"down_image" : ROOT_PATH + "middle_button_03.sub",
-				},
+				
 				## Show Mob Info List
 				{
 					"name" : "show_mob_info",

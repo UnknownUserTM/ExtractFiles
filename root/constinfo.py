@@ -22,9 +22,7 @@ BlockItemsSystem = {
 }
 
 yangspeicher = 0
-
-DISABLE_MODEL_PREVIEW = 0
-
+	
 # option
 IN_GAME_SHOP_ENABLE = 1
 CONSOLE_ENABLE = 0
