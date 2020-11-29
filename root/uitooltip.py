@@ -20,7 +20,6 @@ import mouseModule
 import constInfo
 import settinginfo
 import exterminatus
-import renderTarget
 
 GOLD_STORAGE_ITEMS = [80003,80004,80005,80006,30251,30252,30253]
 
@@ -725,239 +724,6 @@ class ItemToolTip(ToolTip):
 		isBook = False
 		isBook2 = False
 
-	MountVnum = {
-		52001:20201,
-		52002:20201,
-		52003:20201,
-		52004:20201,
-		52005:20201,
-		52006:20205,
-		52007:20205,
-		52008:20205,
-		52009:20205,
-		52010:20205,
-		52011:20209,
-		52012:20209,
-		52013:20209,
-		52014:20209,
-		52015:20209,
-		52016:20202,
-		52017:20202,
-		52018:20202,
-		52019:20202,
-		52020:20202,
-		52021:20206,
-		52022:20206,
-		52023:20206,
-		52024:20206,
-		52025:20206,
-		52026:20210,
-		52027:20210,
-		52028:20210,
-		52029:20210,
-		52030:20210,
-		52031:20204,
-		52032:20204,
-		52033:20204,
-		52034:20204,
-		52035:20204,
-		52036:20208,
-		52037:20208,
-		52038:20208,
-		52039:20208,
-		52040:20208,
-		52041:20212,
-		52042:20212,
-		52043:20212,
-		52044:20212,
-		52045:20212,
-		52046:20203,
-		52047:20203,
-		52048:20203,
-		52049:20203,
-		52050:20203,
-		52051:20207,
-		52052:20207,
-		52053:20207,
-		52054:20207,
-		52055:20207,
-		52056:20211,
-		52057:20211,
-		52058:20211,
-		52059:20211,
-		52060:20211,
-		52061:20213,
-		52062:20213,
-		52063:20213,
-		52064:20213,
-		52065:20213,
-		52066:20214,
-		52067:20214,
-		52068:20214,
-		52069:20214,
-		52070:20214,
-		52071:20215,
-		52072:20215,
-		52073:20215,
-		52074:20215,
-		52075:20215,
-		52076:20216,
-		52077:20216,
-		52078:20216,
-		52079:20216,
-		52080:20216,
-		52081:20217,
-		52082:20217,
-		52083:20217,
-		52084:20217,
-		52085:20217,
-		52086:20218,
-		52087:20218,
-		52088:20218,
-		52089:20218,
-		52090:20218,
-		52091:20223,
-		52092:20223,
-		52093:20223,
-		52094:20223,
-		52095:20223,
-		52096:20224,
-		52097:20224,
-		52098:20224,
-		52099:20224,
-		52100:20224,
-		52101:20225,
-		52102:20225,
-		52103:20225,
-		52104:20225,
-		52105:20225,
-		52107:20228,
-		52106:20228,
-		52108:20228,
-		52109:20228,
-		52110:20228,
-		52111:20229,
-		52112:20229,
-		52113:20229,
-		52114:20229,
-		52115:20229,
-		52116:20230,
-		52117:20230,
-		52118:20230,
-		52119:20230,
-		52120:20230,
-		71114:20110,
-		71116:20111,
-		71118:20112,
-		71120:20113,
-		71115:20110,
-		71117:20111,
-		71119:20112,
-		71121:20113,
-		71124:20114,
-		71125:20115,
-		71126:20116,
-		71127:20117,
-		71128:20118,
-		71131:20119,
-		71132:20119,
-		71133:20119,
-		71134:20119,
-		71137:20120,
-		71138:20121,
-		71139:20122,
-		71140:20123,
-		71141:20124,
-		71142:20125,
-		71161:20219,
-		71164:20220,
-		71165:20221,
-		71166:20222,
-		71171:20227,
-		71172:20226,
-		71176:20231,
-		71177:20232,
-		71182:20233,
-		71183:20234,
-		71184:20235,
-		71185:20236,
-		71186:20237,
-		71187:20238,
-		71192:20240,
-		71193:20239,
-		71197:20241,
-		71198:20242,
-		71220:20243
-	}
-
-	PetVnum = {
-		53001:34001,
-		53002:34002,
-		53003:34003,
-		53005:34004,
-		53006:34009,
-		53007:34010,
-		53008:34011,
-		53009:34012,
-		53010:34008,
-		53011:34007,
-		53012:34005,
-		53013:34006,
-		53014:34013,
-		53015:34014,
-		53016:34015,
-		53017:34016,
-		53018:34020,
-		53019:34019,
-		53020:34017,
-		53021:34018,
-		53022:34021,
-		53023:34022,
-		53024:34023,
-		53025:34024,
-		53218:34023,
-		53219:34023,
-		53220:34024,
-		53221:34024,
-		53222:34026,
-		53223:34027,
-		53224:34028,
-		53225:34029,
-		53226:34030,
-		53227:34031,
-		53228:34033,
-		53229:34032,
-		53230:34034,
-		53231:34035,
-		53232:34039,
-		53233:34055,
-		53234:34056,
-		53235:34057,
-		53236:34060,
-		53237:34061,
-		53238:34058,
-		53239:34059,
-		53240:34063,
-		53241:34062,
-		53256:34066,
-		53242:34066,
-		53243:34066,
-		53244:34067,
-		53245:34068,
-		53246:34069,
-		53247:34070,
-		53248:34071,
-		53249:34072,
-		53250:34084,
-		53251:34085,
-		38200:34006,
-		38201:34006,
-	}		
-		
-	ModelPreviewBoard = None
-	ModelPreview = None
-	ModelPreviewText = None
-
 	CHARACTER_NAMES = ( 
 		localeInfo.TOOLTIP_WARRIOR,
 		localeInfo.TOOLTIP_ASSASSIN,
@@ -1133,43 +899,6 @@ class ItemToolTip(ToolTip):
 	def __del__(self):
 		ToolTip.__del__(self)
 
-	def CanViewRendering(self):
-		race = fgGHGjjFHJghjfFG1545gGG.GetRace()
-		job = chr.RaceToJob(race)
-		if not self.ANTI_FLAG_DICT.has_key(job):
-			return False
-
-		if item.IsAntiFlag(self.ANTI_FLAG_DICT[job]):
-			return False
-
-		sex = chr.RaceToSex(race)
-		
-		MALE = 1
-		FEMALE = 0
-
-		if item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and sex == MALE:
-			return False
-
-		if item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and sex == FEMALE:
-			return False
-
-		return True
-
-	def CanViewRenderingSex(self):
-		race = fgGHGjjFHJghjfFG1545gGG.GetRace()
-		sex = chr.RaceToSex(race)
-		
-		MALE = 1
-		FEMALE = 0
-
-		if item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and sex == MALE:
-			return False
-
-		if item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and sex == FEMALE:
-			return False
-
-		return True
-
 	def SetCannotUseItemForceSetDisableColor(self, enable):
 		self.bCannotUseItemForceSetDisableColor = enable
 
@@ -1244,7 +973,7 @@ class ItemToolTip(ToolTip):
 		metinSlot = [fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(window_type, slotIndex, i) for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM)]
 		attrSlot = [fgGHGjjFHJghjfFG1545gGG.GetItemAttribute(window_type, slotIndex, i) for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM)]
 		stackCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(slotIndex)
-		self.AddItemData(itemVnum, metinSlot, attrSlot, 0, 0, stackCount, 1)
+		self.AddItemData(itemVnum, metinSlot, attrSlot, 0, 0, stackCount)
 				
 		if str(fgGHGjjFHJghjfFG1545gGG.GetName())[0] == "[":	
 			self.AppendSpace(5)	
@@ -1716,7 +1445,7 @@ class ItemToolTip(ToolTip):
 		self.AppendDescription(itemDesc, 26)
 		self.AppendDescription(itemSummary, 26, self.CONDITION_COLOR)
 
-	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, unbindTime = 0, stackCount = 0,  preview = 0):
+	def AddItemData(self, itemVnum, metinSlot, attrSlot = 0, flags = 0, unbindTime = 0, stackCount = 0):
 		self.itemVnum = itemVnum
 		
 		if itemVnum < 0:
@@ -1816,7 +1545,6 @@ class ItemToolTip(ToolTip):
 		#if not constInfo.IS_PET_SEAL(itemVnum):
 		self.__SetItemTitle(itemVnum, metinSlot, attrSlot, stackCount)	
 		self.AppendHorizontalLine()
-		self.__ModelPreviewClose()
 		### Hair Preview Image ###
 		if self.__IsHair(itemVnum):	
 			self.__AppendHairIcon(itemVnum)
@@ -1851,19 +1579,7 @@ class ItemToolTip(ToolTip):
 			self.AppendSpace(5)
 			self.AppendHorizontalLine()
 			self.__AppendMetinSlotInfo(metinSlot)
-			if preview != 0:
-				if item.WEAPON_SWORD == itemSubType: 
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() != 7 and fgGHGjjFHJghjfFG1545gGG.GetRace() != 3:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
-				if item.WEAPON_DAGGER == itemSubType or item.WEAPON_BOW == itemSubType: 
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
-				if item.WEAPON_TWO_HANDED == itemSubType: 
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 0 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 4:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())		
-				if item.WEAPON_BELL == itemSubType or item.WEAPON_FAN == itemSubType: 
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())	
+
 		### Armor ###
 		elif item.ITEM_TYPE_ARMOR == itemType:
 			self.__AppendLimitInformation()
@@ -1878,15 +1594,6 @@ class ItemToolTip(ToolTip):
 			self.__AppendMagicDefenceInfo()
 			self.__AppendAffectInformation()
 			self.__AppendAttributeInformation(attrSlot)
-			if preview != 0 and itemSubType == 0:
-				if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 3 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 7: 
-					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())	
-				if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 1 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 5: 
-					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
-				if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 0 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 4: 
-					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
-				else:
-					self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())	
 			self.AppendHorizontalLine()
 			self.AppendWearableInformation()
 			self.AppendSpace(5)
@@ -1905,11 +1612,7 @@ class ItemToolTip(ToolTip):
 
 			self.__AppendAccessoryMetinSlotInfo(metinSlot, constInfo.GET_BELT_MATERIAL_VNUM(itemVnum))
 		
-		elif itemVnum in self.MountVnum:
-			self.__ModelPreview(itemVnum, 5, self.MountVnum[itemVnum])	
-			
-		elif itemVnum in self.PetVnum:
-			self.__ModelPreview(itemVnum, 5, self.PetVnum[itemVnum])					
+				
 		## 코스츔 아이템 ##
 		elif 0 != isCostumeItem:
 			self.__AppendLimitInformation()
@@ -1941,43 +1644,6 @@ class ItemToolTip(ToolTip):
 				self.AppendSpace(5)
 				self.AppendHorizontalLine()
 				#dbg.TraceError("1) REAL_TIME flag On ")
-
-			if preview != 0:
-				if itemSubType == 0: #body
-					if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace():
-						self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					
-				elif itemSubType == 1: #Hair 
-					if item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 4 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 0):
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					if item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1):
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					if item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 2 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 6):
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					elif item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3):
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-							self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-							
-				elif itemSubType == 3: #weapon	
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() != 7 and fgGHGjjFHJghjfFG1545gGG.GetRace() != 3:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 0 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 4:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())		
-					if fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3:
-						self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())	
 				
 		## Rod ##
 		elif item.ITEM_TYPE_ROD == itemType:
@@ -2676,7 +2342,6 @@ class ItemToolTip(ToolTip):
 		self.AppendAntiflagInformation()
 			
 		self.ShowToolTip()
-		# preview = 1
 		
 	def AppendAntiflagInformation(self):
 		self.AppendSpace(5)
@@ -2801,94 +2466,7 @@ class ItemToolTip(ToolTip):
 	
 	def IS_PERMA_POTION(self,vnum):
 		return (vnum >= 160480 and vnum <= 160487)
-
-	def __ModelPreview(self, Vnum, test, model):
-		
-		if constInfo.DISABLE_MODEL_PREVIEW == 1:
-			return
-
-		RENDER_TARGET_INDEX = 1
-
-		self.ModelPreviewBoard = ui.ThinBoard()
-		self.ModelPreviewBoard.SetParent(self)
-		self.ModelPreviewBoard.SetSize(190+10, 210+30)
-		self.ModelPreviewBoard.SetPosition(-202, 0)
-		self.ModelPreviewBoard.Show()
-
-		self.ModelPreview = ui.RenderTarget()
-		self.ModelPreview.SetParent(self.ModelPreviewBoard)
-		self.ModelPreview.SetSize(190, 210)
-		self.ModelPreview.SetPosition(5, 22)
-		self.ModelPreview.SetRenderTarget(RENDER_TARGET_INDEX)
-		self.ModelPreview.Show()
-
-		self.ModelPreviewText = ui.TextLine()
-		self.ModelPreviewText.SetParent(self.ModelPreviewBoard)
-		self.ModelPreviewText.SetFontName(self.defFontName)
-		self.ModelPreviewText.SetPackedFontColor(grp.GenerateColor(0.8824, 0.9804, 0.8824, 1.0))
-		self.ModelPreviewText.SetPosition(0, 5)
-		self.ModelPreviewText.SetText("Vorschau by Volvox")
-		self.ModelPreviewText.SetOutline()
-		self.ModelPreviewText.SetFeather(False)
-		self.ModelPreviewText.SetWindowHorizontalAlignCenter()
-		self.ModelPreviewText.SetHorizontalAlignCenter()
-		self.ModelPreviewText.Show()
-		renderTarget.SetBackground(RENDER_TARGET_INDEX, "d:/ymir work/ui/game/myshop_deco/model_view_bg.sub")
-		renderTarget.SetVisibility(RENDER_TARGET_INDEX, True)
-		renderTarget.SelectModel(RENDER_TARGET_INDEX, model)
-		if test == 1:
-			renderTarget.SetHair(RENDER_TARGET_INDEX, Vnum)
-		elif test == 2:
-			renderTarget.SetArmor(RENDER_TARGET_INDEX, Vnum)	
-		elif test == 3:
-			renderTarget.SetWeapon(RENDER_TARGET_INDEX, Vnum)
-		elif test == 4:
-			renderTarget.SetAcce(RENDER_TARGET_INDEX, Vnum)
-
-			
-	def __ModelPreviewClose(self):
-		RENDER_TARGET_INDEX = 1
-
-		if self.ModelPreviewBoard:
-			self.ModelPreviewBoard.Hide()
-			self.ModelPreview.Hide()
-			self.ModelPreviewText.Hide()
-
-			self.ModelPreviewBoard = None
-			self.ModelPreview = None
-			self.ModelPreviewText = None
-
-			renderTarget.SetVisibility(RENDER_TARGET_INDEX, False)	
 	
-	def __ItemGetRace(self):
-		race = 0
-
-		if item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN):
-			race = 9
-		elif item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN):
-			race = 1
-		elif item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) and item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN):
-			race = 2
-		elif item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) and item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA):
-			race = 3
-
-		sex = chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace())
-		MALE = 1
-		FEMALE = 0
-
-		if item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and sex == MALE:
-			race = fgGHGjjFHJghjfFG1545gGG.GetRace() + 4
-
-		if item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and sex == FEMALE:
-			race = fgGHGjjFHJghjfFG1545gGG.GetRace()
-
-		if race == 0:
-			race = fgGHGjjFHJghjfFG1545gGG.GetRace()
-
-		if race == 9:
-			race = 0
-
-		return race	
 	
 	## 사이즈가 큰 Description 일 경우 툴팁 사이즈를 조정한다
 	def __AdjustMaxWidth(self, attrSlot, desc):
