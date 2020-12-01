@@ -14,6 +14,16 @@ import settinginfo
 import chat
 import item
 import uiToolTip
+
+BOSS_DATA = {
+	"metin2_map_c1" : [
+		[51,47,"Der Imperator",20]
+	],
+}
+
+SHOW_BOSS_ICON_POSITION_HELPER = False # Auf True ändern um koordinaten angezeigt zu bekommen.
+
+
 class SwitchBotToolTipNEW(ui.Window):
 	normalWidth = 200
 
@@ -261,6 +271,64 @@ class MapTextToolTip(ui.Window):
 	def GetTextSize(self):
 		return self.textLine.GetTextSize()
 
+class AtlasBossIcon(ui.Window):
+
+	def __init__(self):
+		ui.Window.__init__(self)
+		self.SetSize(16,16)
+		# self.SetPosition(wndMgr.GetScreenWidth() - 149,58)
+		self.MakeSkull()
+		self.toolTip = uiToolTip.ToolTip()
+		self.toolTip.HideToolTip()
+		self.name = "NoName"
+		self.respawnTime = 0
+		self.Show()
+		
+	def __del__(self):
+		ui.Window.__del__(self)	
+
+	def MakeSkull(self):
+		self.skullImage = ui.ImageBox()
+		self.skullImage.SetParent(self)
+		self.skullImage.SetPosition(0,0)
+		self.skullImage.LoadImage("yamato_boss/skull3.tga")
+		self.skullImage.Show()
+	
+	def SetBossInfo(self,name,respawnTime,x,y):
+		self.name = str(name)
+		self.respawnTime = str(respawnTime)
+		self.x = int(x) + 8
+		self.y = int(y) + 8
+		
+	def Update(self):
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Update")
+		if self.skullImage.IsIn():
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"IsIn!")
+			
+	def CheckMousePositionForToolTip(self,x,y):
+		canShowX = False
+		canShowY = False
+		if x >= self.x - 5 and x <= self.x + 5:
+			canShowX = True
+	
+		if y >= self.y - 5 and y <= self.y + 5:
+			canShowY = True
+			
+		if canShowX and canShowY:	
+			self.ShowToolTip()
+		else:
+			self.HideToolTip()
+		
+	def ShowToolTip(self):
+		self.toolTip.ClearToolTip()
+		self.toolTip.AppendTextLine(self.name,self.toolTip.TITLE_COLOR)			
+		self.toolTip.AppendTextLine("Respawnzeit: " + self.respawnTime + " Min.",self.toolTip.NORMAL_COLOR)			
+		self.toolTip.ShowToolTip()
+
+	def HideToolTip(self):
+		self.toolTip.HideToolTip()
+		
+
 class AtlasWindow(ui.ScriptWindow):
 
 	class AtlasRenderer(ui.Window):
@@ -290,6 +358,7 @@ class AtlasWindow(ui.ScriptWindow):
 		self.infoGuildMark = ui.MarkBox()
 		self.infoGuildMark.Hide()
 		self.AtlasMainWindow = None
+		self.bossIconList = {}
 		self.mapName = ""
 		self.board = 0
 		self.showLocalMousePosition = True
@@ -298,7 +367,24 @@ class AtlasWindow(ui.ScriptWindow):
 
 	def __del__(self):
 		ui.ScriptWindow.__del__(self)
+	
+	
+	def MakeBossIcons(self):
+		mapName = background.GetCurrentMapName()
+		
+		if mapName in BOSS_DATA:
+			data = BOSS_DATA[mapName]
+			for i in xrange(len(data)):
+				self.bossIconList[i] = AtlasBossIcon()
+				self.bossIconList[i].SetParent(self.AtlasMainWindow)
+				self.bossIconList[i].SetPosition(data[i][0],data[i][1])
+				self.bossIconList[i].SetBossInfo(data[i][2],data[i][3],data[i][0],data[i][1])
+				self.bossIconList[i].Show()
+				
+	def ClearBossIcons(self):
+		self.bossIconList = {}
 
+	
 	def SetMapName(self, mapName):
 		if 949==app.GetDefaultCodePage():
 			try:
@@ -317,13 +403,19 @@ class AtlasWindow(ui.ScriptWindow):
 		try:
 			self.board = self.GetChild("board")
 			self.titleBar = self.GetChild("TitleBar")
-			self.toolTipPos = self.GetChild("positionToolTip")
+			# self.toolTipPos = self.GetChild("positionToolTip")
 
 		except:
 			import exception
 			exception.Abort("AtlasWindow.LoadWindow.BindObject")
-		self.toolTipPos.Hide()
+
 		self.AtlasMainWindow = self.AtlasRenderer()
+
+		self.toolTipPos = ui.TextLine()
+		self.toolTipPos.SetParent(self.AtlasMainWindow)
+		self.toolTipPos.SetOutline()
+		self.toolTipPos.Hide()
+		self.toolTipPos.SetTop()
 		self.titleBar.SetCloseEvent(self.Hide)
 		self.AtlasMainWindow.SetParent(self.board)
 		self.AtlasMainWindow.SetPosition(12+13, 34-10-8)
@@ -331,7 +423,8 @@ class AtlasWindow(ui.ScriptWindow):
 		self.infoGuildMark.SetParent(self.board)
 		self.SetPosition(wndMgr.GetScreenWidth() - 136 - 256 - 10, 0)
 		self.Hide()
-
+		self.ClearBossIcons()
+		self.MakeBossIcons()
 		miniMap.RegisterAtlasWindow(self)
 
 	def Destroy(self):
@@ -343,6 +436,7 @@ class AtlasWindow(ui.ScriptWindow):
 		self.infoGuildMark = None
 		self.board = None
 		self.titleBar = None
+		self.ClearBossIcons()
 
 	def OnUpdate(self):
 
@@ -361,10 +455,17 @@ class AtlasWindow(ui.ScriptWindow):
 		(mouseX, mouseY) = wndMgr.GetMousePosition()
 		(iPosX, iPosY) = miniMap.GetAtlasPositionInfo(mouseX, mouseY)
 		textWidth, textHeight = self.toolTipPos.GetTextSize()
-		self.toolTipPos.SetText("x: " + str(iPosX) + ", y: " + str(iPosY))
-		self.toolTipPos.SetPosition(mouseX - x - textWidth - 18 - 5, mouseY - y - 50)
-		self.toolTipPos.Show()
+		
+		if SHOW_BOSS_ICON_POSITION_HELPER:
+			self.toolTipPos.SetText("x: " + str(mouseX - x - 25) + ", y: " + str(mouseY - y - 66))
+			self.toolTipPos.SetPosition(mouseX - x - textWidth - 18 - 5, mouseY - y - 50)
+			self.toolTipPos.Show()
+		
+		for i in xrange(len(self.bossIconList)):
+			self.bossIconList[i].CheckMousePositionForToolTip(mouseX - x - 25,mouseY - y - 66)
 
+		
+		
 		(bFind, sName, iPosX, iPosY, dwTextColor, dwGuildID) = miniMap.GetAtlasInfo(mouseX, mouseY)	
 		if False == bFind:
 			return

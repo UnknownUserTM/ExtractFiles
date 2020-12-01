@@ -39,22 +39,22 @@ window = {
 			"width" : 256 + 15,
 			"height" : 256 + 38,
 			
-			"children" : (
-				{
-					"name" : "positionToolTip",
-					"type" : "text",
+			# "children" : (
+				# {
+					# "name" : "positionToolTip",
+					# "type" : "text",
 					
-					"x" : 0,
-					"y" : 0,
+					# "x" : 0,
+					# "y" : 0,
 					
-					"text" : "Hallo?",
-					"outline" : 1,
+					# "text" : "Hallo?",
+					# "outline" : 1,
 				
 				
 				
-				},
+				# },
 			
-			),
+			# ),
 
 		},
 	),
