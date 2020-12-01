@@ -478,12 +478,6 @@
 39034	Pferdezucker	Dieses Zuckerstück ermöglicht es, deinem Reittier einen Namen zu geben. Gleichzeitig erhöht es dessen Verteidigungswert um 20. Dieses Item ist handelbar.
 39035	Glas der Einsicht	Ermöglicht dir, einem anderen Spieler Gegenstände aus deinem Inventar zu zeigen. Das Glas zerbricht während des Vorgangs. Dieses Item ist handelbar.
 39036	Windschuhe	Solange die Schuhe ausgerüstet sind, erhöht sich die Bewegungsgeschwindigkeit 30 Spielstunden lang um 30. Dieses Item ist handelbar.
-39037	Elixier der Sonne (K)	Füllt deine TP automatisch auf. Enthält 1.000.000 TP. Dieses Item ist handelbar.
-39038	Elixier der Sonne (M)	Füllt deine TP automatisch auf. Enthält 3.000.000 TP. Dieses Item ist handelbar.
-39039	Elixier der Sonne (G)	Füllt deine TP automatisch auf. Enthält 7.000.000 TP. Dieses Item ist handelbar.
-39040	Elixier des Mondes (K)	Füllt deine MP automatisch auf. Enthält 100.000 MP. Dieses Item ist handelbar.
-39041	Elixier des Mondes (M)	Füllt deine MP automatisch auf. Enthält 300.000 MP. Dieses Item ist handelbar.
-39042	Elixier des Mondes (G)	Füllt deine MP automatisch auf. Enthält 700.000 MP. Dieses Item ist handelbar.
 39043	Schriftrolle des Ortes	Die Schriftrolle ermöglicht dir den Rücktransport zu dem Ort, den du dir zuletzt gemerkt hast. Dieses Item ist handelbar.
 41001	Hasenkostüm (braun)	Hasenkostüm aus braunem Plüsch für ihn
 41002	Häschenkostüm (braun)	Hasenkostüm aus braunem Plüsch für sie
@@ -1489,14 +1483,8 @@
 72501	Anti-Erfahrungsring	Verhindert das Sammeln von Erfahrung.
 72502	Diebeshandschuh (iCafe)	Die Erfolgsrate für das Erbeuten von Gegenständen erhöht sich um das Anderthalbfache im Mitglieder-iCafe.
 72701	Windschuhe	Sie erhöhen deine Bewegungsgeschwindigkeit um 30, solange ssolangeie ausgerüstet sind.
-72723	Elixier der Sonne (K)	Füllt deine TP automatisch auf. Enthält 1.000.000 TP.
-72724	Elixier der Sonne (M)	Füllt deine TP automatisch auf. Enthält 3.000.000 TP.
-72725	Elixier der Sonne (G)	Füllt deine TP automatisch auf. Enthält 7.000.000 TP.
-72726	Elixier der Sonne (S)	Füllt deine TP automatisch auf. Enthält 10.000.000 TP. Dieses Item ist handelbar.
-72727	Elixier des Mondes (K)	Füllt deine MP automatisch auf. Enthält 100.000 MP.
-72728	Elixier des Mondes (M)	Füllt deine MP automatisch auf. Enthält 300.000 MP.
-72729	Elixier des Mondes (G)	Füllt deine MP automatisch auf. Enthält 700.000 MP.
-72730	Elixier des Mondes (S)	Füllt deine MP automatisch auf. Enthält 1.000.000 MP. Dieses Item ist handelbar.
+72726	Elixier der Sonne (S)	Füllt deine TP automatisch auf|Permanent
+72730	Elixier des Mondes (S)	Füllt deine MP automatisch auf|Permanent
 73001	Modische Frisur (rot)	Eine modische Frisur, die ein charakteristisches Äußeres schafft.
 73002	Modische Frisur (hell)	Eine modische Frisur, die ein charakteristisches Äußeres schafft.
 73003	Modische Frisur (blau)	Eine modische Frisur, die ein charakteristisches Äußeres schafft.
@@ -1707,8 +1695,6 @@
 75620	Kürbismaske-Schamane (m)	Eine Maske für den Schamanen in Form eines Kürbisses. Attribute und Dauer werden durch Zufall bestimmt. Sie ersetzt bereits vorhandene Frisuren.
 76001	Status-Neuverteilung	Die Anwendung dieses Gegenstandes ermöglicht es dir, deine Status-Punkte neu zu verteilen. So kannst du die Entwicklung deines Charakters in eine andere Richtung lenken. Nicht handelbar.
 76002	Schrumpfkopf	Dieser Dämonenschrumpfkopf öffnet das Siegel zur 3. Ebene der Devil's Catacomb. Nicht handelbar.
-76004	Elixier des Mondes (K)	Füllt deine MP automatisch auf. Enthält 10.000 MP. Nicht handelbar.
-76005	Elixier des Mondes (M)	Füllt deine MP automatisch auf. Enthält 300.000 MP. Nicht handelbar.
 76006	Kompass des Metinsteins	Der Kompass zeigt dir Richtung und Entfernung des nächsten Metin-Steins an. Je heller er leuchtet, desto näher bist du. Er kann 6 Mal aktiviert werden. Nicht handelbar.
 76007	Tapferkeitsumhang	Ein farbiger Umhang, der sämtliche Monster anlockte. Mit diesem bewiesen Krieger einst ihre Tapferkeit. Nicht handelbar.
 76009	Schriftrolle des Drachen	Beseitigt das Risiko, einen Gegenstand zu zerstören, wenn seine Verbesserung fehlschlägt. Es wird nur die Qualität um eine Stufe verringert. Zudem erhöht sich die Wahrscheinlichkeit einer erfolgreichen Verbesserung um 10 %. Nicht handelbar.
@@ -1719,8 +1705,6 @@
 76016	Segensschriftrolle	Beseitigt das Risiko, einen Gegenstand zu zerstören, wenn seine Verbesserung fehlschlägt. In diesem Fall wird lediglich seine Qualität um 1 verringert. Nicht handelbar.
 76019	Passierschein	Du darfst eine weitere Ebene des Spinnendungeons sowie die Rotdrachenfestung betreten, wenn du diesen Passierschein dem zuständigen Wächter vorlegst. Nicht handelbar.
 76020	Elixier des Forschers	Steigert die Qualität gesammelter Forschungsobjekte und damit auch ihre Annahmewahrscheinlichkeit. Nicht handelbar.
-76021	Elixier der Sonne (K)	Füllt deine TP automatisch auf. Enthält 100.000 TP. Nicht handelbar.
-76022	Elixier der Sonne (M)	Füllt deine TP automatisch auf. Enthält 3.000.000 TP. Nicht handelbar.
 76023	Grüner Zauber	Entfernt die Boni eines deiner Gegenstände und fügt neue hinzu. Kann nur bei Waffen und Rüstungen bis Level 40 angewendet werden. Item aus Leveltruhe, nicht handelbar.
 76024	Grüne Stärke	Fügt mit etwas Glück einem deiner Gegenstände einen neuen Bonus hinzu (bis max. 4 Boni). Kann nur bei Waffen und Rüstungen bis Level 40 angewendet werden. Item aus Leveltruhe, nicht handelbar.
 80001	Geldtasche	Eine aus Leder genähte, dunkle und bereits leicht abgetragene Börse.
