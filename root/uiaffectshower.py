@@ -528,14 +528,23 @@ class AffectShower(ui.Window):
 			#chr.NEW_AFFECT_AUTO_HP_RECOVERY : (localeInfo.TOOLTIP_AUTO_POTION_REST, "d:/ymir work/ui/skill/common/affect/gold_premium.sub"),			
 			#chr.NEW_AFFECT_AUTO_SP_RECOVERY : (localeInfo.TOOLTIP_AUTO_POTION_REST, "d:/ymir work/ui/skill/common/affect/gold_bonus.sub"),	
 
-			316 : ("Verteidigung+200", "icon/item/160480.tga",),
-			317 : ("Angriffswer+120", "icon/item/160481.tga",),
-			318 : ("Durchb. Trefferchance+20%", "icon/item/160482.tga",),
-			319 : ("Angriffswert+20%", "icon/item/160483.tga",),
-			320 : ("Verteidigung+20%", "icon/item/160484.tga",),
-			321 : ("Max. TP+20%", "icon/item/160485.tga",),
-			322 : ("Krit. Trefferchance+20%", "icon/item/160486.tga",),
-			323 : ("Durchb. Trefferchance+20%", "icon/item/160487.tga",),
+			316 : ("Verteidigung+200", "icon/buff/w_tau.tga",), # W Tau PERMA
+			317 : ("Angriffswer+120", "icon/buff/blauer_tau.tga",), # Blau Tau PERMA
+			318 : ("Durchb. Trefferchance+20%", "icon/buff/roter_tau.tga",), # Roter Tau PERMA
+			319 : ("Angriffswert+20%", "icon/buff/drachengott_angriff.tga",), # Drachengott Angriff PERMA
+			320 : ("Verteidigung+20%", "icon/buff/drachengott_verteidigung.tga",), # Drachengott Verteidigung PERMA
+			321 : ("Max. TP+20%", "icon/buff/drachengott_leben.tga",), # Drachengott Leben PERMA
+			322 : ("Krit. Trefferchance+20%", "icon/buff/krit_kampf.tga",), # Krit Kampf PERMA
+			323 : ("Durchb. Trefferchance+20%", "icon/buff/db_kampf.tga",), # DB Kampf PERMA
+			
+			324 : ("Angriffswer+120", "icon/buff/roter_tau_n.tga",), # Roter Tau NORMAL
+			325 : ("Durchb. Trefferchance+20%", "icon/buff/blauer_tau_n.tga",), # Blau Tau NORMAL
+			326 : ("Max. TP+20%", "icon/buff/drachengott_leben_n.tga",), # Drachengott Leben NORMAL
+			327 : ("Verteidigung+20%", "icon/buff/drachengott_verteidigung_n.tga",), # Drachengott Verteidigung NORMAL
+			328 : ("Angriffswert+20%", "icon/buff/drachengott_angriff_n.tga",), # Drachengott Angriff NORMAL
+			329 : ("Krit. Trefferchance+20%", "icon/buff/krit_kampf_n.tga",), # Krit Kampf NORMAL
+			330 : ("Durchb. Trefferchance+20%", "icon/buff/db_kampf_n.tga",), # DB Kampf NORMAL			
+			
 
 			900 : ("Du erhalst zurzeit keine Erfahrungspunkte!", "affect_icons_wod/wod_no_exp.tga",),
 			901 : ("Der Yang-Chat wurde ausgeblendet.", "affect_icons_wod/no_yang_chat.tga",),
@@ -604,14 +613,21 @@ class AffectShower(ui.Window):
 
 	def BINARY_NEW_AddAffect(self, type, pointIdx, value, duration):
 		
-		if self.IS_PERMA_AFFECT(type):
+		if self.IS_PERMA_POTION_AFFECT(type):
 			self.SetAffect(type)
 			return
+			
+		if self.IS_NORMAL_POTION_AFFECT(type):
+			self.SetAffect(type)
+			return
+			
 		print "BINARY_NEW_AddAffect", type, pointIdx, value, duration
 
 		if app.ENABLE_NEW_AFFECT_POTION:
-			if type < 500 and not type == AFFECT_POTION["affect"][0] and not type == AFFECT_POTION["affect"][1] and not type == AFFECT_POTION["affect"][2] and not type == AFFECT_POTION["affect"][3] and not type == AFFECT_POTION["affect"][4] and not type == AFFECT_POTION["affect"][5] and not self.IS_PERMA_AFFECT(type):
-				return
+			if type < 500 and not type == AFFECT_POTION["affect"][0] and not type == AFFECT_POTION["affect"][1] and not type == AFFECT_POTION["affect"][2] and not type == AFFECT_POTION["affect"][3] and not type == AFFECT_POTION["affect"][4] and not type == AFFECT_POTION["affect"][5]:
+				if not self.IS_PERMA_POTION_AFFECT(type):
+					if not self.IS_NORMAL_POTION_AFFECT(type):
+						return
 		else:
 			if type < 500:
 				return	
@@ -709,7 +725,11 @@ class AffectShower(ui.Window):
 
 	def BINARY_NEW_RemoveAffect(self, type, pointIdx):
 
-		if self.IS_PERMA_AFFECT(type):
+		if self.IS_PERMA_POTION_AFFECT(type):
+			self.ResetAffect(type)
+			return
+
+		if self.IS_NORMAL_POTION_AFFECT(type):
 			self.ResetAffect(type)
 			return
 	
@@ -722,9 +742,16 @@ class AffectShower(ui.Window):
 		self.__RemoveAffect(affect)
 		self.__ArrangeImageList()
 	
-	def IS_PERMA_AFFECT(self,type):
+	def IS_PERMA_POTION_AFFECT(self,type):
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "IS_PERMA_AFFECT: " + str(type))
 		if type >= 316 and type <= 323:
+			return True
+		else:
+			return False
+			
+	def IS_NORMAL_POTION_AFFECT(self,type):
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "IS_PERMA_AFFECT: " + str(type))
+		if type >= 324 and type <= 330:
 			return True
 		else:
 			return False

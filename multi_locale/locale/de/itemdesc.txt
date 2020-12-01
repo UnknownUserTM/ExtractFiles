@@ -1492,11 +1492,11 @@
 72723	Elixier der Sonne (K)	Füllt deine TP automatisch auf. Enthält 1.000.000 TP.
 72724	Elixier der Sonne (M)	Füllt deine TP automatisch auf. Enthält 3.000.000 TP.
 72725	Elixier der Sonne (G)	Füllt deine TP automatisch auf. Enthält 7.000.000 TP.
-72726	Elixier der Sonne (S)	Füllt deine TP automatisch auf|Permanent
+72726	Elixier der Sonne (S)	Füllt deine TP automatisch auf. Enthält 10.000.000 TP. Dieses Item ist handelbar.
 72727	Elixier des Mondes (K)	Füllt deine MP automatisch auf. Enthält 100.000 MP.
 72728	Elixier des Mondes (M)	Füllt deine MP automatisch auf. Enthält 300.000 MP.
 72729	Elixier des Mondes (G)	Füllt deine MP automatisch auf. Enthält 700.000 MP.
-72730	Elixier des Mondes (S)	Füllt deine MP automatisch auf|Permanent
+72730	Elixier des Mondes (S)	Füllt deine MP automatisch auf. Enthält 1.000.000 MP. Dieses Item ist handelbar.
 73001	Modische Frisur (rot)	Eine modische Frisur, die ein charakteristisches Äußeres schafft.
 73002	Modische Frisur (hell)	Eine modische Frisur, die ein charakteristisches Äußeres schafft.
 73003	Modische Frisur (blau)	Eine modische Frisur, die ein charakteristisches Äußeres schafft.
@@ -2008,7 +2008,7 @@
 80000	Kostüm verzaubern(+)	Ändert einen ausgewählten Boni auf einem Kostüm.
 160480	Weißer Tau +	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
 160481	Blauer Tau +	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
-160482	Gelber Tau +	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
+160482	Roter Tau +	Dieser Trank ist permanent und lässt sich aktivieren/deaktivieren.
 160483	Drachengott Angriff +	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
 160484	Drachengott Verteidigung +	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
 160485	Drachengott Leben +	Die Hilfe des Drachengottes ist permanent und lässt sich aktivieren/deaktivieren.
@@ -2019,3 +2019,10 @@
 160490	Lehrlingstruhe	Diese Truhe wird dich während deines Levelns immer mit wertvollen und wichtigen Gegenständen versorgen!
 27122	Violetter Trank (P)	Erhöht deine Bewegungsgeschwindigkeit um 30.
 27123	Grüner Trank (P)	Erhöht deine Angriffsgeschwindigkeit um 30.
+160491	Roter Tau	Erhöht deine kritische Trefferchance für 30 Minuten um 20%.
+160492	Blauer Tau	Erhöht deinen Angriffswert für 30 Minuten um 120.
+160493	Drachengott-Leben	Erhöht deine Max. TP für 30 Minuten um 20%.
+160494	Drachengott-Verteidigung	Erhöht deine Verteidigung für 30 Minuten um 20%.
+160495	Drachengott-Angriff	Erhöht deinen Angriffswert für 30 Minuten um 20%.
+160496	Kritischer Kampf	Erhöht deine kritische Trefferchance für 30 Minuten um 20%.
+160497	Durchbohrender Kampf	Erhöht deine Chance auf durchbohrende Treffer für 30 Minuten um 20%.
