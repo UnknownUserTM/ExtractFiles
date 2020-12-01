@@ -1492,11 +1492,11 @@
 72723	Elixier der Sonne (K)	Füllt deine TP automatisch auf. Enthält 1.000.000 TP.
 72724	Elixier der Sonne (M)	Füllt deine TP automatisch auf. Enthält 3.000.000 TP.
 72725	Elixier der Sonne (G)	Füllt deine TP automatisch auf. Enthält 7.000.000 TP.
-72726	Elixier der Sonne (S)	Füllt deine TP automatisch auf|Permanent|
+72726	Elixier der Sonne (S)	Füllt deine TP automatisch auf|Permanent
 72727	Elixier des Mondes (K)	Füllt deine MP automatisch auf. Enthält 100.000 MP.
 72728	Elixier des Mondes (M)	Füllt deine MP automatisch auf. Enthält 300.000 MP.
 72729	Elixier des Mondes (G)	Füllt deine MP automatisch auf. Enthält 700.000 MP.
-72730	Elixier des Mondes (S)	Füllt deine MP automatisch auf|Permanent|
+72730	Elixier des Mondes (S)	Füllt deine MP automatisch auf|Permanent
 73001	Modische Frisur (rot)	Eine modische Frisur, die ein charakteristisches Äußeres schafft.
 73002	Modische Frisur (hell)	Eine modische Frisur, die ein charakteristisches Äußeres schafft.
 73003	Modische Frisur (blau)	Eine modische Frisur, die ein charakteristisches Äußeres schafft.
