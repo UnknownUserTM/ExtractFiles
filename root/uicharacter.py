@@ -80,10 +80,10 @@ class CharacterWindow(ui.ScriptWindow):
 		self.__LoadWindow()
 
 		self.statusPlusCommandDict={
-			"HTH" : "/stat ht",
-			"INT" : "/stat iq",
-			"STR" : "/stat st",
-			"DEX" : "/stat dx",
+			"HTH" : "/stat_val ht ",
+			"INT" : "/stat_val iq ",
+			"STR" : "/stat_val st ",
+			"DEX" : "/stat_val dx ",
 		}
 
 		self.statusMinusCommandDict={
@@ -429,12 +429,22 @@ class CharacterWindow(ui.ScriptWindow):
 	def SetSkillToolTip(self, toolTipSkill):
 		self.toolTipSkill = toolTipSkill
 
+	# def __OnClickStatusPlusButton(self, statusKey):
+		# try:
+			# statusPlusCommand=self.statusPlusCommandDict[statusKey]
+			# GFHhg54GHGhh45GHGH.SendChatPacket(statusPlusCommand)
+		# except KeyError, msg:
+			# dbg.TraceError("CharacterWindow.__OnClickStatusPlusButton KeyError: %s", msg)
+
 	def __OnClickStatusPlusButton(self, statusKey):
-		try:
-			statusPlusCommand=self.statusPlusCommandDict[statusKey]
-			GFHhg54GHGhh45GHGH.SendChatPacket(statusPlusCommand)
-		except KeyError, msg:
-			dbg.TraceError("CharacterWindow.__OnClickStatusPlusButton KeyError: %s", msg)
+		cmd = self.statusPlusCommandDict[statusKey]
+
+		if app.IsPressed(app.DIK_LCONTROL):
+			cmd = cmd + "10"
+		else:
+			cmd = cmd + "1"
+			
+		GFHhg54GHGhh45GHGH.SendChatPacket(cmd)
 
 	def __OnClickStatusMinusButton(self, statusKey):
 		try:
@@ -750,18 +760,33 @@ class CharacterWindow(ui.ScriptWindow):
 		self.__HideStatToolTip()
 		self.refreshToolTip = 0
 
+	# def __OverInStatButton(self, stat):	
+		# try:
+			# self.__ShowStatToolTip(self.STAT_DESCRIPTION[stat])
+		# except KeyError:
+			# pass
+
 	def __OverInStatButton(self, stat):	
 		try:
-			self.__ShowStatToolTip(self.STAT_DESCRIPTION[stat])
+			self.__ShowStatToolTip(self.STAT_DESCRIPTION[stat], localeInfo.EMOJI_CHARACTER_STATS_ADD, True)
 		except KeyError:
 			pass
 
 	def __OverOutStatButton(self):
 		self.__HideStatToolTip()
 
-	def __ShowStatToolTip(self, statDesc):
+	# def __ShowStatToolTip(self, statDesc):
+		# self.toolTip.ClearToolTip()
+		# self.toolTip.AppendTextLine(statDesc)
+		# self.toolTip.Show()
+
+	def __ShowStatToolTip(self, statDesc, statDesc2 = False, arg2 = False):
 		self.toolTip.ClearToolTip()
 		self.toolTip.AppendTextLine(statDesc)
+		
+		if arg2 == True:
+			self.toolTip.AppendTextLine(statDesc2)
+			
 		self.toolTip.Show()
 
 	def __HideStatToolTip(self):

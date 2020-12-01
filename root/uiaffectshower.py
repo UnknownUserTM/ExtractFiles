@@ -9,7 +9,8 @@ import uiToolTip
 import math
 import constInfo
 import chat
-
+import GFHhg54GHGhh45GHGH
+import uiCommon
 if app.ENABLE_NEW_AFFECT_POTION:				
 	AFFECT_POTION = {
 		"affect"  : {
@@ -350,6 +351,10 @@ class AffectImage(ui.ExpandedImageBox):
 		self.affect = None
 		self.isClocked = TRUE
 
+		self.buffQuestionDialog = None
+		self.skillIndex = None
+		self.SetOnClickEvent(ui.__mem_func__(self.OnBuffQuestionDialog), "MOUSE_LEFT_BUTTON_UP")
+		
 	def SetAffect(self, affect):
 		self.affect = affect
 
@@ -427,6 +432,9 @@ class AffectImage(ui.ExpandedImageBox):
 	def SetSkillAffectFlag(self, flag):
 		self.isSkillAffect = flag
 
+	def SetSkillIndex(self, skillIndex):
+		self.skillIndex = skillIndex
+
 	def IsSkillAffect(self):
 		return self.isSkillAffect
 
@@ -434,9 +442,34 @@ class AffectImage(ui.ExpandedImageBox):
 		if self.toolTipText:
 			self.toolTipText.Show()
 
+
 	def OnMouseOverOut(self):
 		if self.toolTipText:
 			self.toolTipText.Hide()
+
+	def OnBuffQuestionDialog(self):
+		skillIndex = self.skillIndex
+		if not skillIndex or skillIndex == 66:
+			return
+		self.buffQuestionDialog = uiCommon.QuestionDialog()
+		self.buffQuestionDialog.SetWidth(350)
+		self.buffQuestionDialog.SetText(localeInfo.BUFF_AFFECT_REMOVE_QUESTION % (skill.GetSkillName(skillIndex)))
+		self.buffQuestionDialog.SetAcceptEvent(lambda arg = skillIndex: self.OnCloseBuffQuestionDialog(arg))
+		self.buffQuestionDialog.SetCancelEvent(lambda arg = 0: self.OnCloseBuffQuestionDialog(arg))
+		self.buffQuestionDialog.Open()
+			
+	def OnCloseBuffQuestionDialog(self, answer):
+		if not self.buffQuestionDialog:
+			return
+
+		self.buffQuestionDialog.Close()
+		self.buffQuestionDialog = None
+
+		if not answer:
+			return
+
+		GFHhg54GHGhh45GHGH.SendChatPacket("/remove_buff %d" % answer)
+		return TRUE
 
 class AffectShower(ui.Window):
 
@@ -786,7 +819,8 @@ class AffectShower(ui.Window):
 		image = AffectImage()
 		image.SetParent(self)
 		image.SetSkillAffectFlag(TRUE)
-
+		image.SetSkillIndex(skillIndex)
+		
 		try:
 			image.LoadImage(filename)
 		except:
