@@ -5,8 +5,8 @@ WAFFENNPC_SHOP	Waffen & Pfeile
 WAFFENNPC_SHOP2	Waffen
 WAFFENNPC_SHOP3	Pfeile
 BIOLOGENNPC_SHOP	Shop des Biologen
-BIOLOGENNPC_SHOP2	Biologenquest
-BIOLOGENNPC_SHOP3	Permanente Buffitems
+BIOLOGENNPC_SHOP2	Questitems
+BIOLOGENNPC_SHOP3	Biologenitems
 BIOLOGENNPC_SHOP4	Temporäre Buffitems
+BIOLOGENNPC_SHOP5	Permanente Buffitems
 GEMINPC_SHOP	Nützliches
-GEMINPC_SHOP2	Bücher

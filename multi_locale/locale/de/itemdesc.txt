@@ -283,7 +283,6 @@
 30155	Mirines Anhänger	Ein Anhänger für eine Halskette. Auf seiner Rückseite ist der Name "Mirine" eingraviert.
 30156	Geheimes Tempelbuch	Das wertvolle Buch enthält die Analyse der Lehre und der Geschichte des geheimen Tempels.
 30157	Pfeilspitze	Diese vergifteten Pfeilspitzen werden helfen, das Reich zu verteidigen.
-30177	Moschusöl	Das Moschusöl wird vom Waffenhändler in einer Quest verwendet. Das Item hat keine weitere Funktion.
 30179	Gewundener Schlüssel	Dieser magische Schlüssel aktiviert den Zugang zum Tempel des Razadors.
 30180	Drachengottamulett	Das golden glänzende Schmuckstück kann den Weg zur Grotte der Verbannung verkürzen.
 30181	Buchseite	Die verblasste Schrift auf dem Pergament ist nur schwer zu entziffern - die Seite scheint sehr alt zu sein.
