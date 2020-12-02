@@ -16,6 +16,52 @@ import localeInfo
 import questinfo
 import exterminatus
 
+def IsBiologistItem(vnum):
+	itemList = [
+		30006, # Orkzahn
+		30047, # Fluchsammlung
+		30015, # Dämonenandenken
+		30050, # Eiskugel
+		30165, # Holzast
+		30166, # Tafel
+		30167, # Roter Ast
+		30168, # Notizen
+		30184, # Verzauberte Asche
+		30188, # Vulkanglas
+		30177, # Juwel des Feuers
+		30178, # Juwel des Eises
+	]
+	if vnum in itemList:
+		return True
+		
+	return False
+
+def IsBiologistAccelerator(vnum):
+	itemList = [
+		160474, # 25%
+		160475, # 50%,
+		160476, # 75%,
+		160477, # 100%
+
+	]
+	if vnum in itemList:
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"IsAccelede")
+		return True
+		
+	return False
+
+def IsBiologistChanceItem(vnum):
+	itemList = [
+		160470, # 25%
+		160471, # 50%,
+		160472, # 75%,
+		160473, # 100%
+
+	]
+	if vnum in itemList:
+		return True
+		
+	return False
 
 class BiologistWindow(ui.ScriptWindow):
 
@@ -27,14 +73,32 @@ class BiologistWindow(ui.ScriptWindow):
 	STATUS_ACTIVE = 1
 	STATUS_COMPLETE = 2
 	
+	SLOT_RESEARCH_ITEM = 0
+	SLOT_ACCELERATOR_ITEM = 1
+	SLOT_CHANCE_ITEM = 2
+	
 	ITEM_COUNT = 5
 
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
 		self.biologistQuestDict = []
-		self.questSelect = 0
+		self.questSelect = -1
 		self.qid = 0
 		self.LoadWindow()
+		self.slotData = [
+			{ # ItemResearch
+				"itemVnum" : 0,
+				"itemPos" : 0,
+			},
+			{ # Accelerator
+				"itemVnum" : 0,
+				"itemPos" : 0,			
+			},
+			{ # Chance Item
+				"itemVnum" : 0,
+				"itemPos" : 0,			
+			}
+		]
 
 	def __del__(self):
 		ui.ScriptWindow.__del__(self)
@@ -71,8 +135,22 @@ class BiologistWindow(ui.ScriptWindow):
 		
 		self.ResearchItemSlot = self.GetChild("targetItemSlot")
 		self.AcceleratorItemSlot = self.GetChild("timeItemSlot")
-		self.Addition = self.GetChild("chanceItemSlot")
+		self.ChanceItemSlot = self.GetChild("chanceItemSlot")
+		
+		self.ResearchItemSlotBlockImage = self.GetChild("targetItemSlotBlockImage")
+		self.AcceleratorItemSlotBlockImage = self.GetChild("timeItemSlotBlockImage")
+		self.ChanceItemSlotBlockImage = self.GetChild("chanceItemSlotBlockImage")
+		
+		self.ResearchItemSlot.SetSelectEmptySlotEvent(ui.__mem_func__(self.AddItem))  
+		self.ResearchItemSlot.SetSelectItemSlotEvent(ui.__mem_func__(self.DeleteItem))  
+		self.AcceleratorItemSlot.SetSelectEmptySlotEvent(ui.__mem_func__(self.AddItem))  
+		self.AcceleratorItemSlot.SetSelectItemSlotEvent(ui.__mem_func__(self.DeleteItem))  
+		self.ChanceItemSlot.SetSelectEmptySlotEvent(ui.__mem_func__(self.AddItem))  
+		self.ChanceItemSlot.SetSelectItemSlotEvent(ui.__mem_func__(self.DeleteItem))  
 
+		self.ResearchItemSlotBlockImage.Hide()
+		self.AcceleratorItemSlotBlockImage.Hide()
+		self.ChanceItemSlotBlockImage.Hide()
 		# QUEST_ITEM
 		y = 1
 		self.bioItemDict = {}
@@ -91,7 +169,7 @@ class BiologistWindow(ui.ScriptWindow):
 		
 		self.QuestOverview.Hide()
 		self.StartResearchButton.Disable()
-
+		self.StartResearchButton.SetEvent(self.StartResearch)
 
 		
 		# ###########################
@@ -105,8 +183,172 @@ class BiologistWindow(ui.ScriptWindow):
 		# self.OnQuestListScroll()
 		# self.Show()
 		# ###########################
+	
+	
+	def StartResearch(self):
+		if self.qid == 0:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Error: No QID!")
+			return
+		if self.questSelect < 0:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Error: questSelect < 0")
+			return
+		
+		if self.slotData[0]["itemVnum"] == 0:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Error: No item")
+			return
+			
+		if self.biologistQuestDict[self.questSelect]["time"] >= app.GetGlobalTimeStamp():
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Error: Timer Active!")
+			return
+		
+		accelerateItem = "no"
+		chanceItem = "no"
+		
+		if self.slotData[1]["itemVnum"]:
+			accelerateItem = self.slotData[1]["itemPos"]
+		
+		if self.slotData[2]["itemVnum"]:
+			chanceItem = self.slotData[2]["itemPos"]		
+		
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "qid: " + str(self.qid))
+		constInfo.INPUT_CMD = "research#" + str(self.slotData[0]["itemPos"]) + "#" + str(accelerateItem) + "#" + str(chanceItem) + "#"
+		event.QuestButtonClick(self.qid)
+		self.ClearSlotData()
+	
+	def AddItem(self,slot):
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(slot))
+		if mouseModule.mouseController.isAttached():
+			attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
+			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == mouseModule.mouseController.GetAttachedType():
+				## RESEARCH ITEM
+				if self.SLOT_RESEARCH_ITEM == slot:
+					if self.biologistQuestDict[self.questSelect]["itemVnum"] == mouseModule.mouseController.GetAttachedItemIndex():
+						if self.slotData[slot]["itemVnum"] == 0:
+							self.slotData[slot]["itemVnum"] = mouseModule.mouseController.GetAttachedItemIndex()
+							self.slotData[slot]["itemPos"] = attachedSlotPos
+							self.ResearchItemSlot.SetItemSlot(slot, mouseModule.mouseController.GetAttachedItemIndex(), 0)
+							self.ResearchItemSlot.RefreshSlot()
+							self.StartResearchButton.Enable()
+				# ## ACCELERATOR
+				elif self.SLOT_ACCELERATOR_ITEM == slot:
+					if IsBiologistAccelerator(mouseModule.mouseController.GetAttachedItemIndex()):
+						chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Hallo?")
+						self.slotData[slot]["itemVnum"] = mouseModule.mouseController.GetAttachedItemIndex()
+						self.slotData[slot]["itemPos"] = attachedSlotPos
+						self.AcceleratorItemSlot.SetItemSlot(slot, mouseModule.mouseController.GetAttachedItemIndex(), 0)
+						self.AcceleratorItemSlot.RefreshSlot()						
+				
+				# ## CHANCE
+				elif self.SLOT_CHANCE_ITEM == slot:
+					if IsBiologistChanceItem(mouseModule.mouseController.GetAttachedItemIndex()):
+						self.slotData[slot]["itemVnum"] = mouseModule.mouseController.GetAttachedItemIndex()
+						self.slotData[slot]["itemPos"] = attachedSlotPos
+						self.ChanceItemSlot.SetItemSlot(slot, mouseModule.mouseController.GetAttachedItemIndex(), 0)
+						self.ChanceItemSlot.RefreshSlot()	
+
+
+						
+				mouseModule.mouseController.DeattachObject()  
+				
+
+	
+	def DeleteItem(self,slot):
+		if self.SLOT_RESEARCH_ITEM == slot:
+			if self.slotData[slot]["itemVnum"] != 0:
+				self.slotData[slot]["itemVnum"] = 0
+				self.slotData[slot]["itemPos"] = 0
+				self.ResearchItemSlot.SetItemSlot(slot, 0, 0)
+				self.ResearchItemSlot.ClearSlot(slot)
+				self.ResearchItemSlot.RefreshSlot()				
+				self.StartResearchButton.Disable()				
+			
+		elif self.SLOT_ACCELERATOR_ITEM == slot:
+			if self.slotData[slot]["itemVnum"] != 0:
+				self.slotData[slot]["itemVnum"] = 0
+				self.slotData[slot]["itemPos"] = 0
+				self.AcceleratorItemSlot.SetItemSlot(slot, 0, 0)
+				self.AcceleratorItemSlot.ClearSlot(slot)
+				self.AcceleratorItemSlot.RefreshSlot()	
+				
+		elif self.SLOT_CHANCE_ITEM == slot:
+			if self.slotData[slot]["itemVnum"] != 0:
+				self.slotData[slot]["itemVnum"] = 0
+				self.slotData[slot]["itemPos"] = 0
+				self.ChanceItemSlot.SetItemSlot(slot, 0, 0)
+				self.ChanceItemSlot.ClearSlot(slot)
+				self.ChanceItemSlot.RefreshSlot()			
+		else:
+			return	
+	
+	def ClearSlotData(self):
+		self.slotData[0]["itemVnum"] = 0
+		self.slotData[0]["itemPos"] = 0
+		
+		self.ResearchItemSlot.SetItemSlot(0, 0, 0)
+		self.ResearchItemSlot.ClearSlot(0)
+		self.ResearchItemSlot.RefreshSlot()				
+		self.StartResearchButton.Disable()				
+
+		self.slotData[1]["itemVnum"] = 0
+		self.slotData[1]["itemPos"] = 0
+		self.AcceleratorItemSlot.SetItemSlot(1, 0, 0)
+		self.AcceleratorItemSlot.ClearSlot(1)
+		self.AcceleratorItemSlot.RefreshSlot()	
+				
+		self.slotData[2]["itemVnum"] = 0
+		self.slotData[2]["itemPos"] = 0
+		self.ChanceItemSlot.SetItemSlot(2, 0, 0)
+		self.ChanceItemSlot.ClearSlot(2)
+		self.ChanceItemSlot.RefreshSlot()		
+	
+	
+	
 	def OnUpdate(self):
-		self.StartResearchButton.Enable()
+	
+		if self.questSelect >= 0:
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, str(self.biologistQuestDict[self.questSelect]["time"]) + " >= " + str(app.GetGlobalTimeStamp()))
+			if self.biologistQuestDict[self.questSelect]["time"] >= app.GetGlobalTimeStamp():
+				self.ResearchItemSlotBlockImage.Show()
+				self.AcceleratorItemSlotBlockImage.Show()
+				self.ChanceItemSlotBlockImage.Show()
+				self.StartResearchButton.Disable()
+				# self.ResearchInfoTextLine.SetText("Bereit!")
+				
+				sek = self.biologistQuestDict[self.questSelect]["time"] - app.GetGlobalTimeStamp()
+				self.ResearchInfoTextLine.SetText("Wartezeit: " + exterminatus.SecondToDHMS(sek))				
+				
+			else:
+				self.ResearchInfoTextLine.SetText("Bereit!")	
+				if mouseModule.mouseController.isAttached():
+					attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
+					if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == mouseModule.mouseController.GetAttachedType():
+						
+						# is ResearchItem
+						if self.biologistQuestDict[self.questSelect]["itemVnum"] == mouseModule.mouseController.GetAttachedItemIndex():
+							self.ResearchItemSlotBlockImage.Hide()
+							self.AcceleratorItemSlotBlockImage.Show()
+							self.ChanceItemSlotBlockImage.Show()
+							
+						elif IsBiologistAccelerator(mouseModule.mouseController.GetAttachedItemIndex()):
+							self.ResearchItemSlotBlockImage.Show()
+							self.AcceleratorItemSlotBlockImage.Hide()
+							self.ChanceItemSlotBlockImage.Show()
+							
+						elif IsBiologistChanceItem(mouseModule.mouseController.GetAttachedItemIndex()):
+							self.ResearchItemSlotBlockImage.Show()
+							self.AcceleratorItemSlotBlockImage.Show()
+							self.ChanceItemSlotBlockImage.Hide()
+							
+						else:
+							self.ResearchItemSlotBlockImage.Show()
+							self.AcceleratorItemSlotBlockImage.Show()
+							self.ChanceItemSlotBlockImage.Show()					
+				else:
+					self.ResearchItemSlotBlockImage.Hide()
+					self.AcceleratorItemSlotBlockImage.Hide()
+					self.ChanceItemSlotBlockImage.Hide()				
+					
+					
 	###############################################################################	
 	###############################################################################
 	## interfaceModule INPUT
@@ -132,7 +374,16 @@ class BiologistWindow(ui.ScriptWindow):
 		}
 		
 		self.biologistQuestDict.append(quest)
+	
+	def UpdateBiologistQuest(self,index,status):
+		self.biologistQuestDict[index]["status"] = int(status)
 		
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Quest " + str(index) + " Status set to " + str(self.biologistQuestDict[index]["status"]))
+		
+	def RefreshBiologistQuestList(self):
+		self.OnQuestListScroll()
+		self.CloseOverview()
+	
 	def UpdateBiologistQuest_ITEM_COUNT(self,index,count):
 		self.biologistQuestDict[index]["itemCount"] = int(count)
 		self.OnQuestListScroll()
@@ -142,6 +393,8 @@ class BiologistWindow(ui.ScriptWindow):
 
 	def UpdateBiologistQuest_TIMER(self,index,timer):
 		self.biologistQuestDict[index]["time"] = int(timer)
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "index: " + str(index))
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "timer: " + str(self.biologistQuestDict[index]["time"]))
 		self.OnQuestListScroll()
 	
 	
@@ -160,6 +413,7 @@ class BiologistWindow(ui.ScriptWindow):
 	
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(pos))
 		self.questSelect = pos
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"self.questSelect: " + str(self.questSelect))
 		self.ClearOverview()
 		self.BuildOverview(pos)
 		self.OpenOverview()
@@ -220,13 +474,15 @@ class BiologistWindow(ui.ScriptWindow):
 		self.QuestChanceTextLine.SetText("Erfolgschance: " + str(info["base_chance"]) + "%") 
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"BuildOverview:INFO DONE")
 
-		self.ResearchInfoTextLine.SetText("Bereit!")
+		# self.ResearchInfoTextLine.SetText("Bereit!")
 		self.StartResearchButton.Disable()		
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"BuildOverview:DONE")
 	def OpenOverview(self):
 		self.QuestOverview.Show()
 		
 	def CloseOverview(self):
+		self.questSelect = -1
+		self.ClearSlotData()
 		self.QuestOverview.Hide()
 	
 	def OnPressEscapeKey(self):
@@ -251,7 +507,15 @@ class BiologistWindow(ui.ScriptWindow):
 			self.bioItemDict[i].SetItem(info["itemVnum"])
 			self.bioItemDict[i].SetQuestTitle(questinfo.GetQuestString(info["title"]))
 			self.bioItemDict[i].SetCount(info["itemCount"],info["itemCount_MAX"])
-			self.bioItemDict[i].SetStatusColor(info["status"])
+			
+			if info["status"] == self.bioItemDict[i].STATUS_ACTIVE:
+				player_level = fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL)
+				if player_level < info["level"]:
+					self.bioItemDict[i].SetStatusColor(self.bioItemDict[i].STATUS_LEVEL_LOW,info["level"])
+				else:
+					self.bioItemDict[i].SetStatusColor(info["status"],0)
+			else:
+				self.bioItemDict[i].SetStatusColor(info["status"],0)
 			self.bioItemDict[i].SetTimer(info["time"])
 
 		
@@ -281,6 +545,7 @@ class BiologistItem(ui.ScriptWindow):
 	STATUS_INACTIVE = 0
 	STATUS_ACTIVE = 1
 	STATUS_COMPLETE = 2
+	STATUS_LEVEL_LOW = 3
 
 	COLOR_INACTIVE = grp.GenerateColor(1.0, 0.0, 0.0, 0.2)
 	COLOR_ACTIVE   = grp.GenerateColor(0.0, 1.0, 0.0, 0.2)
@@ -342,7 +607,7 @@ class BiologistItem(ui.ScriptWindow):
 			return
 		self.toolTip.Hide()
 	
-	def SetStatusColor(self,index):
+	def SetStatusColor(self,index,level):
 		self.status = index
 		if index == self.STATUS_INACTIVE:
 			self.bar.SetColor(self.COLOR_INACTIVE)
@@ -358,6 +623,14 @@ class BiologistItem(ui.ScriptWindow):
 			self.questCount.Hide()
 			self.questPercent.Show()
 			self.questTimer.SetText("Abgeschlossen")
+		elif index == self.STATUS_LEVEL_LOW:
+			self.bar.SetColor(self.COLOR_INACTIVE)
+			self.questCount.Hide()
+			self.questPercent.Hide()	
+			self.questTimer.SetText("Ab Lv." + str(level))			
+			
+			
+			
 		else:
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"uibiologist.BiologistItem(): Unknown StatusIndex: " + str(index))
 	
@@ -373,10 +646,10 @@ class BiologistItem(ui.ScriptWindow):
 			self.questPercent.SetText("0%")			
 		
 		elif self.status == self.STATUS_ACTIVE:
-			if self.timer > app.GetTime():
+			if self.timer > app.GetGlobalTimeStamp():
 				# self.questTimer.SetText(localeInfo.SecondToDHMS(self.timer - app.GetTime()))
 				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"TIMER ACTIVE!")
-				sek = self.timer - app.GetTime()
+				sek = self.timer - app.GetGlobalTimeStamp()
 				self.questTimer.SetText(exterminatus.SecondToDHMS(sek))
 			else:
 				self.questTimer.SetText("Bereit!")	
@@ -394,7 +667,10 @@ class BiologistItem(ui.ScriptWindow):
 			self.bar.SetColor(self.COLOR_ACTIVE_HOVER)
 		
 		elif index == self.STATUS_COMPLETE:
-			self.bar.SetColor(self.COLOR_COMPLETE_HOVER)		
+			self.bar.SetColor(self.COLOR_COMPLETE_HOVER)	
+
+		elif index == self.STATUS_LEVEL_LOW:
+			self.bar.SetColor(self.COLOR_INACTIVE_HOVER)
 		
 	def OnMouseOverOut(self):
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"OnMouseOverOut")
@@ -407,6 +683,9 @@ class BiologistItem(ui.ScriptWindow):
 		
 		elif index == self.STATUS_COMPLETE:
 			self.bar.SetColor(self.COLOR_COMPLETE)	
+
+		elif index == self.STATUS_LEVEL_LOW:
+			self.bar.SetColor(self.COLOR_INACTIVE)
 	
 	def SetItem(self,itemVnum):
 		self.itemVnum = int(itemVnum)
@@ -419,7 +698,7 @@ class BiologistItem(ui.ScriptWindow):
 		if timer == 0:
 			self.timer = 0
 		else:
-			self.timer = int(app.GetTime() + timer)
+			self.timer = timer
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"timer: " + str(self.timer))
 		# self.questTimer.SetText(str(timer))
 
@@ -433,7 +712,7 @@ class BiologistItem(ui.ScriptWindow):
 		self.questPercent.SetText(str(int(percent)) + "%")
 	
 	def OnItemClick(self):
-		if self.status == self.STATUS_COMPLETE or self.status == self.STATUS_INACTIVE:
+		if self.status == self.STATUS_COMPLETE or self.status == self.STATUS_INACTIVE or self.status == self.STATUS_LEVEL_LOW:
 			return
 			
 		snd.PlaySound("sound/ui/click.wav")

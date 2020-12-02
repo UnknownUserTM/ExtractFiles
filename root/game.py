@@ -3635,6 +3635,10 @@ class GameWindow(ui.ScriptWindow):
 			self.interface.UpdateBiologistQuest_TIMER(int(cmd[1]),int(cmd[2]))
 		elif cmd[0] == "open":
 			self.interface.OpenBiologistWindow()
+		elif cmd[0] == "update":
+			self.interface.UpdateBiologistQuest(int(cmd[1]),int(cmd[2]))
+		elif cmd[0] == "refresh":
+			self.interface.RefreshBiologistQuestList()
 		else:
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknown Command [LUA_Biologist]: " + str(cmd[0]))
 

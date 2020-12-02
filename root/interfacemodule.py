@@ -307,6 +307,12 @@ class Interface(object):
 	def OpenBiologistWindow(self):
 		self.wndBiologistSystem.Open()
 		
+	def UpdateBiologistQuest(self,index,status):
+		self.wndBiologistSystem.UpdateBiologistQuest(index,status)
+		
+	def RefreshBiologistQuestList(self):
+		self.wndBiologistSystem.RefreshBiologistQuestList()
+		
 	#####################################################
 	## QUESTDIALOG!
 	def QuestDialog_SetQuestIndex(self,index):
@@ -776,6 +782,9 @@ class Interface(object):
 			
 		if self.wndTutorialJoin:
 			self.wndTutorialJoin.Hide()
+		
+		if self.wndBiologistSystem:
+			self.wndBiologistSystem.Hide()
 		
 		self.wndChatLog.Destroy()
 		for btn in self.questButtonList:

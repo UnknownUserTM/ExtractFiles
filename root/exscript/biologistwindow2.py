@@ -378,6 +378,15 @@ window = {
 																{"index":0, "x":0, "y":0, "width":32, "height":32},
 															),
 														},
+														{
+															"name" : "targetItemSlotBlockImage",
+															"type" : "image",
+															
+															"x" : 34 - 8,
+															"y" : 25,
+															
+															"image" : "yamato_bio/slot_block.tga",
+														},
 													),
 												},
 												{
@@ -430,8 +439,17 @@ window = {
 															
 															"image" : "d:/ymir work/ui/public/slot_base.sub",
 															"slot" : (
-																{"index":0, "x":0, "y":0, "width":32, "height":32},
+																{"index":1, "x":0, "y":0, "width":32, "height":32},
 															),
+														},
+														{
+															"name" : "timeItemSlotBlockImage",
+															"type" : "image",
+															
+															"x" : 34 - 8,
+															"y" : 25,
+															
+															"image" : "yamato_bio/slot_block.tga",
 														},
 													),
 												},
@@ -485,9 +503,18 @@ window = {
 															
 															"image" : "d:/ymir work/ui/public/slot_base.sub",
 															"slot" : (
-																{"index":0, "x":0, "y":0, "width":32, "height":32},
+																{"index":2, "x":0, "y":0, "width":32, "height":32},
 															),
-														},														
+														},	
+														{
+															"name" : "chanceItemSlotBlockImage",
+															"type" : "image",
+															
+															"x" : 34 - 8,
+															"y" : 25,
+															
+															"image" : "yamato_bio/slot_block.tga",
+														},													
 													),
 												},
 												{

@@ -1375,25 +1375,25 @@ class ItemToolTip(ToolTip):
 			itemName+=item.GetItemName()
 		self.SetTitle(itemName)
 
-	def __SetNormalItemTitle(self, stackCount):
+	def __SetNormalItemTitle(self, stackCount, vnum):
 		if app.ENABLE_SEND_TARGET_INFO:
 			if self.isStone:
 				itemName = item.GetItemName()
 				realName = itemName[:itemName.find("+")]
-				self.SetTitle(realName + " +0 - +4")
+				self.SetTitle(realName + " +0 - +4" + " (" + str(vnum) + ")")
 			else:
 				if stackCount > 1:
-					self.SetTitle(item.GetItemName() + " (" + str(stackCount) + ")")
+					self.SetTitle(item.GetItemName() + " (" + str(stackCount) + ") " + "(" + str(vnum) + ")")
 				else:
-					self.SetTitle(item.GetItemName())
+					self.SetTitle(item.GetItemName() + " (" + str(vnum) + ")")
 		else:
-			self.SetTitle(item.GetItemName())
+			self.SetTitle(item.GetItemName() + " (" + str(vnum) + ")")
 
-	def __SetSpecialItemTitle(self, stackCount):
+	def __SetSpecialItemTitle(self, stackCount, vnum):
 		if stackCount > 1:
-			self.AppendTextLine(item.GetItemName() + " (" + str(stackCount) + ")", self.SPECIAL_TITLE_COLOR)
+			self.AppendTextLine(item.GetItemName() + " (" + str(stackCount) + ") " + "(" + str(vnum) + ")", self.SPECIAL_TITLE_COLOR)
 		else:
-			self.AppendTextLine(item.GetItemName(), self.SPECIAL_TITLE_COLOR)
+			self.AppendTextLine(item.GetItemName() + " (" + str(vnum) + ")", self.SPECIAL_TITLE_COLOR)
 			
 	def __SetItemTitle(self, itemVnum, metinSlot, attrSlot, stackCount):
 		if localeInfo.IsCANADA():
@@ -1410,10 +1410,10 @@ class ItemToolTip(ToolTip):
 			self.__SetPolymorphItemTitle(metinSlot[0])
 		else:
 			if self.__IsAttr(attrSlot):
-				self.__SetSpecialItemTitle(stackCount)
+				self.__SetSpecialItemTitle(stackCount, itemVnum)
 				return
 
-			self.__SetNormalItemTitle(stackCount)
+			self.__SetNormalItemTitle(stackCount, itemVnum)
 
 	def __IsAttr(self, attrSlot):
 		if not attrSlot:
