@@ -2009,3 +2009,4 @@
 160495	Drachengott-Angriff	Erhöht deinen Angriffswert für 30 Minuten um 20%.
 160496	Kritischer Kampf	Erhöht deine kritische Trefferchance für 30 Minuten um 20%.
 160497	Durchbohrender Kampf	Erhöht deine Chance auf durchbohrende Treffer für 30 Minuten um 20%.
+71111	Arzneitasche	Der Biologe bietet sehr wertvolle Gegenstände für dich an
