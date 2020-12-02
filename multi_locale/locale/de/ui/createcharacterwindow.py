@@ -439,7 +439,7 @@ window = {
 							"x" : 20,
 							"y" : 38,
 
-							"input_limit" : 12,
+							"input_limit" : 24,
 
 							"width" : 90,
 							"height" : 20,

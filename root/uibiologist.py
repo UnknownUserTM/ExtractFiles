@@ -22,6 +22,10 @@ class BiologistWindow(ui.ScriptWindow):
 	STATE_RESEARCH_READY = 0
 	STATE_RESEARCH_IN_PROGRESS = 1
 	STATE_RESEARCH_COMPLETE = 2
+
+	STATUS_INACTIVE = 0
+	STATUS_ACTIVE = 1
+	STATUS_COMPLETE = 2
 	
 	ITEM_COUNT = 5
 
@@ -58,7 +62,9 @@ class BiologistWindow(ui.ScriptWindow):
 		self.QuestCountTextLine = self.GetChild("itemCount")
 		self.QuestResearchTimeTextLine = self.GetChild("researchTime")
 		self.QuestChanceTextLine = self.GetChild("researchChance")
-
+		
+		
+		self.ResearchWindow = self.GetChild("researchWindow")
 		self.ResearchInfoTextLine = self.GetChild("researchInfoTextLine")
 		self.BackToQuestListButton = self.GetChild("BackToQuestListButton")
 		self.StartResearchButton = self.GetChild("StartResearchButton")
@@ -99,12 +105,13 @@ class BiologistWindow(ui.ScriptWindow):
 		# self.OnQuestListScroll()
 		# self.Show()
 		# ###########################
-		
+	def OnUpdate(self):
+		self.StartResearchButton.Enable()
 	###############################################################################	
 	###############################################################################
 	## interfaceModule INPUT
 	def AddBiologistQuest(self,id,level,title,desc,status,itemVnum,itemCount_MAX,baseResearchTime,baseResearchChance):
-	
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"id: " + str(id) + ", level: " + str(level) + ", title: " + str(title) + ", desc: " + str(desc) + ", status: " + str(status) + ", itemVnum: " + str(itemVnum) + ", itemCount_MAX: " + str(itemCount_MAX) + ", baseResearchChance: " + str(baseResearchChance))
 		quest = {
 			
 			"id" : int(id),
@@ -202,6 +209,10 @@ class BiologistWindow(ui.ScriptWindow):
 		
 		item.SelectItem(info["itemVnum"])
 		
+		if info["status"] == self.STATUS_ACTIVE:
+			self.ResearchWindow.Show()
+		else:
+			self.ResearchWindow.Hide()
 		
 		self.QuestItemNameTextLine.SetText(item.GetItemName())
 		self.QuestCountTextLine.SetText(str(info["itemCount"]) + " / " + str(info["itemCount_MAX"]))
@@ -226,6 +237,7 @@ class BiologistWindow(ui.ScriptWindow):
 		if self.IsShow():
 			self.Close()
 		else:
+			self.OnQuestListScroll()
 			self.Show()
 
 	def Close(self):
@@ -334,13 +346,18 @@ class BiologistItem(ui.ScriptWindow):
 		self.status = index
 		if index == self.STATUS_INACTIVE:
 			self.bar.SetColor(self.COLOR_INACTIVE)
-		
+			self.questCount.Hide()
+			self.questPercent.Hide()	
+			self.questTimer.SetText("Nicht verfügbar.")
 		elif index == self.STATUS_ACTIVE:
 			self.bar.SetColor(self.COLOR_ACTIVE)
-		
+			self.questCount.Show()
+			self.questPercent.Show()		
 		elif index == self.STATUS_COMPLETE:
 			self.bar.SetColor(self.COLOR_COMPLETE)
-		
+			self.questCount.Hide()
+			self.questPercent.Show()
+			self.questTimer.SetText("Abgeschlossen")
 		else:
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"uibiologist.BiologistItem(): Unknown StatusIndex: " + str(index))
 	
@@ -350,15 +367,22 @@ class BiologistItem(ui.ScriptWindow):
 			self.OnMouseOverIn()
 		else:
 			self.OnMouseOverOut()
-			
-		if self.timer > app.GetTime():
-			# self.questTimer.SetText(localeInfo.SecondToDHMS(self.timer - app.GetTime()))
-			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"TIMER ACTIVE!")
-			sek = self.timer - app.GetTime()
-			self.questTimer.SetText(exterminatus.SecondToDHMS(sek))
-		else:
-			self.questTimer.SetText("Bereit!")	
-			
+		
+		if self.status == self.STATUS_INACTIVE:
+			self.questTimer.SetText("Noch nicht freigeschaltet!")	
+			self.questPercent.SetText("0%")			
+		
+		elif self.status == self.STATUS_ACTIVE:
+			if self.timer > app.GetTime():
+				# self.questTimer.SetText(localeInfo.SecondToDHMS(self.timer - app.GetTime()))
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"TIMER ACTIVE!")
+				sek = self.timer - app.GetTime()
+				self.questTimer.SetText(exterminatus.SecondToDHMS(sek))
+			else:
+				self.questTimer.SetText("Bereit!")	
+		elif self.status == self.STATUS_COMPLETE:
+			self.questTimer.SetText("Abgeschlossen!")	
+			self.questPercent.SetText("100%")
 			
 	def OnMouseOverIn(self):
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"OnMouseOverIn")
@@ -409,6 +433,9 @@ class BiologistItem(ui.ScriptWindow):
 		self.questPercent.SetText(str(int(percent)) + "%")
 	
 	def OnItemClick(self):
+		if self.status == self.STATUS_COMPLETE or self.status == self.STATUS_INACTIVE:
+			return
+			
 		snd.PlaySound("sound/ui/click.wav")
 		self.biologistWindow.OnClickBiologistItem(self.index)
 
