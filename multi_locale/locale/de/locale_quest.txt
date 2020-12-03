@@ -15,3 +15,16 @@ TUTORIAL_OBJECTIVE_LV10	Erreiche Lv.10
 TUTORIAL_OBJECTIVE_LV20	Erreiche Lv.20
 TUTORIAL_OBJECTIVE_LV30	Erreiche Lv.30
 TUTORIAL_OBJECTIVE_LISTEN	Höre Ausbilder Hong zu.
+BIOLOGIST_QUEST	Orkzahn
+BIOLOGIST_QUEST1	Fluchsammlung
+BIOLOGIST_QUEST2	Dämonenandenken
+BIOLOGIST_QUEST3	Eiskugel
+BIOLOGIST_QUEST4	Zelkova Holzast
+BIOLOGIST_QUEST5	Tugyis Tafel
+BIOLOGIST_QUEST6	Roter Geisterbaum Ast
+BIOLOGIST_QUEST7	Notizen der Anführer
+BIOLOGIST_QUEST8	Verzauberte Asche
+BIOLOGIST_QUEST9	Vulkanglas
+BIOLOGIST_QUEST10	Juwel des Feuers
+BIOLOGIST_QUEST11	Juwel des Eises
+BIOLOGIST_QUEST_DESC	Akzelerator: Elixier der Zeit[ENTER]Ergänzung: Elixier der Abgabe[ENTER]Gibst du ein Biologenitem mit einem Akzelerator ab verringert sich[ENTER]die Forschungszeit der nächsten Abgabe je nach Prozentwert des[ENTER]Akzelerators. Biologenitems können nur einzeln abgegeben werden.
