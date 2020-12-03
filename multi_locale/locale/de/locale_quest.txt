@@ -15,16 +15,16 @@ TUTORIAL_OBJECTIVE_LV10	Erreiche Lv.10
 TUTORIAL_OBJECTIVE_LV20	Erreiche Lv.20
 TUTORIAL_OBJECTIVE_LV30	Erreiche Lv.30
 TUTORIAL_OBJECTIVE_LISTEN	Höre Ausbilder Hong zu.
-BIOLOGIST_QUEST	Orkzahn
-BIOLOGIST_QUEST1	Fluchsammlung
-BIOLOGIST_QUEST2	Dämonenandenken
-BIOLOGIST_QUEST3	Eiskugel
-BIOLOGIST_QUEST4	Zelkova Holzast
-BIOLOGIST_QUEST5	Tugyis Tafel
-BIOLOGIST_QUEST6	Roter Geisterbaum Ast
-BIOLOGIST_QUEST7	Notizen der Anführer
-BIOLOGIST_QUEST8	Verzauberte Asche
-BIOLOGIST_QUEST9	Vulkanglas
-BIOLOGIST_QUEST10	Juwel des Feuers
-BIOLOGIST_QUEST11	Juwel des Eises
+BIOLOGIST_QUEST	Level 30 - 50 Verteidigung
+BIOLOGIST_QUEST1	Level 40 - 20% Doppeldrop
+BIOLOGIST_QUEST2	Level 50 - 5% Monster, 5% Bosse
+BIOLOGIST_QUEST3	Level 60 - 50 Angrifswert
+BIOLOGIST_QUEST4	Level 70 - 5% Metin
+BIOLOGIST_QUEST5	Level 80 - 10% Krit. Trefferchance
+BIOLOGIST_QUEST6	Level 85 - Max. TP 2000
+BIOLOGIST_QUEST7	Level 90 - 5% Monsterwiderstand
+BIOLOGIST_QUEST8	Level 95 - 10% Monster, 5% Monsterwiderstand
+BIOLOGIST_QUEST9	Level 100 - 10% Metins, 10% Bosse
+BIOLOGIST_QUEST10	Level 105 - 10% Deff gg. Spieler, 4% Stark gg. Spieler
+BIOLOGIST_QUEST11	Level 110 - 10% Kritdeff, 10% Durchbruchdeff
 BIOLOGIST_QUEST_DESC	Akzelerator: Elixier der Zeit[ENTER]Ergänzung: Elixier der Abgabe[ENTER]Gibst du ein Biologenitem mit einem Akzelerator ab verringert sich[ENTER]die Forschungszeit der nächsten Abgabe je nach Prozentwert des[ENTER]Akzelerators. Biologenitems können nur einzeln abgegeben werden.
