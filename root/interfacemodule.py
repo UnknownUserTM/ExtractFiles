@@ -312,7 +312,18 @@ class Interface(object):
 		
 	def RefreshBiologistQuestList(self):
 		self.wndBiologistSystem.RefreshBiologistQuestList()
-		
+	
+	def ShowBiologistSuccessOfFailWindow(self,type):
+		if type == 0:
+			self.wndPopupDialog = uiCommon.PopupDialog()
+			self.wndPopupDialog.SetText("Sehr gut! Bring mir schnell mehr! Aber erst spater! Ja?")
+			self.wndPopupDialog.Open()
+			
+		elif type == 1:
+			self.wndPopupDialog = uiCommon.PopupDialog()
+			self.wndPopupDialog.SetText("Tja dumm gelaufen aber dein Item ist mist!")
+			self.wndPopupDialog.Open()			
+	
 	#####################################################
 	## QUESTDIALOG!
 	def QuestDialog_SetQuestIndex(self,index):

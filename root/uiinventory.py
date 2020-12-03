@@ -24,6 +24,7 @@ import background
 from uiGuild import MouseReflector
 import uiToolTip
 import exterminatus
+import uibiologist
 
 ITEM_MALL_BUTTON_ENABLE = True
 
@@ -2574,24 +2575,29 @@ class InventoryWindow(ui.ScriptWindow):
 	def __UseItem(self, slotIndex):
 		ItemVNum = player.GetItemIndex(slotIndex)
 		item.SelectItem(ItemVNum)
-		if item.IsFlag(item.ITEM_FLAG_CONFIRM_WHEN_USE):
-			self.questionDialog = uiCommon.QuestionDialog()
-			self.questionDialog.SetText(localeInfo.INVENTORY_REALLY_USE_ITEM)
-			self.questionDialog.SetAcceptEvent(ui.__mem_func__(self.__UseItemQuestionDialog_OnAccept))
-			self.questionDialog.SetCancelEvent(ui.__mem_func__(self.__UseItemQuestionDialog_OnCancel))
-			self.questionDialog.Open()
-			self.questionDialog.slotIndex = slotIndex
 		
-			constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
-
+		if uibiologist.IsBiologistItem(ItemVNum) or uibiologist.IsBiologistAccelerator(ItemVNum) or uibiologist.IsBiologistChanceItem(ItemVNum):
+			self.interface.wndBiologistSystem.AddItemPerClick(slotIndex)
 		else:
-			if ItemVNum == 55401:
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG,"/snowball " + str(self.snowBallTargetVID))
-				GFHhg54GHGhh45GHGH.SendChatPacket("/snowball " + str(self.snowBallTargetVID))
-				return
-				
-			self.__SendUseItemPacket(slotIndex)
-			#GFHhg54GHGhh45GHGH.SendItemUsePacket(slotIndex)	
+		
+			if item.IsFlag(item.ITEM_FLAG_CONFIRM_WHEN_USE):
+				self.questionDialog = uiCommon.QuestionDialog()
+				self.questionDialog.SetText(localeInfo.INVENTORY_REALLY_USE_ITEM)
+				self.questionDialog.SetAcceptEvent(ui.__mem_func__(self.__UseItemQuestionDialog_OnAccept))
+				self.questionDialog.SetCancelEvent(ui.__mem_func__(self.__UseItemQuestionDialog_OnCancel))
+				self.questionDialog.Open()
+				self.questionDialog.slotIndex = slotIndex
+			
+				constInfo.SET_ITEM_QUESTION_DIALOG_STATUS(1)
+
+			else:
+				if ItemVNum == 55401:
+					chat.AppendChat(chat.CHAT_TYPE_DEBUG,"/snowball " + str(self.snowBallTargetVID))
+					GFHhg54GHGhh45GHGH.SendChatPacket("/snowball " + str(self.snowBallTargetVID))
+					return
+					
+				self.__SendUseItemPacket(slotIndex)
+				#GFHhg54GHGhh45GHGH.SendItemUsePacket(slotIndex)	
 
 	def __UseItemQuestionDialog_OnCancel(self):
 		self.OnCloseQuestionDialog()

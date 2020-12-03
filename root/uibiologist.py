@@ -45,7 +45,7 @@ def IsBiologistAccelerator(vnum):
 
 	]
 	if vnum in itemList:
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"IsAccelede")
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"IsAccelede")
 		return True
 		
 	return False
@@ -210,13 +210,82 @@ class BiologistWindow(ui.ScriptWindow):
 		if self.slotData[2]["itemVnum"]:
 			chanceItem = self.slotData[2]["itemPos"]		
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "qid: " + str(self.qid))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "qid: " + str(self.qid))
 		constInfo.INPUT_CMD = "research#" + str(self.slotData[0]["itemPos"]) + "#" + str(accelerateItem) + "#" + str(chanceItem) + "#"
 		event.QuestButtonClick(self.qid)
 		self.ClearSlotData()
 	
+	def AddItemPerClick(self,slot):
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(slot))
+		
+		if self.questSelect < 0:
+			chat.AppendChat(chat.CHAT_TYPE_INFO,"Öffne das Biologen Fenster um Items zu erforschen!")
+			return
+		
+		itemVnum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(slot)
+		if self.biologistQuestDict[self.questSelect]["itemVnum"] == itemVnum:
+			if self.slotData[0]["itemVnum"] == 0:
+				self.slotData[0]["itemVnum"] = itemVnum
+				self.slotData[0]["itemPos"] = slot
+				self.ResearchItemSlot.SetItemSlot(0, itemVnum, 0)
+				self.ResearchItemSlot.RefreshSlot()
+				self.StartResearchButton.Enable()			
+			
+		elif IsBiologistAccelerator(itemVnum):
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "isBiologistAccItem!")
+			if self.slotData[1]["itemVnum"] == 0:
+				self.slotData[1]["itemVnum"] = itemVnum
+				self.slotData[1]["itemPos"] = slot
+				self.AcceleratorItemSlot.SetItemSlot(1, itemVnum, 0)
+				self.AcceleratorItemSlot.RefreshSlot()	
+				self.UpdateChanceAndTimerWithSpecialItem()
+			else:
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "!= vnum")
+				if self.slotData[1]["itemVnum"] != itemVnum:
+					self.slotData[1]["itemVnum"] = 0
+					self.slotData[1]["itemPos"] = 0
+					self.AcceleratorItemSlot.SetItemSlot(1, 0, 0)
+					self.AcceleratorItemSlot.ClearSlot(1)
+					self.AcceleratorItemSlot.RefreshSlot()
+					# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "clear")					
+					self.slotData[1]["itemVnum"] = itemVnum
+					self.slotData[1]["itemPos"] = slot
+					self.AcceleratorItemSlot.SetItemSlot(1, itemVnum, 0)
+					self.AcceleratorItemSlot.RefreshSlot()
+					self.UpdateChanceAndTimerWithSpecialItem()
+					# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "set")
+
+		elif IsBiologistChanceItem(itemVnum):
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "isBiologistAccItem!")
+			if self.slotData[2]["itemVnum"] == 0:
+				self.slotData[2]["itemVnum"] = itemVnum
+				self.slotData[2]["itemPos"] = slot
+				self.ChanceItemSlot.SetItemSlot(2, itemVnum, 0)
+				self.ChanceItemSlot.RefreshSlot()
+				self.UpdateChanceAndTimerWithSpecialItem()
+			else:
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "!= vnum")
+				if self.slotData[2]["itemVnum"] != itemVnum:
+					self.slotData[2]["itemVnum"] = 0
+					self.slotData[2]["itemPos"] = 0
+					self.ChanceItemSlot.SetItemSlot(2, 0, 0)
+					self.ChanceItemSlot.ClearSlot(2)
+					self.ChanceItemSlot.RefreshSlot()	
+					# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "clear")		
+					self.slotData[2]["itemVnum"] = itemVnum
+					self.slotData[2]["itemPos"] = slot
+					self.ChanceItemSlot.SetItemSlot(2, itemVnum, 0)
+					self.ChanceItemSlot.RefreshSlot()
+					self.UpdateChanceAndTimerWithSpecialItem()
+					# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "set")
+					
+		else:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Unknown VNUM uibiologist 234.")
+			
+		
+		
 	def AddItem(self,slot):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(slot))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(slot))
 		if mouseModule.mouseController.isAttached():
 			attachedSlotPos = mouseModule.mouseController.GetAttachedSlotNumber()
 			if fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_INVENTORY == mouseModule.mouseController.GetAttachedType():
@@ -232,11 +301,12 @@ class BiologistWindow(ui.ScriptWindow):
 				# ## ACCELERATOR
 				elif self.SLOT_ACCELERATOR_ITEM == slot:
 					if IsBiologistAccelerator(mouseModule.mouseController.GetAttachedItemIndex()):
-						chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Hallo?")
+						# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Hallo?")
 						self.slotData[slot]["itemVnum"] = mouseModule.mouseController.GetAttachedItemIndex()
 						self.slotData[slot]["itemPos"] = attachedSlotPos
 						self.AcceleratorItemSlot.SetItemSlot(slot, mouseModule.mouseController.GetAttachedItemIndex(), 0)
-						self.AcceleratorItemSlot.RefreshSlot()						
+						self.AcceleratorItemSlot.RefreshSlot()	
+						self.UpdateChanceAndTimerWithSpecialItem()
 				
 				# ## CHANCE
 				elif self.SLOT_CHANCE_ITEM == slot:
@@ -244,7 +314,8 @@ class BiologistWindow(ui.ScriptWindow):
 						self.slotData[slot]["itemVnum"] = mouseModule.mouseController.GetAttachedItemIndex()
 						self.slotData[slot]["itemPos"] = attachedSlotPos
 						self.ChanceItemSlot.SetItemSlot(slot, mouseModule.mouseController.GetAttachedItemIndex(), 0)
-						self.ChanceItemSlot.RefreshSlot()	
+						self.ChanceItemSlot.RefreshSlot()
+						self.UpdateChanceAndTimerWithSpecialItem()
 
 
 						
@@ -269,6 +340,7 @@ class BiologistWindow(ui.ScriptWindow):
 				self.AcceleratorItemSlot.SetItemSlot(slot, 0, 0)
 				self.AcceleratorItemSlot.ClearSlot(slot)
 				self.AcceleratorItemSlot.RefreshSlot()	
+				self.UpdateChanceAndTimerWithSpecialItem()
 				
 		elif self.SLOT_CHANCE_ITEM == slot:
 			if self.slotData[slot]["itemVnum"] != 0:
@@ -276,7 +348,8 @@ class BiologistWindow(ui.ScriptWindow):
 				self.slotData[slot]["itemPos"] = 0
 				self.ChanceItemSlot.SetItemSlot(slot, 0, 0)
 				self.ChanceItemSlot.ClearSlot(slot)
-				self.ChanceItemSlot.RefreshSlot()			
+				self.ChanceItemSlot.RefreshSlot()
+				self.UpdateChanceAndTimerWithSpecialItem()
 		else:
 			return	
 	
@@ -299,10 +372,38 @@ class BiologistWindow(ui.ScriptWindow):
 		self.slotData[2]["itemPos"] = 0
 		self.ChanceItemSlot.SetItemSlot(2, 0, 0)
 		self.ChanceItemSlot.ClearSlot(2)
-		self.ChanceItemSlot.RefreshSlot()		
+		self.ChanceItemSlot.RefreshSlot()
+		
+		self.UpdateChanceAndTimerWithSpecialItem()
 	
 	
-	
+	def UpdateChanceAndTimerWithSpecialItem(self):
+		
+		info = self.biologistQuestDict[self.questSelect]
+		
+		chance = info["base_chance"]
+		if self.slotData[2]["itemVnum"] != 0:
+			item.SelectItem(self.slotData[2]["itemVnum"])
+			chance = chance + item.GetValue(0)
+			if chance >= 100:
+				chance = 100
+		
+			self.QuestChanceTextLine.SetText("Erfolgschance: " + str(chance) + "% (+" + str(item.GetValue(0)) + "%)") 
+		else:
+			self.QuestChanceTextLine.SetText("Erfolgschance: " + str(chance) + "%") 
+		
+		if self.slotData[1]["itemVnum"] != 0:
+			item.SelectItem(self.slotData[1]["itemVnum"])
+			# calcTimer = int((info["base_research_time"] * item.GetValue(0)) / 100)
+			# if calcTimer <= 0:
+				# calcTimer = 0
+				
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, str(calcTimer))
+			self.QuestResearchTimeTextLine.SetText("Forschungszeit: " + str(info["base_research_time"]) + " Min. (-" + str(item.GetValue(0)) + "%)")
+		else:
+			self.QuestResearchTimeTextLine.SetText("Forschungszeit: " + str(info["base_research_time"]) + " Min.")
+		
+			
 	def OnUpdate(self):
 	
 		if self.questSelect >= 0:
@@ -353,7 +454,7 @@ class BiologistWindow(ui.ScriptWindow):
 	###############################################################################
 	## interfaceModule INPUT
 	def AddBiologistQuest(self,id,level,title,desc,status,itemVnum,itemCount_MAX,baseResearchTime,baseResearchChance):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"id: " + str(id) + ", level: " + str(level) + ", title: " + str(title) + ", desc: " + str(desc) + ", status: " + str(status) + ", itemVnum: " + str(itemVnum) + ", itemCount_MAX: " + str(itemCount_MAX) + ", baseResearchChance: " + str(baseResearchChance))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"id: " + str(id) + ", level: " + str(level) + ", title: " + str(title) + ", desc: " + str(desc) + ", status: " + str(status) + ", itemVnum: " + str(itemVnum) + ", itemCount_MAX: " + str(itemCount_MAX) + ", baseResearchChance: " + str(baseResearchChance))
 		quest = {
 			
 			"id" : int(id),
@@ -378,7 +479,7 @@ class BiologistWindow(ui.ScriptWindow):
 	def UpdateBiologistQuest(self,index,status):
 		self.biologistQuestDict[index]["status"] = int(status)
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Quest " + str(index) + " Status set to " + str(self.biologistQuestDict[index]["status"]))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Quest " + str(index) + " Status set to " + str(self.biologistQuestDict[index]["status"]))
 		
 	def RefreshBiologistQuestList(self):
 		self.OnQuestListScroll()
@@ -393,8 +494,8 @@ class BiologistWindow(ui.ScriptWindow):
 
 	def UpdateBiologistQuest_TIMER(self,index,timer):
 		self.biologistQuestDict[index]["time"] = int(timer)
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "index: " + str(index))
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "timer: " + str(self.biologistQuestDict[index]["time"]))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "index: " + str(index))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "timer: " + str(self.biologistQuestDict[index]["time"]))
 		self.OnQuestListScroll()
 	
 	
@@ -411,9 +512,9 @@ class BiologistWindow(ui.ScriptWindow):
 		pos = int(self.QuestListScrollBar.GetPos() * (len(self.biologistQuestDict) - self.ITEM_COUNT)) + index 
 		
 	
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(pos))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(pos))
 		self.questSelect = pos
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG,"self.questSelect: " + str(self.questSelect))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"self.questSelect: " + str(self.questSelect))
 		self.ClearOverview()
 		self.BuildOverview(pos)
 		self.OpenOverview()
@@ -470,7 +571,7 @@ class BiologistWindow(ui.ScriptWindow):
 		
 		self.QuestItemNameTextLine.SetText(item.GetItemName())
 		self.QuestCountTextLine.SetText(str(info["itemCount"]) + " / " + str(info["itemCount_MAX"]))
-		self.QuestResearchTimeTextLine.SetText("Forschungszeit: " + exterminatus.SecondToDHMS(info["base_research_time"]))
+		self.QuestResearchTimeTextLine.SetText("Forschungszeit: " + str(info["base_research_time"]) + " Min.")
 		self.QuestChanceTextLine.SetText("Erfolgschance: " + str(info["base_chance"]) + "%") 
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"BuildOverview:INFO DONE")
 

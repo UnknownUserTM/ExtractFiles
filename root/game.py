@@ -3639,6 +3639,8 @@ class GameWindow(ui.ScriptWindow):
 			self.interface.UpdateBiologistQuest(int(cmd[1]),int(cmd[2]))
 		elif cmd[0] == "refresh":
 			self.interface.RefreshBiologistQuestList()
+		elif cmd[0] == "final":
+			self.interface.ShowBiologistSuccessOfFailWindow(int(cmd[1]))
 		else:
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknown Command [LUA_Biologist]: " + str(cmd[0]))
 
