@@ -1983,7 +1983,9 @@ class GameWindow(ui.ScriptWindow):
 	# END_OF_WEDDING
 	
 	if app.ENABLE_SEND_TARGET_INFO:
-		def BINARY_AddTargetMonsterDropInfo(self, raceNum, itemVnum, itemCount):
+		# def BINARY_AddTargetMonsterDropInfo(self, raceNum, itemVnum, itemCount):
+		def BINARY_AddTargetMonsterDropInfo(self, raceNum, itemVnum, itemCount, rarity = 0):
+
 			if not raceNum in constInfo.MONSTER_INFO_DATA:
 				constInfo.MONSTER_INFO_DATA.update({raceNum : {}})
 				constInfo.MONSTER_INFO_DATA[raceNum].update({"items" : []})
@@ -2014,11 +2016,16 @@ class GameWindow(ui.ScriptWindow):
 					if curItem.has_key("vnum") and curItem["vnum"] == itemVnum and curItem["count"] == itemCount:
 						return
 
+			# if isUpgradeable or isMetin:
+				# curList.append({"vnum_list":[itemVnum], "count":itemCount})
+			# else:
+				# curList.append({"vnum":itemVnum, "count":itemCount})
+				
 			if isUpgradeable or isMetin:
-				curList.append({"vnum_list":[itemVnum], "count":itemCount})
+				curList.append({"vnum_list":[itemVnum], "count":itemCount, "rarity":rarity})
 			else:
-				curList.append({"vnum":itemVnum, "count":itemCount})
-
+				curList.append({"vnum":itemVnum, "count":itemCount, "rarity":rarity})
+				
 		def BINARY_RefreshTargetMonsterDropInfo(self, raceNum):
 			self.targetBoard.RefreshMonsterInfoBoard()
 	
