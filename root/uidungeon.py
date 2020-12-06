@@ -256,7 +256,7 @@ class DungeonGuideWindow(ui.ScriptWindow):
 	def LoadDungeonDesc(self):
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,app.GetLocalePath())
 		try:
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG,app.GetLocalePath() + "/textfile/dungeon_01.txt")
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,app.GetLocalePath() + "/textfile/dungeon_01.txt")
 			lines = pack_open(app.GetLocalePath() + "/textfile/dungeon_01.txt", "r").readlines()
 		except IOError:
 			import dbg
