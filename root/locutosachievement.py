@@ -4,7 +4,7 @@ class AchievementWindow(ui.Window):
 	
 	def __init__(self):
 		ui.Window.__init__(self,"TOP_MOST")
-		self.SetSize(300, 40)
+		self.SetSize(300, 72)
 		self.SetPosition(wndMgr.GetScreenWidth()/2-150+60,wndMgr.GetScreenHeight()+150)
 		self.Hide()
 		self.Loaded = 0
@@ -24,12 +24,12 @@ class AchievementWindow(ui.Window):
 		self.MainBGThinBoard = ui.Board()
 		self.MainBGThinBoard.SetParent(self)
 		self.MainBGThinBoard.SetPosition(0,0)
-		self.MainBGThinBoard.SetSize(300, 40)
+		self.MainBGThinBoard.SetSize(300, 72)
 		self.MainBGThinBoard.Show()
 		
 		self.faceBoxIMG = ui.ImageBox()
 		self.faceBoxIMG.SetParent(self.MainBGThinBoard)
-		self.faceBoxIMG.SetPosition(5,7)
+		self.faceBoxIMG.SetPosition(5 + 12,7)
 		self.faceBoxIMG.Show()	
 
 		self.AchievementTitle = ui.TextLine()
@@ -79,7 +79,7 @@ class AchievementWindow(ui.Window):
 
 			self.Show()
 			self.pos_height = wndMgr.GetScreenHeight() + 50
-			self.SetPosition(wndMgr.GetScreenWidth() /2 - 150+60,wndMgr.GetScreenHeight()+50)
+			self.SetPosition(wndMgr.GetScreenWidth() /2 - 150,wndMgr.GetScreenHeight()+50)
 			self.isLoaded = 1
 			self.index = int(index)
 			
@@ -112,21 +112,24 @@ class AchievementWindow(ui.Window):
 	
 	def OnUpdate(self):
 		if self.isLoaded == 1:
-			targetLocation = wndMgr.GetScreenHeight() - 150
+			targetLocation = wndMgr.GetScreenHeight() - 170
 			
 			if self.pos_height > targetLocation:
 				self.pos_height = self.pos_height - 5
-				self.SetPosition(wndMgr.GetScreenWidth() /2 - 150+60,self.pos_height)
+				self.SetPosition(wndMgr.GetScreenWidth() /2 - 150,self.pos_height)
 			else:
 				if self.isLoaded == 1:
 					self.isLoaded = 2
 					self.delay = app.GetTime() + 5
 					
 		if self.isLoaded == 2 and self.delay < app.GetTime():
+			if self.MainBGThinBoard.IsIn():
+				return
+				
 			targetLocation = wndMgr.GetScreenWidth() + 50
 			if self.pos_height < targetLocation:
 				self.pos_height = self.pos_height + 25
-				self.SetPosition(wndMgr.GetScreenWidth() /2 - 150+60,self.pos_height)
+				self.SetPosition(wndMgr.GetScreenWidth() /2 - 150,self.pos_height)
 			else:
 				if self.isLoaded == 2:
 					self.isLoaded = 0	

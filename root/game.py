@@ -1125,6 +1125,10 @@ class GameWindow(ui.ScriptWindow):
 		self.interface.RecvWhisper(name)
 
 	def OnPickMoney(self, money):
+	
+		settinginfo.PLAYER_STATISTIC_DICT[settinginfo.GOLD_EARNED] = settinginfo.PLAYER_STATISTIC_DICT[settinginfo.GOLD_EARNED] + money
+		
+	
 		#########################################
 		## Yang Refresh
 		oldGold = player.GetElk() - money
@@ -3399,6 +3403,7 @@ class GameWindow(ui.ScriptWindow):
 	def LUA_Achievement(self,cmdString):
 		cmd = cmdString.split("#")
 		self.AchievementWindow.SendAchievement(cmd[0],cmd[1],cmd[2],cmd[3])
+		settinginfo.PLAYER_STATISTIC_DICT[settinginfo.AP_EARNED] = settinginfo.PLAYER_STATISTIC_DICT[settinginfo.AP_EARNED] + int(cmd[1])
 
 	def LUA_AchievementStatistic(self,cmdString):
 		# achievement_stat add/1/15/8001#30#10#30000#
@@ -3857,10 +3862,18 @@ class GameWindow(ui.ScriptWindow):
 		
 	def SetPlayerStatistic(self,command):
 		cmd = command.split("#")
-		
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "index: " + str(cmd[0]) + ", value: " + str(cmd[1]))
 		try:
-			settinginfo.PLAYER_STATISTIC_DICT[int(cmd[0])] = int(cmd[1])
-		
+			index = int(cmd[0])
+			
+			if index == settinginfo.STONE_KILL_TEMP:
+				settinginfo.PLAYER_STATISTIC_DICT[settinginfo.STONE_KILL_TEMP] = settinginfo.PLAYER_STATISTIC_DICT[settinginfo.STONE_KILL_TEMP] + 1
+			
+			elif index == settinginfo.MONSTER_KILL_TEMP:
+				settinginfo.PLAYER_STATISTIC_DICT[settinginfo.MONSTER_KILL_TEMP] = settinginfo.PLAYER_STATISTIC_DICT[settinginfo.MONSTER_KILL_TEMP] + 1
+			
+			else:
+				settinginfo.PLAYER_STATISTIC_DICT[index] = int(cmd[1])	
 		except:
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Error in PlayerStatistic! Failed to SetData. -> " + command)
 		
