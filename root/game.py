@@ -1131,7 +1131,7 @@ class GameWindow(ui.ScriptWindow):
 	
 		#########################################
 		## Yang Refresh
-		oldGold = player.GetElk() - money
+		oldGold = fgGHGjjFHJghjfFG1545gGG.GetElk() - money
 		self.interface.SetLastGold(oldGold)
 		#########################################
 		if constInfo.YangChatStatus == 0:
