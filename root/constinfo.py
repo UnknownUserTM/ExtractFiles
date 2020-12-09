@@ -1,7 +1,13 @@
 import app
 # Hallo???
+# Ja was geht?
 if app.ENABLE_SEND_TARGET_INFO:
 	MONSTER_INFO_DATA = {}
+    
+if app.RENDER_TARGED:
+	refinegui = 0
+	UiWiki = 0
+	DISABLE_MODEL_PREVIEW = 0
 	
 # AUTOREFINE
 if app.ENABLE_REFINE_RENEWAL:

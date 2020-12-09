@@ -417,6 +417,24 @@ class Window(object):
 		
 	def SetOnRunMouseWheelEvent(self, event):
 		self.onRunMouseWheelEvent = __mem_func__(event)
+        
+if app.RENDER_TARGED:
+    class RenderTarget(Window):
+
+        def __init__(self, layer = "UI"):
+            Window.__init__(self, layer)
+            
+            self.number = -1
+
+        def __del__(self):
+            Window.__del__(self)
+
+        def RegisterWindow(self, layer):
+            self.hWnd = wndMgr.RegisterRenderTarget(self, layer)
+            
+        def SetRenderTarget(self, number):
+            self.number = number
+            wndMgr.SetRenderTarget(self.hWnd, self.number)
 			
 class ListBoxEx(Window):
 
@@ -4786,6 +4804,8 @@ class PythonScriptLoader(object):
 	GAUGE_KEY_LIST = ( "width", "color", )
 	SCROLLBAR_KEY_LIST = ( "size", )
 	LIST_BOX_KEY_LIST = ( "width", "height", )
+	if app.RENDER_TARGED:
+		RENDER_TARGET_KEY_LIST = ( "index", )
 
 	def __init__(self):
 		self.Clear()
@@ -5455,6 +5475,25 @@ class PythonScriptLoader(object):
 		self.LoadElementText(window, value, parentWindow)
 
 		return True
+        
+	if app.RENDER_TARGED:
+		def LoadElementRenderTarget(self, window, value, parentWindow):
+
+			if False == self.CheckKeyList(value["name"], value, self.RENDER_TARGET_KEY_LIST):
+				return False
+
+			window.SetSize(value["width"], value["height"])
+			
+			if True == value.has_key("style"):
+				for style in value["style"]:
+					window.AddFlag(style)
+					
+			self.LoadDefaultData(window, value, parentWindow)
+			
+			if value.has_key("index"):
+				window.SetRenderTarget(int(value["index"]))
+
+			return True
 		
 	def LoadElementRoofBar(self, window, value, parentWindow):
 
