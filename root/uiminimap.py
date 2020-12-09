@@ -16,12 +16,62 @@ import item
 import uiToolTip
 
 BOSS_DATA = {
-	"metin2_map_c1" : [
-		[51,47,"Der Imperator",20]
+	"metin2_map_c3" : [
+		[141,30,"Brutaler Hauptmann",20],
+		[25,146,"Brutaler Hauptmann",20],
+		[150,147,"Brutaler Hauptmann",20]
+	],
+	"metin2_map_a3" : [
+		[118,15,"Brutaler Hauptmann",20],
+		[15,87,"Brutaler Hauptmann",20],
+		[142,147,"Brutaler Hauptmann",20]
+	],
+	"metin2_map_b3" : [
+		[122,28,"Brutaler Hauptmann",20],
+		[36,82,"Brutaler Hauptmann",20],
+		[114,128,"Brutaler Hauptmann",20]
+	],
+	"map_a2" : [
+		[105,115,"Oberork",20],
+		[140,112,"Oberork",20],
+		[130,142,"Oberork",20]
+	],
+	"metin2_map_n_flame_01" : [
+		[27,138,"Flammenkönig",20],
+		[157,18,"Flammenkönig",20],
+		[235,70,"Flammenkönig",20],
+		[103,65,"Flammenkönig",20],
+		[204,232,"Flammenkönig",20]
+	],
+	"map_n_snowm_01" : [
+		[160,77,"Neunschwanz",20],
+		[64,144,"Neunschwanz",20],
+		[201,126,"Neunschwanz",20],
+		[224,219,"Neunschwanz",20],
+		[128,201,"Neunschwanz",20]
+	],
+	"metin2_map_eastplain_01" : [
+		[87,132,"Jabba the Hutt",20],
+		[92,200,"Jabba the Hutt",20],
+		[163,163,"Jabba the Hutt",20],
+		[107,231,"Jabba the Hutt",20]
+	],
+	"metin2_map_eastplain_02" : [
+		[101,14,"Der Große Oger",20],
+		[37,108,"Der Große Oger",20],
+		[23,219,"Der Große Oger",20],
+		[90,224,"Der Große Oger",20],
+		[92,288,"Der Große Oger",20]
+	],
+	"metin2_map_eastplain_03" : [
+		[186,110,"Martyaxwar",20],
+		[56,109,"Martyaxwar",20],
+		[47,22,"Martyaxwar",20],
+		[140,23,"Martyaxwar",20]
 	],
 }
 
-SHOW_BOSS_ICON_POSITION_HELPER = False # Auf True ändern um koordinaten angezeigt zu bekommen.
+SHOW_BOSS_ICON_POSITION_HELPER = True # Auf True ändern um koordinaten angezeigt zu bekommen.
 
 
 class SwitchBotToolTipNEW(ui.Window):
