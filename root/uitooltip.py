@@ -1819,6 +1819,14 @@ class ItemToolTip(ToolTip):
 			self.AppendDescription(itemSummary, 26, self.CONDITION_COLOR)
 			self.AppendSpace(5)
 			self.AppendHorizontalLine()
+			
+		if app.RENDER_TARGED:
+			if itemVnum in self.MountVnum:
+				self.__ModelPreview(itemVnum, 4, self.MountVnum[itemVnum])	
+				
+			if itemVnum in self.PetVnum:
+				self.__ModelPreview(itemVnum, 4, self.PetVnum[itemVnum])
+			
 		### Weapon ###
 		if item.ITEM_TYPE_WEAPON == itemType:
 
@@ -2847,10 +2855,10 @@ class ItemToolTip(ToolTip):
 					else:
 						renderTarget.SetArmor(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_BODY))
 						
-					# if (fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_WEAPON)==0):
-					renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_WEAPON))
-					# else:
-						# renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_WEAPON))	
+					if (fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON)==0):
+						renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_WEAPON))
+					else:
+						renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON))	
 
 				elif test == 2:#Body
 					if hair:
@@ -2858,10 +2866,10 @@ class ItemToolTip(ToolTip):
 					else:
 						renderTarget.SetHair(RENDER_TARGET_INDEX, 0)
 						
-					# if (fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_WEAPON)==0):
-					renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_WEAPON))
-					# else:
-						# renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_WEAPON))
+					if (fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON)==0):
+						renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_WEAPON))
+					else:
+						renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON))
 						
 					renderTarget.SetArmor(RENDER_TARGET_INDEX, Vnum)
                     
