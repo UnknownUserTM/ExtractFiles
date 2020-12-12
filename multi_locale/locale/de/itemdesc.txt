@@ -177,7 +177,7 @@
 30003	Schweinenase	Der abgetrennte Rüssel eines Schweins.
 30004	Keilerzahn	Der stabile Eckzahn eines ausgewachsenen Keilers.
 30005	Stück kaputte Rüstung	Das herausgebrochene Stück einer Kampfrüstung.
-30006	Orkzahn	Der gelblich-braune, übel riechende Zahn eines Orks. An den Rändern haften undefinierbare, verkrustete Stücke.
+30006	Orkzahn	Gegenstand der Biologenquest Level 30
 30007	Orkamulett	Ein fremdartig gearbeitetes Amulett, das den Mut der Orks im Kampf nährt.
 30008	Esoterikfibel	Ein Nachschlagewerk, das Anfänger in die Kunst der Esoterik einführt.
 30009	Unbekannte Medizin	Eine nach Kräutern duftende Medizin, deren Zusammenstellung unbekannt ist.
@@ -185,7 +185,7 @@
 30011	Knäuel	Ein seidiges, zusammengerolltes Knäuel aus Fäden.
 30012	Wein des Generals	Gegenstand für die Biologenquest Lv. 30.
 30014	Yetifell	Das Fell des legendären Yetis schützt selbst gegen große Kälte.
-30015	Dämonenandenken	Das düstere, Kälte verströmende Andenken eines Dämons.
+30015	Dämonenandenken	Gegenstand der Biologenquest Level 50
 30016	Dämonenedelstein	Ein Edelstein, der dafür bekannt ist, dass die Seelen der Toten in ihm wohnen.
 30017	Schmückende Haarnadel	Die fein gearbeitete, mit filigranen Mustern verzierte Haarnadel einer Frau.
 30018	Rotes Haarband	Ein elegantes Band zur schmückenden Zierde von Damenfrisuren.
@@ -216,10 +216,10 @@
 30044	Lehm	Ein Material, das zur Herstellung von Porzellan verwendet wird.
 30045	Skorpionnadel	Gegenstand der Biologenquest Lv. 115.
 30046	Skorpionschwanz	Gegenstand der Biologenquest Lv. 115.
-30047	Fluchsammlung	Ein esoterisches Buch, in dem einiges über Flüche geschrieben steht.
+30047	Fluchsammlung	Gegenstand der Biologenquest Level 40
 30048	Eisstück	Ein Klumpen gefrorenes Wasser, der stetig Kälte entsendet.
 30049	Eiskillerwal-Horn	Das Horn wird als wertvolles Material für Bildhauer gehandelt.
-30050	Eiskugel	Eine weiß glitzernde Kugel, die vor Kälte in der Luft dampft. Heißes Wasser vermag sie nicht zu schmelzen.
+30050	Eiskugel	Gegenstand der Biologenquest Level 60
 30051	Unbekannter Talisman	Ein fremdartig wirkendes Amulett, das nur von Esoterikern gelesen werden kann.
 30052	Flagge	Eine Flagge, um die Truppen Wilder zu markieren.
 30053	Bärenfußhaut	Dieses Nahrungsmittel wird von vielen Leuten konsumiert, um die körperliche Ausdauer zu unterstützen.
@@ -288,11 +288,13 @@
 30181	Buchseite	Die verblasste Schrift auf dem Pergament ist nur schwer zu entziffern - die Seite scheint sehr alt zu sein.
 30182	Legendäres Tagebuch	Dieses Duplikat eines weit älteren Buches sieht äußerst wertvoll aus.
 30183	Düstere Holzmaske	Die hölzerne Fratze scheint dich direkt anzustarren. Es handelt sich eindeutig um einen zeremoniellen Gegenstand.
-30184	Verzauberte Asche	Die Asche in diesem von seltsamen Zeichen bedeckten Gefäß ist von einem sanften Glühen umgeben.
+30184	Verzauberte Asche	Gegenstand der Biologenquest Level 95
 30185	Schwarzes Eis	Tiefe Schatten scheinen sich unter der glänzenden, glatten Oberfläche zu ballen.
+30177	Juwel des Feuers	Gegenstand der Biologenquest Level 105
+30178	Juwel des Eieses	Gegenstand der Biologenquest Level 110
 30186	Versteinerte Träne	Eine versteinerte Träne des Gottes Baljit-Elvedin, der heute als Drachengott bekannt ist.
 30187	Blutstropfen	Ein Tropfen Blut der ermordeten Göttin Bahar-Taraji, Schöpferin der Welt.
-30188	Vulkanglas	Ehemals flüssiges, schlagartig abgekühltes Vulkangestein.
+30188	Vulkanglas	Gegenstand der Biologenquest Level 100
 30189	Tränen Baljit-Elvedins	Das kunstvoll geformte Gefäß enthält die Tränen des Gottes Baljit-Elvedin.
 30192	Milchsaft	Hochwertiges Pflanzensekret
 30193	Fingerknochen	Das letzte Überbleibsel eines gefallenen Helden.
@@ -1803,13 +1805,15 @@
 91257	Saphir Fraktal	Dieses Fraktal wird zum Verbessern von Gegenständen benötigt.|Dieses Fraktal ist handel- & stapelbar.
 50821	Roter Tau    Ein Trank, der deine Chance auf kritische Treffer erhöht. 
 50822	Pinker Tau	Ein Trank, der deine Chance auf durchbohrende Treffer erhöht. 
+30166	Tugyis Tafel	Gegenstand der Biologenquest Level 80
 50823	Gelber Tau	Ein Trank, der deine Angriffsgeschwindigkeit erhöht. 
+30168	Notizen der Anführer	Gegenstand der Biologenquest Level 90
 50824	Grüner Tau	Ein Trank, der deinen Magiewiderstand erhöht. 
 50825	Blauer Tau	Ein Trank, der deine Angriffskraft erhöht. 
 50826	Weißer Tau	Ein Trank, der deine Verteidigung erhöht. 
 70038	Tapferkeitsumhang (Permanent)	Ein farbiger Umhang, mit dem Krieger einst ihre Tapferkeit bewiesen, da er sämtliche Monster anlockte.
-30165	Zelkova Holzast	Dieser Gegenstand wird zum Verbessern von Ausrüstungsgegenständen benötigt.
-30167	Roter Geisterbaum-Ast	Dieser Gegenstand wird zum Verbessern von Ausrüstungsgegenständen benötigt.
+30165	Zelkova Holzast	Gegenstand der Biologenquest Level 70
+30167	Roter Geisterbaum-Ast	Gegenstand der Biologenquest Level 85
 28230	Stein des Durchbruchs+2	Kann bei Seon-Pyeong mithilfe von Magischen Splittern auf +3 verbessert werden.
 28231	Stein des Todesstoß+2	Kann bei Seon-Pyeong mithilfe von Magischen Splittern auf +3 verbessert werden.
 28232	Stein der Wiederkehr+2	Kann bei Seon-Pyeong mithilfe von Magischen Splittern auf +3 verbessert werden.
