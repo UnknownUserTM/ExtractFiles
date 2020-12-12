@@ -143,6 +143,9 @@
 0	metinstone_16	metinstone
 0	obj_well	obj_well
 0	obj_fire	obj_fire
+0	chick_yellow1	chick
+0	christmas_2016_mammoth_01	christmas_2016_mammoth
+0	christmas_2016_mammoth_02	christmas_2016_mammoth
 101	stray_dog	
 102	wolf	
 103	wolf	
@@ -1661,3 +1664,6 @@
 20438	metinstone_05	
 20439	metinstone_06	
 20441	metinstone_07	
+20442	chick_yellow1	
+20443	christmas_2016_mammoth_01	
+20444	christmas_2016_mammoth_02	
