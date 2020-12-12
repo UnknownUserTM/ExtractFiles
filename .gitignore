@@ -1,6 +1,7 @@
 */*
 !.gitignore
 !root/*
+!metin2_patch_eu4/*
 !multi_locale/*
 !new_ui/*
 !textureset/*
