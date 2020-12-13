@@ -2295,7 +2295,7 @@ class ItemToolTip(ToolTip):
 				(affectType, affectValue) = item.GetAffect(i)
 				if affectType != 0:
 					self.AppendTextLine(self.__GetAffectString(affectType, affectValue), self.POSITIVE_COLOR)
-					
+			self.AppendMallItemLastTime(app.GetGlobalTimeStamp() + (metinSlot[5]*60))		
 			self.AppendHorizontalLine()					
 				
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
