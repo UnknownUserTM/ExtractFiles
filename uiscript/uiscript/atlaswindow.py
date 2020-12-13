@@ -24,6 +24,23 @@ window = {
 
 			"width" : 256+30+15,
 			"color" : "red",
+			
+			"children" : (
+				{
+					"name" : "enableWarpWindowButton",
+					"type" : "button",
+					
+					"x" : 35,
+					"y" : 20,
+					
+					"default_image" : "yamato_button/button_small_n.tga",
+					"over_image" : "yamato_button/button_small_h.tga",
+					"down_image" : "yamato_button/button_small_p.tga",		
+					"text" : "GM: Warp",
+				
+				},
+			
+			),
 
 		},
 		## BOARD
@@ -41,17 +58,15 @@ window = {
 			
 			# "children" : (
 				# {
-					# "name" : "positionToolTip",
-					# "type" : "text",
+					# "name" : "warpWindow",
+					# "type" : "window",
+					# "style" : ("attach",),
 					
 					# "x" : 0,
-					# "y" : 0,
-					
-					# "text" : "Hallo?",
-					# "outline" : 1,
-				
-				
-				
+					# "y" : 50,
+
+					# "width" : 256 + 15,
+					# "height" : 256 + 38,
 				# },
 			
 			# ),
