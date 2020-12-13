@@ -8162,4 +8162,7 @@
 160497	ETC	icon/buff/db_kampf_n.tga
 27122	ETC	icon/item/27105.tga
 27123	ETC	icon/item/27102.tga
+160498	ETC	icon/item/71135.tga
 71111	ETC	icon/item/71111.tga
+160499	ETC	icon/item/71145.tga
+160500	ETC	icon/item/71136.tga
