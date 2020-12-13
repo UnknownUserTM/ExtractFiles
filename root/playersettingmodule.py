@@ -494,7 +494,7 @@ def __LoadGameEffect():
 	
 	
 	
-	
+## BEGIN OFF BUFFITEMS ##	
 	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+12, "", "d:/ymir work/effect/etc/buff/buff_item_lolli.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(effect_item_buff_lolli)")
 
@@ -509,48 +509,53 @@ def __LoadGameEffect():
 	
 	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+16, "", "d:/ymir work/effect/etc/buff/buff_item_halfmoon.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(effect_item_buff_halfmoonring)")
+
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+17, "", "d:/ymir work/effect/etc/buff/buff_item4.mse")
+	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(effect_item_buff_love_amulet)")
+## END OF BUFFITEMS ##
 	
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+17, "", "d:/ymir work/effect/etc/buff/buff_battlezone.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+18, "", "d:/ymir work/effect/etc/buff/buff_battlezone.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(effect_item_buff_battlezone)")
 	
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+18, "", "d:/ymir work/effect/etc/emoticon/hungry.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+19, "", "d:/ymir work/effect/etc/emoticon/hungry.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(hungry)")
 	
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+19, "", "d:/ymir work/effect/etc/emoticon/call.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+20, "", "d:/ymir work/effect/etc/emoticon/call.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(call)")	
 	
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+20, "", "d:/ymir work/effect/etc/emoticon/alcohol.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+21, "", "d:/ymir work/effect/etc/emoticon/alcohol.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(alcohol)")
 	
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+21, "", "d:/ymir work/effect/etc/emoticon/celebration.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+22, "", "d:/ymir work/effect/etc/emoticon/celebration.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(celebration)")
 	
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+22, "", "d:/ymir work/effect/etc/emoticon/charging.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+23, "", "d:/ymir work/effect/etc/emoticon/charging.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(charging)")
 
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+23, "", "d:/ymir work/effect/etc/emoticon/letter.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+24, "", "d:/ymir work/effect/etc/emoticon/letter.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(letter)")
 
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+24, "", "d:/ymir work/effect/etc/emoticon/nosay.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+25, "", "d:/ymir work/effect/etc/emoticon/nosay.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(nosay)")
 
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+25, "", "d:/ymir work/effect/etc/emoticon/siren.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+26, "", "d:/ymir work/effect/etc/emoticon/siren.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(siren)")
 
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+26, "", "d:/ymir work/effect/etc/emoticon/weather1.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+27, "", "d:/ymir work/effect/etc/emoticon/weather1.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(weather1)")
 
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+27, "", "d:/ymir work/effect/etc/emoticon/weather2.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+28, "", "d:/ymir work/effect/etc/emoticon/weather2.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(weather2)")
 
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+28, "", "d:/ymir work/effect/etc/emoticon/weather3.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+29, "", "d:/ymir work/effect/etc/emoticon/weather3.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(weather3)")
 
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+29, "", "d:/ymir work/effect/etc/emoticon/whirl.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+30, "", "d:/ymir work/effect/etc/emoticon/whirl.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(whirl)")
 
-	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+30, "", "d:/ymir work/effect/etc/emoticon/busy.mse")
+	chrmgr.RegisterEffect(chrmgr.EFFECT_EMOTICON+31, "", "d:/ymir work/effect/etc/emoticon/busy.mse")
 	GFHhg54GHGhh45GHGH.RegisterEmoticonString("(busy)")	
+
 	## Emoticon
 	#########################################################################################
 
