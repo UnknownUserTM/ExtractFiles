@@ -1397,21 +1397,24 @@
 71132	Rappen-Siegel	Pferdesiegel für einen edlen Rappen.
 71133	Rappen-Siegel	Pferdesiegel für einen edlen Rappen.
 71134	Rappen-Siegel	Pferdesiegel für einen edlen Rappen.
-71135	Halbmondring	Ring mit einer kunstvoll gearbeiteten Gravur in der Form eines Halbmondes. Er stärkt dich mit Stark gegen Luft +20% & Chance, eine doppelte Menge Yang fallen zu lassen +20%, Chance auf krit. Treffer +5%.
-71136	Lolli	Ein Lolli aus geheimen Zutaten, der Erfahrung und Kraft für den Kampf spendet. Er stärkt dich mit Stark gegen Luft +20% & Chance, eine doppelte Menge Yang fallen zu lassen +20%
+71135	Halbmondring	Ring mit einer kunstvoll gearbeiteten Gravur in der Form eines Halbmondes.
+160498	Halbmondring	Ring mit einer kunstvoll gearbeiteten Gravur in der Form eines Halbmondes.
+71136	Lolli	Ein Lolli aus geheimen Zutaten, der Erfahrung und Kraft für den Kampf spendet.
+160500	Lolli	Ein Lolli aus geheimen Zutaten, der Erfahrung und Kraft für den Kampf spendet.
 71137	Königstiger-Siegel(blau)	Der Zauber des Siegels ruft dein Reittier, den majestätischen Königstiger (blau), herbei.
 71138	Königstiger-Siegel (rot)	Der Zauber des Siegels ruft dein Reittier, den majestätischen Königstiger (rot), herbei.
 71139	Königstiger-Siegel(gold)	Der Zauber des Siegels ruft dein Reittier, den majestätischen Königstiger (gold), herbei.
 71140	Königstiger-Siegel(grün)	Der Zauber des Siegels ruft dein Reittier, den majestätischen Königstiger (grün), herbei.
 71141	Königstiger-Siegel(grau)	Der Zauber des Siegels ruft dein Reittier, den majestätischen Königstiger (grau), herbei.
 71142	Königstiger-Siegel(weiß)	Der Zauber des Siegels ruft dein Reittier, den majestätischen Königstiger (weiß), herbei.
-71143	Ring der Freude	Ring mit einer wertvollen Verzierung aus Jade und Türkis.| Stark gegen Bosse +10%|Stark gegen Metinsteine +5%|
+71143	Ring der Freude	Ring mit einer wertvollen Verzierung aus Jade und Türkis.
+71149	Ring der Freude	Ring mit einer wertvollen Verzierung aus Jade und Türkis.
 71144	Weihnachtstruhe	Das liebevoll verpackte Weihnachtsgeschenk enthält eine festliche Überraschung.
 71145	Amulett der Ewigen Liebe	Ein silberner Kettenanhänger in Herzform, besetzt mit magischen Edelsteinen.
+160499	Amulett der Ewigen Liebe	Ein silberner Kettenanhänger in Herzform, besetzt mit magischen Edelsteinen.
 71146	Amors Truhe (rosa)	Truhe in Herzform mit 10-fach überraschendem Inhalt. Lässt sich alle 30 Min. erneut öffnen.
 71147	Amors Truhe (blau)	Truhe in Herzform mit 10-fach überraschendem Inhalt. Lässt sich alle 30 Min. erneut öffnen.
 71148	Ring der Willenskraft	Verleiht dir 2 Tage lang:|Stark gegen Wasser +20%|Chance Yang Fallen lassen +20%|Chance auf krit. Treffer +5%
-71149	Ring der Freude (b)	Ring mit einer wertvollen Verzierung aus Jade und Türkis.| Stark gegen Bosse +10%|Stark gegen Metinsteine +5%|
 71150	Zauber-Ei	Die kunstvoll verzierte ovale Truhe enthält mehr als nur eine Osterüberraschung und gibt ihre Schätze erst nach und nach preis.
 71151	Grüner Zauber	Entfernt die Boni eines deiner Gegenstände und fügt neue hinzu. Kann nur bei Waffen und Rüstungen bis Level 40 angewendet werden. Nicht handelbar.
 71152	Grüne Stärke	Fügt mit etwas Glück einem deiner Gegenstände einen neuen Bonus hinzu (bis max. 4 Boni). Kann nur bei Waffen und Rüstungen bis Level 40 angewendet werden. Nicht handelbar.
