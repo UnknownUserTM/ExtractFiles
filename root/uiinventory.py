@@ -131,6 +131,12 @@ class DEVItemInformation(ui.Window):
 		self.toolTip.AppendSpace(5)
 		self.toolTip.AppendHorizontalLine()
 			
+		self.toolTip.AppendTextLine("Applys:",self.toolTip.TITLE_COLOR)
+		for i in xrange(5):
+			(affectType, affectValue) = item.GetAffect(i)
+			self.toolTip.AppendStatisticTextLine("applyType"+ str(i) + " (" + str(affectType) + ")" ,affectValue)			
+			
+			
 		self.toolTip.ResizeToolTip()	
 		self.AdjustPosition()
 
