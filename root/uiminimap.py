@@ -385,6 +385,7 @@ class AtlasWindow(ui.ScriptWindow):
 		def __init__(self):
 			ui.Window.__init__(self)
 			self.AddFlag("not_pick")
+			
 
 		def OnUpdate(self):
 			miniMap.UpdateAtlas()
@@ -401,6 +402,9 @@ class AtlasWindow(ui.ScriptWindow):
 
 		def ShowAtlas(self):
 			miniMap.ShowAtlas()
+		
+		# def OnMouseLeftButtonDown(self):
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Hallo?")
 
 	def __init__(self):
 		self.tooltipInfo = MapTextToolTip()
@@ -411,6 +415,7 @@ class AtlasWindow(ui.ScriptWindow):
 		self.bossIconList = {}
 		self.mapName = ""
 		self.board = 0
+		self.gmJumpEnabled = 0
 		self.showLocalMousePosition = True
 
 		ui.ScriptWindow.__init__(self)
@@ -454,7 +459,8 @@ class AtlasWindow(ui.ScriptWindow):
 			self.board = self.GetChild("board")
 			self.titleBar = self.GetChild("TitleBar")
 			# self.toolTipPos = self.GetChild("positionToolTip")
-
+			self.enableGMJumpButton = self.GetChild("enableWarpWindowButton")
+			self.enableGMJumpButton.SetEvent(self.ToggleGMJump)
 		except:
 			import exception
 			exception.Abort("AtlasWindow.LoadWindow.BindObject")
@@ -476,6 +482,12 @@ class AtlasWindow(ui.ScriptWindow):
 		self.ClearBossIcons()
 		self.MakeBossIcons()
 		miniMap.RegisterAtlasWindow(self)
+		
+		self.warpWindow = ui.Window()
+		self.warpWindow.SetParent(self.board)
+		self.warpWindow.SetPosition(12+13, 34-10-8)
+		self.warpWindow.Hide()
+		self.warpWindow.SetMouseLeftButtonDownEvent(self.OnGMJump)
 
 	def Destroy(self):
 		miniMap.UnregisterAtlasWindow()
@@ -486,8 +498,28 @@ class AtlasWindow(ui.ScriptWindow):
 		self.infoGuildMark = None
 		self.board = None
 		self.titleBar = None
+		self.warpWindow = None
 		self.ClearBossIcons()
-
+	
+	def ToggleGMJump(self):
+		if self.gmJumpEnabled == 0:
+			self.warpWindow.Show()
+			self.warpWindow.SetTop()
+			self.gmJumpEnabled = 1
+		else:
+			self.warpWindow.Hide()
+			self.gmJumpEnabled = 0
+	
+	def OnGMJump(self):
+		(x, y) = self.GetGlobalPosition()
+		(mouseX, mouseY) = wndMgr.GetMousePosition()
+		(iPosX, iPosY) = miniMap.GetAtlasPositionInfo(mouseX, mouseY)
+		textWidth, textHeight = self.toolTipPos.GetTextSize()
+			
+		self.toolTipPos.SetText("Jump tp (" + str(iPosX) + ", " + str(iPosY)+")")
+			
+		GFHhg54GHGhh45GHGH.SendChatPacket("/go " + str(iPosX) + " " + str(iPosY))
+			
 	def OnUpdate(self):
 
 		if not self.tooltipInfo:
@@ -495,7 +527,20 @@ class AtlasWindow(ui.ScriptWindow):
 
 		if not self.infoGuildMark:
 			return
-
+			
+		if self.gmJumpEnabled == 1:
+			if False == self.warpWindow.IsIn():
+				return			
+			(x, y) = self.GetGlobalPosition()
+			(mouseX, mouseY) = wndMgr.GetMousePosition()
+			(iPosX, iPosY) = miniMap.GetAtlasPositionInfo(mouseX, mouseY)
+			textWidth, textHeight = self.toolTipPos.GetTextSize()
+			
+			self.toolTipPos.SetText("Jump tp (" + str(iPosX) + ", " + str(iPosY)+")")
+			self.toolTipPos.SetPosition(mouseX - x - textWidth - 18 - 5, mouseY - y - 50)
+			self.toolTipPos.Show()			
+			return
+			
 		self.infoGuildMark.Hide()
 		self.tooltipInfo.Hide()
 		self.toolTipPos.Hide()
@@ -507,7 +552,8 @@ class AtlasWindow(ui.ScriptWindow):
 		textWidth, textHeight = self.toolTipPos.GetTextSize()
 		
 		if SHOW_BOSS_ICON_POSITION_HELPER:
-			self.toolTipPos.SetText("x: " + str(mouseX - x - 25) + ", y: " + str(mouseY - y - 66))
+			# self.toolTipPos.SetText("x: " + str(mouseX - x - 25) + ", y: " + str(mouseY - y - 66))
+			self.toolTipPos.SetText("x: " + str(iPosX) + ", y: " + str(iPosY))
 			self.toolTipPos.SetPosition(mouseX - x - textWidth - 18 - 5, mouseY - y - 50)
 			self.toolTipPos.Show()
 		
@@ -560,6 +606,7 @@ class AtlasWindow(ui.ScriptWindow):
 					self.board.SetPosition(iSizeX+15, 0)
 
 				self.board.SetSize(iSizeX + 50, iSizeY + 38)
+				self.warpWindow.SetSize(iSizeX + 50, iSizeY + 38)
 				self.SetSize(iSizeX + 50, iSizeY + 38+50)
 				self.titleBar.SetWidth(iSizeX +50+15)
 				#self.AtlasMainWindow.SetSize(iSizeX, iSizeY)
