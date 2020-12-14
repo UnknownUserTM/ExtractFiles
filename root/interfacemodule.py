@@ -205,6 +205,7 @@ class Interface(object):
 		
 	def __MakeBiologistWindow(self):
 		self.wndBiologistSystem = uibiologist.BiologistWindow()
+		self.wndBiologistSystem.BindInventory(self.wndInventory)
 		
 	def __MakeUserEventButtonWindow(self):
 		self.wndUserEventButton = uiuserevent.UserEventButtonWindow()
