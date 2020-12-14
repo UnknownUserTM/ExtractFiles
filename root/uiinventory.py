@@ -25,6 +25,7 @@ from uiGuild import MouseReflector
 import uiToolTip
 import exterminatus
 import uibiologist
+import questinfo
 
 ITEM_MALL_BUTTON_ENABLE = True
 
@@ -535,12 +536,12 @@ class EasySideBar(ui.ScriptWindow):
 			"button_icon" : "icon/item/71009.tga",
 			"button_func" : "upp",
 		},
-		# {
-			# "button_name" : "TestButton 2",
-			# "button_desc" : "Das ist eine Beschreibung der Funktion des TestButton 2. So noch etwas mehr Text da es sonst echt ... Naja aussieht.",
-			# "button_icon" : "icon/item/27002.tga",
-			# "button_func" : "",
-		# },
+		{
+			"button_name" : "bio",
+			"button_desc" : "Das ist eine Beschreibung der Funktion des TestButton 2. So noch etwas mehr Text da es sonst echt ... Naja aussieht.",
+			"button_icon" : "icon/ui/bio.tga",
+			"button_func" : "bio",
+		},
 	]
 
 	def __init__(self, wndInventory):
@@ -553,16 +554,17 @@ class EasySideBar(ui.ScriptWindow):
 		ui.ScriptWindow.__del__(self)
 
 	def LoadWindow(self):
-		self.SetSize(33,self.SIDEBAR_HEIGHT)
+		itemCount = len(self.BUTTON_DICT)
+		self.SetSize(33,32*itemCount)
 		
 		self.Background = ui.ThinBoardCircle()
 		self.Background.SetParent(self)
 		self.Background.SetPosition(0,0)
-		self.Background.SetSize(33,self.SIDEBAR_HEIGHT)
+		self.Background.SetSize(33,32*itemCount)
 		self.Background.Show()
 		
 		y = 1
-		for i in xrange(len(self.BUTTON_DICT)):
+		for i in xrange(itemCount):
 			Info = self.BUTTON_DICT[i]
 			self.sideBarItem[i] = EasySideBarItem(self)
 			self.sideBarItem[i].SetParent(self)
@@ -572,7 +574,15 @@ class EasySideBar(ui.ScriptWindow):
 			y = y + 32
 
 		self.Show()
+	
+	
+	def RefreshItem(self):
+		itemCount = len(self.BUTTON_DICT)
+		for i in xrange(itemCount):
+			self.sideBarItem[i].Refresh()
 		
+		
+	
 	def OnClick(self,func):
 		# chat.AppendChat(chat.CHAT_TYPE_DEBUG,str(func))
 		
@@ -586,6 +596,20 @@ class EasySideBar(ui.ScriptWindow):
 				import uiuppstorage
 				uiuppstorage.UppStorageBoard().Show()		
 		
+		
+		elif func == "bio":
+			BIO_WINDOW = self.wndInventory.interface.wndBiologistSystem
+			if BIO_WINDOW.qid == 0:
+				chat.AppendChat(chat.CHAT_TYPE_INFO, "Du hast noch keine Forschungen!")
+				return
+			activeQuest = BIO_WINDOW.GetActiveQuest()
+			if activeQuest < 0:
+				chat.AppendChat(chat.CHAT_TYPE_INFO, "Die Biologen-Quests werden ab lv.30 freigeschaltet!")
+				return
+			
+			constInfo.INPUT_CMD = "open#"
+			event.QuestButtonClick(BIO_WINDOW.qid)			
+		
 		else:
 			chat.AppendChat(chat.CHAT_TYPE_DEBUG,"Unknow EasySideBar command: " + str(func))
 		
@@ -595,6 +619,7 @@ class EasySideBarItem(ui.ScriptWindow):
 		ui.ScriptWindow.__init__(self)
 		self.wndSideBar = wndSideBar
 		self.func = ""
+		self.title = ""
 		self.LoadWindow()
 
 	def __del__(self):
@@ -643,7 +668,7 @@ class EasySideBarItem(ui.ScriptWindow):
 			self.icon.LoadImage("icon/item/30001.tga")
 		
 		self.func = func
-		
+		self.title = title
 		self.toolTip.ClearToolTip()
 		self.toolTip.AppendSpace(2)
 		self.toolTip.SetTitle(title)
@@ -652,14 +677,56 @@ class EasySideBarItem(ui.ScriptWindow):
 		self.toolTip.ResizeToolTip()
 		self.toolTip.Show()
 		self.icon.SetOnClickEvent(self.wndSideBar.OnClick,self.func)			
+		# self.AppendBIOSpecialInfo()
 			
 	def OnUpdate(self):
 		if self.icon.IsIn():
 			self.mouseReflector.Show()
+			self.AppendBIOSpecialInfo()
 			self.toolTip.Show()
 		else:
 			self.mouseReflector.Hide()
 			self.toolTip.Hide()
+	
+	def Refresh(self):
+		self.AppendBIOSpecialInfo()
+		
+	def AppendBIOSpecialInfo(self):
+		if self.title == "bio":
+			BIO_WINDOW = self.wndSideBar.wndInventory.interface.wndBiologistSystem
+
+			activeQuest = BIO_WINDOW.GetActiveQuest()
+			if activeQuest < 0:
+				
+				self.toolTip.ClearToolTip()
+				self.toolTip.SetTitle("Forschung des Biologen")				
+				self.toolTip.AppendTextLine("Die Biologen-Quests werden ab", self.toolTip.NORMAL_COLOR)
+				self.toolTip.AppendTextLine("lv.30 freigeschaltet.", self.toolTip.NORMAL_COLOR)
+			else:
+				BIO_QUEST_DATA = BIO_WINDOW.biologistQuestDict[activeQuest]
+				item.SelectItem(BIO_QUEST_DATA["itemVnum"])
+				image = item.GetIconImageFileName()
+				try:
+					self.icon.LoadImage(image)
+				except:
+					self.icon.LoadImage("icon/item/30001.tga")
+				self.toolTip.ClearToolTip()
+				self.toolTip.SetTitle(questinfo.GetQuestString(BIO_QUEST_DATA["title"]))
+				self.toolTip.AppendTextLine(item.GetItemName(), self.toolTip.NORMAL_COLOR)
+				self.toolTip.AppendTextLine(str(BIO_QUEST_DATA["itemCount"]) + " / " + str(BIO_QUEST_DATA["itemCount_MAX"]), self.toolTip.NORMAL_COLOR)
+				
+				if BIO_QUEST_DATA["time"] > app.GetGlobalTimeStamp():
+					timeLeft = BIO_QUEST_DATA["time"] - app.GetGlobalTimeStamp()
+					self.toolTip.AppendTextLine(exterminatus.SecondToDHMS(timeLeft))
+				
+				else:
+					self.toolTip.AppendTextLine("Abgabe bereit!", self.toolTip.POSITIVE_COLOR)
+				
+		
+		# self.toolTip.AppendTextLine("") # Item
+		
+		# if 
+			
 			
 class CurrencyDescriptionToolTip(ui.Window):
 	CURRENCY_GOLD = 0
@@ -1386,6 +1453,7 @@ class InventoryWindow(ui.ScriptWindow):
 		self.sideBar = EasySideBar(self)
 		self.sideBar.SetParent(self)
 		self.sideBar.SetPosition(0, 90)
+		
 		# self.dlgCrateGoldSafe.Open()
 
 		## RefineDialog

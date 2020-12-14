@@ -204,13 +204,17 @@ class BiologistWindow(ui.ScriptWindow):
 		accelerateItem = "no"
 		chanceItem = "no"
 		
-		if self.slotData[1]["itemVnum"]:
+		if self.slotData[1]["itemVnum"] > 0:
 			accelerateItem = self.slotData[1]["itemPos"]
 		
-		if self.slotData[2]["itemVnum"]:
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, str(self.slotData[2]["itemVnum"]))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, str(self.slotData[2]["itemPos"]))
+		if self.slotData[2]["itemVnum"] > 0:
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "slot data 2 vnum ist >0")
 			chanceItem = self.slotData[2]["itemPos"]		
 		
-		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "qid: " + str(self.qid))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "chanceItem: " + str(chanceItem))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "research#" + str(self.slotData[0]["itemPos"]) + "#" + str(accelerateItem) + "#" + str(chanceItem) + "#")
 		constInfo.INPUT_CMD = "research#" + str(self.slotData[0]["itemPos"]) + "#" + str(accelerateItem) + "#" + str(chanceItem) + "#"
 		event.QuestButtonClick(self.qid)
 		self.ClearSlotData()
@@ -449,7 +453,15 @@ class BiologistWindow(ui.ScriptWindow):
 					self.AcceleratorItemSlotBlockImage.Hide()
 					self.ChanceItemSlotBlockImage.Hide()				
 					
-					
+	def GetActiveQuest(self):
+		for i in xrange(len(self.biologistQuestDict)):
+			if self.biologistQuestDict[i]["status"] == self.STATUS_ACTIVE:
+				return i
+		
+		return -1
+	
+	def BindInventory(self, wndInventory):
+		self.wndInventory = wndInventory
 	###############################################################################	
 	###############################################################################
 	## interfaceModule INPUT
@@ -475,6 +487,8 @@ class BiologistWindow(ui.ScriptWindow):
 		}
 		
 		self.biologistQuestDict.append(quest)
+		if int(status) == self.STATUS_ACTIVE:
+			self.wndInventory.sideBar.RefreshItem()
 	
 	def UpdateBiologistQuest(self,index,status):
 		self.biologistQuestDict[index]["status"] = int(status)
