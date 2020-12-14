@@ -674,6 +674,13 @@ Group HairData
 		SourceSkin			"hair/hair_18_1.dds"
 		TargetSkin			"hair/hair_18_1.dds"
 	}
+	Group HairData95
+	{
+		HairIndex			40032
+		Model				"hair/hair_15_1.gr2"
+		SourceSkin			"hair/hair_16_1.dds"
+		TargetSkin			"hair/hair_16_1.dds"
+	}
 }
 
 Group ShapeData
