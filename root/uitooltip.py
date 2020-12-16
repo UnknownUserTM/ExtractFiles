@@ -26,7 +26,9 @@ if app.RENDER_TARGED:
 
 GOLD_STORAGE_ITEMS = [80003,80004,80005,80006,30251,30252,30253]
 
-IS_NEW_RING_2020 = [71143, 71149, 71135, 160498, 71145, 160499, 71136, 160500, 160200, 160201, 160202]
+IS_NEW_RING_2020 = [71143, 71149, 71135, 160498, 71145, 160499, 71136, 160500]
+IS_PET_ITEM_2020 = [160200, 160201, 160202]
+
 
 # Roter Text - 1.0, 0.1882, 0.1882, 1.0
 # Grüner Text - 0.0, 1.0, 0.0, 1.0
@@ -2297,9 +2299,17 @@ class ItemToolTip(ToolTip):
 				(affectType, affectValue) = item.GetAffect(i)
 				if affectType != 0:
 					self.AppendTextLine(self.__GetAffectString(affectType, affectValue), self.POSITIVE_COLOR)
+			
 			self.AppendMallItemLastTime(app.GetGlobalTimeStamp() + (metinSlot[5]*60))		
 			self.AppendHorizontalLine()					
-				
+		elif itemVnum in IS_PET_ITEM_2020:
+			for i in xrange(5):
+				(affectType, affectValue) = item.GetAffect(i)
+				if affectType != 0:
+					self.AppendTextLine(self.__GetAffectString(affectType, affectValue), self.POSITIVE_COLOR)
+			
+			self.AppendMallItemLastTime(metinSlot[0])		
+			self.AppendHorizontalLine()				
 		# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 		# Missionsbücher
 		elif itemVnum in QUESTBOOKS:
