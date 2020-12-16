@@ -7933,6 +7933,8 @@
 160102	ETC	icon/item/160102.tga
 160103	ETC	icon/item/160103.tga
 150404	ETC	icon/item/150404.tga
+160202	ETC	icon/item/160201.tga
+160201	ETC	icon/item/160201.tga
 160200	ETC	icon/item/160200_1.tga
 490	WEAPON	icon/item/set_10_sword.tga	d:/ymir work/item/weapon/set_10_sword.gr2
 491	WEAPON	icon/item/set_10_sword.tga	d:/ymir work/item/weapon/set_10_sword.gr2

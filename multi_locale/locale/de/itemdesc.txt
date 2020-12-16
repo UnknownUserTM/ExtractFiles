@@ -1890,7 +1890,8 @@
 53016	Babydrachen-Siegel	Mit diesem Siegel rufst du deinen Babydrachen herbei. Er gibt dir 10% Stark gegen Luft.
 53005	Baby-Azrael	Die Mini-Version des D‰monenherrschers ist ‰uﬂerst anh‰nglich. Er gibt dir 10% Stark gegen Feuer.
 150404	Dickes Henkerchen (Gold)	Das Henkerchen in der Gold Version gibt dir einen Bonus von Stark gegen Wasser +10%. Handelbar.
-160201	Erdm‰nnchensoldat-Siegel	Mit diesem Siegel rufst du dein niedliches Erdm‰nnchens herbei. Er gibt dir 10% Stark gegen Erde.
+160201	Erdm‰nnchensoldat-Siegel	Mit diesem Siegel rufst du dein niedliches Erdm‰nnchens herbei.
+160202	Erdm‰nnchensoldat-Siegel (b)	Mit diesem Siegel rufst du dein niedliches Erdm‰nnchens herbei.
 160373	Baby Troll-Siegel	Mit diesem Siegel rufst du deinen Baby Troll herbei. Er gibt dir 25% Stark gegen Monster.
 160374	Kleiner Drache-Siegel	Mit diesem Siegel rufst du deinen Baby Troll herbei. Er gibt dir 20% Stark gegen Luft.
 160375	Knochenbeiﬂer-Siegel	Mit diesem Siegel rufst du deinen Baby Troll herbei. Er gibt dir 20% Stark gegen Erde.
