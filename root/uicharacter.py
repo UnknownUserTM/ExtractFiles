@@ -15,6 +15,7 @@ import uiToolTip
 import constInfo
 import emotion
 import chr
+import chat
 
 SHOW_ONLY_ACTIVE_SKILL = False
 SHOW_LIMIT_SUPPORT_SKILL_LIST = []
@@ -107,15 +108,15 @@ class CharacterWindow(ui.ScriptWindow):
 		self.toolTipSkill = None
 
 		self.faceImage = None
-		self.statusPlusLabel = None
-		self.statusPlusValue = None
+		# self.statusPlusLabel = None
+		# self.statusPlusValue = None
 		self.activeSlot = None
 		self.tabDict = None
 		self.tabButtonDict = None
 		self.pageDict = None
 		self.titleBarDict = None
 		self.statusPlusButtonDict = None
-		self.statusMinusButtonDict = None
+		# self.statusMinusButtonDict = None
 
 		self.skillPageDict = None
 		self.questShowingStartIndex = 0
@@ -159,20 +160,21 @@ class CharacterWindow(ui.ScriptWindow):
 		self.faceImage = self.GetChild("Face_Image")
 		self.titleBar = self.GetChild("TitleBar")
 		self.titleBar.SetCloseEvent(self.Hide)
-		faceSlot=self.GetChild("Face_Slot")
-		if 949 == app.GetDefaultCodePage():
-			faceSlot.SAFE_SetStringEvent("MOUSE_OVER_IN", self.__ShowJobToolTip)
-			faceSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideJobToolTip)
+		# faceSlot=self.GetChild("Face_Slot")
+		# if 949 == app.GetDefaultCodePage():
+			# faceSlot.SAFE_SetStringEvent("MOUSE_OVER_IN", self.__ShowJobToolTip)
+			# faceSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideJobToolTip)
 
-		self.statusPlusLabel = self.GetChild("Status_Plus_Label")
-		self.statusPlusValue = self.GetChild("Status_Plus_Value")		
+		# self.statusPlusLabel = self.GetChild("Status_Plus_Label")
+		# self.statusPlusValue = self.GetChild("Status_Plus_Value")		
 
-		self.characterNameSlot = self.GetChild("Character_Name_Slot")			
-		self.characterNameValue = self.GetChild("Character_Name")
-		self.guildNameSlot = self.GetChild("Guild_Name_Slot")
-		self.guildNameValue = self.GetChild("Guild_Name")
-		self.characterNameSlot.SAFE_SetStringEvent("MOUSE_OVER_IN", self.__ShowAlignmentToolTip)
-		self.characterNameSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideAlignmentToolTip)
+		self.characterNameSlot = self.GetChild("characterNameBackground")			
+		self.characterNameValue = self.GetChild("characterNameTextLine")
+		self.guildNameSlot = self.GetChild("guildNameBackground")
+		self.guildNameValue = self.GetChild("guildNameTextLine")
+		self.alignmentNameValue = self.GetChild("rankNameTextLine")
+		# self.characterNameSlot.SAFE_SetStringEvent("MOUSE_OVER_IN", self.__ShowAlignmentToolTip)
+		# self.characterNameSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideAlignmentToolTip)
 
 		self.activeSlot = self.GetChild("Skill_Active_Slot")
 		self.activeSkillPointValue = self.GetChild("Active_Skill_Point_Value")
@@ -180,28 +182,31 @@ class CharacterWindow(ui.ScriptWindow):
 		self.skillGroupButton1 = self.GetChild("Skill_Group_Button_1")
 		self.skillGroupButton2 = self.GetChild("Skill_Group_Button_2")
 		self.activeSkillGroupName = self.GetChild("Active_Skill_Group_Name")
-
+		self.GetChild("Quest_Page").Hide()
 		# self.tabDict = {
 			# "STATUS"	: self.GetChild("Tab_01"),
 			# "SKILL"		: self.GetChild("Tab_02"),
 			# "EMOTICON"	: self.GetChild("Tab_03"),
 			# "QUEST"		: self.GetChild("Tab_04"),
 		# }
-
+		
+		# self.oldCharacterPage = self.GetChild("Character_Page")
+		# self.oldCharacterPage.Hide()
+		
 		self.tabButtonDict = {
-			"STATUS"	: self.GetChild("Tab_Button_01"),
-			"SKILL"		: self.GetChild("Tab_Button_02"),
-			"EMOTICON"	: self.GetChild("Tab_Button_03"),
-			"QUEST"		: self.GetChild("Tab_Button_04")
+			"STATUS"	: self.GetChild("nav_button_0"),
+			"SKILL"		: self.GetChild("nav_button_1"),
+			"EMOTICON"	: self.GetChild("nav_button_2"),
+			# "QUEST"		: self.GetChild("Tab_Button_04")
 		}
 		
-		self.tabButtonDict["QUEST"].Hide()
+		# self.tabButtonDict["QUEST"].Hide()
 
 		self.pageDict = {
-			"STATUS"	: self.GetChild("Character_Page"),
+			"STATUS"	: self.GetChild("Character_Page_NEW"),
 			"SKILL"		: self.GetChild("Skill_Page"),
 			"EMOTICON"	: self.GetChild("Emoticon_Page"),
-			"QUEST"		: self.GetChild("Quest_Page")
+			# "QUEST"		: self.GetChild("Quest_Page")
 		}
 
 		# self.titleBarDict = {
@@ -212,18 +217,18 @@ class CharacterWindow(ui.ScriptWindow):
 		# }
 
 		self.statusPlusButtonDict = {
-			"HTH"		: self.GetChild("HTH_Plus"),
-			"INT"		: self.GetChild("INT_Plus"),
-			"STR"		: self.GetChild("STR_Plus"),
-			"DEX"		: self.GetChild("DEX_Plus"),
+			"HTH"		: self.GetChild("statusPointsVITButton"),
+			"INT"		: self.GetChild("statusPointsINTButton"),
+			"STR"		: self.GetChild("statusPointsSTRButton"),
+			"DEX"		: self.GetChild("statusPointsDEXButton"),
 		}
 
-		self.statusMinusButtonDict = {
-			"HTH-"		: self.GetChild("HTH_Minus"),
-			"INT-"		: self.GetChild("INT_Minus"),
-			"STR-"		: self.GetChild("STR_Minus"),
-			"DEX-"		: self.GetChild("DEX_Minus"),
-		}
+		# self.statusMinusButtonDict = {
+			# "HTH-"		: self.GetChild("HTH_Minus"),
+			# "INT-"		: self.GetChild("INT_Minus"),
+			# "STR-"		: self.GetChild("STR_Minus"),
+			# "DEX-"		: self.GetChild("DEX_Minus"),
+		# }
 
 		self.skillPageDict = {
 			"ACTIVE" : self.GetChild("Skill_Active_Slot"),
@@ -384,10 +389,10 @@ class CharacterWindow(ui.ScriptWindow):
 			statusPlusButton.ShowToolTip = lambda arg=statusPlusKey: self.__OverInStatButton(arg)
 			statusPlusButton.HideToolTip = lambda arg=statusPlusKey: self.__OverOutStatButton()
 
-		for (statusMinusKey, statusMinusButton) in self.statusMinusButtonDict.items():
-			statusMinusButton.SAFE_SetEvent(self.__OnClickStatusMinusButton, statusMinusKey)
-			statusMinusButton.ShowToolTip = lambda arg=statusMinusKey: self.__OverInStatMinusButton(arg)
-			statusMinusButton.HideToolTip = lambda arg=statusMinusKey: self.__OverOutStatMinusButton()
+		# for (statusMinusKey, statusMinusButton) in self.statusMinusButtonDict.items():
+			# statusMinusButton.SAFE_SetEvent(self.__OnClickStatusMinusButton, statusMinusKey)
+			# statusMinusButton.ShowToolTip = lambda arg=statusMinusKey: self.__OverInStatMinusButton(arg)
+			# statusMinusButton.HideToolTip = lambda arg=statusMinusKey: self.__OverOutStatMinusButton()
 
 		# for titleBarValue in self.titleBarDict.itervalues():
 			# titleBarValue.SetCloseEvent(ui.__mem_func__(self.Hide))
@@ -404,7 +409,7 @@ class CharacterWindow(ui.ScriptWindow):
 			if localeInfo.IsARABIC() or localeInfo.IsVIETNAM() or localeInfo.IsJAPAN():
 				self.__LoadScript(uiScriptLocale.LOCALE_UISCRIPT_PATH + "CharacterWindow.py")
 			else:
-				self.__LoadScript("UIScript/CharacterWindow.py")
+				self.__LoadScript("exscript/CharacterWindow.py")
 				
 			self.__BindObject()
 			self.__BindEvent()
@@ -463,7 +468,9 @@ class CharacterWindow(ui.ScriptWindow):
 
 		for (tabKey, tabButton) in self.tabButtonDict.items():
 			if stateKey!=tabKey:
-				tabButton.SetUp()
+				tabButton.Enable()
+			else:
+				tabButton.Disable()
 
 		# for tabValue in self.tabDict.itervalues():
 			# tabValue.Hide()
@@ -489,9 +496,13 @@ class CharacterWindow(ui.ScriptWindow):
 		attackerBonus=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ATTACKER_BONUS)
 
 		if minAtk==maxAtk:
-			return "%d" % (minAtk+atkBonus+attackerBonus)
+			atkValue = minAtk+atkBonus+attackerBonus
+			return constInfo.NumberToPointString(atkValue)
 		else:
-			return "%d-%d" % (minAtk+atkBonus+attackerBonus, maxAtk+atkBonus+attackerBonus)
+			# return "%d-%d" % (minAtk+atkBonus+attackerBonus, maxAtk+atkBonus+attackerBonus)
+			minatkValue = minAtk+atkBonus+attackerBonus 
+			maxatkValue = maxAtk+atkBonus+attackerBonus
+			return constInfo.NumberToPointString(minatkValue) + "-" + constInfo.NumberToPointString(maxatkValue)
 
 	def __GetTotalMagAtkText(self):
 		minMagAtk=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAG_ATT)+fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MIN_MAGIC_WEP)
@@ -513,28 +524,32 @@ class CharacterWindow(ui.ScriptWindow):
 			return
 
 		try:
-			self.GetChild("Level_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL)))
-			self.GetChild("Exp_Value").SetText(str(unsigned32(fgGHGjjFHJghjfFG1545gGG.GetEXP())))
-			self.GetChild("RestExp_Value").SetText(str(unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.NEXT_EXP)) - unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.EXP))))
-			self.GetChild("HP_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.HP)) + '/' + str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAX_HP)))
-			self.GetChild("SP_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.SP)) + '/' + str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAX_SP)))
+			self.GetChild("levelTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL)))
+			# self.GetChild("expTextLine").SetText(unsigned32(fgGHGjjFHJghjfFG1545gGG.GetEXP())))
+			self.GetChild("expTextLine").SetText(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetEXP()))
+			# self.GetChild("expNeedTextLine").SetText(unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.NEXT_EXP)) - unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.EXP))))
+			
+			expNeed = unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.NEXT_EXP)) - unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.EXP))
+			self.GetChild("expNeedTextLine").SetText(constInfo.NumberToPointString(expNeed))
+			self.GetChild("pointTPTextLine").SetText(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.HP)) + '/' + str(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAX_HP))))
+			self.GetChild("pointMPTextLine").SetText(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.SP)) + '/' + str(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAX_SP))))
 
-			self.GetChild("STR_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ST)))
-			self.GetChild("DEX_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.DX)))
-			self.GetChild("HTH_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.HT)))
-			self.GetChild("INT_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.IQ)))
+			self.GetChild("statusPointsVITTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.HT)))
+			self.GetChild("statusPointsINTTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.IQ)))
+			self.GetChild("statusPointsSTRTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ST)))
+			self.GetChild("statusPointsDEXTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.DX)))
 
-			self.GetChild("ATT_Value").SetText(self.__GetTotalAtkText())
-			self.GetChild("DEF_Value").SetText(self.__GetTotalDefText())
+			self.GetChild("pointDMGTextLine").SetText(self.__GetTotalAtkText())
+			self.GetChild("pointDEFTextLine").SetText(self.__GetTotalDefText())
 
-			self.GetChild("MATT_Value").SetText(self.__GetTotalMagAtkText())
+			self.GetChild("magicAtkValueTextLine").SetText(self.__GetTotalMagAtkText())
 			#self.GetChild("MATT_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAG_ATT)))
 
-			self.GetChild("MDEF_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAG_DEF)))
-			self.GetChild("ASPD_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ATT_SPEED)))
-			self.GetChild("MSPD_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MOVING_SPEED)))
-			self.GetChild("CSPD_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.CASTING_SPEED)))
-			self.GetChild("ER_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.EVADE_RATE)))
+			self.GetChild("magicDefValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAG_DEF)))
+			self.GetChild("atkSpeedValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ATT_SPEED)))
+			self.GetChild("moveSpeedValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MOVING_SPEED)))
+			self.GetChild("magicSpeedValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.CASTING_SPEED)))
+			self.GetChild("evadeValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.EVADE_RATE)))
 
 		except:
 			#import exception
@@ -556,12 +571,12 @@ class CharacterWindow(ui.ScriptWindow):
 		statusPlusPoint=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.STAT)
 
 		if statusPlusPoint>0:
-			self.statusPlusValue.SetText(str(statusPlusPoint))
-			self.statusPlusLabel.Show()
+			# self.statusPlusValue.SetText(str(statusPlusPoint))
+			# self.statusPlusLabel.Show()
 			self.ShowStatusPlusButtonList()
 		else:
-			self.statusPlusValue.SetText(str(0))
-			self.statusPlusLabel.Hide()
+			# self.statusPlusValue.SetText(str(0))
+			# self.statusPlusLabel.Hide()
 			self.HideStatusPlusButtonList()
 
 	def __RefreshStatusMinusButtonList(self):
@@ -590,6 +605,27 @@ class CharacterWindow(ui.ScriptWindow):
 						8 : colorInfo.TITLE_RGB_EVIL_4, }
 		colorList = COLOR_DICT.get(grade, colorInfo.TITLE_RGB_NORMAL)
 		gradeColor = ui.GenerateColor(colorList[0], colorList[1], colorList[2])
+		
+		
+		# self.alignmentNameValue.SetText(localeInfo.TITLE_NAME_LIST[grade])
+		# if grade == 0:
+			# self.alignmentNameValue.SetFontColor(0.0, 0.8, 1.0)
+		# elif grade == 1:
+			# self.alignmentNameValue.SetFontColor(0.0, 0.5647, 1.0)
+		# elif grade == 2:
+			# self.alignmentNameValue.SetFontColor(0.3607, 0.4313, 1.0)
+		# elif grade == 3:
+			# self.alignmentNameValue.SetFontColor(0.6078, 0.6078, 1.0)
+		# elif grade == 4:
+			# self.alignmentNameValue.SetFontColor(1.0, 1.0, 1.0)
+		# elif grade == 5:
+			# self.alignmentNameValue.SetFontColor(0.8117, 0.4588, 0.0)
+		# elif grade == 6:
+			# self.alignmentNameValue.SetFontColor(0.9215, 0.3254, 0.0)
+		# elif grade == 7:
+			# self.alignmentNameValue.SetFontColor(0.8901, 0.0, 0.0)
+		# elif grade == 8:
+			# self.alignmentNameValue.SetFontColor(1.0, 0.0, 0.0)
 
 		self.toolTipAlignment.ClearToolTip()
 		self.toolTipAlignment.AutoAppendTextLine(localeInfo.TITLE_NAME_LIST[grade], gradeColor)
@@ -597,20 +633,22 @@ class CharacterWindow(ui.ScriptWindow):
 		self.toolTipAlignment.AlignHorizonalCenter()
 
 	def __ShowStatusMinusButtonList(self):
-		for (stateMinusKey, statusMinusButton) in self.statusMinusButtonDict.items():
-			statusMinusButton.Show()
+		return
+		# for (stateMinusKey, statusMinusButton) in self.statusMinusButtonDict.items():
+			# statusMinusButton.Show()
 
 	def __HideStatusMinusButtonList(self):
-		for (stateMinusKey, statusMinusButton) in self.statusMinusButtonDict.items():
-			statusMinusButton.Hide()
+		return
+		# for (stateMinusKey, statusMinusButton) in self.statusMinusButtonDict.items():
+			# statusMinusButton.Hide()
 
 	def ShowStatusPlusButtonList(self):
 		for (statePlusKey, statusPlusButton) in self.statusPlusButtonDict.items():
-			statusPlusButton.Show()
+			statusPlusButton.Enable()
 
 	def HideStatusPlusButtonList(self):
 		for (statePlusKey, statusPlusButton) in self.statusPlusButtonDict.items():
-			statusPlusButton.Hide()
+			statusPlusButton.Disable()
 
 	def SelectSkill(self, skillSlotIndex):
 
@@ -1098,18 +1136,19 @@ class CharacterWindow(ui.ScriptWindow):
 			self.characterNameValue.SetText(characterName)
 			self.guildNameValue.SetText(guildName)
 			if not guildName:
-				if localeInfo.IsARABIC():
-					self.characterNameSlot.SetPosition(190, 34)
-				else:
-					self.characterNameSlot.SetPosition(109, 34)
+				self.guildNameValue.SetText("Keine Gilde")
+				# if localeInfo.IsARABIC():
+					# self.characterNameSlot.SetPosition(190, 34)
+				# else:
+					# self.characterNameSlot.SetPosition(109, 34)
 
-				self.guildNameSlot.Hide()
-			else:
-				if localeInfo.IsJAPAN():
-					self.characterNameSlot.SetPosition(143, 34)
-				else:
-					self.characterNameSlot.SetPosition(153, 34)
-				self.guildNameSlot.Show()
+				# self.guildNameSlot.Hide()
+			# else:
+				# if localeInfo.IsJAPAN():
+					# self.characterNameSlot.SetPosition(143, 34)
+				# else:
+					# self.characterNameSlot.SetPosition(153, 34)
+				# self.guildNameSlot.Show()
 		except:
 			import exception
 			exception.Abort("CharacterWindow.RefreshCharacter.BindObject")
