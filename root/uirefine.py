@@ -9,6 +9,7 @@ import localeInfo
 import uiCommon
 import constInfo
 import settinginfo
+import app
 
 class RefineDialog(ui.ScriptWindow):
 
@@ -188,7 +189,9 @@ class RefineDialogNew(ui.ScriptWindow):
 		ui.ScriptWindow.__init__(self)
 		self.__Initialize()
 		self.isLoaded = False
-
+		if app.WJ_ENABLE_TRADABLE_ICON:
+			self.wndInventory = None
+			
 	def __Initialize(self):
 		self.dlgQuestion = None
 		self.children = []
@@ -198,6 +201,8 @@ class RefineDialogNew(ui.ScriptWindow):
 		self.cost = 0
 		self.percentage = 0
 		self.type = 0
+		if app.WJ_ENABLE_TRADABLE_ICON:
+			self.lockedItem = (-1,-1)
 
 	def __LoadScript(self):
 
@@ -256,7 +261,7 @@ class RefineDialogNew(ui.ScriptWindow):
 			self.checkBox.SetEvent(ui.__mem_func__(self.AutoRefine), "ON_CHECK", True)
 			self.checkBox.SetEvent(ui.__mem_func__(self.AutoRefine), "ON_UNCKECK", False)
 			self.checkBox.SetCheckStatus(constInfo.IS_AUTO_REFINE)
-			self.checkBox.SetTextInfo("Fenster geöffnet lassen")
+			self.checkBox.SetTextInfo("Fenster ge?fnet lassen")
 			self.checkBox.Show()
 		self.isLoaded = True
 
@@ -294,6 +299,10 @@ class RefineDialogNew(ui.ScriptWindow):
 		self.successPercentage = None
 		self.slotList = []
 		self.children = []
+		if app.WJ_ENABLE_TRADABLE_ICON:
+			self.wndInventory = None
+			self.lockedItem = (-1,-1)
+			
 	if app.ENABLE_REFINE_RENEWAL:
 		def __InitializeOpen(self):
 			self.children = []
@@ -303,6 +312,8 @@ class RefineDialogNew(ui.ScriptWindow):
 			self.cost = 0
 			self.percentage = 0
 			self.type = 0
+			if app.WJ_ENABLE_TRADABLE_ICON:
+				self.lockedItem = (-1,-1)
 			self.xRefineStart = 0
 			self.yRefineStart = 0
 
@@ -325,7 +336,8 @@ class RefineDialogNew(ui.ScriptWindow):
 		self.probText.SetText(localeInfo.REFINE_SUCCESS_PROBALITY % (self.percentage))
 		self.probText.SetFontColor(0.9607, 0.2392, 0.0)
 		self.costText.SetText("Verbesserungskosten: " + constInfo.NumberToPointString(int(self.cost)) + " Yang")
-
+		if app.WJ_ENABLE_TRADABLE_ICON:
+			self.SetCantMouseEventSlot(targetItemPos)		
 		self.toolTip.ClearToolTip()
 		metinSlot = []
 		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
@@ -351,9 +363,20 @@ class RefineDialogNew(ui.ScriptWindow):
 		self.SetTop()
 		self.Show()
 
+	# def Close(self):
+		# self.dlgQuestion = None
+		# self.Hide()
+
 	def Close(self):
+		if self.dlgQuestion:
+			self.dlgQuestion.Close()
+
 		self.dlgQuestion = None
 		self.Hide()
+
+		if app.WJ_ENABLE_TRADABLE_ICON:
+			self.lockedItem = (-1, -1)
+			self.SetCanMouseEventSlot(self.targetItemPos)
 
 	def AppendMaterial(self, vnum, count):
 		slot = self.__MakeSlot()
@@ -507,3 +530,33 @@ class RefineDialogNew(ui.ScriptWindow):
 	def OnPressEscapeKey(self):
 		self.CancelRefine()
 		return True
+
+	if app.WJ_ENABLE_TRADABLE_ICON:
+		def SetCanMouseEventSlot(self, slotIndex):
+			itemInvenPage = slotIndex / fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE
+			localSlotPos = slotIndex - (itemInvenPage * fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE)
+			self.lockedItem = (-1, -1)
+
+			if itemInvenPage == self.wndInventory.GetInventoryPageIndex():
+				self.wndInventory.wndItem.SetCanMouseEventSlot(localSlotPos)
+
+		def SetCantMouseEventSlot(self, slotIndex):
+			itemInvenPage = slotIndex / fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE
+			localSlotPos = slotIndex - (itemInvenPage * fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE)
+			self.lockedItem = (itemInvenPage, localSlotPos)
+
+			if itemInvenPage == self.wndInventory.GetInventoryPageIndex():
+				self.wndInventory.wndItem.SetCantMouseEventSlot(localSlotPos)
+
+		def SetInven(self, wndInventory):
+			from _weakref import proxy
+			self.wndInventory = proxy(wndInventory)
+
+		def RefreshLockedSlot(self):
+			if self.wndInventory:
+				itemInvenPage, itemSlotPos = self.lockedItem
+				if self.wndInventory.GetInventoryPageIndex() == itemInvenPage:
+					self.wndInventory.wndItem.SetCantMouseEventSlot(itemSlotPos)
+
+				self.wndInventory.wndItem.RefreshSlot()
+				
