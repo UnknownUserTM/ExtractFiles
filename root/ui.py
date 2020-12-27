@@ -1933,19 +1933,6 @@ class SlotWindow(Window):
 	def SetSlotCoolTime(self, slotIndex, coolTime, elapsedTime = 0.0):
 		wndMgr.SetSlotCoolTime(self.hWnd, slotIndex, coolTime, elapsedTime)
 
-	if app.WJ_ENABLE_TRADABLE_ICON:
-		def SetCanMouseEventSlot(self, slotIndex):
-			wndMgr.SetCanMouseEventSlot(self.hWnd, slotIndex)
-
-		def SetCantMouseEventSlot(self, slotIndex):
-			wndMgr.SetCantMouseEventSlot(self.hWnd, slotIndex)
-
-		def SetUsableSlotOnTopWnd(self, slotIndex):
-			wndMgr.SetUsableSlotOnTopWnd(self.hWnd, slotIndex)
-
-		def SetUnusableSlotOnTopWnd(self, slotIndex):
-			wndMgr.SetUnusableSlotOnTopWnd(self.hWnd, slotIndex)
-
 	def DisableSlot(self, slotIndex):
 		wndMgr.DisableSlot(self.hWnd, slotIndex)
 

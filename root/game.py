@@ -1961,12 +1961,6 @@ class GameWindow(ui.ScriptWindow):
 
 	## BINARY CALLBACK
 	######################################################################################
-	# EXCHANGE
-	if app.WJ_ENABLE_TRADABLE_ICON:
-		def BINARY_AddItemToExchange(self, inven_type, inven_pos, display_pos):
-			if inven_type == player.INVENTORY:
-				self.interface.CantTradableItemExchange(display_pos, inven_pos)
-	# END_OF_EXCHANGE
 	
 	def BINARY_QuestIntro_Description(self,title,desc):
 		chat.AppendChat(chat.CHAT_TYPE_DEBUG,title + ", " + desc)

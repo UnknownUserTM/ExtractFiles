@@ -1,37 +1,20 @@
 import dbg
-import fgGHGjjFHJghjfFG1545gGG # player
+import fgGHGjjFHJghjfFG1545gGG
 import item
-import GFHhg54GHGhh45GHGH # net
+import GFHhg54GHGhh45GHGH
 import snd
 import ui
 import uiToolTip
 import localeInfo
-import app
 
 class AttachMetinDialog(ui.ScriptWindow):
-	# def __init__(self):
-		# ui.ScriptWindow.__init__(self)
-		# self.__LoadScript()
+	def __init__(self):
+		ui.ScriptWindow.__init__(self)
+		self.__LoadScript()
 
-		# self.metinItemPos = 0
-		# self.targetItemPos = 0
-	if app.WJ_ENABLE_TRADABLE_ICON:  
-		def __init__(self, wndInventory):
-			ui.ScriptWindow.__init__(self)
-			self.__LoadScript()
+		self.metinItemPos = 0
+		self.targetItemPos = 0
 
-			self.metinItemPos = 0
-			self.targetItemPos = 0
-			self.wndInventory = wndInventory
-			self.lockedItems = {i:(-1,-1) for i in range(2)}
-	else:
-		def __init__(self):
-			ui.ScriptWindow.__init__(self)
-			self.__LoadScript()
-
-			self.metinItemPos = 0
-			self.targetItemPos = 0
-			
 	def __LoadScript(self):
 		try:
 			pyScrLoader = ui.PythonScriptLoader()
@@ -76,9 +59,7 @@ class AttachMetinDialog(ui.ScriptWindow):
 		self.titleBar = 0
 		self.metinImage = 0
 		self.toolTip = 0
-		if app.WJ_ENABLE_TRADABLE_ICON:  
-			self.wndInventory = 0
-			
+
 	def CanAttachMetin(self, slot, metin):
 		if item.METIN_NORMAL == metin:
 			if fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_SILVER == slot or fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_GOLD == slot:
@@ -128,9 +109,6 @@ class AttachMetinDialog(ui.ScriptWindow):
 		self.UpdateDialog()
 		self.SetTop()
 		self.Show()
-		if app.WJ_ENABLE_TRADABLE_ICON:  
-			self.SetCantMouseEventSlot(0, self.metinItemPos)
-			self.SetCantMouseEventSlot(1, self.targetItemPos)
 
 	def UpdateDialog(self):
 		newWidth = self.newToolTip.GetWidth() + 230 + 15 + 20
@@ -156,32 +134,3 @@ class AttachMetinDialog(ui.ScriptWindow):
 
 	def Close(self):
 		self.Hide()
-		if app.WJ_ENABLE_TRADABLE_ICON:  
-			self.SetCanMouseEventSlot(0, self.metinItemPos)
-			self.SetCanMouseEventSlot(1, self.targetItemPos)
-
-	if app.WJ_ENABLE_TRADABLE_ICON:  
-		def SetCanMouseEventSlot(self, what, slotIndex):
-			itemInvenPage = slotIndex / fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE
-			localSlotPos = slotIndex - (itemInvenPage * fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE)
-			self.lockedItems[what] = (-1, -1)
-
-			if itemInvenPage == self.wndInventory.GetInventoryPageIndex():
-				self.wndInventory.wndItem.SetCanMouseEventSlot(localSlotPos)
-
-		def SetCantMouseEventSlot(self, what, slotIndex):
-			itemInvenPage = slotIndex / fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE
-			localSlotPos = slotIndex - (itemInvenPage * fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE)
-			self.lockedItems[what] = (itemInvenPage, localSlotPos)
-
-			if itemInvenPage == self.wndInventory.GetInventoryPageIndex():
-				self.wndInventory.wndItem.SetCantMouseEventSlot(localSlotPos)
-
-		def RefreshLockedSlot(self):
-			if self.wndInventory:
-				for what, (itemInvenPage, itemSlotPos) in self.lockedItems.items():
-					if self.wndInventory.GetInventoryPageIndex() == itemInvenPage:
-						self.wndInventory.wndItem.SetCantMouseEventSlot(itemSlotPos)
-
-				self.wndInventory.wndItem.RefreshSlot()
-				

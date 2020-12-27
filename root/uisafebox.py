@@ -198,8 +198,6 @@ class SafeboxWindow(ui.ScriptWindow):
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
 		self.tooltipItem = None
-		if app.WJ_ENABLE_TRADABLE_ICON:
-			self.interface = None
 		self.sellingSlotNumber = -1
 		self.pageButtonList = []
 		self.curPageIndex = 0
@@ -230,8 +228,7 @@ class SafeboxWindow(ui.ScriptWindow):
 		self.wndMoney = None
 		self.wndBoard = None
 		self.wndItem = None
-		if app.WJ_ENABLE_TRADABLE_ICON:
-			self.interface = None
+
 		self.pageButtonList = []
 
 	def __LoadWindow(self):
@@ -313,10 +310,7 @@ class SafeboxWindow(ui.ScriptWindow):
 
 		self.SetTableSize(size)
 		self.Show()
-		if app.WJ_ENABLE_TRADABLE_ICON:
-			self.interface.SetOnTopWindow(fgGHGjjFHJghjfFG1545gGG.ON_TOP_WND_SAFEBOX)
-			self.interface.RefreshMarkInventoryBag()
-			
+
 	def __MakePageButton(self, pageCount):
 
 		self.curPageIndex = 0
@@ -396,8 +390,6 @@ class SafeboxWindow(ui.ScriptWindow):
 
 	def Close(self):
 		GFHhg54GHGhh45GHGH.SendChatPacket("/safebox_close")
-		if app.WJ_ENABLE_TRADABLE_ICON:
-			self.interface.SetOnTopWindow(fgGHGjjFHJghjfFG1545gGG.ON_TOP_WND_NONE)
 
 	def CommandCloseSafebox(self):
 		if self.tooltipItem:
@@ -406,9 +398,7 @@ class SafeboxWindow(ui.ScriptWindow):
 		self.dlgPickMoney.Close()
 		self.dlgChangePassword.Close()
 		self.Hide()
-		if app.WJ_ENABLE_TRADABLE_ICON:
-			self.interface.RefreshMarkInventoryBag()
-			
+
 	## Slot Event
 	def SelectEmptySlot(self, selectedSlotPos):
 
@@ -512,39 +502,6 @@ class SafeboxWindow(ui.ScriptWindow):
 		if abs(x - self.xSafeBoxStart) > USE_SAFEBOX_LIMIT_RANGE or abs(y - self.ySafeBoxStart) > USE_SAFEBOX_LIMIT_RANGE:
 			self.Close()
 
-	if app.WJ_ENABLE_TRADABLE_ICON:
-		#def BindInterface(self, interface):
-		#	self.interface = interface
-
-		def OnTop(self):
-			self.interface.SetOnTopWindow(fgGHGjjFHJghjfFG1545gGG.ON_TOP_WND_SAFEBOX)
-			self.interface.RefreshMarkInventoryBag()
-
-		def CantTradableItem(self, destSlotIndex, srcSlotIndex):
-			if True == exchange.GetAcceptFromTarget():
-				return
-
-			itemInvenPage = srcSlotIndex / fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE
-			localSlotPos = srcSlotIndex - (itemInvenPage * fgGHGjjFHJghjfFG1545gGG.INVENTORY_PAGE_SIZE)
-			self.lockedItems[destSlotIndex] = (itemInvenPage, localSlotPos)
-
-			if self.wndInventory.GetInventoryPageIndex() == itemInvenPage and self.IsShow():
-				self.wndInventory.wndItem.SetCantMouseEventSlot(localSlotPos)
-
-		def RefreshLockedSlot(self):
-			if self.wndInventory:
-				for exchangePos, (itemInvenPage, itemSlotPos) in self.lockedItems.items():
-					if self.wndInventory.GetInventoryPageIndex() == itemInvenPage:
-						self.wndInventory.wndItem.SetCantMouseEventSlot(itemSlotPos)
-
-				self.wndInventory.wndItem.RefreshSlot()
-
-		def BindInterface(self, interface):
-			self.interface = interface
-
-		def SetInven(self, wndInventory):
-			from _weakref import proxy
-			self.wndInventory = proxy(wndInventory)
 
 class MallWindow(ui.ScriptWindow):
 

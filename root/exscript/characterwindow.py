@@ -1853,28 +1853,6 @@ window = {
 					),
 				},
 				{
-					"name" : "Achievement_Page",
-					"type" : "window",
-					"style" : ("attach",),
-
-					"x" : 15 + ADD_YAMATO_SPACE + 15 + 2,
-					"y" : 15,
-
-					"width" : 260,
-					"height" : 350 + 35,
-				},
-				{
-					"name" : "Bonus_Page",
-					"type" : "window",
-					"style" : ("attach",),
-
-					"x" : 15 + ADD_YAMATO_SPACE + 15 + 2,
-					"y" : 15,
-
-					"width" : 260,
-					"height" : 350 + 35,
-				},				
-				{
 					"name" : "Quest_Page",
 					"type" : "window",
 					"style" : ("attach",),
