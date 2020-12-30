@@ -197,6 +197,9 @@ class CharacterWindow(ui.ScriptWindow):
 			"STATUS"	: self.GetChild("nav_button_0"),
 			"SKILL"		: self.GetChild("nav_button_1"),
 			"EMOTICON"	: self.GetChild("nav_button_2"),
+			"ACHIEVEMENT" : self.GetChild("nav_button_3"),
+			"BONUS" 	: self.GetChild("nav_button_4"),
+			"MOUNT" 	: self.GetChild("nav_button_5"),
 			# "QUEST"		: self.GetChild("Tab_Button_04")
 		}
 		
@@ -206,6 +209,9 @@ class CharacterWindow(ui.ScriptWindow):
 			"STATUS"	: self.GetChild("Character_Page_NEW"),
 			"SKILL"		: self.GetChild("Skill_Page"),
 			"EMOTICON"	: self.GetChild("Emoticon_Page"),
+			"ACHIEVEMENT" : self.GetChild("Achievement_Page"),
+			"BONUS"		: self.GetChild("Bonus_Page"),
+			"MOUNT"		: self.GetChild("Mount_Page"),
 			# "QUEST"		: self.GetChild("Quest_Page")
 		}
 

@@ -101,11 +101,25 @@ window = {
 									"text" : "Charakter",
 								},
 								{
-									"name" : "nav_button_1",
+									"name" : "nav_button_5",
 									"type" : "button",
 									
 									"x" : 30,
 									"y" : 15 + 30,
+								
+									"default_image" : "yamato_helpboard/wide_button_n.tga",
+									"over_image" : "yamato_helpboard/wide_button_h.tga",
+									"down_image" : "yamato_helpboard/wide_button_p.tga",
+									"disable_image" : "yamato_helpboard/wide_button_d.tga",
+
+									"text" : "Reittier",
+								},
+								{
+									"name" : "nav_button_1",
+									"type" : "button",
+									
+									"x" : 30,
+									"y" : 15 + 30 + 30,
 								
 									"default_image" : "yamato_helpboard/wide_button_n.tga",
 									"over_image" : "yamato_helpboard/wide_button_h.tga",
@@ -119,7 +133,7 @@ window = {
 									"type" : "button",
 									
 									"x" : 30,
-									"y" : 15 + 30 + 30,
+									"y" : 15 + 30 + 30 + 30,
 								
 									"default_image" : "yamato_helpboard/wide_button_n.tga",
 									"over_image" : "yamato_helpboard/wide_button_h.tga",
@@ -133,7 +147,7 @@ window = {
 									"type" : "button",
 									
 									"x" : 30,
-									"y" : 15 + 30 + 30 + 30,
+									"y" : 15 + 30 + 30 + 30 + 30,
 								
 									"default_image" : "yamato_helpboard/wide_button_n.tga",
 									"over_image" : "yamato_helpboard/wide_button_h.tga",
@@ -147,7 +161,7 @@ window = {
 									"type" : "button",
 									
 									"x" : 30,
-									"y" : 15 + 30 + 30 + 30 + 30,
+									"y" : 15 + 30 + 30 + 30 + 30 + 30,
 								
 									"default_image" : "yamato_helpboard/wide_button_n.tga",
 									"over_image" : "yamato_helpboard/wide_button_h.tga",
@@ -1852,6 +1866,650 @@ window = {
 						},						
 					),
 				},
+				{
+					"name" : "Achievement_Page",
+					"type" : "window",
+					"style" : ("attach",),
+
+					"x" : 15 + ADD_YAMATO_SPACE + 15 + 2,
+					"y" : 15,
+
+					"width" : 260,
+					"height" : 350 + 35,
+				},
+				{
+					"name" : "Bonus_Page",
+					"type" : "window",
+					"style" : ("attach",),
+
+					"x" : 15 + ADD_YAMATO_SPACE + 15 + 2,
+					"y" : 15,
+
+					"width" : 260,
+					"height" : 350 + 35,
+				},	
+
+				{
+					"name" : "Mount_Page",
+					"type" : "window",
+					"style" : ("attach",),
+
+					"x" : 15 + ADD_YAMATO_SPACE + 15 + 2,
+					"y" : 15,
+
+					"width" : 260,
+					"height" : 350 + 35,
+
+					"children" :
+					(
+						{
+							"name" : "mountbackgroundBoard",
+							"type" : "thinboard_circle",
+							
+							"x" : 0,
+							"y" : 0,
+							
+							"width" : 250,
+							"height" : 350 + 35,
+							
+							"children" : (
+								{
+									"name" : "mountcharacterProtraitBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 8,
+									
+									"width" : 45,
+									"height" : 45,		
+
+									"children" : (
+									
+										{ "name" : "mountFace_Image", "type" : "image", "x" : 1, "y" : 1, "image" : "d:/ymir work/ui/game/windows/face_warrior.sub" },
+
+									),
+								},
+								{
+									"name" : "mountcharacterNameBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8 + 45 + 5,
+									"y" : 8,
+									
+									"width" : 250 - 8 - 45 - 8 - 8 + 3,
+									"height" : 22,
+									
+									"children" : (
+										{
+											"name" : "mountcharacterNameTextLine",
+											"type" : "text",
+											
+											"x" : (250 - 8 - 45 - 8 - 8) / 2,
+											"y" : 4, 
+											
+											"text" : "Mein Reittier",
+											
+											"outline" : 1,
+											
+											"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},
+									),
+								
+								},
+
+								
+								{
+									"name" : "mountlevelTitleBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5,
+									
+									"width" : 45,
+									"height" : 21,
+									
+									"children" : (
+										{
+											"name" : "mountlevelTitleTextLine",
+											"type" : "text",
+											
+											"x" : 45 / 2,
+											"y" : 3, 
+											
+											"text" : "Level",
+											
+											"outline" : 1,
+											
+											"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},
+									),									
+								},
+								{
+									"name" : "mountlevelBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5 + 21,
+									
+									"width" : 45,
+									"height" : 35,
+									
+									"children" : (
+										{
+											"name" : "mountlevelTextLine",
+											"type" : "text",
+											
+											"x" : 45 / 2,
+											"y" : 35 / 2, 
+											
+											"text" : "45",
+											
+											"outline" : 1,
+											
+											"fontsize" : "LARGE",
+											
+											"text_horizontal_align" : "center",
+											"text_vertical_align" : "center",
+										},
+									),									
+								},
+								{
+									"name" : "mountexpTitleBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8 + 45 + 5,
+									"y" : 12 + 45 + 5,
+									
+									"width" : EXP_WINDOW_WIDTH + 2,
+									"height" : 21,
+									
+									"children" : (
+										{
+											"name" : "expTitleTextLine",
+											"type" : "text",
+											
+											"x" : (EXP_WINDOW_WIDTH+2) / 2,
+											"y" : 3, 
+											
+											"text" : "EXP",
+											
+											"outline" : 1,
+											
+											"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},
+									),									
+								},
+								{
+									"name" : "mountexpBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8 + 45 + 5,
+									"y" : 12 + 45 + 5 + 21,
+									
+									"width" : EXP_WINDOW_WIDTH + 2,
+									"height" : 35,
+									
+									"children" : (
+										{
+											"name" : "mountexpTextLine",
+											"type" : "text",
+											
+											"x" : (EXP_WINDOW_WIDTH+2) / 2,
+											"y" : 35 / 2, 
+											
+											"text" : "4.000.000.000",
+											
+											"outline" : 1,
+											
+											"fontsize" : "LARGE",
+											
+											"text_horizontal_align" : "center",
+											"text_vertical_align" : "center",
+										},
+									),									
+								},							
+								{
+									"name" : "mountexpNeedTitleBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8 + 45 + 5 + 5 + EXP_WINDOW_WIDTH + 2,
+									"y" : 12 + 45 + 5,
+									
+									"width" : EXP_WINDOW_WIDTH + 6,
+									"height" : 21,
+									
+									"children" : (
+										{
+											"name" : "mountexpNeedTitleTextLine",
+											"type" : "text",
+											
+											"x" : EXP_WINDOW_WIDTH / 2,
+											"y" : 3, 
+											
+											"text" : "EXP benotigt",
+											
+											"outline" : 1,
+											
+											"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},
+									),									
+								},
+								{
+									"name" : "mountexpNeedBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8 + 45 + 5 + 5 + EXP_WINDOW_WIDTH + 2,
+									"y" : 12 + 45 + 5 + 21,
+									
+									"width" : EXP_WINDOW_WIDTH + 6,
+									"height" : 35,
+									
+									"children" : (
+										{
+											"name" : "mountexpNeedTextLine",
+											"type" : "text",
+											
+											"x" : EXP_WINDOW_WIDTH / 2 + 3,
+											"y" : 35 / 2, 
+											
+											"text" : "5.000.000.000",
+											
+											"outline" : 1,
+											
+											"fontsize" : "LARGE",
+											
+											"text_horizontal_align" : "center",
+											"text_vertical_align" : "center",
+										},
+									),									
+								},	
+
+								{
+									"name" : "lifePointsBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5 + 21 + 5 + 35 + 5,							
+									
+									"width" : 232,
+									"height" : 20,
+									
+									"children" : (
+										{
+											"name" : "lifePointTitleTextLine",
+											"type" : "text",
+											
+											"x" : 8,
+											"y" : 3,
+											
+											"text" : "Lebenspunkte : ",
+										
+										},
+										{
+											"name" : "lifepointsValueBackground",
+											"type" : "thinboard_circle",
+											
+											"x" : 232 - 60,
+											"y" : 0,
+											
+											"width" : 60,
+											"height" : 20,
+											
+											"children" : (
+												{
+													"name" : "lifepointsValueTextLine",
+													"type" : "text",
+													
+													"x" : 60 / 2,
+													"y" : 3,
+													
+													"text" : "100%",	
+
+													"text_horizontal_align" : "center",
+												},
+											),
+										},
+									),
+								},
+								{
+									"name" : "endurancePointsBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5 + 21 + 5 + 35 + 5 + 25,							
+									
+									"width" : 232,
+									"height" : 20,
+									
+									"children" : (
+										{
+											"name" : "endurancePointTitleTextLine",
+											"type" : "text",
+											
+											"x" : 8,
+											"y" : 3,
+											
+											"text" : "Ausdauer : ",
+										
+										},
+										{
+											"name" : "endurancepointsValueBackground",
+											"type" : "thinboard_circle",
+											
+											"x" : 232 - 60,
+											"y" : 0,
+											
+											"width" : 60,
+											"height" : 20,
+											
+											"children" : (
+												{
+													"name" : "endurancepointsValueTextLine",
+													"type" : "text",
+													
+													"x" : 60 / 2,
+													"y" : 3,
+													
+													"text" : "100%",	
+
+													"text_horizontal_align" : "center",
+												},
+											),
+										},
+									),
+								},	
+								{
+									"name" : "monsterPointsBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5 + 21 + 5 + 35 + 5 + 25 + 25,							
+									
+									"width" : 232,
+									"height" : 20,
+									
+									"children" : (
+										{
+											"name" : "monsterPointTitleTextLine",
+											"type" : "text",
+											
+											"x" : 8,
+											"y" : 3,
+											
+											"text" : "Stark gegen Monster : ",
+										
+										},
+										{
+											"name" : "monsterpointsValueBackground",
+											"type" : "thinboard_circle",
+											
+											"x" : 232 - 60,
+											"y" : 0,
+											
+											"width" : 60,
+											"height" : 20,
+											
+											"children" : (
+												{
+													"name" : "monsterpointsValueTextLine",
+													"type" : "text",
+													
+													"x" : 60 / 2,
+													"y" : 3,
+													
+													"text" : "+10%",	
+
+													"text_horizontal_align" : "center",
+												},
+											),
+										},
+									),
+								},	
+								{
+									"name" : "expBalancePointsBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5 + 21 + 5 + 35 + 5 + 25 + 25 + 25,							
+									
+									"width" : 232,
+									"height" : 20,
+									
+									"children" : (
+										{
+											"name" : "expBalancePointTitleTextLine",
+											"type" : "text",
+											
+											"x" : 8,
+											"y" : 3,
+											
+											"text" : "EXP-Verteilung : ",
+										
+										},
+										{
+											"name" : "expBalancepointsValueBackground",
+											"type" : "thinboard_circle",
+											
+											"x" : 232 - 60,
+											"y" : 0,
+											
+											"width" : 60,
+											"height" : 20,
+											
+											"children" : (
+												{
+													"name" : "expBalancepointsValueTextLine",
+													"type" : "text",
+													
+													"x" : 60 / 2,
+													"y" : 3,
+													
+													"text" : "40%",	
+
+													"text_horizontal_align" : "center",
+												},
+											),
+										},
+									),
+								},
+								{
+									"name" : "mountSkillSlotBackground_0",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5 + 21 + 5 + 35 + 5 + 25 + 25 + 25 + 25 + 5,							
+									
+									"width" : 232,
+									"height" : 32,
+									
+									"children" : (
+										{
+											"name" : "skill_0_title",
+											"type" : "text",
+											
+											"x" : 232 / 2,
+											"y" : 2, 
+											
+											"text" : "Metinstarke ( Stufe 1 )",
+											
+											"outline" : 1,
+											
+											"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},
+										{
+											"name" : "skill_0_value",
+											"type" : "text",
+											
+											"x" : 232 / 2,
+											"y" : 2 + 13, 
+											
+											"text" : "Stark gegen Metinsteine + 10%",
+											
+											"outline" : 1,
+											
+											#"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},	
+										{
+											"name" : "skill_0_error",
+											"type" : "text",
+											
+											"x" : 232 / 2,
+											"y" : 8, 
+											
+											"text" : "[ Gesperrt ]",
+											
+											"outline" : 1,
+											
+											"fontsize" : "LARGE",
+											
+											#"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},										
+									),
+									
+								},
+								{
+									"name" : "mountSkillSlotBackground_1",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5 + 21 + 5 + 35 + 5 + 25 + 25 + 25 + 25 + 5 + 32 + 5,							
+									
+									"width" : 232,
+									"height" : 32,
+									
+									"children" : (
+										{
+											"name" : "skill_1_title",
+											"type" : "text",
+											
+											"x" : 232 / 2,
+											"y" : 2, 
+											
+											"text" : "Metinstarke ( Stufe 1 )",
+											
+											"outline" : 1,
+											
+											"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},
+										{
+											"name" : "skill_1_value",
+											"type" : "text",
+											
+											"x" : 232 / 2,
+											"y" : 2 + 13, 
+											
+											"text" : "Stark gegen Metinsteine + 10%",
+											
+											"outline" : 1,
+											
+											#"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},	
+										{
+											"name" : "skill_1_error",
+											"type" : "text",
+											
+											"x" : 232 / 2,
+											"y" : 8, 
+											
+											"text" : "[ Gesperrt ]",
+											
+											"outline" : 1,
+											
+											"fontsize" : "LARGE",
+											
+											#"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},										
+									),
+								},
+								{
+									"name" : "mountSkillSlotBackground_2",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5 + 21 + 5 + 35 + 5 + 25 + 25 + 25 + 25 + 5 + 32 + 5 + 32 + 5,							
+									
+									"width" : 232,
+									"height" : 32,
+									"children" : (
+										{
+											"name" : "skill_2_title",
+											"type" : "text",
+											
+											"x" : 232 / 2,
+											"y" : 2, 
+											
+											"text" : "Metinstarke ( Stufe 1 )",
+											
+											"outline" : 1,
+											
+											"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},
+										{
+											"name" : "skill_2_value",
+											"type" : "text",
+											
+											"x" : 232 / 2,
+											"y" : 2 + 13, 
+											
+											"text" : "Stark gegen Metinsteine + 10%",
+											
+											"outline" : 1,
+											
+											#"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},	
+										{
+											"name" : "skill_2_error",
+											"type" : "text",
+											
+											"x" : 232 / 2,
+											"y" : 8, 
+											
+											"text" : "[ Gesperrt ]",
+											
+											"outline" : 1,
+											
+											"fontsize" : "LARGE",
+											
+											#"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},										
+									),
+								},	
+								{
+									"name" : "summonButton",
+									"type" : "button",
+													
+									"x" : ((250 - 5) / 2) - (161 / 2),
+									"y" : 12 + 45 + 5 + 21 + 5 + 35 + 5 + 25 + 25 + 25 + 25 + 5 + 32 + 5 + 32 + 5 + 32 + 5 + 5,
+											
+									"default_image" : "yamato_helpboard/wide_button_n.tga",
+									"over_image" : "yamato_helpboard/wide_button_h.tga",
+									"down_image" : "yamato_helpboard/wide_button_p.tga",
+									"disable_image" : "yamato_helpboard/wide_button_d.tga",
+
+									"text" : "Reittier rufen!",
+												
+								},								
+							),
+						
+						},
+					
+					),
+				},
+
+				
 				{
 					"name" : "Quest_Page",
 					"type" : "window",

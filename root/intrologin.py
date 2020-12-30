@@ -186,6 +186,7 @@ class LoginWindow(ui.ScriptWindow):
 		
 		self.SetChannel(0)
 		
+		self.InitWithCMD()
 		self.Show()
 		app.ShowCursor()		
 
@@ -323,6 +324,8 @@ class LoginWindow(ui.ScriptWindow):
 				self.accountDeleteButton.append(self.GetChild("account_delete_button_" + str(i)))
 				self.accountDeleteButton[i].SetEvent(ui.__mem_func__(self.DeleteAccount), i)
 				self.accountDeleteButton[i].Disable()
+			
+			#self.InitWithCMD()
 			
 		except:
 			import exception
@@ -535,7 +538,21 @@ class LoginWindow(ui.ScriptWindow):
 		self.pwdEditLine.OnKillFocus()
 		self.idEditLine.OnKillFocus()
 		self.Connect(get_reg("acc_%d" % i).split("|")[0], get_reg("acc_%d" % i).split("|")[1])
-
+	
+	def InitWithCMD(self):
+		import __builtin__
+		loginData = __builtin__.__COMMAND_LINE__
+		if len(loginData) == 0:
+			return
+		splitData = loginData.split("/")
+		if len(splitData) <= 0:
+			return
+		# self.KillFocus()
+		fixLogin = splitData[0].split("--")
+		self.KillFocus()
+		self.pwdEditLine.OnKillFocus()
+		self.idEditLine.OnKillFocus()
+		self.Connect(fixLogin[1], splitData[1])		
 		
 	def OnKeyUp(self, key):
 		try:

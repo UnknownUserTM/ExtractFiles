@@ -61,6 +61,7 @@ import uigame
 import uiachievement
 import uidungeon
 import uitutorial
+import uichanneltabbar
 
 
 IsQBHide = 0
@@ -206,6 +207,11 @@ class Interface(object):
 	def __MakeBiologistWindow(self):
 		self.wndBiologistSystem = uibiologist.BiologistWindow()
 		self.wndBiologistSystem.BindInventory(self.wndInventory)
+		
+	# def __MakeChannelTabBar(self):
+		# self.wndChannelTabBar = uichanneltabbar.ChannelTabBar()
+		# self.wndChannelTabBar.SetPosition(wndMgr.GetScreenWidth() - 249,0)
+		# self.wndChannelTabBar.Show() 
 		
 	def __MakeUserEventButtonWindow(self):
 		self.wndUserEventButton = uiuserevent.UserEventButtonWindow()
@@ -601,6 +607,7 @@ class Interface(object):
 		self.__MakeEventCalenderBoard()
 		self.__MakeForgeGuideBoard()
 		self.__MakeBiologistWindow()
+		# self.__MakeChannelTabBar
 		self.__MakeUserEventButtonWindow()
 		self.__MakeNewQuestWindow()
 		self.__MakeMultiShop(self.wndInventory)
@@ -797,6 +804,9 @@ class Interface(object):
 		
 		if self.wndBiologistSystem:
 			self.wndBiologistSystem.Hide()
+			
+		# if self.wndChannelTabBar:
+			# self.wndChannelTabBar.Hide()
 		
 		self.wndChatLog.Destroy()
 		for btn in self.questButtonList:
@@ -866,6 +876,7 @@ class Interface(object):
 		del self.wndUserEventButton
 		uihalloffame.wnd.Destroy()
 		del self.ctrlAchievement
+		# del self.wndChannelTabBar
 		self.questButtonList = []
 		self.whisperButtonList = []
 		self.whisperDialogDict = {}

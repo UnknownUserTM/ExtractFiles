@@ -186,6 +186,9 @@ class GameWindow(ui.ScriptWindow):
 		
 		self.AchievementWindow = locutosachievement.AchievementWindow()
 		
+		import uichanneltabbar
+		self.wndChannelTabBar = uichanneltabbar.ChannelTabBar()
+		
 		# self.Calender = uicalender.CalenderBoard()
 		
 		#self.BattleZoneWindow = uibattlezone.BattleZoneWindow()
@@ -527,7 +530,7 @@ class GameWindow(ui.ScriptWindow):
 		onPressKeyDict[app.DIK_I]			= lambda : self.interface.ToggleInventoryWindow()
 		onPressKeyDict[app.DIK_O]			= lambda : self.interface.ToggleDragonSoulWindowWithNoInfo()
 		onPressKeyDict[app.DIK_M]			= lambda : self.interface.PressMKey()
-#		onPressKeyDict[app.DIK_H]			= lambda : self.__summon_horse()
+		onPressKeyDict[app.DIK_H]			= lambda state = "MOUNT": self.interface.ToggleCharacterWindow(state)
 		onPressKeyDict[app.DIK_ADD]			= lambda : self.interface.MiniMapScaleUp()
 		onPressKeyDict[app.DIK_SUBTRACT]	= lambda : self.interface.MiniMapScaleDown()
 		onPressKeyDict[app.DIK_L]			= lambda : self.interface.ToggleChatLogWindow()
@@ -3834,10 +3837,12 @@ class GameWindow(ui.ScriptWindow):
 	def BiologistIconText(self):
 		# import uifortunefountain
 		# self.interface.ctrlAchievement.AppendAchievement(1,10,3345,5)
-		import uicrafting
-		self.craftingWnd = uicrafting.CraftingWindow()
+		# import uicrafting
+		# self.craftingWnd = uicrafting.CraftingWindow()
 		# self.advent = uidungeon.DungeonGuideWindow()
 		# self.advent.Show()
+		import uichanneltabbar
+		self.wndChannelTabBar = uichanneltabbar.ChannelTabBar()		
 		
 	def __RequestWarpToCharacter(self, name):
 		import uiCommon
