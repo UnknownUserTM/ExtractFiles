@@ -1201,3 +1201,4 @@ LOGIN_FAILURE_WRONG_VERSION	Dein Client ist nicht aktuell. Bitte aktualisieren!
 ITEM_PERMANENT	Permanentt
 BUFF_AFFECT_REMOVE_QUESTION	Willst du %s entfernen?
 EMOJI_CHARACTER_STATS_ADD	|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Füge 10 Statuspunkte hinzu.
+EMOJI_CHARACTER_SKILL_TO_M	|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Direkt Meistern!

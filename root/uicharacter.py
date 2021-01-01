@@ -28,7 +28,8 @@ if localeInfo.IsYMIR():
 		SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 126, 127, 129, 128, 131, 137, 138, 139, 140,141,142]
 elif localeInfo.IsJAPAN() or   (localeInfo.IsEUROPE() and app.GetLocalePath() != "locale/ca") and (localeInfo.IsEUROPE() and app.GetLocalePath() != "locale/br"):
 	HIDE_SUPPORT_SKILL_POINT = True	
-	SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 126, 127, 129, 128, 131, 137, 138, 139, 140]
+	# SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 126, 127, 129, 128, 131, 137, 138, 139, 140]
+	SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 129, 137, 138, 139, 140]
 else:
 	HIDE_SUPPORT_SKILL_POINT = True
 
@@ -109,7 +110,7 @@ class CharacterWindow(ui.ScriptWindow):
 
 		self.faceImage = None
 		# self.statusPlusLabel = None
-		# self.statusPlusValue = None
+		self.statusPlusValue = None
 		self.activeSlot = None
 		self.tabDict = None
 		self.tabButtonDict = None
@@ -166,15 +167,16 @@ class CharacterWindow(ui.ScriptWindow):
 			# faceSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideJobToolTip)
 
 		# self.statusPlusLabel = self.GetChild("Status_Plus_Label")
-		# self.statusPlusValue = self.GetChild("Status_Plus_Value")		
+		self.statusPlusValue = self.GetChild("statusPointsValueTextLine")		
 
 		self.characterNameSlot = self.GetChild("characterNameBackground")			
 		self.characterNameValue = self.GetChild("characterNameTextLine")
 		self.guildNameSlot = self.GetChild("guildNameBackground")
 		self.guildNameValue = self.GetChild("guildNameTextLine")
+		self.alignmentNameSlot = self.GetChild("rankNameBackground")
 		self.alignmentNameValue = self.GetChild("rankNameTextLine")
-		# self.characterNameSlot.SAFE_SetStringEvent("MOUSE_OVER_IN", self.__ShowAlignmentToolTip)
-		# self.characterNameSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideAlignmentToolTip)
+		self.alignmentNameSlot.SAFE_SetStringEvent("MOUSE_OVER_IN", self.__ShowAlignmentToolTip)
+		self.alignmentNameSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideAlignmentToolTip)
 
 		self.activeSlot = self.GetChild("Skill_Active_Slot")
 		self.activeSkillPointValue = self.GetChild("Active_Skill_Point_Value")
@@ -577,11 +579,11 @@ class CharacterWindow(ui.ScriptWindow):
 		statusPlusPoint=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.STAT)
 
 		if statusPlusPoint>0:
-			# self.statusPlusValue.SetText(str(statusPlusPoint))
+			self.statusPlusValue.SetText(str(statusPlusPoint))
 			# self.statusPlusLabel.Show()
 			self.ShowStatusPlusButtonList()
 		else:
-			# self.statusPlusValue.SetText(str(0))
+			self.statusPlusValue.SetText(str(0))
 			# self.statusPlusLabel.Hide()
 			self.HideStatusPlusButtonList()
 
@@ -613,25 +615,25 @@ class CharacterWindow(ui.ScriptWindow):
 		gradeColor = ui.GenerateColor(colorList[0], colorList[1], colorList[2])
 		
 		
-		# self.alignmentNameValue.SetText(localeInfo.TITLE_NAME_LIST[grade])
-		# if grade == 0:
-			# self.alignmentNameValue.SetFontColor(0.0, 0.8, 1.0)
-		# elif grade == 1:
-			# self.alignmentNameValue.SetFontColor(0.0, 0.5647, 1.0)
-		# elif grade == 2:
-			# self.alignmentNameValue.SetFontColor(0.3607, 0.4313, 1.0)
-		# elif grade == 3:
-			# self.alignmentNameValue.SetFontColor(0.6078, 0.6078, 1.0)
-		# elif grade == 4:
-			# self.alignmentNameValue.SetFontColor(1.0, 1.0, 1.0)
-		# elif grade == 5:
-			# self.alignmentNameValue.SetFontColor(0.8117, 0.4588, 0.0)
-		# elif grade == 6:
-			# self.alignmentNameValue.SetFontColor(0.9215, 0.3254, 0.0)
-		# elif grade == 7:
-			# self.alignmentNameValue.SetFontColor(0.8901, 0.0, 0.0)
-		# elif grade == 8:
-			# self.alignmentNameValue.SetFontColor(1.0, 0.0, 0.0)
+		self.alignmentNameValue.SetText(localeInfo.TITLE_NAME_LIST[grade])
+		if grade == 0:
+			self.alignmentNameValue.SetFontColor(0.0, 0.8, 1.0)
+		elif grade == 1:
+			self.alignmentNameValue.SetFontColor(0.0, 0.5647, 1.0)
+		elif grade == 2:
+			self.alignmentNameValue.SetFontColor(0.3607, 0.4313, 1.0)
+		elif grade == 3:
+			self.alignmentNameValue.SetFontColor(0.6078, 0.6078, 1.0)
+		elif grade == 4:
+			self.alignmentNameValue.SetFontColor(1.0, 1.0, 1.0)
+		elif grade == 5:
+			self.alignmentNameValue.SetFontColor(0.8117, 0.4588, 0.0)
+		elif grade == 6:
+			self.alignmentNameValue.SetFontColor(0.9215, 0.3254, 0.0)
+		elif grade == 7:
+			self.alignmentNameValue.SetFontColor(0.8901, 0.0, 0.0)
+		elif grade == 8:
+			self.alignmentNameValue.SetFontColor(1.0, 0.0, 0.0)
 
 		self.toolTipAlignment.ClearToolTip()
 		self.toolTipAlignment.AutoAppendTextLine(localeInfo.TITLE_NAME_LIST[grade], gradeColor)
@@ -683,13 +685,14 @@ class CharacterWindow(ui.ScriptWindow):
 
 	## ToolTip
 	def OverInItem(self, slotNumber):
-
+		#skilltooltip
 		if mouseModule.mouseController.isAttached():
 			return
 
 		if 0 == self.toolTipSkill:
 			return
-
+		
+		self.toolTipSkill.ClearToolTip()
 		srcSlotIndex = self.__RealSkillSlotToSourceSlot(slotNumber)
 		skillIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillIndex(srcSlotIndex)
 		skillLevel = fgGHGjjFHJghjfFG1545gGG.GetSkillLevel(srcSlotIndex)
@@ -704,9 +707,21 @@ class CharacterWindow(ui.ScriptWindow):
 				self.toolTipSkill.SetSkillNew(srcSlotIndex, skillIndex, skillGrade, skillLevel)
 			elif overInSkillGrade == skillGrade:
 				self.toolTipSkill.SetSkillNew(srcSlotIndex, skillIndex, overInSkillGrade, skillLevel)
+			
+				statPoint = fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.SKILL_ACTIVE)
+				if self.CanShowPlusButton(skillIndex, skillLevel, statPoint):
+					if skillLevel < 17 and skillGrade == 0:
+						self.toolTipSkill.AppendSpace(5)
+						self.toolTipSkill.AppendTextLine(localeInfo.EMOJI_CHARACTER_SKILL_TO_M)
 			else:
 				self.toolTipSkill.SetSkillOnlyName(srcSlotIndex, skillIndex, overInSkillGrade)
-
+			
+			# statPoint = fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.SKILL_ACTIVE)
+			# if self.CanShowPlusButton(skillIndex, skillLevel, statPoint):
+				# if skillLevel < 17 and skillGrade == 0:
+					# self.toolTipSkill.AppendSpace(5)
+					# self.toolTipSkill.AppendTextLine("STRG+LClick zum Meistern ; " + str(skillGrade))
+			
 		else:
 			self.toolTipSkill.SetSkillNew(srcSlotIndex, skillIndex, skillGrade, skillLevel)
 
@@ -860,6 +875,7 @@ class CharacterWindow(ui.ScriptWindow):
 		getSkillLevel=fgGHGjjFHJghjfFG1545gGG.GetSkillLevel
 		getSkillLevelUpPoint=skill.GetSkillLevelUpPoint
 		getSkillMaxLevel=skill.GetSkillMaxLevel
+		
 		for i in xrange(slotCount+1):
 
 			slotIndex = i + startSlotIndex
@@ -876,19 +892,19 @@ class CharacterWindow(ui.ScriptWindow):
 			skillType = getSkillType(skillIndex)
 
 			## 승마 스킬 예외 처리
-			if fgGHGjjFHJghjfFG1545gGG.SKILL_INDEX_RIDING == skillIndex:
-				if 1 == skillGrade:
-					skillLevel += 19
-				elif 2 == skillGrade:
-					skillLevel += 29
-				elif 3 == skillGrade:
-					skillLevel = 40
+			# if fgGHGjjFHJghjfFG1545gGG.SKILL_INDEX_RIDING == skillIndex:
+				# if 1 == skillGrade:
+					# skillLevel += 19
+				# elif 2 == skillGrade:
+					# skillLevel += 29
+				# elif 3 == skillGrade:
+					# skillLevel = 40
 
-				skillPage.SetSkillSlotNew(slotIndex, skillIndex, max(skillLevel-1, 0), skillLevel)
-				skillPage.SetSlotCount(slotIndex, skillLevel)
+				# skillPage.SetSkillSlotNew(slotIndex, skillIndex, max(skillLevel-1, 0), skillLevel)
+				# skillPage.SetSlotCount(slotIndex, skillLevel)
 
 			## ACTIVE
-			elif skill.SKILL_TYPE_ACTIVE == skillType:
+			if skill.SKILL_TYPE_ACTIVE == skillType:
 				for j in xrange(skill.SKILL_GRADE_COUNT):
 					realSlotIndex = self.__GetRealSkillSlot(j, slotIndex)
 					skillPage.SetSkillSlotNew(realSlotIndex, skillIndex, j, skillLevel)
@@ -958,7 +974,7 @@ class CharacterWindow(ui.ScriptWindow):
 		if 0 == slotStatType:
 			return
 
-		statPoint = fgGHGjjFHJghjfFG1545gGG.GetStatus(slotStatType)
+		statPoint = fgGHGjjFHJghjfFG1545gGG.GetStatus(slotStatType) # fgGHGjjFHJghjfFG1545gGG.SKILL_ACTIVE
 		startSlotIndex = slotWindow.GetStartIndex()
 		if "HORSE" == name:
 			startSlotIndex += self.ACTIVE_PAGE_SLOT_COUNT
@@ -1034,9 +1050,13 @@ class CharacterWindow(ui.ScriptWindow):
 		skillIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillIndex(srcSlotIndex)
 		curLevel = fgGHGjjFHJghjfFG1545gGG.GetSkillLevel(srcSlotIndex)
 		maxLevel = skill.GetSkillMaxLevel(skillIndex)
-
-		GFHhg54GHGhh45GHGH.SendChatPacket("/skillup " + str(skillIndex))
-
+		
+		
+		if app.IsPressed(app.DIK_LCONTROL):
+			GFHhg54GHGhh45GHGH.SendChatPacket("/skillupm " + str(skillIndex))
+		else:
+			GFHhg54GHGhh45GHGH.SendChatPacket("/skillup " + str(skillIndex))
+			
 	## Use Skill
 	def ClickSkillSlot(self, slotIndex):
 
