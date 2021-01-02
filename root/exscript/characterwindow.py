@@ -1936,6 +1936,31 @@ window = {
 
 					"width" : 260,
 					"height" : 350 + 35,
+					"children" :
+					(
+						{
+							"name" : "bonusBackgroundBoard",
+							"type" : "thinboard_circle",
+							
+							"x" : 0,
+							"y" : 0,
+							
+							"width" : 250,
+							"height" : 350 + 35 + STATUS_BOARD_Y,
+							
+							"children" : (
+								{
+									"name" : "scrollBar",
+									"type" : "small_thin_scrollbar",
+															
+									"x" : 250 - 15,
+									"y" : 1,
+															
+									"size" : 350 + 35 + STATUS_BOARD_Y - 2,
+								},							
+							),
+						},
+					),
 				},	
 
 				{
