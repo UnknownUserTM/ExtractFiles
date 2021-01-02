@@ -2984,7 +2984,8 @@ class ThinBoardCircle(Window):
 
 		self.eventFunc = None
 		self.eventArgs = None
-
+		self.eventDict={}		
+		
 		CornerFileNames = [ "d:/ymir work/ui/pattern/thinboardcircle/ThinBoard_Corner_"+dir+".tga" for dir in ["LeftTop_circle","LeftBottom_circle","RightTop_circle","RightBottom_circle"] ]
 		LineFileNames = [ "d:/ymir work/ui/pattern/thinboardcircle/ThinBoard_Line_"+dir+".tga" for dir in ["Left_circle","Right_circle","Top_circle","Bottom_circle"] ]
 
@@ -3075,7 +3076,20 @@ class ThinBoardCircle(Window):
 		
 		# except:
 			# return			
+	def OnMouseOverIn(self):
+		try:
+			self.eventDict["MOUSE_OVER_IN"]()
+		except KeyError:
+			pass
 
+	def OnMouseOverOut(self):
+		try:
+			self.eventDict["MOUSE_OVER_OUT"]()
+		except KeyError:
+			pass
+
+	def SAFE_SetStringEvent(self, event, func):
+		self.eventDict[event]=__mem_func__(func)
 			
 class ScrollBar(Window):
 

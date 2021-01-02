@@ -1,10 +1,10 @@
 import ui
 import uiScriptLocale
 import app
-import GFHhg54GHGhh45GHGH
+import GFHhg54GHGhh45GHGH as net
 import dbg
 import snd
-import fgGHGjjFHJghjfFG1545gGG
+import fgGHGjjFHJghjfFG1545gGG as player
 import mouseModule
 import wndMgr
 import skill
@@ -28,7 +28,8 @@ if localeInfo.IsYMIR():
 		SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 126, 127, 129, 128, 131, 137, 138, 139, 140,141,142]
 elif localeInfo.IsJAPAN() or   (localeInfo.IsEUROPE() and app.GetLocalePath() != "locale/ca") and (localeInfo.IsEUROPE() and app.GetLocalePath() != "locale/br"):
 	HIDE_SUPPORT_SKILL_POINT = True	
-	SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 126, 127, 129, 128, 131, 137, 138, 139, 140]
+	# SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 126, 127, 129, 128, 131, 137, 138, 139, 140]
+	SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 129, 137, 138, 139, 140]
 else:
 	HIDE_SUPPORT_SKILL_POINT = True
 
@@ -42,6 +43,269 @@ FACE_IMAGE_DICT = {
 	playerSettingModule.RACE_SHAMAN_M	: "icon/face/shaman_m.tga",
 	playerSettingModule.RACE_SHAMAN_W	: "icon/face/shaman_w.tga",
 }
+
+BONUS_ATTR_WEAPON = 0
+BONUS_ATTR_BODY = 1
+BONUS_ATTR_WRIST = 2
+BONUS_ATTR_FOOTS = 3
+BONUS_ATTR_NECK = 4
+BONUS_ATTR_HEAD = 5
+BONUS_ATTR_SHIELD = 6
+BONUS_ATTR_EAR = 7
+
+BONUS_ATTR_TRANSLATE_LIST = {
+	BONUS_ATTR_WEAPON : "Waffen",
+	BONUS_ATTR_BODY 	: "Rustungen",
+	BONUS_ATTR_WRIST 	: "Armbander",
+	BONUS_ATTR_FOOTS 	: "Fuße",
+	BONUS_ATTR_NECK 	: "Halsketten",
+	BONUS_ATTR_HEAD 	: "Kopfe",
+	BONUS_ATTR_SHIELD 	: "Schilder",
+	BONUS_ATTR_EAR 	: "Ohren",
+	
+
+}
+
+BONUS_ATTR_SLOT_LIST = {
+	BONUS_ATTR_WEAPON	: 184,
+	BONUS_ATTR_BODY 	: 180,
+	BONUS_ATTR_WRIST 	: 183,
+	BONUS_ATTR_FOOTS 	: 182,
+	BONUS_ATTR_NECK 	: 185,
+	BONUS_ATTR_HEAD 	: 181,
+	BONUS_ATTR_SHIELD 	: 190,
+	BONUS_ATTR_EAR 		: 186,
+	
+
+}
+
+BONUS_BOARD_ITEM_LIST = [
+	{
+		"type" : "title",
+		"text" : "Offensive Boni",
+	
+	},
+	
+
+	{
+		"type" : "bonus",
+		"text" : "Vitalitat",
+		
+		"bonus" : player.HT,
+		
+		"applicable_to" : [BONUS_ATTR_WEAPON,BONUS_ATTR_BODY],
+	},
+	{
+		"type" : "bonus",
+		"text" : "Intelligenz",
+		
+		"bonus" : player.IQ,
+		
+		"applicable_to" : [],
+	},
+	{
+		"type" : "bonus",
+		"text" : "Starke",
+		
+		"bonus" : player.ST,
+		"applicable_to" : [],
+	},
+	{
+		"type" : "bonus",
+		"text" : "Beweglichkeit",
+		
+		"bonus" : player.DX,
+		"applicable_to" : [],
+	},
+
+
+	{
+		"type" : "bonus",
+		"text" : "Krit. Trefferchance",
+		
+		"bonus" : player.POINT_CRITICAL_PCT,
+		"applicable_to" : [],
+	},
+	{
+		"type" : "bonus",
+		"text" : "Durchb. Trefferchance",
+		
+		"bonus" : player.POINT_PENETRATE_PCT,
+		"applicable_to" : [],
+	},	
+	
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Menschen",
+		
+		"bonus" : player.POINT_ATTBONUS_HUMAN,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Tiere",
+		
+		"bonus" : player.POINT_ATTBONUS_ANIMAL,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Orkse",
+		
+		"bonus" : player.POINT_ATTBONUS_ORC,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Esotypen",
+		
+		"bonus" : player.POINT_ATTBONUS_MILGYO,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Untote",
+		
+		"bonus" : player.POINT_ATTBONUS_UNDEAD,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Teufel",
+		
+		"bonus" : player.POINT_ATTBONUS_DEVIL,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Insekten?? Gibts das?",
+		
+		"bonus" : player.POINT_ATTBONUS_INSECT,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Metinsteine",
+		
+		"bonus" : player.POINT_ATTBONUS_STONE,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Bosse",
+		
+		"bonus" : player.POINT_ATTBONUS_BOSS,
+		"applicable_to" : [],
+	},
+	{
+		"type" : "bonus",
+		"text" : "Stark gegen Spieler",
+		
+		"bonus" : player.POINT_ATTBONUS_PLAYER,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "title",
+		"text" : "Defensive Boni",
+	
+	},
+
+
+	{
+		"type" : "bonus",
+		"text" : "Schwrtwiderstand",
+		
+		"bonus" : player.POINT_RESIST_SWORD,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Zweihandwiderstand",
+		
+		"bonus" : player.POINT_RESIST_TWOHAND,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Dolchwiderstand",
+		
+		"bonus" : player.POINT_RESIST_DAGGER,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Glockendef",
+		
+		"bonus" : player.POINT_RESIST_BELL,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Fan Def? ",
+		
+		"bonus" : player.POINT_RESIST_FAN,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Bogenwiderstand",
+		
+		"bonus" : player.POINT_RESIST_BOW,
+		"applicable_to" : [],
+	},	
+
+	
+	{
+		"type" : "bonus",
+		"text" : "Spielzeit",
+		
+		"bonus" : player.PLAYTIME,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "Bogendistanz",
+		
+		"bonus" : player.BOW_DISTANCE,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "TP-Regeneration",
+		
+		"bonus" : player.HP_RECOVERY,
+		"applicable_to" : [],
+	},	
+	{
+		"type" : "bonus",
+		"text" : "MP-Regeneration",
+		
+		"bonus" : player.SP_RECOVERY,
+		"applicable_to" : [],
+	},
+	{
+		"type" : "title",
+		"text" : "Passive Boni",
+	
+	},
+	{
+		"type" : "bonus",
+		"text" : "Goooold!!!",
+		
+		"bonus" : player.ELK,
+		"applicable_to" : [],
+	},
+	{
+		"type" : "bonus",
+		"text" : "Spielerlevel",
+		
+		"bonus" : player.LEVEL,
+		"applicable_to" : [],
+	},
+]
+
+
+
 def unsigned32(n):
 	return n & 0xFFFFFFFFL
 	
@@ -109,7 +373,7 @@ class CharacterWindow(ui.ScriptWindow):
 
 		self.faceImage = None
 		# self.statusPlusLabel = None
-		# self.statusPlusValue = None
+		self.statusPlusValue = None
 		self.activeSlot = None
 		self.tabDict = None
 		self.tabButtonDict = None
@@ -142,7 +406,10 @@ class CharacterWindow(ui.ScriptWindow):
 		self.emotionToolTip = None
 		self.soloEmotionSlot = None
 		self.dualEmotionSlot = None
-
+		
+		self.bonusItemList = {}
+		self.skillUPMSpamBlock = 0
+		
 	def Show(self):
 		self.__LoadWindow()
 
@@ -166,15 +433,16 @@ class CharacterWindow(ui.ScriptWindow):
 			# faceSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideJobToolTip)
 
 		# self.statusPlusLabel = self.GetChild("Status_Plus_Label")
-		# self.statusPlusValue = self.GetChild("Status_Plus_Value")		
+		self.statusPlusValue = self.GetChild("statusPointsValueTextLine")		
 
 		self.characterNameSlot = self.GetChild("characterNameBackground")			
 		self.characterNameValue = self.GetChild("characterNameTextLine")
 		self.guildNameSlot = self.GetChild("guildNameBackground")
 		self.guildNameValue = self.GetChild("guildNameTextLine")
+		self.alignmentNameSlot = self.GetChild("rankNameBackground")
 		self.alignmentNameValue = self.GetChild("rankNameTextLine")
-		# self.characterNameSlot.SAFE_SetStringEvent("MOUSE_OVER_IN", self.__ShowAlignmentToolTip)
-		# self.characterNameSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideAlignmentToolTip)
+		self.alignmentNameSlot.SAFE_SetStringEvent("MOUSE_OVER_IN", self.__ShowAlignmentToolTip)
+		self.alignmentNameSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideAlignmentToolTip)
 
 		self.activeSlot = self.GetChild("Skill_Active_Slot")
 		self.activeSkillPointValue = self.GetChild("Active_Skill_Point_Value")
@@ -243,9 +511,9 @@ class CharacterWindow(ui.ScriptWindow):
 		}
 
 		self.skillPageStatDict = {
-			"SUPPORT"	: fgGHGjjFHJghjfFG1545gGG.SKILL_SUPPORT,
-			"ACTIVE"	: fgGHGjjFHJghjfFG1545gGG.SKILL_ACTIVE,
-			"HORSE"		: fgGHGjjFHJghjfFG1545gGG.SKILL_HORSE,
+			"SUPPORT"	: player.SKILL_SUPPORT,
+			"ACTIVE"	: player.SKILL_ACTIVE,
+			"HORSE"		: player.SKILL_HORSE,
 		}
 
 		self.skillGroupButton = (
@@ -283,7 +551,10 @@ class CharacterWindow(ui.ScriptWindow):
 			self.questNameList.append(self.GetChild("Quest_Name_0" + str(i)))
 			self.questLastTimeList.append(self.GetChild("Quest_LastTime_0" + str(i)))
 			self.questLastCountList.append(self.GetChild("Quest_LastCount_0" + str(i)))
-
+		
+		self.BindBonusBoard()
+		
+		
 	def __SetSkillSlotEvent(self):
 		for skillPageValue in self.skillPageDict.itervalues():
 			skillPageValue.SetSlotStyle(wndMgr.SLOT_STYLE_NONE)
@@ -330,10 +601,10 @@ class CharacterWindow(ui.ScriptWindow):
 			return
 
 		if app.IsPressed(app.DIK_LCONTROL):
-			fgGHGjjFHJghjfFG1545gGG.RequestAddToEmptyLocalQuickSlot(fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_EMOTION, slotIndex)
+			player.RequestAddToEmptyLocalQuickSlot(player.SLOT_TYPE_EMOTION, slotIndex)
 			return
 
-		mouseModule.mouseController.AttachObject(self, fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_EMOTION, slotIndex, slotIndex)
+		mouseModule.mouseController.AttachObject(self, player.SLOT_TYPE_EMOTION, slotIndex, slotIndex)
 
 	def __ClickEmotionSlot(self, slotIndex):
 		print "click emotion"
@@ -341,26 +612,26 @@ class CharacterWindow(ui.ScriptWindow):
 			return
 
 		print "check acting"
-		if fgGHGjjFHJghjfFG1545gGG.IsActingEmotion():
+		if player.IsActingEmotion():
 			return
 
 		command = emotion.EMOTION_DICT[slotIndex]["command"]
 		print "command", command
 
 		if slotIndex > 50 and slotIndex < 61:
-			vid = fgGHGjjFHJghjfFG1545gGG.GetTargetVID()
+			vid = player.GetTargetVID()
 
-			if 0 == vid or vid == fgGHGjjFHJghjfFG1545gGG.GetMainCharacterIndex() or chr.IsNPC(vid) or chr.IsEnemy(vid):
+			if 0 == vid or vid == player.GetMainCharacterIndex() or chr.IsNPC(vid) or chr.IsEnemy(vid):
 				import chat
 				chat.AppendChat(chat.CHAT_TYPE_INFO, localeInfo.EMOTION_CHOOSE_ONE)
 				return
 
 			command += " " + chr.GetNameByVID(vid)
 		if slotIndex >= 66:
-			GFHhg54GHGhh45GHGH.SendChatPacket(command)
+			net.SendChatPacket(command)
 		else:
 			print "send_command", command
-			GFHhg54GHGhh45GHGH.SendChatPacket(command)
+			net.SendChatPacket(command)
 
 	def ActEmotion(self, emotionIndex):
 		self.__ClickEmotionSlot(emotionIndex)
@@ -443,7 +714,7 @@ class CharacterWindow(ui.ScriptWindow):
 	# def __OnClickStatusPlusButton(self, statusKey):
 		# try:
 			# statusPlusCommand=self.statusPlusCommandDict[statusKey]
-			# GFHhg54GHGhh45GHGH.SendChatPacket(statusPlusCommand)
+			# net.SendChatPacket(statusPlusCommand)
 		# except KeyError, msg:
 			# dbg.TraceError("CharacterWindow.__OnClickStatusPlusButton KeyError: %s", msg)
 
@@ -455,12 +726,12 @@ class CharacterWindow(ui.ScriptWindow):
 		else:
 			cmd = cmd + "1"
 			
-		GFHhg54GHGhh45GHGH.SendChatPacket(cmd)
+		net.SendChatPacket(cmd)
 
 	def __OnClickStatusMinusButton(self, statusKey):
 		try:
 			statusMinusCommand=self.statusMinusCommandDict[statusKey]
-			GFHhg54GHGhh45GHGH.SendChatPacket(statusMinusCommand)
+			net.SendChatPacket(statusMinusCommand)
 		except KeyError, msg:
 			dbg.TraceError("CharacterWindow.__OnClickStatusMinusButton KeyError: %s", msg)
 
@@ -496,10 +767,10 @@ class CharacterWindow(ui.ScriptWindow):
 		return self.state
 
 	def __GetTotalAtkText(self):
-		minAtk=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ATT_MIN)
-		maxAtk=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ATT_MAX)
-		atkBonus=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ATT_BONUS)
-		attackerBonus=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ATTACKER_BONUS)
+		minAtk=player.GetStatus(player.ATT_MIN)
+		maxAtk=player.GetStatus(player.ATT_MAX)
+		atkBonus=player.GetStatus(player.ATT_BONUS)
+		attackerBonus=player.GetStatus(player.ATTACKER_BONUS)
 
 		if minAtk==maxAtk:
 			atkValue = minAtk+atkBonus+attackerBonus
@@ -511,8 +782,8 @@ class CharacterWindow(ui.ScriptWindow):
 			return constInfo.NumberToPointString(minatkValue) + "-" + constInfo.NumberToPointString(maxatkValue)
 
 	def __GetTotalMagAtkText(self):
-		minMagAtk=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAG_ATT)+fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MIN_MAGIC_WEP)
-		maxMagAtk=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAG_ATT)+fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAX_MAGIC_WEP)
+		minMagAtk=player.GetStatus(player.MAG_ATT)+player.GetStatus(player.MIN_MAGIC_WEP)
+		maxMagAtk=player.GetStatus(player.MAG_ATT)+player.GetStatus(player.MAX_MAGIC_WEP)
 
 		if minMagAtk==maxMagAtk:
 			return "%d" % (minMagAtk)
@@ -520,9 +791,9 @@ class CharacterWindow(ui.ScriptWindow):
 			return "%d-%d" % (minMagAtk, maxMagAtk)
 
 	def __GetTotalDefText(self):
-		defValue=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.DEF_GRADE)
+		defValue=player.GetStatus(player.DEF_GRADE)
 		if constInfo.ADD_DEF_BONUS_ENABLE:
-			defValue+=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.DEF_BONUS)
+			defValue+=player.GetStatus(player.DEF_BONUS)
 		return "%d" % (defValue)
 	
 	def RefreshStatus(self):
@@ -530,32 +801,32 @@ class CharacterWindow(ui.ScriptWindow):
 			return
 
 		try:
-			self.GetChild("levelTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL)))
-			# self.GetChild("expTextLine").SetText(unsigned32(fgGHGjjFHJghjfFG1545gGG.GetEXP())))
-			self.GetChild("expTextLine").SetText(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetEXP()))
-			# self.GetChild("expNeedTextLine").SetText(unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.NEXT_EXP)) - unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.EXP))))
+			self.GetChild("levelTextLine").SetText(str(player.GetStatus(player.LEVEL)))
+			# self.GetChild("expTextLine").SetText(unsigned32(player.GetEXP())))
+			self.GetChild("expTextLine").SetText(constInfo.NumberToPointString(player.GetEXP()))
+			# self.GetChild("expNeedTextLine").SetText(unsigned32(player.GetStatus(player.NEXT_EXP)) - unsigned32(player.GetStatus(player.EXP))))
 			
-			expNeed = unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.NEXT_EXP)) - unsigned32(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.EXP))
+			expNeed = unsigned32(player.GetStatus(player.NEXT_EXP)) - unsigned32(player.GetStatus(player.EXP))
 			self.GetChild("expNeedTextLine").SetText(constInfo.NumberToPointString(expNeed))
-			self.GetChild("pointTPTextLine").SetText(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.HP)) + '/' + str(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAX_HP))))
-			self.GetChild("pointMPTextLine").SetText(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.SP)) + '/' + str(constInfo.NumberToPointString(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAX_SP))))
+			self.GetChild("pointTPTextLine").SetText(constInfo.NumberToPointString(player.GetStatus(player.HP)) + '/' + str(constInfo.NumberToPointString(player.GetStatus(player.MAX_HP))))
+			self.GetChild("pointMPTextLine").SetText(constInfo.NumberToPointString(player.GetStatus(player.SP)) + '/' + str(constInfo.NumberToPointString(player.GetStatus(player.MAX_SP))))
 
-			self.GetChild("statusPointsVITTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.HT)))
-			self.GetChild("statusPointsINTTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.IQ)))
-			self.GetChild("statusPointsSTRTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ST)))
-			self.GetChild("statusPointsDEXTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.DX)))
+			self.GetChild("statusPointsVITTextLine").SetText(str(player.GetStatus(player.HT)))
+			self.GetChild("statusPointsINTTextLine").SetText(str(player.GetStatus(player.IQ)))
+			self.GetChild("statusPointsSTRTextLine").SetText(str(player.GetStatus(player.ST)))
+			self.GetChild("statusPointsDEXTextLine").SetText(str(player.GetStatus(player.DX)))
 
 			self.GetChild("pointDMGTextLine").SetText(self.__GetTotalAtkText())
 			self.GetChild("pointDEFTextLine").SetText(self.__GetTotalDefText())
 
 			self.GetChild("magicAtkValueTextLine").SetText(self.__GetTotalMagAtkText())
-			#self.GetChild("MATT_Value").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAG_ATT)))
+			#self.GetChild("MATT_Value").SetText(str(player.GetStatus(player.MAG_ATT)))
 
-			self.GetChild("magicDefValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MAG_DEF)))
-			self.GetChild("atkSpeedValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ATT_SPEED)))
-			self.GetChild("moveSpeedValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.MOVING_SPEED)))
-			self.GetChild("magicSpeedValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.CASTING_SPEED)))
-			self.GetChild("evadeValueTextLine").SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.EVADE_RATE)))
+			self.GetChild("magicDefValueTextLine").SetText(str(player.GetStatus(player.MAG_DEF)))
+			self.GetChild("atkSpeedValueTextLine").SetText(str(player.GetStatus(player.ATT_SPEED)))
+			self.GetChild("moveSpeedValueTextLine").SetText(str(player.GetStatus(player.MOVING_SPEED)))
+			self.GetChild("magicSpeedValueTextLine").SetText(str(player.GetStatus(player.CASTING_SPEED)))
+			self.GetChild("evadeValueTextLine").SetText(str(player.GetStatus(player.EVADE_RATE)))
 
 		except:
 			#import exception
@@ -574,14 +845,14 @@ class CharacterWindow(ui.ScriptWindow):
 		if self.isLoaded==0:
 			return
 
-		statusPlusPoint=fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.STAT)
+		statusPlusPoint=player.GetStatus(player.STAT)
 
 		if statusPlusPoint>0:
-			# self.statusPlusValue.SetText(str(statusPlusPoint))
+			self.statusPlusValue.SetText(str(statusPlusPoint))
 			# self.statusPlusLabel.Show()
 			self.ShowStatusPlusButtonList()
 		else:
-			# self.statusPlusValue.SetText(str(0))
+			self.statusPlusValue.SetText(str(0))
 			# self.statusPlusLabel.Hide()
 			self.HideStatusPlusButtonList()
 
@@ -597,7 +868,7 @@ class CharacterWindow(ui.ScriptWindow):
 			self.__HideStatusMinusButtonList()
 
 	def RefreshAlignment(self):
-		point, grade = fgGHGjjFHJghjfFG1545gGG.GetAlignmentData()
+		point, grade = player.GetAlignmentData()
 
 		import colorInfo
 		COLOR_DICT = {	0 : colorInfo.TITLE_RGB_GOOD_4,
@@ -613,25 +884,25 @@ class CharacterWindow(ui.ScriptWindow):
 		gradeColor = ui.GenerateColor(colorList[0], colorList[1], colorList[2])
 		
 		
-		# self.alignmentNameValue.SetText(localeInfo.TITLE_NAME_LIST[grade])
-		# if grade == 0:
-			# self.alignmentNameValue.SetFontColor(0.0, 0.8, 1.0)
-		# elif grade == 1:
-			# self.alignmentNameValue.SetFontColor(0.0, 0.5647, 1.0)
-		# elif grade == 2:
-			# self.alignmentNameValue.SetFontColor(0.3607, 0.4313, 1.0)
-		# elif grade == 3:
-			# self.alignmentNameValue.SetFontColor(0.6078, 0.6078, 1.0)
-		# elif grade == 4:
-			# self.alignmentNameValue.SetFontColor(1.0, 1.0, 1.0)
-		# elif grade == 5:
-			# self.alignmentNameValue.SetFontColor(0.8117, 0.4588, 0.0)
-		# elif grade == 6:
-			# self.alignmentNameValue.SetFontColor(0.9215, 0.3254, 0.0)
-		# elif grade == 7:
-			# self.alignmentNameValue.SetFontColor(0.8901, 0.0, 0.0)
-		# elif grade == 8:
-			# self.alignmentNameValue.SetFontColor(1.0, 0.0, 0.0)
+		self.alignmentNameValue.SetText(localeInfo.TITLE_NAME_LIST[grade])
+		if grade == 0:
+			self.alignmentNameValue.SetFontColor(0.0, 0.8, 1.0)
+		elif grade == 1:
+			self.alignmentNameValue.SetFontColor(0.0, 0.5647, 1.0)
+		elif grade == 2:
+			self.alignmentNameValue.SetFontColor(0.3607, 0.4313, 1.0)
+		elif grade == 3:
+			self.alignmentNameValue.SetFontColor(0.6078, 0.6078, 1.0)
+		elif grade == 4:
+			self.alignmentNameValue.SetFontColor(1.0, 1.0, 1.0)
+		elif grade == 5:
+			self.alignmentNameValue.SetFontColor(0.8117, 0.4588, 0.0)
+		elif grade == 6:
+			self.alignmentNameValue.SetFontColor(0.9215, 0.3254, 0.0)
+		elif grade == 7:
+			self.alignmentNameValue.SetFontColor(0.8901, 0.0, 0.0)
+		elif grade == 8:
+			self.alignmentNameValue.SetFontColor(1.0, 0.0, 0.0)
 
 		self.toolTipAlignment.ClearToolTip()
 		self.toolTipAlignment.AutoAppendTextLine(localeInfo.TITLE_NAME_LIST[grade], gradeColor)
@@ -663,16 +934,16 @@ class CharacterWindow(ui.ScriptWindow):
 		if False == mouseController.isAttached():
 
 			srcSlotIndex = self.__RealSkillSlotToSourceSlot(skillSlotIndex)
-			selectedSkillIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillIndex(srcSlotIndex)
+			selectedSkillIndex = player.GetSkillIndex(srcSlotIndex)
 
 			if skill.CanUseSkill(selectedSkillIndex):
 
 				if app.IsPressed(app.DIK_LCONTROL):
 
-					fgGHGjjFHJghjfFG1545gGG.RequestAddToEmptyLocalQuickSlot(fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_SKILL, srcSlotIndex)
+					player.RequestAddToEmptyLocalQuickSlot(player.SLOT_TYPE_SKILL, srcSlotIndex)
 					return
 
-				mouseController.AttachObject(self, fgGHGjjFHJghjfFG1545gGG.SLOT_TYPE_SKILL, srcSlotIndex, selectedSkillIndex)
+				mouseController.AttachObject(self, player.SLOT_TYPE_SKILL, srcSlotIndex, selectedSkillIndex)
 
 		else:
 
@@ -683,17 +954,18 @@ class CharacterWindow(ui.ScriptWindow):
 
 	## ToolTip
 	def OverInItem(self, slotNumber):
-
+		#skilltooltip
 		if mouseModule.mouseController.isAttached():
 			return
 
 		if 0 == self.toolTipSkill:
 			return
-
+		
+		self.toolTipSkill.ClearToolTip()
 		srcSlotIndex = self.__RealSkillSlotToSourceSlot(slotNumber)
-		skillIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillIndex(srcSlotIndex)
-		skillLevel = fgGHGjjFHJghjfFG1545gGG.GetSkillLevel(srcSlotIndex)
-		skillGrade = fgGHGjjFHJghjfFG1545gGG.GetSkillGrade(srcSlotIndex)
+		skillIndex = player.GetSkillIndex(srcSlotIndex)
+		skillLevel = player.GetSkillLevel(srcSlotIndex)
+		skillGrade = player.GetSkillGrade(srcSlotIndex)
 		skillType = skill.GetSkillType(skillIndex)
 
 		## ACTIVE
@@ -704,9 +976,21 @@ class CharacterWindow(ui.ScriptWindow):
 				self.toolTipSkill.SetSkillNew(srcSlotIndex, skillIndex, skillGrade, skillLevel)
 			elif overInSkillGrade == skillGrade:
 				self.toolTipSkill.SetSkillNew(srcSlotIndex, skillIndex, overInSkillGrade, skillLevel)
+			
+				statPoint = player.GetStatus(player.SKILL_ACTIVE)
+				if self.CanShowPlusButton(skillIndex, skillLevel, statPoint):
+					if skillLevel < 17 and skillGrade == 0:
+						self.toolTipSkill.AppendSpace(5)
+						self.toolTipSkill.AppendTextLine(localeInfo.EMOJI_CHARACTER_SKILL_TO_M)
 			else:
 				self.toolTipSkill.SetSkillOnlyName(srcSlotIndex, skillIndex, overInSkillGrade)
-
+			
+			# statPoint = player.GetStatus(player.SKILL_ACTIVE)
+			# if self.CanShowPlusButton(skillIndex, skillLevel, statPoint):
+				# if skillLevel < 17 and skillGrade == 0:
+					# self.toolTipSkill.AppendSpace(5)
+					# self.toolTipSkill.AppendTextLine("STRG+LClick zum Meistern ; " + str(skillGrade))
+			
 		else:
 			self.toolTipSkill.SetSkillNew(srcSlotIndex, skillIndex, skillGrade, skillLevel)
 
@@ -790,7 +1074,7 @@ class CharacterWindow(ui.ScriptWindow):
 
 	def __GetStatMinusPoint(self):
 		POINT_STAT_RESET_COUNT = 112
-		return fgGHGjjFHJghjfFG1545gGG.GetStatus(POINT_STAT_RESET_COUNT)
+		return player.GetStatus(POINT_STAT_RESET_COUNT)
 
 	def __OverInStatMinusButton(self, stat):
 		try:
@@ -855,11 +1139,12 @@ class CharacterWindow(ui.ScriptWindow):
 				startSlotIndex += slotCount
 
 		getSkillType=skill.GetSkillType
-		getSkillIndex=fgGHGjjFHJghjfFG1545gGG.GetSkillIndex
-		getSkillGrade=fgGHGjjFHJghjfFG1545gGG.GetSkillGrade
-		getSkillLevel=fgGHGjjFHJghjfFG1545gGG.GetSkillLevel
+		getSkillIndex=player.GetSkillIndex
+		getSkillGrade=player.GetSkillGrade
+		getSkillLevel=player.GetSkillLevel
 		getSkillLevelUpPoint=skill.GetSkillLevelUpPoint
 		getSkillMaxLevel=skill.GetSkillMaxLevel
+		
 		for i in xrange(slotCount+1):
 
 			slotIndex = i + startSlotIndex
@@ -876,19 +1161,19 @@ class CharacterWindow(ui.ScriptWindow):
 			skillType = getSkillType(skillIndex)
 
 			## 승마 스킬 예외 처리
-			if fgGHGjjFHJghjfFG1545gGG.SKILL_INDEX_RIDING == skillIndex:
-				if 1 == skillGrade:
-					skillLevel += 19
-				elif 2 == skillGrade:
-					skillLevel += 29
-				elif 3 == skillGrade:
-					skillLevel = 40
+			# if player.SKILL_INDEX_RIDING == skillIndex:
+				# if 1 == skillGrade:
+					# skillLevel += 19
+				# elif 2 == skillGrade:
+					# skillLevel += 29
+				# elif 3 == skillGrade:
+					# skillLevel = 40
 
-				skillPage.SetSkillSlotNew(slotIndex, skillIndex, max(skillLevel-1, 0), skillLevel)
-				skillPage.SetSlotCount(slotIndex, skillLevel)
+				# skillPage.SetSkillSlotNew(slotIndex, skillIndex, max(skillLevel-1, 0), skillLevel)
+				# skillPage.SetSlotCount(slotIndex, skillLevel)
 
 			## ACTIVE
-			elif skill.SKILL_TYPE_ACTIVE == skillType:
+			if skill.SKILL_TYPE_ACTIVE == skillType:
 				for j in xrange(skill.SKILL_GRADE_COUNT):
 					realSlotIndex = self.__GetRealSkillSlot(j, slotIndex)
 					skillPage.SetSkillSlotNew(realSlotIndex, skillIndex, j, skillLevel)
@@ -958,7 +1243,7 @@ class CharacterWindow(ui.ScriptWindow):
 		if 0 == slotStatType:
 			return
 
-		statPoint = fgGHGjjFHJghjfFG1545gGG.GetStatus(slotStatType)
+		statPoint = player.GetStatus(slotStatType) # player.SKILL_ACTIVE
 		startSlotIndex = slotWindow.GetStartIndex()
 		if "HORSE" == name:
 			startSlotIndex += self.ACTIVE_PAGE_SLOT_COUNT
@@ -966,9 +1251,9 @@ class CharacterWindow(ui.ScriptWindow):
 		if statPoint > 0:
 			for i in xrange(self.PAGE_SLOT_COUNT):
 				slotIndex = i + startSlotIndex
-				skillIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillIndex(slotIndex)
-				skillGrade = fgGHGjjFHJghjfFG1545gGG.GetSkillGrade(slotIndex)
-				skillLevel = fgGHGjjFHJghjfFG1545gGG.GetSkillLevel(slotIndex)
+				skillIndex = player.GetSkillIndex(slotIndex)
+				skillGrade = player.GetSkillGrade(slotIndex)
+				skillLevel = player.GetSkillLevel(slotIndex)
 
 				if skillIndex == 0:
 					continue
@@ -976,7 +1261,7 @@ class CharacterWindow(ui.ScriptWindow):
 					continue
 
 				if name == "HORSE":
-					if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL) >= skill.GetSkillLevelLimit(skillIndex):
+					if player.GetStatus(player.LEVEL) >= skill.GetSkillLevelLimit(skillIndex):
 						if skillLevel < 20:
 							slotWindow.ShowSlotButton(self.__GetETCSkillRealSlotIndex(slotIndex))
 
@@ -1017,31 +1302,36 @@ class CharacterWindow(ui.ScriptWindow):
 			return
 
 		if self.PAGE_HORSE == self.curSelectedSkillGroup:
-			activeStatPoint = fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.SKILL_HORSE)
+			activeStatPoint = player.GetStatus(player.SKILL_HORSE)
 			self.activeSkillPointValue.SetText(str(activeStatPoint))
 
 		else:
-			activeStatPoint = fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.SKILL_ACTIVE)
+			activeStatPoint = player.GetStatus(player.SKILL_ACTIVE)
 			self.activeSkillPointValue.SetText(str(activeStatPoint))
 
-		supportStatPoint = max(0, fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.SKILL_SUPPORT))
+		supportStatPoint = max(0, player.GetStatus(player.SKILL_SUPPORT))
 		self.supportSkillPointValue.SetText(str(supportStatPoint))
 
 	## Skill Level Up Button
 	def OnPressedSlotButton(self, slotNumber):
 		srcSlotIndex = self.__RealSkillSlotToSourceSlot(slotNumber)
 
-		skillIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillIndex(srcSlotIndex)
-		curLevel = fgGHGjjFHJghjfFG1545gGG.GetSkillLevel(srcSlotIndex)
+		skillIndex = player.GetSkillIndex(srcSlotIndex)
+		curLevel = player.GetSkillLevel(srcSlotIndex)
 		maxLevel = skill.GetSkillMaxLevel(skillIndex)
-
-		GFHhg54GHGhh45GHGH.SendChatPacket("/skillup " + str(skillIndex))
-
+		
+		if self.skillUPMSpamBlock < app.GetTime():
+			if app.IsPressed(app.DIK_LCONTROL):
+				self.skillUPMSpamBlock = app.GetTime() + 2		
+				net.SendChatPacket("/skillupm " + str(skillIndex))
+			else:
+				net.SendChatPacket("/skillup " + str(skillIndex))
+			
 	## Use Skill
 	def ClickSkillSlot(self, slotIndex):
 
 		srcSlotIndex = self.__RealSkillSlotToSourceSlot(slotIndex)
-		skillIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillIndex(srcSlotIndex)
+		skillIndex = player.GetSkillIndex(srcSlotIndex)
 		skillType = skill.GetSkillType(skillIndex)
 
 		if not self.__CanUseSkillNow():
@@ -1051,7 +1341,7 @@ class CharacterWindow(ui.ScriptWindow):
 		for slotWindow in self.skillPageDict.values():
 			if slotWindow.HasSlot(slotIndex):
 				if skill.CanUseSkill(skillIndex):
-					fgGHGjjFHJghjfFG1545gGG.ClickSkillSlot(srcSlotIndex)
+					player.ClickSkillSlot(srcSlotIndex)
 					return
 
 		mouseModule.mouseController.DeattachObject()
@@ -1060,12 +1350,12 @@ class CharacterWindow(ui.ScriptWindow):
 	##         매우 불합리. 구조 자체를 개선해야 할듯.
 	def OnUseSkill(self, slotIndex, coolTime):
 
-		skillIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillIndex(slotIndex)
+		skillIndex = player.GetSkillIndex(slotIndex)
 		skillType = skill.GetSkillType(skillIndex)
 
 		## ACTIVE
 		if skill.SKILL_TYPE_ACTIVE == skillType:
-			skillGrade = fgGHGjjFHJghjfFG1545gGG.GetSkillGrade(slotIndex)
+			skillGrade = player.GetSkillGrade(slotIndex)
 			slotIndex = self.__GetRealSkillSlot(skillGrade, slotIndex)
 		## ETC
 		else:
@@ -1078,7 +1368,7 @@ class CharacterWindow(ui.ScriptWindow):
 
 	def OnActivateSkill(self, slotIndex):
 
-		skillGrade = fgGHGjjFHJghjfFG1545gGG.GetSkillGrade(slotIndex)
+		skillGrade = player.GetSkillGrade(slotIndex)
 		slotIndex = self.__GetRealSkillSlot(skillGrade, slotIndex)
 
 		for slotWindow in self.skillPageDict.values():
@@ -1088,7 +1378,7 @@ class CharacterWindow(ui.ScriptWindow):
 
 	def OnDeactivateSkill(self, slotIndex):
 
-		skillGrade = fgGHGjjFHJghjfFG1545gGG.GetSkillGrade(slotIndex)
+		skillGrade = player.GetSkillGrade(slotIndex)
 		slotIndex = self.__GetRealSkillSlot(skillGrade, slotIndex)
 
 		for slotWindow in self.skillPageDict.values():
@@ -1103,7 +1393,7 @@ class CharacterWindow(ui.ScriptWindow):
 		self.toolTipJob.HideToolTip()
 
 	def __SetJobText(self, mainJob, subJob):
-		if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL)<5:
+		if player.GetStatus(player.LEVEL)<5:
 			subJob=0
 
 		if 949 == app.GetDefaultCodePage():
@@ -1137,8 +1427,8 @@ class CharacterWindow(ui.ScriptWindow):
 
 		## Name
 		try:
-			characterName = fgGHGjjFHJghjfFG1545gGG.GetName()
-			guildName = fgGHGjjFHJghjfFG1545gGG.GetGuildName()
+			characterName = player.GetName()
+			guildName = player.GetGuildName()
 			self.characterNameValue.SetText(characterName)
 			self.guildNameValue.SetText(guildName)
 			if not guildName:
@@ -1159,9 +1449,9 @@ class CharacterWindow(ui.ScriptWindow):
 			import exception
 			exception.Abort("CharacterWindow.RefreshCharacter.BindObject")
 
-		race = GFHhg54GHGhh45GHGH.GetMainActorRace()
-		group = GFHhg54GHGhh45GHGH.GetMainActorSkillGroup()
-		empire = GFHhg54GHGhh45GHGH.GetMainActorEmpire()
+		race = net.GetMainActorRace()
+		group = net.GetMainActorSkillGroup()
+		empire = net.GetMainActorEmpire()
 
 		## Job Text
 		job = chr.RaceToJob(race)
@@ -1242,28 +1532,28 @@ class CharacterWindow(ui.ScriptWindow):
 
 		if self.__CanUseHorseSkill():
 			if 0 == index:
-				index = GFHhg54GHGhh45GHGH.GetMainActorSkillGroup()-1
+				index = net.GetMainActorSkillGroup()-1
 			elif 1 == index:
 				index = self.PAGE_HORSE
 
 		self.curSelectedSkillGroup = index
-		self.__SetSkillSlotData(GFHhg54GHGhh45GHGH.GetMainActorRace(), index+1, GFHhg54GHGhh45GHGH.GetMainActorEmpire())
+		self.__SetSkillSlotData(net.GetMainActorRace(), index+1, net.GetMainActorEmpire())
 
 	def __CanUseSkillNow(self):
-		if 0 == GFHhg54GHGhh45GHGH.GetMainActorSkillGroup():
+		if 0 == net.GetMainActorSkillGroup():
 			return False
 
 		return True
 
 	def __CanUseHorseSkill(self):
 
-		slotIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillSlotIndex(fgGHGjjFHJghjfFG1545gGG.SKILL_INDEX_RIDING)
+		slotIndex = player.GetSkillSlotIndex(player.SKILL_INDEX_RIDING)
 
 		if not slotIndex:
 			return False
 
-		grade = fgGHGjjFHJghjfFG1545gGG.GetSkillGrade(slotIndex)
-		level = fgGHGjjFHJghjfFG1545gGG.GetSkillLevel(slotIndex)
+		grade = player.GetSkillGrade(slotIndex)
+		level = player.GetSkillLevel(slotIndex)
 		if level < 0:
 			level *= -1
 		if grade >= 1 and level >= 1:
@@ -1312,3 +1602,137 @@ class CharacterWindow(ui.ScriptWindow):
 		if startIndex != self.questShowingStartIndex:
 			self.questShowingStartIndex = startIndex
 			self.RefreshQuest()
+	
+	# BONUS BOARD
+	def BindBonusBoard(self):
+		self.bonusBackground = self.GetChild("bonusBackgroundBoard")
+		self.bonusScrollBar = self.GetChild("scrollBar")
+		self.bonusBoardMaxItems = 16
+		self.bonusScrollBar.SetScrollEvent(ui.__mem_func__(self.OnScroll))
+		#value = player.GetStatus(type)
+		for i in xrange(len(BONUS_BOARD_ITEM_LIST)):
+			
+			if BONUS_BOARD_ITEM_LIST[i]["type"] == "title":
+				self.bonusItemList[i] = BonusTitleItem()
+				self.bonusItemList[i].SetParent(self.bonusBackground)
+				self.bonusItemList[i].SetPosition(5,5)
+				self.bonusItemList[i].SetTitle(BONUS_BOARD_ITEM_LIST[i]["text"])
+				self.bonusItemList[i].Show()
+				
+			elif BONUS_BOARD_ITEM_LIST[i]["type"] == "bonus":
+				self.bonusItemList[i] = BonusItem()
+				self.bonusItemList[i].SetParent(self.bonusBackground)
+				self.bonusItemList[i].SetPosition(5,5)
+				self.bonusItemList[i].SetTitle(BONUS_BOARD_ITEM_LIST[i]["text"])
+				self.bonusItemList[i].SetBonus(BONUS_BOARD_ITEM_LIST[i]["bonus"])
+				self.bonusItemList[i].SetApplicableList(BONUS_BOARD_ITEM_LIST[i]["applicable_to"])
+				self.bonusItemList[i].Show()
+
+				
+		self.HideAllItems()
+		self.RenderBonusList()
+		
+	def OnRunMouseWheel(self, nLen):
+		if nLen > 0:
+			self.bonusScrollBar.OnUp()
+		else:
+			self.bonusScrollBar.OnDown()
+
+	def HideAllItems(self):
+		for i in xrange(len(self.bonusItemList)):
+			self.bonusItemList[i].Hide()
+	
+	def RenderBonusList(self):
+		pos = int(self.bonusScrollBar.GetPos() * (len(self.bonusItemList) - self.bonusBoardMaxItems)) 
+		start_height = 5
+		for i in xrange(self.bonusBoardMaxItems):
+			realPos = pos + i
+			self.bonusItemList[realPos].SetPosition(5,start_height)
+			self.bonusItemList[realPos].Show()
+			start_height = start_height + 25
+			
+	def OnScroll(self):
+		self.HideAllItems()
+		self.RenderBonusList()		
+	
+class BonusTitleItem(ui.ScriptWindow):
+
+	def __init__(self):
+		ui.ScriptWindow.__init__(self)
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/bonus_title.py")
+		except:
+			import exception
+			exception.Abort("BonusTitleItem.LoadWindow.LoadObject")
+
+		self.title = self.GetChild("titleTextLine")
+		self.Show()
+
+	def SetTitle(self,title):
+		self.title.SetText(title)
+
+class BonusItem(ui.ScriptWindow):
+
+	def __init__(self):
+		ui.ScriptWindow.__init__(self)
+		self.bonus = 0
+		self.appList = []
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/bonus_item.py")
+		except:
+			import exception
+			exception.Abort("BonusItem.LoadWindow.LoadObject")
+		
+		self.toolTip = uiToolTip.ToolTip()
+		self.toolTip.HideToolTip()
+		
+		self.title		= self.GetChild("titleTextLine")
+		self.value		= self.GetChild("bonusValueTextLine")
+		self.ttWindow	= self.GetChild("toolTipWindow")
+		self.Show()
+
+	def SetTitle(self,title):
+		self.title.SetText(title)
+
+	def SetBonus(self, bonus):
+		self.bonus = int(bonus)
+	
+	
+	def SetApplicableList(self, list):
+		self.appList = list
+	
+	def OnUpdate(self):
+		value = player.GetStatus(self.bonus)
+		self.value.SetText(constInfo.NumberToPointString(value))
+		if self.ttWindow.IsIn():
+			self.toolTip.ClearToolTip()
+			if len(self.appList) == 0:
+				self.toolTip.AppendTextLine("Kann nicht geswitched werden!")
+			else:
+				self.toolTip.AppendTextLine("Kann in Equipment geswitched werden:")
+				self.toolTip.AppendSpace(5)
+				for i in xrange(len(self.appList)):
+					attrIndex = self.appList[i]
+					self.toolTip.AppendTextLine(BONUS_ATTR_TRANSLATE_LIST[attrIndex])
+			self.toolTip.ShowToolTip()
+		else:
+			self.toolTip.HideToolTip()
+			
+
+		
+		
+		

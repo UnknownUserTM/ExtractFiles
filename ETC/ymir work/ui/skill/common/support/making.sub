@@ -1,7 +1,7 @@
 title subImage
 version 1.0
-image "SkillCommon.dds"
-left 96
+image "newskillcommon.dds"
+left 160
 top 160
-right 128
+right 192
 bottom 192

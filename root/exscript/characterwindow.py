@@ -22,6 +22,8 @@ ADD_OLD_WINDOW_HEIGTH = 6
 
 EXP_WINDOW_WIDTH = 85
 
+STATUS_BOARD_Y = 25
+
 window = {
 	"name" : "CharacterWindow",
 	"style" : ("movable", "float",),
@@ -30,7 +32,7 @@ window = {
 	"y" : (SCREEN_HEIGHT - 37 - 361) / 2,
 
 	"width" : WINDOW_WIDTH + ADD_YAMATO_SPACE + 50,
-	"height" : WINDOW_HEIGHT+ 30,
+	"height" : WINDOW_HEIGHT+ 30 + STATUS_BOARD_Y,
 
 	"children" :
 	(				
@@ -42,7 +44,7 @@ window = {
 			"x" : -8,
 			"y" : 7,
 
-			"width" : WINDOW_WIDTH+15 +30+ ADD_YAMATO_SPACE,
+			"width" : WINDOW_WIDTH+15 +30+ ADD_YAMATO_SPACE - 5,
 			"color" : "red",
 
 		},
@@ -54,8 +56,8 @@ window = {
 			"x" : 0,
 			"y" : 50,
 
-			"width" : WINDOW_WIDTH+30 + ADD_YAMATO_SPACE,
-			"height" : 361+30+ 30,
+			"width" : WINDOW_WIDTH+30 + ADD_YAMATO_SPACE - 5,
+			"height" : 361+30+ 30 + STATUS_BOARD_Y,
 
 			"children" :
 			(
@@ -69,7 +71,7 @@ window = {
 					"y" : 15,
 					
 					"width" : 220,
-					"height" : WINDOW_HEIGHT - 45+ 30,
+					"height" : WINDOW_HEIGHT - 45+ 30 + STATUS_BOARD_Y,
 					
 					"no_bottom" : 1,
 					
@@ -561,7 +563,7 @@ window = {
 					"y" : 15,
 
 					"width" : 260,
-					"height" : 350 + 35,
+					"height" : 350 + 35 + STATUS_BOARD_Y,
 
 					"children" :
 					(
@@ -573,7 +575,7 @@ window = {
 							"y" : 0,
 							
 							"width" : 250,
-							"height" : 350 + 35,
+							"height" : 350 + 35 + STATUS_BOARD_Y,
 							
 							"children" : (
 								{
@@ -662,7 +664,7 @@ window = {
 											"name" : "rankNameTextLine",
 											"type" : "text",
 											
-											"x" : ((250 - 8 - 45 - 8 - 8 + 3) / 2) / 2 + 5,
+											"x" : ((250 - 8 - 45 - 8 - 8 + 3) / 2) / 2,
 											"y" : 3, 
 											
 											"text" : "Freundlich",
@@ -844,13 +846,60 @@ window = {
 									),									
 								},
 								# Statuspunkte 
+								{
+									"name" : "statusPunkteBoard",
+									"type" : "thinboard_circle",
+									
+									"x" : 8,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8,								
+									
+									"width" : 232,
+									"height" : 20,
+									
+									"children" : (
+										{
+											"name" : "statusPointTitleTextLine",
+											"type" : "text",
+											
+											"x" : 8,
+											"y" : 3,
+											
+											"text" : "Verfugbare Statuspunkte : ",
+											"color" : 0xffd8a055,										
+										},
+										{
+											"name" : "statusPointsValueBackground",
+											"type" : "thinboard_circle",
+											
+											"x" : 232 - 60,
+											"y" : 0,
+											
+											"width" : 60,
+											"height" : 20,
+											
+											"children" : (
+												{
+													"name" : "statusPointsValueTextLine",
+													"type" : "text",
+													
+													"x" : 60 / 2,
+													"y" : 3,
+													
+													"text" : "8",	
+
+													"text_horizontal_align" : "center",
+												},
+											),
+										},
+									),
+								},
 								# VIT
 								{
 									"name" : "statusPointsVITImage",
 									"type" : "image",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + STATUS_BOARD_Y,
 									
 									"image" : "yamato_character/vit.tga",
 								},
@@ -859,7 +908,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + STATUS_BOARD_Y,
 									
 									"width" : 30,
 									"height" : 20,
@@ -891,7 +940,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5 + 30,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 2,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 2 + STATUS_BOARD_Y,
 									
 									"width" : 16,
 									"height" : 16,
@@ -917,7 +966,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5 + 16 + 5 + 30,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + STATUS_BOARD_Y,
 									
 									"width" : 125 + 6,
 									"height" : 20,
@@ -972,7 +1021,7 @@ window = {
 									"type" : "image",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + STATUS_BOARD_Y,
 									
 									"image" : "yamato_character/int.tga",
 								},
@@ -981,7 +1030,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + STATUS_BOARD_Y,
 									
 									"width" : 30,
 									"height" : 20,
@@ -1013,7 +1062,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5 + 30,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 2 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 2 + 25 + STATUS_BOARD_Y,
 									
 									"width" : 16,
 									"height" : 16,
@@ -1039,7 +1088,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5 + 16 + 5 + 30,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + STATUS_BOARD_Y,
 									
 									"width" : 125 + 6,
 									"height" : 20,
@@ -1094,7 +1143,7 @@ window = {
 									"type" : "image",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + STATUS_BOARD_Y,
 									
 									"image" : "yamato_character/str.tga",
 								},
@@ -1103,7 +1152,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + STATUS_BOARD_Y,
 									
 									"width" : 30,
 									"height" : 20,
@@ -1135,7 +1184,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5 + 30,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 2 + 25 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 2 + 25 + 25 + STATUS_BOARD_Y,
 									
 									"width" : 16,
 									"height" : 16,
@@ -1161,7 +1210,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5 + 16 + 5 + 30,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + STATUS_BOARD_Y,
 									
 									"width" : 125 + 6,
 									"height" : 20,
@@ -1216,7 +1265,7 @@ window = {
 									"type" : "image",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + STATUS_BOARD_Y,
 									
 									"image" : "yamato_character/dex.tga",
 								},
@@ -1225,7 +1274,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + STATUS_BOARD_Y,
 									
 									"width" : 30,
 									"height" : 20,
@@ -1257,7 +1306,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5 + 30,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 2 + 25 + 25 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 2 + 25 + 25 + 25 + STATUS_BOARD_Y,
 									
 									"width" : 16,
 									"height" : 16,
@@ -1283,7 +1332,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8 + 45 + 5 + 16 + 5 + 30,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25,
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + STATUS_BOARD_Y,
 									
 									"width" : 125 + 6,
 									"height" : 20,
@@ -1338,7 +1387,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30,									
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + STATUS_BOARD_Y,									
 									
 									"width" : 232,
 									"height" : 20,
@@ -1386,7 +1435,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25,									
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25 + STATUS_BOARD_Y,									
 									
 									"width" : 232,
 									"height" : 20,
@@ -1433,7 +1482,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25 + 25,									
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25 + 25 + STATUS_BOARD_Y,									
 									
 									"width" : 232,
 									"height" : 20,
@@ -1481,7 +1530,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25 + 25 + 25,									
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25 + 25 + 25 + STATUS_BOARD_Y,									
 									
 									"width" : 232,
 									"height" : 20,
@@ -1528,7 +1577,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25 + 25 + 25 + 25,									
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25 + 25 + 25 + 25 + STATUS_BOARD_Y,									
 									
 									"width" : 232,
 									"height" : 20,
@@ -1575,7 +1624,7 @@ window = {
 									"type" : "thinboard_circle",
 									
 									"x" : 8,
-									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25 + 25 + 25 + 25 + 25,									
+									"y" : 12 + 45 + 5 + 21 + 35 + 8 + 25 + 25 + 25 + 30 + 25 + 25 + 25 + 25 + 25 + STATUS_BOARD_Y,									
 									
 									"width" : 232,
 									"height" : 20,
@@ -1887,6 +1936,31 @@ window = {
 
 					"width" : 260,
 					"height" : 350 + 35,
+					"children" :
+					(
+						{
+							"name" : "bonusBackgroundBoard",
+							"type" : "thinboard_circle",
+							
+							"x" : 0,
+							"y" : 0,
+							
+							"width" : 250,
+							"height" : 350 + 35 + STATUS_BOARD_Y,
+							
+							"children" : (
+								{
+									"name" : "scrollBar",
+									"type" : "small_thin_scrollbar",
+															
+									"x" : 250 - 15,
+									"y" : 1,
+															
+									"size" : 350 + 35 + STATUS_BOARD_Y - 2,
+								},							
+							),
+						},
+					),
 				},	
 
 				{
@@ -1898,7 +1972,7 @@ window = {
 					"y" : 15,
 
 					"width" : 260,
-					"height" : 350 + 35,
+					"height" : 350 + 35 + STATUS_BOARD_Y,
 
 					"children" :
 					(
@@ -1910,7 +1984,7 @@ window = {
 							"y" : 0,
 							
 							"width" : 250,
-							"height" : 350 + 35,
+							"height" : 350 + 35 + STATUS_BOARD_Y,
 							
 							"children" : (
 								{
