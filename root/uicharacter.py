@@ -44,6 +44,40 @@ FACE_IMAGE_DICT = {
 	playerSettingModule.RACE_SHAMAN_W	: "icon/face/shaman_w.tga",
 }
 
+BONUS_ATTR_WEAPON = 0
+BONUS_ATTR_BODY = 1
+BONUS_ATTR_WRIST = 2
+BONUS_ATTR_FOOTS = 3
+BONUS_ATTR_NECK = 4
+BONUS_ATTR_HEAD = 5
+BONUS_ATTR_SHIELD = 6
+BONUS_ATTR_EAR = 7
+
+BONUS_ATTR_TRANSLATE_LIST = {
+	BONUS_ATTR_WEAPON : "Waffen",
+	BONUS_ATTR_BODY 	: "Rustungen",
+	BONUS_ATTR_WRIST 	: "Armbander",
+	BONUS_ATTR_FOOTS 	: "Fu©¬e",
+	BONUS_ATTR_NECK 	: "Halsketten",
+	BONUS_ATTR_HEAD 	: "Kopfe",
+	BONUS_ATTR_SHIELD 	: "Schilder",
+	BONUS_ATTR_EAR 	: "Ohren",
+	
+
+}
+
+BONUS_ATTR_SLOT_LIST = {
+	BONUS_ATTR_WEAPON	: 184,
+	BONUS_ATTR_BODY 	: 180,
+	BONUS_ATTR_WRIST 	: 183,
+	BONUS_ATTR_FOOTS 	: 182,
+	BONUS_ATTR_NECK 	: 185,
+	BONUS_ATTR_HEAD 	: 181,
+	BONUS_ATTR_SHIELD 	: 190,
+	BONUS_ATTR_EAR 		: 186,
+	
+
+}
 
 BONUS_BOARD_ITEM_LIST = [
 	{
@@ -58,24 +92,30 @@ BONUS_BOARD_ITEM_LIST = [
 		"text" : "Vitalitat",
 		
 		"bonus" : player.HT,
+		
+		"applicable_to" : [BONUS_ATTR_WEAPON,BONUS_ATTR_BODY],
 	},
 	{
 		"type" : "bonus",
 		"text" : "Intelligenz",
 		
 		"bonus" : player.IQ,
+		
+		"applicable_to" : [],
 	},
 	{
 		"type" : "bonus",
 		"text" : "Starke",
 		
 		"bonus" : player.ST,
+		"applicable_to" : [],
 	},
 	{
 		"type" : "bonus",
 		"text" : "Beweglichkeit",
 		
 		"bonus" : player.DX,
+		"applicable_to" : [],
 	},
 
 
@@ -84,12 +124,14 @@ BONUS_BOARD_ITEM_LIST = [
 		"text" : "Krit. Trefferchance",
 		
 		"bonus" : player.POINT_CRITICAL_PCT,
+		"applicable_to" : [],
 	},
 	{
 		"type" : "bonus",
 		"text" : "Durchb. Trefferchance",
 		
 		"bonus" : player.POINT_PENETRATE_PCT,
+		"applicable_to" : [],
 	},	
 	
 	{
@@ -97,60 +139,70 @@ BONUS_BOARD_ITEM_LIST = [
 		"text" : "Stark gegen Menschen",
 		
 		"bonus" : player.POINT_ATTBONUS_HUMAN,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Stark gegen Tiere",
 		
 		"bonus" : player.POINT_ATTBONUS_ANIMAL,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Stark gegen Orkse",
 		
 		"bonus" : player.POINT_ATTBONUS_ORC,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Stark gegen Esotypen",
 		
 		"bonus" : player.POINT_ATTBONUS_MILGYO,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Stark gegen Untote",
 		
 		"bonus" : player.POINT_ATTBONUS_UNDEAD,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Stark gegen Teufel",
 		
 		"bonus" : player.POINT_ATTBONUS_DEVIL,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Stark gegen Insekten?? Gibts das?",
 		
 		"bonus" : player.POINT_ATTBONUS_INSECT,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Stark gegen Metinsteine",
 		
 		"bonus" : player.POINT_ATTBONUS_STONE,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Stark gegen Bosse",
 		
 		"bonus" : player.POINT_ATTBONUS_BOSS,
+		"applicable_to" : [],
 	},
 	{
 		"type" : "bonus",
 		"text" : "Stark gegen Spieler",
 		
 		"bonus" : player.POINT_ATTBONUS_PLAYER,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "title",
@@ -164,36 +216,42 @@ BONUS_BOARD_ITEM_LIST = [
 		"text" : "Schwrtwiderstand",
 		
 		"bonus" : player.POINT_RESIST_SWORD,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Zweihandwiderstand",
 		
 		"bonus" : player.POINT_RESIST_TWOHAND,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Dolchwiderstand",
 		
 		"bonus" : player.POINT_RESIST_DAGGER,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Glockendef",
 		
 		"bonus" : player.POINT_RESIST_BELL,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Fan Def? ",
 		
 		"bonus" : player.POINT_RESIST_FAN,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Bogenwiderstand",
 		
 		"bonus" : player.POINT_RESIST_BOW,
+		"applicable_to" : [],
 	},	
 
 	
@@ -202,24 +260,28 @@ BONUS_BOARD_ITEM_LIST = [
 		"text" : "Spielzeit",
 		
 		"bonus" : player.PLAYTIME,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "Bogendistanz",
 		
 		"bonus" : player.BOW_DISTANCE,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "TP-Regeneration",
 		
 		"bonus" : player.HP_RECOVERY,
+		"applicable_to" : [],
 	},	
 	{
 		"type" : "bonus",
 		"text" : "MP-Regeneration",
 		
 		"bonus" : player.SP_RECOVERY,
+		"applicable_to" : [],
 	},
 	{
 		"type" : "title",
@@ -231,12 +293,14 @@ BONUS_BOARD_ITEM_LIST = [
 		"text" : "Goooold!!!",
 		
 		"bonus" : player.ELK,
+		"applicable_to" : [],
 	},
 	{
 		"type" : "bonus",
 		"text" : "Spielerlevel",
 		
 		"bonus" : player.LEVEL,
+		"applicable_to" : [],
 	},
 ]
 
@@ -1561,6 +1625,7 @@ class CharacterWindow(ui.ScriptWindow):
 				self.bonusItemList[i].SetPosition(5,5)
 				self.bonusItemList[i].SetTitle(BONUS_BOARD_ITEM_LIST[i]["text"])
 				self.bonusItemList[i].SetBonus(BONUS_BOARD_ITEM_LIST[i]["bonus"])
+				self.bonusItemList[i].SetApplicableList(BONUS_BOARD_ITEM_LIST[i]["applicable_to"])
 				self.bonusItemList[i].Show()
 
 				
@@ -1618,6 +1683,7 @@ class BonusItem(ui.ScriptWindow):
 	def __init__(self):
 		ui.ScriptWindow.__init__(self)
 		self.bonus = 0
+		self.appList = []
 		self.LoadWindow()
 
 	def __del__(self):
@@ -1630,7 +1696,10 @@ class BonusItem(ui.ScriptWindow):
 		except:
 			import exception
 			exception.Abort("BonusItem.LoadWindow.LoadObject")
-
+		
+		self.toolTip = uiToolTip.ToolTip()
+		self.toolTip.HideToolTip()
+		
 		self.title		= self.GetChild("titleTextLine")
 		self.value		= self.GetChild("bonusValueTextLine")
 		self.ttWindow	= self.GetChild("toolTipWindow")
@@ -1641,13 +1710,29 @@ class BonusItem(ui.ScriptWindow):
 
 	def SetBonus(self, bonus):
 		self.bonus = int(bonus)
-		
+	
+	
+	def SetApplicableList(self, list):
+		self.appList = list
+	
 	def OnUpdate(self):
 		value = player.GetStatus(self.bonus)
 		self.value.SetText(constInfo.NumberToPointString(value))
-		
-		
-		
+		if self.ttWindow.IsIn():
+			self.toolTip.ClearToolTip()
+			if len(self.appList) == 0:
+				self.toolTip.AppendTextLine("Kann nicht geswitched werden!")
+			else:
+				self.toolTip.AppendTextLine("Kann in Equipment geswitched werden:")
+				self.toolTip.AppendSpace(5)
+				for i in xrange(len(self.appList)):
+					attrIndex = self.appList[i]
+					self.toolTip.AppendTextLine(BONUS_ATTR_TRANSLATE_LIST[attrIndex])
+			self.toolTip.ShowToolTip()
+		else:
+			self.toolTip.HideToolTip()
+			
+
 		
 		
 		
