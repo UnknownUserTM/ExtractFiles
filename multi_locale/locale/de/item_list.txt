@@ -5354,9 +5354,9 @@
 30325	ETC	icon/item/30324.tga
 30326	ETC	icon/item/30326.tga
 30327	ETC	icon/item/30327.tga
-31001	ETC	icon/item/31001.tga
-31002	ETC	icon/item/31002.tga
-31003	ETC	icon/item/31003.tga
+31001	ETC	icon/item/low.tga
+31002	ETC	icon/item/middle.tga
+31003	ETC	icon/item/high.tga
 31004	ETC	icon/item/31004.tga
 31005	ETC	icon/item/31005.tga
 31006	ETC	icon/item/31006.tga

@@ -355,9 +355,9 @@
 30516	Antikes Schulterstück	Element zur Verzierung von Rüstungen
 30524	Flammenstein	
 30525	Eisflammenstein		
-31001	Kopie der Inschrift	Du hast eine Kopie von der Inschrift auf dem alten Grabstein angefertigt.
-31002	Altes Dokument	Dokument aus den Zeiten der Dunklen Nation mit weiteren Hinweisen.
-31003	Gegengift	Lebensrettende Medizin für den vergifteten Soldaten
+31001	Dungensplitter (Low)	Währung für Dungeontickets
+31002	Dungensplitter (Mittel)	Währung für Dungeontickets
+31003	Dungensplitter (Hoch)	Währung für Dungeontickets
 31004	Geweihtes Baumharz	Das Harz eines geweihten Baumes ist eines der Elemente, die man für die Herstellung der Träne des Himmels benötigt.
 31005	Eiskristall	Gegenstand der Biologenquest Lv. 60.
 31062	Geisterstein	Gegenstand der Biologenquest Lv. 60.

@@ -146,6 +146,7 @@
 0	chick_yellow1	chick
 0	christmas_2016_mammoth_01	christmas_2016_mammoth
 0	christmas_2016_mammoth_02	christmas_2016_mammoth
+0	disciple	disciple_jaw
 101	stray_dog	
 102	wolf	
 103	wolf	
@@ -1673,3 +1674,4 @@
 20448	tiger1	
 20449	tiger2	
 20450	reddragon_fly	
+20451	disciple	
