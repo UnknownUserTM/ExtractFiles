@@ -4079,10 +4079,10 @@
 30304	ETC	season1/icon/item/30304.tga
 30311	ETC	icon/item/30311.tga
 30312	ETC	icon/item/30312.tga
-30315	ETC	icon/item/30315.tga
-30316	ETC	icon/item/30316.tga
-30317	ETC	icon/item/30317.tga
-30318	ETC	icon/item/30318.tga
+30315	ETC	icon/item/monster.tga
+30316	ETC	icon/item/tp.tga
+30317	ETC	icon/item/kritdeff.tga
+30318	ETC	icon/item/dbdeff.tga
 30319	ETC	icon/item/30319.tga
 30320	ETC	icon/item/30320.tga
 30321	ETC	icon/item/50095.tga
