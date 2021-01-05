@@ -27,7 +27,7 @@ import ime
 # import nonplayertest
 # import uidungeonentry
 # import uidungeonkompendium
-import locutosachievement
+import uiachievement
 # import uidaily_new
 # import uimultishop
 # import uiintrodungeon
@@ -184,7 +184,7 @@ class GameWindow(ui.ScriptWindow):
 		# self.IntroDungeonTextBoard = uiintrodungeon.IntroDungeonBoard()
 		# self.GuideDialogBoard = uiguidedialog.GuideBoard()
 		
-		self.AchievementWindow = locutosachievement.AchievementWindow()
+		self.AchievementWindow = uiachievement.AchievementWindow()
 		
 		import uichanneltabbar
 		self.wndChannelTabBar = uichanneltabbar.ChannelTabBar()
@@ -2462,7 +2462,7 @@ class GameWindow(ui.ScriptWindow):
 			# Pet-System
 			# "pet"						:	self.GAME_Pet,
 			"achievement"				:	self.LUA_Achievement,
-			"achievement_stat"			:	self.LUA_AchievementStatistic,
+			# "achievement_stat"			:	self.LUA_AchievementStatistic,
 			# "gmpostboard"				:	self.LUA_OpenGMPost,
 			# "daily"						:	self.LUA_DailyCommand,
 			# "multishop"					:	self.LUA_MultishopCommand,
@@ -2497,6 +2497,8 @@ class GameWindow(ui.ScriptWindow):
 			
 			"showtutorialjoin" : self.LUA_ShowTutorialJoinDialog,
 			"hidetutorialjoin" : self.LUA_HideTutorialJoinDialog,
+			
+			"achievement_stat" : self.LUA_UpdateAchievementStatistic,
 		
 		}
 		
@@ -3408,16 +3410,16 @@ class GameWindow(ui.ScriptWindow):
 		self.AchievementWindow.SendAchievement(cmd[0],cmd[1],cmd[2],cmd[3])
 		settinginfo.PLAYER_STATISTIC_DICT[settinginfo.AP_EARNED] = settinginfo.PLAYER_STATISTIC_DICT[settinginfo.AP_EARNED] + int(cmd[1])
 
-	def LUA_AchievementStatistic(self,cmdString):
-		# achievement_stat add/1/15/8001#30#10#30000#
-		cmd = cmdString.split("/")
-		if cmd[0] == "open":
-			if settinginfo.Achievement_Statistic["status"] == 0:
-				import locutosachievementstat
-				locutosachievementstat.AchievementStatisticBoard().Show()
+	# def LUA_AchievementStatistic(self,cmdString):
+		# # achievement_stat add/1/15/8001#30#10#30000#
+		# cmd = cmdString.split("/")
+		# if cmd[0] == "open":
+			# if settinginfo.Achievement_Statistic["status"] == 0:
+				# import locutosachievementstat
+				# locutosachievementstat.AchievementStatisticBoard().Show()
 				
-		elif cmd[0] == "add":
-			settinginfo.Achievement_Statistic[int(cmd[1])][int(cmd[2])] = str(cmd[3])
+		# elif cmd[0] == "add":
+			# settinginfo.Achievement_Statistic[int(cmd[1])][int(cmd[2])] = str(cmd[3])
 
 			
 	# def LUA_OpenGMPost(self):
@@ -3841,8 +3843,16 @@ class GameWindow(ui.ScriptWindow):
 		# self.craftingWnd = uicrafting.CraftingWindow()
 		# self.advent = uidungeon.DungeonGuideWindow()
 		# self.advent.Show()
-		import uichanneltabbar
-		self.wndChannelTabBar = uichanneltabbar.ChannelTabBar()		
+		# import uichanneltabbar
+		# self.wndChannelTabBar = uichanneltabbar.ChannelTabBar()
+		import achievementproto
+		data = achievementproto.GetAchievementInfo(101)
+		if data == False:
+			
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Nope...?")
+		else:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "data: " + str(len(data)))
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "data: " + str(data[0]))
 		
 	def __RequestWarpToCharacter(self, name):
 		import uiCommon
@@ -3896,5 +3906,12 @@ class GameWindow(ui.ScriptWindow):
 	
 	def LUA_HideTutorialJoinDialog(self):
 		self.interface.wndTutorialJoin.Close()
+	
+	def LUA_UpdateAchievementStatistic(self,command):
+		cmd = command.split("#")
+		self.interface.wndCharacter.UpdateAchievementStatistic(cmd[0], cmd[1], cmd[2])
+		
+		
+		
 	
 		

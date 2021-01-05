@@ -664,7 +664,10 @@ class ToolTip(ui.ThinBoard):
 		self.SetSize(x, y)
 		
 	def SetTitle(self, name):
-		self.AppendTextLine(name, self.TITLE_COLOR)
+		self.AppendTextLine(name, self.TITLE_COLOR)	
+		
+	# def SetTitle(self, name, skillIndex=0):
+		# self.AppendTextLine(name + " (" + str(skillIndex) + ")", self.TITLE_COLOR)
 
 	def GetLimitTextLineColor(self, curValue, limitValue):
 		if curValue < limitValue:
@@ -3669,8 +3672,12 @@ class SkillToolTip(ToolTip):
 		self.ShowToolTip()
 
 	def __SetSkillTitle(self, skillIndex, skillGrade):
-		self.SetTitle(skill.GetSkillName(skillIndex, skillGrade))
+		self.SetTitleSkill(skill.GetSkillName(skillIndex, skillGrade),skillIndex)
 		self.__AppendSkillGradeName(skillIndex, skillGrade)
+
+	def SetTitleSkill(self, name, skillIndex=0):
+		self.AppendTextLine(name + " (" + str(skillIndex) + ")", self.TITLE_COLOR)
+
 
 	def __AppendSkillGradeName(self, skillIndex, skillGrade):		
 		if self.SKILL_GRADE_NAME.has_key(skillGrade):

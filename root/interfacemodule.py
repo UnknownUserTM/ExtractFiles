@@ -58,7 +58,7 @@ import uiuserevent
 import uimainquest
 import uimultishop
 import uigame
-import uiachievement
+# import uiachievement
 import uidungeon
 import uitutorial
 import uichanneltabbar
@@ -236,8 +236,8 @@ class Interface(object):
 	def __MakeNewGameOptionWindow(self):
 		self.wndGameOption = uigame.GameOptionWindow()
 		
-	def __MakeAchievementController(self):
-		self.ctrlAchievement = uiachievement.AchievementController()
+	# def __MakeAchievementController(self):
+		# self.ctrlAchievement = uiachievement.AchievementController()
 		
 	def __MakeDungeonIntroWindow(self):
 		self.wndDungeonIntro = uidungeon.DungeonIntroWindow()
@@ -612,7 +612,7 @@ class Interface(object):
 		self.__MakeNewQuestWindow()
 		self.__MakeMultiShop(self.wndInventory)
 		self.__MakeNewGameOptionWindow()
-		self.__MakeAchievementController()
+		# self.__MakeAchievementController()
 		self.__MakeDungeonIntroWindow()
 		self.__MakeTutorialWindow()
 		# ACCESSORY_REFINE_ADD_METIN_STONE
@@ -796,8 +796,8 @@ class Interface(object):
 		# END_OF_ACCESSORY_REFINE_ADD_METIN_STONE
 		
 		
-		if self.ctrlAchievement:
-			self.ctrlAchievement.Destroy()
+		# if self.ctrlAchievement:
+			# self.ctrlAchievement.Destroy()
 			
 		if self.wndTutorialJoin:
 			self.wndTutorialJoin.Hide()
@@ -875,7 +875,7 @@ class Interface(object):
 		del self.wndNewQuestWindow
 		del self.wndUserEventButton
 		uihalloffame.wnd.Destroy()
-		del self.ctrlAchievement
+		# del self.ctrlAchievement
 		# del self.wndChannelTabBar
 		self.questButtonList = []
 		self.whisperButtonList = []

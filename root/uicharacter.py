@@ -16,6 +16,8 @@ import constInfo
 import emotion
 import chr
 import chat
+import achievementproto
+import nonplayer
 
 SHOW_ONLY_ACTIVE_SKILL = False
 SHOW_LIMIT_SUPPORT_SKILL_LIST = []
@@ -29,7 +31,7 @@ if localeInfo.IsYMIR():
 elif localeInfo.IsJAPAN() or   (localeInfo.IsEUROPE() and app.GetLocalePath() != "locale/ca") and (localeInfo.IsEUROPE() and app.GetLocalePath() != "locale/br"):
 	HIDE_SUPPORT_SKILL_POINT = True	
 	# SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 126, 127, 129, 128, 131, 137, 138, 139, 140]
-	SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 124, 129, 137, 138, 139, 140]
+	SHOW_LIMIT_SUPPORT_SKILL_LIST = [121, 122, 123, 137, 138, 139, 140]
 else:
 	HIDE_SUPPORT_SKILL_POINT = True
 
@@ -451,6 +453,23 @@ class CharacterWindow(ui.ScriptWindow):
 		self.skillGroupButton2 = self.GetChild("Skill_Group_Button_2")
 		self.activeSkillGroupName = self.GetChild("Active_Skill_Group_Name")
 		self.GetChild("Quest_Page").Hide()
+		
+		# self.achievementNavigationBoard = self.GetChild("apNavigationBackground")
+		# self.achievementNavigationBoard.Hide()
+		
+		# self.achievementNavigationListBox = self.GetChild("apNavigationListBox")
+		# self.achievementNavigationScrollBar = self.GetChild("apScrollBar")
+		
+		# self.achievementNavigationMaxItem = 6
+		
+		# self.achievementNavigationListBox.InsertItem(0,"Bosse")
+		# self.achievementNavigationListBox.InsertItem(1,"Metins")
+		# self.achievementNavigationListBox.InsertItem(2,"Dungeons")
+		# self.achievementNavigationListBox.InsertItem(3,"Level")
+		# self.achievementNavigationListBox.InsertItem(4,"Verbesserungen")
+		# self.achievementNavigationListBox.InsertItem(5,"Einmalige")
+		# self.achievementNavigationListBox.InsertItem(6,"Sonstige")
+		
 		# self.tabDict = {
 			# "STATUS"	: self.GetChild("Tab_01"),
 			# "SKILL"		: self.GetChild("Tab_02"),
@@ -552,6 +571,7 @@ class CharacterWindow(ui.ScriptWindow):
 			self.questLastTimeList.append(self.GetChild("Quest_LastTime_0" + str(i)))
 			self.questLastCountList.append(self.GetChild("Quest_LastCount_0" + str(i)))
 		
+		self.BindAchievementBoard()
 		self.BindBonusBoard()
 		
 		
@@ -748,7 +768,16 @@ class CharacterWindow(ui.ScriptWindow):
 				tabButton.Enable()
 			else:
 				tabButton.Disable()
-
+		
+		
+		if stateKey == "ACHIEVEMENT":
+			self.achievementNavigationBoard.Show()
+			self.tabButtonDict["BONUS"].SetPosition(30, 15 + 30 + 30 + 30 + 30 + 30 + 120)
+		else:
+			self.achievementNavigationBoard.Hide()
+			self.tabButtonDict["BONUS"].SetPosition(30, 15 + 30 + 30 + 30 + 30 + 30)		
+		
+		
 		# for tabValue in self.tabDict.itervalues():
 			# tabValue.Hide()
 
@@ -1603,6 +1632,171 @@ class CharacterWindow(ui.ScriptWindow):
 			self.questShowingStartIndex = startIndex
 			self.RefreshQuest()
 	
+	
+	
+	def BindAchievementBoard(self):
+		
+		self.achievementStatisticCategoryList = {
+			
+			achievementproto.CATEGORY_BOSS		: [localeInfo.ACHIEVEMENT_CATEGORY_BOSS,	[], []],
+			achievementproto.CATEGORY_STONE		: [localeInfo.ACHIEVEMENT_CATEGORY_STONES,	[], []],
+			achievementproto.CATEGORY_DUNGEON	: [localeInfo.ACHIEVEMENT_CATEGORY_DUNGEON,	[], []],
+			achievementproto.CATEGORY_LEVEL		: [localeInfo.ACHIEVEMENT_CATEGORY_LEVEL,	[], []],
+			achievementproto.CATEGORY_REFINE	: [localeInfo.ACHIEVEMENT_CATEGORY_REFINE,	[], []],
+			achievementproto.CATEGORY_ONE_TIME	: [localeInfo.ACHIEVEMENT_CATEGORY_ONE_TIME,[], []],
+
+		}
+		
+		
+		self.achievementNavigationBoard = self.GetChild("apNavigationBackground")
+		self.achievementNavigationBoard.Hide()
+		
+		self.achievementNavigationListBox = self.GetChild("apNavigationListBox")
+		self.achievementNavigationListBox.SetEvent(ui.__mem_func__(self.OnSelectAchievementStatistic))
+		self.achievementNavigationScrollBar = self.GetChild("apScrollBar")
+		self.achievementNavigationScrollBar.Hide()
+		
+		self.achievementNavigationMaxItem = 6
+		
+		
+		miniListboxItemCount = 0
+		for i in xrange(len(self.achievementStatisticCategoryList)):
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, str(i) + " " + str(self.achievementStatisticCategoryList[i][0]))
+			self.achievementNavigationListBox.InsertItem(i, self.achievementStatisticCategoryList[i][0])
+			miniListboxItemCount = miniListboxItemCount + 1
+		
+		if miniListboxItemCount > self.achievementNavigationMaxItem:
+			self.achievementNavigationScrollBar.Show()
+		
+	
+		self.achievementBoard = self.GetChild("achievementBackgroundBoard")
+		self.achievementCategoryTextLine = self.GetChild("achievementCategoryTitleTextLine")
+		self.achievementScrollBar = self.GetChild("achievementScrollBar")
+		self.achievementScrollBar.Hide()
+		self.achievementScrollBar.SetScrollEvent(ui.__mem_func__(self.RenderAchievementStatistic))
+		
+		self.achievementCategory = 0
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "AchievementProto.txt wird geladen...")
+		srcRealFileName = "locale/%s/%s" % (app.GetLanguage(), "achievement_proto.txt")
+		lines = pack_open(srcRealFileName, "r").readlines()
+		for line in lines:
+			tab = line.split("\t")
+			if tab[0] != "VNUM":
+				data = {
+					"vnum"		: int(tab[0]),
+					"desc"		: str(tab[1]),
+					"type"		: int(tab[2]),
+					"points"	: int(tab[3]),
+					"max_count" : int(tab[4]),
+					"category"	: int(tab[5]),
+					"count" : 0,
+				}
+				
+				chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Achievement Statistik: Achievement " + str(tab[0]) + " geladen!")
+				self.achievementStatisticCategoryList[int(tab[5])][1].append(data)
+
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "AchievementProto.txt fertig geladen...")
+
+		for i in xrange(len(self.achievementStatisticCategoryList)):
+			for a in xrange(len(self.achievementStatisticCategoryList[i][1])):
+				data = self.achievementStatisticCategoryList[i][1][a]
+				if data["max_count"] == 0:
+					item = AchievementItem()
+					item.SetParent(self.achievementBoard)
+					item.SetPosition(5,5 + 22)
+					if data["desc"] == "MONSTER":
+						item.SetTitle(nonplayer.GetMonsterName(data["vnum"]))
+					else:
+						item.SetTitle(data["desc"])
+					item.SetCount(0)
+					item.SetPoints(data["points"])
+					item.SetScrollBarMode(0)
+					item.Hide()	
+
+					self.achievementStatisticCategoryList[i][2].append(item)
+				
+				else:
+					item = AchievementProgressItem()
+					item.SetParent(self.achievementBoard)
+					item.SetPosition(5,5 + 22)
+					if data["desc"] == "MONSTER":
+						item.SetTitle(nonplayer.GetMonsterName(data["vnum"]))
+					else:
+						item.SetTitle(data["desc"])
+					item.SetCount(0)
+					item.SetMaxCount(data["max_count"])
+					item.SetPoints(data["points"])
+					item.SetScrollBarMode(0)
+					item.Hide()	
+
+					self.achievementStatisticCategoryList[i][2].append(item)					
+		
+		self.achievementNavigationListBox.SelectItem(0)
+		
+	
+	def UpdateAchievementStatistic(self, index, new_count, cat):
+		data = self.achievementStatisticCategoryList[int(cat)][1]
+		for i in xrange(len(data)):
+			if data[i]["vnum"] == int(index):
+				self.achievementStatisticCategoryList[int(cat)][1][i]["count"] = int(new_count)
+				break
+				
+		self.RenderAchievementStatistic()
+	
+	def OnSelectAchievementStatistic(self):
+		cat = self.achievementNavigationListBox.GetSelectedItem()
+		self.SetAchievementCategory(cat)
+
+
+	def SetAchievementCategory(self, cat):
+		self.HideAllAchievementItems()
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Category " + str(cat) + " selected!")
+		self.achievementCategory = cat
+		self.achievementCategoryTextLine.SetText(self.achievementStatisticCategoryList[cat][0])
+		itemCount = len(self.achievementStatisticCategoryList[cat][2])
+		self.AchievementScrollMode = False
+		self.achievementScrollBar.SetPos(0)
+		if itemCount > 6:
+			self.achievementScrollBar.Show()
+			self.AchievementScrollMode = True
+		else:
+			self.achievementScrollBar.Hide()
+			
+		self.RenderAchievementStatistic()	
+			
+	def RenderAchievementStatistic(self):
+		self.HideAllAchievementItems()
+		
+		# self.achievementScrollBar.Hide()
+		cat = self.achievementCategory
+		itemCount = len(self.achievementStatisticCategoryList[cat][2])
+		pos = int(self.achievementScrollBar.GetPos() * (len(self.achievementStatisticCategoryList[cat][2]) - 6)) 
+		start_height = 5 + 22
+		
+		if itemCount > 6:
+			max_count = 6
+		else:
+			max_count = itemCount
+		
+		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "itemCount: " + str(max_count))
+		for i in xrange(max_count):
+			realPos = pos + i
+			self.achievementStatisticCategoryList[cat][2][realPos].SetPosition(5,start_height)
+
+			self.achievementStatisticCategoryList[cat][2][realPos].SetCount(self.achievementStatisticCategoryList[cat][1][realPos]["count"])
+			if self.AchievementScrollMode:
+				self.achievementStatisticCategoryList[cat][2][realPos].SetScrollBarMode(1)
+			else:
+				self.achievementStatisticCategoryList[cat][2][realPos].SetScrollBarMode(0)
+			
+			self.achievementStatisticCategoryList[cat][2][realPos].Show()
+			start_height = start_height + 51 + 10			
+	
+	def HideAllAchievementItems(self):
+		cat = self.achievementCategory
+		for i in xrange(len(self.achievementStatisticCategoryList[cat][2])):
+			self.achievementStatisticCategoryList[cat][2][i].Hide()
+		
 	# BONUS BOARD
 	def BindBonusBoard(self):
 		self.bonusBackground = self.GetChild("bonusBackgroundBoard")
@@ -1633,10 +1827,17 @@ class CharacterWindow(ui.ScriptWindow):
 		self.RenderBonusList()
 		
 	def OnRunMouseWheel(self, nLen):
-		if nLen > 0:
-			self.bonusScrollBar.OnUp()
-		else:
-			self.bonusScrollBar.OnDown()
+		if self.state == "ACHIEVEMENT":
+			if nLen > 0:
+				self.achievementScrollBar.OnUp()
+			else:
+				self.achievementScrollBar.OnDown()
+
+		elif self.state == "BONUS":
+			if nLen > 0:
+				self.bonusScrollBar.OnUp()
+			else:
+				self.bonusScrollBar.OnDown()
 
 	def HideAllItems(self):
 		for i in xrange(len(self.bonusItemList)):
@@ -1654,7 +1855,122 @@ class CharacterWindow(ui.ScriptWindow):
 	def OnScroll(self):
 		self.HideAllItems()
 		self.RenderBonusList()		
+
+
+class AchievementItem(ui.ScriptWindow):
+
+	def __init__(self):
+		ui.ScriptWindow.__init__(self)
+		self.points = 0
+		self.count = 0
+		
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/achievement_item.py")
+		except:
+			import exception
+			exception.Abort("AchievementItem.LoadWindow.LoadObject")
+
+		self.title = self.GetChild("titleTextLine")
+		self.board = self.GetChild("board")
+		self.info = self.GetChild("infoTextLine")
+		self.Show()
 	
+	def SetScrollBarMode(self, mode):
+		if mode == 1:
+			self.SetSize(225, 51)
+			self.board.SetSize(225, 51)
+			self.scrollBarMode = 1 # an
+		else:
+			self.SetSize(225 + 5, 51)
+			self.board.SetSize(225 + 5, 51)
+			self.scrollBarMode = 0 # aus			
+
+	def SetTitle(self,title):
+		self.title.SetText(title)
+	
+	def SetCount(self,count):
+		self.count = int(count)
+		self.UpdateItem()
+		
+	def SetPoints(self,points):
+		self.points = int(points)
+		self.UpdateItem()
+	
+	def UpdateItem(self):
+		realPoints = self.count * self.points
+		self.info.SetText(localeInfo.ACHIEVEMENT_STAT_UI_INFO_COUNT + constInfo.NumberToPointString(self.count) + localeInfo.ACHIEVEMENT_STAT_UI_INFO_POINTS + constInfo.NumberToPointString(realPoints))
+
+
+class AchievementProgressItem(ui.ScriptWindow):
+
+	def __init__(self):
+		ui.ScriptWindow.__init__(self)
+		self.points = 0
+		self.count = 0
+		self.max_count = 0
+		
+		self.LoadWindow()
+
+	def __del__(self):
+		ui.ScriptWindow.__del__(self)
+
+	def LoadWindow(self):
+		try:
+			pyScrLoader = ui.PythonScriptLoader()
+			pyScrLoader.LoadScriptFile(self, "exscript/achievement_progress_item.py")
+		except:
+			import exception
+			exception.Abort("AchievementItem.LoadWindow.LoadObject")
+		
+		# Fortschritt 0 / 10 | Punkte: 10
+		self.title = self.GetChild("titleTextLine")
+		self.board = self.GetChild("board")
+		self.info = self.GetChild("infoTextLine")
+		self.Show()
+	
+	def SetScrollBarMode(self, mode):
+		if mode == 1:
+			self.SetSize(225, 51)
+			self.board.SetSize(225, 51)
+			self.scrollBarMode = 1 # an
+		else:
+			self.SetSize(225 + 5, 51)
+			self.board.SetSize(225 + 5, 51)
+			self.scrollBarMode = 0 # aus			
+
+	def SetTitle(self,title):
+		self.title.SetText(title)
+	
+	def SetCount(self,count):
+		self.count = int(count)
+		self.UpdateItem()
+		
+	def SetMaxCount(self, max_count):
+		self.max_count = int(max_count)
+		self.UpdateItem()
+		
+	def SetPoints(self,points):
+		self.points = int(points)
+		self.UpdateItem()
+	
+	def UpdateItem(self):
+		# realPoints = self.count * self.points
+		if self.count == self.max_count:
+			self.info.SetText("Abgeschlossen | Punkte: " + str(self.points))
+			self.info.SetFontColor(0.5411, 0.7254, 0.5568)		
+		else:
+			self.info.SetText("Fortschritt: " + str(self.count) + " / " + str(self.max_count) + " | Punkte: " + str(self.points))
+			self.info.SetFontColor(0.9, 0.4745, 0.4627)
+			
+			
+			
 class BonusTitleItem(ui.ScriptWindow):
 
 	def __init__(self):

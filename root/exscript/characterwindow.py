@@ -143,6 +143,41 @@ window = {
 									"disable_image" : "yamato_helpboard/wide_button_d.tga",
 
 									"text" : "Emotionen",
+								},
+								{
+									"name" : "apNavigationBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 32,
+									"y" : 15  + 30 + 30 + 30 + 30 + 20,
+									
+									"width" : 161 - 4,
+									"height" : 120,
+									
+									"children" : (
+										{
+											"name" : "apNavigationListBox",
+											"type" : "listbox",
+											
+											"x" : 0,
+											"y" : 0 + 5,
+											
+											"width" : 161 - 4,
+											"height" : 120 - 5,
+										
+										
+										},
+										{
+											"name" : "apScrollBar",
+											"type" : "small_thin_scrollbar",
+																	
+											"x" : 161 - 4 - 15,
+											"y" : 1 + 5,
+																	
+											"size" : 120 - 2 - 5,
+										},									
+									),
+								
 								},					
 								{
 									"name" : "nav_button_3",
@@ -158,6 +193,7 @@ window = {
 
 									"text" : "Achievements",
 								},
+
 								{
 									"name" : "nav_button_4",
 									"type" : "button",
@@ -1925,6 +1961,65 @@ window = {
 
 					"width" : 260,
 					"height" : 350 + 35,
+					
+					"children" :
+					(
+						{
+							"name" : "achievementBackgroundBoard",
+							"type" : "thinboard_circle",
+							
+							"x" : 0,
+							"y" : 0,
+							
+							"width" : 250,
+							"height" : 350 + 35 + STATUS_BOARD_Y,
+							
+							"children" : (
+								{
+									"name" : "achievementCategoryTitleBackground",
+									"type" : "thinboard_circle",
+									
+									"x" : 0,
+									"y" : 0,
+									
+									"width" : 250,
+									"height" : 22,
+									
+									"children" : (
+										{
+											"name" : "achievementCategoryTitleTextLine",
+											"type" : "text",
+											
+											"x" : 250 / 2,
+											"y" : 4, 
+											
+											"text" : "Achievements - Bosse",
+											
+											"outline" : 1,
+											
+											"color" : 0xffd8a055,
+											"text_horizontal_align" : "center",
+										},
+									),
+								},
+								{
+									"name" : "achievementScrollBar",
+									"type" : "small_thin_scrollbar",
+																	
+									"x" : 250 - 15,
+									"y" : 1 + 22,
+																	
+									"size" : 350 + 35 + STATUS_BOARD_Y - 2 - 22,
+								},											
+
+							
+							
+							),
+							
+						},
+					),
+					
+					
 				},
 				{
 					"name" : "Bonus_Page",
