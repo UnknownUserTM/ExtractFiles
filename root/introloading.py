@@ -302,6 +302,10 @@ class LoadingWindow(ui.ScriptWindow):
 			chrmgr.NAMECOLOR_EMPIRE_PC+2 : colorInfo.CHR_NAME_RGB_EMPIRE_PC_B,
 			chrmgr.NAMECOLOR_EMPIRE_PC+3 : colorInfo.CHR_NAME_RGB_EMPIRE_PC_C,
 		}
+		
+		# if app.ENABLE_GAME_MASTER_CHARNAME_COLOR:
+		NAME_COLOR_DICT.update( {chrmgr.NAMECOLOR_GM : (255,106,0)} ) #colorInfo.CHR_NAME_RGB_GAMEMASTER
+		
 		for name, rgb in NAME_COLOR_DICT.items():
 			chrmgr.RegisterNameColor(name, rgb[0], rgb[1], rgb[2])
 
