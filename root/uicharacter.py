@@ -1661,7 +1661,7 @@ class CharacterWindow(ui.ScriptWindow):
 		
 		miniListboxItemCount = 0
 		for i in xrange(len(self.achievementStatisticCategoryList)):
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG, str(i) + " " + str(self.achievementStatisticCategoryList[i][0]))
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, str(i) + " " + str(self.achievementStatisticCategoryList[i][0]))
 			self.achievementNavigationListBox.InsertItem(i, self.achievementStatisticCategoryList[i][0])
 			miniListboxItemCount = miniListboxItemCount + 1
 		
@@ -1676,7 +1676,7 @@ class CharacterWindow(ui.ScriptWindow):
 		self.achievementScrollBar.SetScrollEvent(ui.__mem_func__(self.RenderAchievementStatistic))
 		
 		self.achievementCategory = 0
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "AchievementProto.txt wird geladen...")
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "AchievementProto.txt wird geladen...")
 		srcRealFileName = "locale/%s/%s" % (app.GetLanguage(), "achievement_proto.txt")
 		lines = pack_open(srcRealFileName, "r").readlines()
 		for line in lines:
@@ -1692,10 +1692,10 @@ class CharacterWindow(ui.ScriptWindow):
 					"count" : 0,
 				}
 				
-				chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Achievement Statistik: Achievement " + str(tab[0]) + " geladen!")
+				# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Achievement Statistik: Achievement " + str(tab[0]) + " geladen!")
 				self.achievementStatisticCategoryList[int(tab[5])][1].append(data)
 
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "AchievementProto.txt fertig geladen...")
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "AchievementProto.txt fertig geladen...")
 
 		for i in xrange(len(self.achievementStatisticCategoryList)):
 			for a in xrange(len(self.achievementStatisticCategoryList[i][1])):
@@ -1750,7 +1750,7 @@ class CharacterWindow(ui.ScriptWindow):
 
 	def SetAchievementCategory(self, cat):
 		self.HideAllAchievementItems()
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Category " + str(cat) + " selected!")
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Category " + str(cat) + " selected!")
 		self.achievementCategory = cat
 		self.achievementCategoryTextLine.SetText(self.achievementStatisticCategoryList[cat][0])
 		itemCount = len(self.achievementStatisticCategoryList[cat][2])
@@ -1778,7 +1778,7 @@ class CharacterWindow(ui.ScriptWindow):
 		else:
 			max_count = itemCount
 		
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "itemCount: " + str(max_count))
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "itemCount: " + str(max_count))
 		for i in xrange(max_count):
 			realPos = pos + i
 			self.achievementStatisticCategoryList[cat][2][realPos].SetPosition(5,start_height)
