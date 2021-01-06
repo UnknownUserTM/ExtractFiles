@@ -2499,6 +2499,8 @@ class GameWindow(ui.ScriptWindow):
 			"hidetutorialjoin" : self.LUA_HideTutorialJoinDialog,
 			
 			"achievement_stat" : self.LUA_UpdateAchievementStatistic,
+			
+			"dance_all_event" : self.GAME_DanceAll,
 		
 		}
 		
@@ -3911,7 +3913,8 @@ class GameWindow(ui.ScriptWindow):
 		cmd = command.split("#")
 		self.interface.wndCharacter.UpdateAchievementStatistic(cmd[0], cmd[1], cmd[2])
 		
-		
+	def GAME_DanceAll(self):
+		GFHhg54GHGhh45GHGH.SendChatPacket("/dance7")
 		
 	
 		

@@ -1876,6 +1876,47 @@ window = {
 							"y_blank" : 4,
 							"image" : ICON_SLOT_FILE,
 						},
+						
+						{
+							"name" : "Skill_PASSIVE_Title_Bar", 
+							"type" : "horizontalbar", 
+							
+							"x" : 15, 
+							"y" : 221 + 64 + 5 + 5+ 5, 
+							
+							"width" : 223,
+
+							"children" :
+							(
+								{
+									"name" : "PASSIVE_Skill_Group_Name",
+									"type" : "text",
+
+									"x" : 7,
+									"y" : 1,
+									"text" : "Passiv-Skills",
+
+									"vertical_align" : "center",
+									"text_vertical_align" : "center",
+									"color" : 0xFFFFE3AD,
+								},
+							),
+						},
+						## ETC Slot
+						{
+							"name" : "Skill_PASSIVE_Slot",
+							"type" : "grid_table",
+							"x" : 18,
+							"y" : 221 + 64 + 5 + 5+ 5 + 22,
+							"start_index" : 101,
+							"x_count" : 6,
+							"y_count" : 2,
+							"x_step" : 32,
+							"y_step" : 32,
+							"x_blank" : 5,
+							"y_blank" : 4,
+							"image" : ICON_SLOT_FILE,
+						},
 
 					),
 				},
