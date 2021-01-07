@@ -218,17 +218,17 @@ class TargetBoard(ui.ThinBoard):
 
 					def GetRarity(self, rarity):
 						if rarity >= 100:
-							return "|cFFFFFFFFGuaranteed|r"
+							return localeInfo.TARGET_INFO_DROP_CHANCE_GUARANTEED
 						elif rarity < 100 and rarity >= 70:
-							return "|cFFFFFFFFCommon|r"
+							return localeInfo.TARGET_INFO_DROP_CHANCE_COMMON
 						elif rarity < 70 and rarity >= 50:
-							return "|cFF32CD32Uncommon|r"
+							return localeInfo.TARGET_INFO_DROP_CHANCE_UNCOMMON
 						elif rarity < 50 and rarity >= 30:
-							return "|cFF9400D3Mythic|r"
+							return localeInfo.TARGET_INFO_DROP_CHANCE_MYTHIC
 						elif rarity < 30 and rarity >= 11:
-							return "|cFF1E90FFRare|r"
+							return localeInfo.TARGET_INFO_DROP_CHANCE_RARE
 						elif rarity <= 10:
-							return "|cFFFFD700Legendary|r"
+							return localeInfo.TARGET_INFO_DROP_CHANCE_LEGENDARY
 							
 						return ""
 

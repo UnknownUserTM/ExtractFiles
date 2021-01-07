@@ -188,7 +188,7 @@ class PlayerFrame(ui.ScriptWindow):
 
 		self.playerFrameBoard = self.GetChild("PlayerFrameBase")
 		self.playerFrameIcon = self.GetChild("PlayerFrameIcon")
-		
+		self.toolTipTriggerWindow = self.GetChild("statisticTriggerWindow")
 		self.playerHPRecoveryBar	= self.GetChild("HPRecoveryGaugeBar")
 		self.playerHPGaugeBar		= self.GetChild("HPGauge")
 		self.playerHPTextLine		= self.GetChild("HPInfoTextLine")
@@ -254,7 +254,7 @@ class PlayerFrame(ui.ScriptWindow):
 		else:
 			self.playerEXPTextLine.Hide()
 			
-		if self.playerFrameBoard.IsIn():
+		if self.toolTipTriggerWindow.IsIn():
 			self.playerStatisticToolTip.ClearToolTip()
 			self.playerStatisticToolTip.AppendTextLine(localeInfo.PLAYER_STATISTIC_TITLE_ABOUT,self.playerStatisticToolTip.TITLE_COLOR)
 			self.playerStatisticToolTip.AppendHorizontalLine()

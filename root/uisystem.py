@@ -58,6 +58,11 @@ class SystemDialog(ui.ScriptWindow):
 		self.GetChild("system_chhange_3_button").SetEvent(self.__OnClickChannelSwitch,3)
 		self.GetChild("system_chhange_4_button").SetEvent(self.__OnClickChannelSwitch,4)
 
+		self.GetChild("system_chhange_1_button").Hide()
+		self.GetChild("system_chhange_2_button").Hide()
+		self.GetChild("system_chhange_3_button").Hide()
+		self.GetChild("system_chhange_4_button").Hide()
+
 		self.GetChild("system_option_button").Hide()
 		
 ##		if constInfo.IN_GAME_SHOP_ENABLE:

@@ -470,7 +470,13 @@ class WarpWindow(ui.ScriptWindow):
 			
 		self.itemtooltip = uiToolTip.ItemToolTip()  
 		self.itemtooltip.HideToolTip()
-
+		
+		
+		self.warpQuestDialog = uiCommon.QuestionDialog()
+		self.warpQuestDialog.SetAcceptEvent(self.ContinueToWarp)
+		self.warpQuestDialog.SetCancelEvent(self.CloseWarpQuestionDialog)
+		self.warpQuestDialog.SetFKey = 0
+		
 		self.pageButtons = []
 		for i in xrange(WARP_COUNT):
 			self.pageButtons.append(self.GetChild("nav_button_" + str(i)))
@@ -750,7 +756,7 @@ class WarpWindow(ui.ScriptWindow):
 		self.shortcut_Board.Hide()
 	
 	def PressFKey(self, key):
-		chat.AppendChat(chat.CHAT_TYPE_INFO,"[WARP]: PressFKey")
+		# chat.AppendChat(chat.CHAT_TYPE_INFO,"[WARP]: PressFKey")
 
 		fKeyIndex = {}
 		fKeyIndex[63] = 5
@@ -759,14 +765,14 @@ class WarpWindow(ui.ScriptWindow):
 		fKeyIndex[66] = 8
 		
 		if self.shortcut_Board.IsShow():
-			chat.AppendChat(chat.CHAT_TYPE_INFO,"[WARP]: shortcut_Board.IsShow()")
+			# chat.AppendChat(chat.CHAT_TYPE_INFO,"[WARP]: shortcut_Board.IsShow()")
 			
 			a = self.start_idx + self.shortcut_Config
 			warpInfo = self.warpList[self.page][a]["name"]			
 			
 			
-			chat.AppendChat(chat.CHAT_TYPE_INFO,"F" + str(fKeyIndex[key]))
-			chat.AppendChat(chat.CHAT_TYPE_INFO,"Shortcut for Map: " + str(warpInfo))
+			# chat.AppendChat(chat.CHAT_TYPE_INFO,"F" + str(fKeyIndex[key]))
+			# chat.AppendChat(chat.CHAT_TYPE_INFO,"Shortcut for Map: " + str(warpInfo))
 
 			self.shortcut_Board.Hide()
 			
@@ -774,11 +780,25 @@ class WarpWindow(ui.ScriptWindow):
 			event.QuestButtonClick(self.quest_index)
 			
 		else:
-			chat.AppendChat(chat.CHAT_TYPE_INFO,"Warp to Shortcut F" + str(fKeyIndex[key]))
+			# chat.AppendChat(chat.CHAT_TYPE_INFO,"Warp to Shortcut F" + str(fKeyIndex[key]))
 			
-			constInfo.INPUT_CMD = "SHORTWARP#" + str(fKeyIndex[key]) + "#"
-			event.QuestButtonClick(self.quest_index)
-
+			self.warpQuestDialog.SetText(localeInfo.WARP_WINDOW_F_KEY_WARP_QUESTION)
+			self.warpQuestDialog.SetWidth(220)
+			self.warpQuestDialog.SetFKey = fKeyIndex[key]
+			self.warpQuestDialog.Open()
+		
+					
+			
+	def CloseWarpQuestionDialog(self):
+		self.warpQuestDialog.Close()
+		
+	def ContinueToWarp(self):
+		self.warpQuestDialog.Close()
+		self.Close()
+		constInfo.INPUT_CMD = "SHORTWARP#" + str(self.warpQuestDialog.SetFKey) + "#"
+		event.QuestButtonClick(self.quest_index)
+				
+		
 	def SetFKey(self,page,idx,key):
 		self.warpList[page-1][idx-1]["f_key"] = int(key)
 		self.Refresh()

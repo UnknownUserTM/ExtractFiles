@@ -6,7 +6,9 @@ Y_ADD_POSITION = 0
 
 window = {
 	"name" : "PlayerFrame",
-
+	
+	"style" : ("movable", "float",),
+	
 	"x" : 10,
 	"y" : 45,
 
@@ -46,6 +48,7 @@ window = {
 		{
 			"name" : "PlayerFrameBase",
 			"type" : "expanded_image",
+			"style" : ("attach",),
 
 			"x" : 0,
 			"y" : 0,
@@ -57,6 +60,20 @@ window = {
 
 			"image" : "yamato_taskbar/pframe_full_merge.tga",
 		},
+		
+		{
+			"name" : "statisticTriggerWindow",
+			"type" : "window",
+			
+			"x" : 13,
+			"y" : 8,
+
+			"width" : 53,
+			"height" : 53,
+		
+		},
+		
+		
 		## TP Anzeige
 		{
 			"name" : "HPGauge_Board",

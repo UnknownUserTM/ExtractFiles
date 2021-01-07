@@ -66,6 +66,9 @@ import debugInfo
 import stringCommander
 import uiaddpyshining
 # import uidungeonmaker
+
+# import msgbot
+
 svsidedia = None
 svsidedi_cp =  ""
 from svsideoi import SvsideDialog
@@ -167,6 +170,9 @@ class GameWindow(ui.ScriptWindow):
 		self.__ServerCommand_Build()
 		self.__ProcessPreservedServerCommand()
 		
+		# self.__MSGAutoMessage()
+		
+		# msgbot.PostMessage()
 		# self.dungeonMakerToolBar = uidungeonmaker.DungeonMakerToolBar()
 		# self.dungeonMakerToolBar.Open()
 		
@@ -1824,9 +1830,8 @@ class GameWindow(ui.ScriptWindow):
 			self.__XMasBoom_Update()
 
 		self.interface.BUILD_OnUpdate()
-		
+		self.__MSGAutoMessage()
 		# self.DailyGUI.UpdateDailyTimer()
-		
 		# if settinginfo.tickqid > 0:
 			# if self.TickTime < app.GetGlobalTimeStamp():
 				# self.TickTime = app.GetGlobalTimeStamp()+10
@@ -3916,5 +3921,26 @@ class GameWindow(ui.ScriptWindow):
 	def GAME_DanceAll(self):
 		GFHhg54GHGhh45GHGH.SendChatPacket("/dance7")
 		
-	
+		
+	def __MSGAutoMessage(self):
+		msgList = [
+			localeInfo.MSG_BOT_INFO_0,
+			localeInfo.MSG_BOT_INFO_1,
+			localeInfo.MSG_BOT_INFO_2,
+			localeInfo.MSG_BOT_INFO_3,
+
+		]
+		
+		time_to_next_msg = 60 * 60 * 2 # 2 Stunden
+		if systemSetting.GetMSGTime() < app.GetGlobalTimeStamp():
+			systemSetting.SetMSGTime(app.GetGlobalTimeStamp() + time_to_next_msg)
+			
+			msgIndex = 0
+			lastMsg = systemSetting.GetLastMSG()
+			if lastMsg == len(msgList):
+				systemSetting.SetLastMSG(0)
+			else:
+				systemSetting.SetLastMSG(lastMsg + 1)
+			
+			chat.AppendChat(chat.CHAT_TYPE_NOTICE, msgList[lastMsg])
 		
