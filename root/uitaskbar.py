@@ -14,6 +14,8 @@ import uiToolTip
 import settinginfo
 import exterminatus
 import background
+import chat
+import systemSetting
 
 MOUSE_SETTINGS = [0, 0]
 
@@ -191,14 +193,18 @@ class PlayerFrame(ui.ScriptWindow):
 		self.toolTipTriggerWindow = self.GetChild("statisticTriggerWindow")
 		self.playerHPRecoveryBar	= self.GetChild("HPRecoveryGaugeBar")
 		self.playerHPGaugeBar		= self.GetChild("HPGauge")
+		#self.playerHPWindow			= self.GetChild("TPToolTipWindow")
 		self.playerHPTextLine		= self.GetChild("HPInfoTextLine")
 		
 		self.playerMPRecoveryBar	= self.GetChild("MPRecoveryGaugeBar")
 		self.playerMPGaugeBar		= self.GetChild("MPGauge")		
+		#self.playerMPWindow			= self.GetChild("MPToolTipWindow")
 		self.playerMPTextLine		= self.GetChild("MPInfoTextLine")
 		
 		self.playerLevelTextLine	= self.GetChild("PlayerLevel")
 		self.playerEXPGaugeBar		= self.GetChild("EXPGauge")	
+		
+		self.playerEXPWindow		= self.GetChild("EXPWindow")
 		self.playerEXPTextLine		= self.GetChild("EXPInfoTextLine")
 		
 		self.SetPlayerFrameIcon()
@@ -244,16 +250,26 @@ class PlayerFrame(ui.ScriptWindow):
 		if maxPoint > 0:
 			self.playerEXPGaugeBar.SetPercentage(curPoint, maxPoint)
 		
+		
+		
+		self.playerEXPTextLine.SetText("Erfahrung: %.2f%%" % (float(curPoint) / max(1, float(maxPoint)) * 100))
+		
 		self.LAST_GOLD_CHECK = fgGHGjjFHJghjfFG1545gGG.GetElk()
-			
+	
+	def OnMoveWindow(self, x, y):
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Move!")
+		systemSetting.SetPlayerFrameX(x)
+		systemSetting.SetPlayerFrameY(y)
+	
 	def OnUpdate(self):
 		self.playerLevelTextLine.SetText(str(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL)))
 		
-		if self.playerEXPGaugeBar.IsIn():
+		if self.playerEXPWindow.IsIn():
 			self.playerEXPTextLine.Show()
 		else:
 			self.playerEXPTextLine.Hide()
-			
+		
+		
 		if self.toolTipTriggerWindow.IsIn():
 			self.playerStatisticToolTip.ClearToolTip()
 			self.playerStatisticToolTip.AppendTextLine(localeInfo.PLAYER_STATISTIC_TITLE_ABOUT,self.playerStatisticToolTip.TITLE_COLOR)
@@ -859,7 +875,7 @@ class TaskBar(ui.ScriptWindow):
 		wndPlayerFrame = PlayerFrame()
 		wndPlayerFrame.LoadWindow()
 		self.wndPlayerFrame = wndPlayerFrame
-		
+		self.wndPlayerFrame.SetPosition(systemSetting.GetPlayerFrameX(), systemSetting.GetPlayerFrameY())
 		
 		self.PointArrowWarp = exterminatus.PointArrow()
 		# self.PointArrowWarp.SetParent(self)

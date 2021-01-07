@@ -113,6 +113,16 @@ window = {
 						"yamato_taskbar/player_resource_hp.tga",
 					),
 				},
+				# {
+					# "name" : "HPToolTipWindow",
+					# "type" : "window",
+					
+					# "x" : 0,
+					# "y" : 0,
+					
+					# "width" : 114,
+					# "height" : 11,
+				# },
 				{
 					"name" : "HPInfoTextLine",
 					"type" : "text",
@@ -167,6 +177,16 @@ window = {
 						"yamato_taskbar/player_resource_mana.tga",
 					),
 				},
+				# {
+					# "name" : "MPToolTipWindow",
+					# "type" : "window",
+					
+					# "x" : 0,
+					# "y" : 0,
+					
+					# "width" : 114,
+					# "height" : 11,
+				# },
 				{
 					"name" : "MPInfoTextLine",
 					"type" : "text",
@@ -212,11 +232,22 @@ window = {
 			),
 		},
 		{
+			"name" : "EXPWindow",
+			"type" : "window",
+			
+			"x" : 67 + 5 + 10 + 10 - 4,
+			"y" : 51 + 10 - 1,
+
+			"width" : 97,
+			"height" : 6,
+		
+		},
+		{
 			"name" : "EXPInfoTextLine",
 			"type" : "text",
 		 
-			"x" : 67 + 5 + 10 + 10 - 4 + 15,
-			"y" : 51 + 10 - 1 + 20 - 8,
+			"x" : 67 + 5 + 10 + 10 - 4 + 15+ 15,
+			"y" : 51 + 10 - 1 + 20 - 8 ,
 					
 			"outline" : 1,
 		 
