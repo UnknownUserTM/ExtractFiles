@@ -1230,3 +1230,7 @@ MSG_BOT_INFO_0	Hallo Welt?
 MSG_BOT_INFO_1	Und sonst so?
 MSG_BOT_INFO_2	Ok dann halt nicht...
 MSG_BOT_INFO_3	Warum redest du nicht mit mir?
+CHARACTER_GUILD_TOOLTIP_MASTER	Gildenmeister: 
+CHARACTER_GUILD_TOOLTIP_LEVEL	Gildenlevel: 
+CHARACTER_GUILD_TOOLTIP_EXP	Gildenerfahrung: 
+CHARACTER_GUILD_TOOLTIP_OPEN_WINDOW	|Eemoji/key_lclick|e Gildenfenster öffen.

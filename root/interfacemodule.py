@@ -470,7 +470,7 @@ class Interface(object):
 		self.wndGMPanel.Close()
 		# chat.AppendChat(chat.CHAT_TYPE_INFO,"__MakeGMPanel")
 	def __MakeWindows(self):
-		wndCharacter = uiCharacter.CharacterWindow()
+		wndCharacter = uiCharacter.CharacterWindow(self)
 		wndInventory = uiInventory.InventoryWindow()
 		wndInventory.BindInterfaceClass(self)
 		if app.ENABLE_DRAGON_SOUL_SYSTEM:

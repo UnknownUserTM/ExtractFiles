@@ -18,6 +18,7 @@ import chr
 import chat
 import achievementproto
 import nonplayer
+import guild
 
 SHOW_ONLY_ACTIVE_SKILL = False
 SHOW_LIMIT_SUPPORT_SKILL_LIST = []
@@ -336,11 +337,11 @@ class CharacterWindow(ui.ScriptWindow):
 
 	STAT_MINUS_DESCRIPTION = localeInfo.STAT_MINUS_DESCRIPTION
 
-	def __init__(self):
+	def __init__(self, interface):
 		ui.ScriptWindow.__init__(self)
 		self.state = "STATUS"
 		self.isLoaded = 0
-
+		self.interface = interface
 		self.toolTipSkill = 0
 				
 		self.__Initialize()
@@ -425,6 +426,7 @@ class CharacterWindow(ui.ScriptWindow):
 		self.toolTip = uiToolTip.ToolTip()
 		self.toolTipJob = uiToolTip.ToolTip()
 		self.toolTipAlignment = uiToolTip.ToolTip(130)		
+		self.toolTipGuild = uiToolTip.ToolTip()
 
 		self.faceImage = self.GetChild("Face_Image")
 		self.titleBar = self.GetChild("TitleBar")
@@ -440,6 +442,9 @@ class CharacterWindow(ui.ScriptWindow):
 		self.characterNameSlot = self.GetChild("characterNameBackground")			
 		self.characterNameValue = self.GetChild("characterNameTextLine")
 		self.guildNameSlot = self.GetChild("guildNameBackground")
+		self.guildNameSlot.SAFE_SetStringEvent("MOUSE_OVER_IN", self.__ShowGuildToolTip)
+		self.guildNameSlot.SAFE_SetStringEvent("MOUSE_OVER_OUT", self.__HideGuildToolTip)
+		self.guildNameSlot.SetOnClickEvent(self.OpenGuildWindow)
 		self.guildNameValue = self.GetChild("guildNameTextLine")
 		self.alignmentNameSlot = self.GetChild("rankNameBackground")
 		self.alignmentNameValue = self.GetChild("rankNameTextLine")
@@ -1442,7 +1447,34 @@ class CharacterWindow(ui.ScriptWindow):
 				self.toolTipJob.AutoAppendTextLine(jobInfoDataLine)
 
 			self.toolTipJob.AlignHorizonalCenter()
-
+	
+	
+	def OpenGuildWindow(self):
+		self.interface.ToggleGuildWindow()
+	
+	def __ShowGuildToolTip(self):
+		guildName = player.GetGuildName()
+		if not guildName:
+			return 
+			
+		self.toolTipGuild.ClearToolTip()
+		self.toolTipGuild.AppendTextLine(localeInfo.CHARACTER_GUILD_TOOLTIP_MASTER + guild.GetGuildMasterName())
+		self.toolTipGuild.AppendHorizontalLine()
+		self.toolTipGuild.AppendSpace(5)
+		self.toolTipGuild.AppendTextLine(localeInfo.CHARACTER_GUILD_TOOLTIP_LEVEL + str(guild.GetGuildLevel()) + " / 5")
+		
+		curExp, lastExp = guild.GetGuildExperience()
+		curExp *= 100
+		lastExp *= 100
+		self.toolTipGuild.AppendTextLine(localeInfo.CHARACTER_GUILD_TOOLTIP_EXP + str(curExp) + " / " + str(lastExp))
+		self.toolTipGuild.AppendHorizontalLine()
+		self.toolTipGuild.AppendSpace(5)
+		self.toolTipGuild.AppendTextLine(localeInfo.CHARACTER_GUILD_TOOLTIP_OPEN_WINDOW)
+		self.toolTipGuild.ShowToolTip()
+		
+	def __HideGuildToolTip(self):
+		self.toolTipGuild.HideToolTip()
+	
 	def __ShowAlignmentToolTip(self):
 		self.toolTipAlignment.ShowToolTip()
 
