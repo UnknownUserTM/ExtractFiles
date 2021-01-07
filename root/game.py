@@ -3943,4 +3943,4 @@ class GameWindow(ui.ScriptWindow):
 				systemSetting.SetLastMSG(lastMsg + 1)
 			
 			chat.AppendChat(chat.CHAT_TYPE_NOTICE, msgList[lastMsg])
-		
+			self.BINARY_SetTipMessage(msgList[lastMsg])
