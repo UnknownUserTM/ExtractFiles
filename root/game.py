@@ -2506,6 +2506,8 @@ class GameWindow(ui.ScriptWindow):
 			"achievement_stat" : self.LUA_UpdateAchievementStatistic,
 			
 			"dance_all_event" : self.GAME_DanceAll,
+			
+			"craft"				: self.LUA_Crafting,
 		
 		}
 		
@@ -3852,14 +3854,27 @@ class GameWindow(ui.ScriptWindow):
 		# self.advent.Show()
 		# import uichanneltabbar
 		# self.wndChannelTabBar = uichanneltabbar.ChannelTabBar()
-		import achievementproto
-		data = achievementproto.GetAchievementInfo(101)
-		if data == False:
+		# data = achievementproto.GetAchievementInfo(101)
+		# if data == False:
 			
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Nope...?")
-		else:
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "data: " + str(len(data)))
-			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "data: " + str(data[0]))
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "Nope...?")
+		# else:
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "data: " + str(len(data)))
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "data: " + str(data[0]))
+			
+		# import craftingproto
+		
+		# proto = craftingproto.GetCraftingProto("BLACKSMITH")
+		# if proto != False:
+			
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "ProtoTitle: " + proto["TITLE"])
+		
+		# else:
+			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "proto is false")
+		
+		self.interface.wndCraft.Open()
+		
+		
 		
 	def __RequestWarpToCharacter(self, name):
 		import uiCommon
@@ -3920,8 +3935,7 @@ class GameWindow(ui.ScriptWindow):
 		
 	def GAME_DanceAll(self):
 		GFHhg54GHGhh45GHGH.SendChatPacket("/dance7")
-		
-		
+
 	def __MSGAutoMessage(self):
 		msgList = [
 			localeInfo.MSG_BOT_INFO_0,
@@ -3944,3 +3958,16 @@ class GameWindow(ui.ScriptWindow):
 			
 			chat.AppendChat(chat.CHAT_TYPE_NOTICE, msgList[lastMsg])
 			self.BINARY_SetTipMessage(msgList[lastMsg])
+	
+	def LUA_Crafting(self,command):
+		cmd = command.split("#")
+		if cmd[0] == "qid":
+			self.interface.wndCraft.SetQID(int(cmd[1]))
+		elif cmd[0] == "proto":
+			self.interface.wndCraft.SetProto(cmd[1])
+		elif cmd[0] == "open":
+			self.interface.wndCraft.Open()
+		elif cmd[0] == "close":
+			self.interface.wndCraft.Close()
+		else:
+			chat.AppendChat(chat.CHAT_TYPE_DEBUG, "LUA_Crafting: Unknown Command: " + cmd[0])

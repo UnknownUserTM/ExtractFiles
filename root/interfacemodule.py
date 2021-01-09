@@ -62,7 +62,7 @@ import uigame
 import uidungeon
 import uitutorial
 import uichanneltabbar
-
+import uicraft
 
 IsQBHide = 0
 class Interface(object):
@@ -212,7 +212,10 @@ class Interface(object):
 		# self.wndChannelTabBar = uichanneltabbar.ChannelTabBar()
 		# self.wndChannelTabBar.SetPosition(wndMgr.GetScreenWidth() - 249,0)
 		# self.wndChannelTabBar.Show() 
-		
+	
+	def __MakeCraftingWindow(self):
+		self.wndCraft = uicraft.CraftingWindow()
+	
 	def __MakeUserEventButtonWindow(self):
 		self.wndUserEventButton = uiuserevent.UserEventButtonWindow()
 	
@@ -607,6 +610,7 @@ class Interface(object):
 		self.__MakeEventCalenderBoard()
 		self.__MakeForgeGuideBoard()
 		self.__MakeBiologistWindow()
+		self.__MakeCraftingWindow()
 		# self.__MakeChannelTabBar
 		self.__MakeUserEventButtonWindow()
 		self.__MakeNewQuestWindow()
@@ -1418,6 +1422,7 @@ class Interface(object):
 					self.wndDragonSoul.Close()
 		
 	def ToggleDragonSoulWindowWithNoInfo(self):
+		self.DRAGON_SOUL_IS_QUALIFIED = True
 		if False == fgGHGjjFHJghjfFG1545gGG.IsObserverMode():
 			if app.ENABLE_DRAGON_SOUL_SYSTEM:
 				if False == self.wndDragonSoul.IsShow():
