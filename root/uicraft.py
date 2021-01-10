@@ -159,7 +159,7 @@ class CraftingWindow(ui.ScriptWindow):
 		
 		data = data["CONTENT"]
 		for i in xrange(len(data)):
-			chat.AppendChat(chat.CHAT_TYPE_INFO, "i: " + str(i))
+			# chat.AppendChat(chat.CHAT_TYPE_INFO, "i: " + str(i))
 			if data[i]["type"] == "title":
 				self.navigation.AppendTitleItem(data[i]["text"])
 			
@@ -182,13 +182,14 @@ class CraftingWindow(ui.ScriptWindow):
 
 
 	def LoadSubNavigation(self,index):
-		chat.AppendChat(chat.CHAT_TYPE_INFO,"LoadSubNavigation CLICK!")
+		# chat.AppendChat(chat.CHAT_TYPE_INFO,"LoadSubNavigation CLICK!")
 		self.selected_recipe = index
 		self.LoadInfoPage()
 		
 
 	def LoadTopNavigation(self):
-		chat.AppendChat(chat.CHAT_TYPE_INFO,"LoadTopNavigation CLICK!")
+		return
+		# chat.AppendChat(chat.CHAT_TYPE_INFO,"LoadTopNavigation CLICK!")
 		# self.category_sel = -1
 		# data = craftingproto.CRAFTING_PROTO[self.crafting_proto_name][0]["category_data"]
 		# self.LoadNavigation(data)
@@ -414,7 +415,7 @@ class CraftingListBox(ui.Window):
 		self.scrollBar.Hide()		
 		
 	def OnClickItem(self,index):
-		chat.AppendChat(chat.CHAT_TYPE_INFO,"Aua, du hast auf item " + str(index) + " geklickt!")
+		# chat.AppendChat(chat.CHAT_TYPE_INFO,"Aua, du hast auf item " + str(index) + " geklickt!")
 		self.wndCrafting.LoadSubNavigation(index)
 
 	def OnClickBackItem(self):
