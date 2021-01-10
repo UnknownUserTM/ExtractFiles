@@ -85,13 +85,13 @@ def LoadCraftingProto():
 			
 		i = i + 1
 	
-	chat.AppendChat(chat.CHAT_TYPE_DEBUG, "CRAFTING_PROTO: " + str(len(CRAFTING_PROTO)))
+	# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "CRAFTING_PROTO: " + str(len(CRAFTING_PROTO)))
 
 LoadCraftingProto()
 
 def GetCraftingProto(name):
 	for i in xrange(len(CRAFTING_PROTO)):
-		chat.AppendChat(chat.CHAT_TYPE_DEBUG, "GetCraftingProto: " + CRAFTING_PROTO[i]["INDEX"] + " =? " + name)
+		# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "GetCraftingProto: " + CRAFTING_PROTO[i]["INDEX"] + " =? " + name)
 		if CRAFTING_PROTO[i]["INDEX"] == name:
 			return CRAFTING_PROTO[i]
 			

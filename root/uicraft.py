@@ -48,7 +48,7 @@ class CraftingWindow(ui.ScriptWindow):
 		self.BuildNavigation()
 		self.BuildInfoPage()
 		# self.Show()
-		self.SetProto("ALCHEMIST")
+		# self.SetProto("ALCHEMIST")
 		# self.LoadProto("ALCHEMY_TOWN")
 		
 		
@@ -125,7 +125,7 @@ class CraftingWindow(ui.ScriptWindow):
 				# chat.AppendChat(chat.CHAT_TYPE_INFO,"Dir fehlen die nötigen Materialien!")
 				# return
 
-		constInfo.INPUT_CMD = self.crafting_proto_name + "/" + str(self.selected_recipe)
+		constInfo.INPUT_CMD = "craft#" + self.crafting_proto_name + "#" + str(self.selected_recipe)
 		event.QuestButtonClick(self.qid)		
 
 	# def OnRunMouseWheel(self, nLen):
