@@ -3871,8 +3871,8 @@ class GameWindow(ui.ScriptWindow):
 		
 		# else:
 			# chat.AppendChat(chat.CHAT_TYPE_DEBUG, "proto is false")
-		
-		self.interface.wndCraft.Open()
+		import refineproto
+		#self.interface.wndCraft.Open()
 		
 		
 		

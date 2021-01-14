@@ -1,5 +1,5 @@
 import dbg
-import fgGHGjjFHJghjfFG1545gGG
+import fgGHGjjFHJghjfFG1545gGG as player
 import item
 import grp
 import wndMgr
@@ -20,6 +20,7 @@ import mouseModule
 import constInfo
 import settinginfo
 import exterminatus
+import refineproto
 
 if app.RENDER_TARGED:
 	import renderTarget
@@ -283,7 +284,7 @@ class ToolTip(ui.ThinBoard):
         
 	if app.RENDER_TARGED:
 		def CanViewRendering(self):
-			race = fgGHGjjFHJghjfFG1545gGG.GetRace()
+			race = player.GetRace()
 			job = chr.RaceToJob(race)
 			if not self.ANTI_FLAG_DICT.has_key(job):
 				return False
@@ -311,7 +312,7 @@ class ToolTip(ui.ThinBoard):
 		if not item.IsEquipmentVID(self.itemVnum):
 			return TRUE
 
-		race = fgGHGjjFHJghjfFG1545gGG.GetRace()
+		race = player.GetRace()
 		job = chr.RaceToJob(race)
 		if not self.ANTI_FLAG_DICT.has_key(job):
 			return FALSE
@@ -334,20 +335,20 @@ class ToolTip(ui.ThinBoard):
 			(limitType, limitValue) = item.GetLimit(i)
 
 			if item.LIMIT_LEVEL == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL) < limitValue:
+				if player.GetStatus(player.LEVEL) < limitValue:
 					return FALSE
 			"""
 			elif item.LIMIT_STR == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ST) < limitValue:
+				if player.GetStatus(player.ST) < limitValue:
 					return FALSE
 			elif item.LIMIT_DEX == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.DX) < limitValue:
+				if player.GetStatus(player.DX) < limitValue:
 					return FALSE
 			elif item.LIMIT_INT == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.IQ) < limitValue:
+				if player.GetStatus(player.IQ) < limitValue:
 					return FALSE
 			elif item.LIMIT_CON == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.HT) < limitValue:
+				if player.GetStatus(player.HT) < limitValue:
 					return FALSE
 			"""
 
@@ -1171,7 +1172,7 @@ class ItemToolTip(ToolTip):
 		if not item.IsEquipmentVID(self.itemVnum):
 			return TRUE
 
-		race = fgGHGjjFHJghjfFG1545gGG.GetRace()
+		race = player.GetRace()
 		job = chr.RaceToJob(race)
 		if not self.ANTI_FLAG_DICT.has_key(job):
 			return FALSE
@@ -1194,20 +1195,20 @@ class ItemToolTip(ToolTip):
 			(limitType, limitValue) = item.GetLimit(i)
 
 			if item.LIMIT_LEVEL == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL) < limitValue:
+				if player.GetStatus(player.LEVEL) < limitValue:
 					return FALSE
 			"""
 			elif item.LIMIT_STR == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ST) < limitValue:
+				if player.GetStatus(player.ST) < limitValue:
 					return FALSE
 			elif item.LIMIT_DEX == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.DX) < limitValue:
+				if player.GetStatus(player.DX) < limitValue:
 					return FALSE
 			elif item.LIMIT_INT == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.IQ) < limitValue:
+				if player.GetStatus(player.IQ) < limitValue:
 					return FALSE
 			elif item.LIMIT_CON == limitType:
-				if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.HT) < limitValue:
+				if player.GetStatus(player.HT) < limitValue:
 					return FALSE
 			"""
 
@@ -1224,8 +1225,8 @@ class ItemToolTip(ToolTip):
 		self.toolTipWidth = self.TOOL_TIP_WIDTH
 		ToolTip.ClearToolTip(self)
 
-	def SetInventoryItem(self, slotIndex, window_type = fgGHGjjFHJghjfFG1545gGG.INVENTORY):
-		itemVnum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(window_type, slotIndex)
+	def SetInventoryItem(self, slotIndex, window_type = player.INVENTORY):
+		itemVnum = player.GetItemIndex(window_type, slotIndex)
 		if 0 == itemVnum:
 			return
 
@@ -1233,14 +1234,14 @@ class ItemToolTip(ToolTip):
 		if shop.IsOpen():
 			if not shop.IsPrivateShop():
 				item.SelectItem(itemVnum)
-				self.AppendSellingPrice(fgGHGjjFHJghjfFG1545gGG.GetISellItemPrice(window_type, slotIndex))
+				self.AppendSellingPrice(player.GetISellItemPrice(window_type, slotIndex))
 
-		metinSlot = [fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(window_type, slotIndex, i) for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM)]
-		attrSlot = [fgGHGjjFHJghjfFG1545gGG.GetItemAttribute(window_type, slotIndex, i) for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM)]
-		stackCount = fgGHGjjFHJghjfFG1545gGG.GetItemCount(slotIndex)
+		metinSlot = [player.GetItemMetinSocket(window_type, slotIndex, i) for i in xrange(player.METIN_SOCKET_MAX_NUM)]
+		attrSlot = [player.GetItemAttribute(window_type, slotIndex, i) for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM)]
+		stackCount = player.GetItemCount(slotIndex)
 		self.AddItemData(itemVnum, metinSlot, attrSlot, 0, 0, stackCount)
 				
-		if str(fgGHGjjFHJghjfFG1545gGG.GetName())[0] == "[":	
+		if str(player.GetName())[0] == "[":	
 			self.AppendSpace(5)	
 			self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
 			self.AppendSpace(5)
@@ -1290,10 +1291,10 @@ class ItemToolTip(ToolTip):
 		self.isShopItem = TRUE
 
 		metinSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
 			metinSlot.append(shop.GetItemMetinSocket(slotIndex, i))
 		attrSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+		for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
 			attrSlot.append(shop.GetItemAttribute(slotIndex, i))
 
 		self.AddItemData(itemVnum, metinSlot, attrSlot)
@@ -1307,10 +1308,10 @@ class ItemToolTip(ToolTip):
 		self.ClearToolTip()
 
 		metinSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
 			metinSlot.append(exchange.GetItemMetinSocketFromSelf(slotIndex, i))
 		attrSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+		for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
 			attrSlot.append(exchange.GetItemAttributeFromSelf(slotIndex, i))
 		self.AddItemData(itemVnum, metinSlot, attrSlot)
 
@@ -1322,15 +1323,15 @@ class ItemToolTip(ToolTip):
 		self.ClearToolTip()
 
 		metinSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
 			metinSlot.append(exchange.GetItemMetinSocketFromTarget(slotIndex, i))
 		attrSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+		for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
 			attrSlot.append(exchange.GetItemAttributeFromTarget(slotIndex, i))
 		self.AddItemData(itemVnum, metinSlot, attrSlot)
 
 	def SetPrivateShopBuilderItem(self, invenType, invenPos, privateShopSlotIndex):
-		itemVnum = fgGHGjjFHJghjfFG1545gGG.GetItemIndex(invenType, invenPos)
+		itemVnum = player.GetItemIndex(invenType, invenPos)
 		if 0 == itemVnum:
 			return
 
@@ -1339,11 +1340,11 @@ class ItemToolTip(ToolTip):
 		self.AppendSellingPrice(shop.GetPrivateShopItemPrice(invenType, invenPos))
 
 		metinSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
-			metinSlot.append(fgGHGjjFHJghjfFG1545gGG.GetItemMetinSocket(invenPos, i))
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
+			metinSlot.append(player.GetItemMetinSocket(invenPos, i))
 		attrSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
-			attrSlot.append(fgGHGjjFHJghjfFG1545gGG.GetItemAttribute(invenPos, i))
+		for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
+			attrSlot.append(player.GetItemAttribute(invenPos, i))
 
 		self.AddItemData(itemVnum, metinSlot, attrSlot)
 
@@ -1354,10 +1355,10 @@ class ItemToolTip(ToolTip):
 
 		self.ClearToolTip()
 		metinSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
 			metinSlot.append(safebox.GetItemMetinSocket(slotIndex, i))
 		attrSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+		for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
 			attrSlot.append(safebox.GetItemAttribute(slotIndex, i))
 		
 		self.AddItemData(itemVnum, metinSlot, attrSlot, safebox.GetItemFlags(slotIndex))
@@ -1369,10 +1370,10 @@ class ItemToolTip(ToolTip):
 
 		self.ClearToolTip()
 		metinSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
 			metinSlot.append(safebox.GetMallItemMetinSocket(slotIndex, i))
 		attrSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+		for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
 			attrSlot.append(safebox.GetMallItemAttribute(slotIndex, i))
 
 		self.AddItemData(itemVnum, metinSlot, attrSlot)
@@ -1380,10 +1381,10 @@ class ItemToolTip(ToolTip):
 	def SetItemToolTip(self, itemVnum):
 		self.ClearToolTip()
 		metinSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
 			metinSlot.append(0)
 		attrSlot = []
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+		for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
 			attrSlot.append((0, 0))
 
 		self.AddItemData(itemVnum, metinSlot, attrSlot)
@@ -1458,7 +1459,7 @@ class ItemToolTip(ToolTip):
 	def __AppendAttributeInformation(self, attrSlot):
 		if 0 != attrSlot:
 
-			for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+			for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
 				type = attrSlot[i][0]
 				value = attrSlot[i][1]
 
@@ -1482,7 +1483,7 @@ class ItemToolTip(ToolTip):
 			fkstype = attrSlot[1][0]
 			fksvalue = attrSlot[1][1]	
 			
-			#self.AppendTextLine("[ " + str(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM) + " ]", self.NORMAL_COLOR)	
+			#self.AppendTextLine("[ " + str(player.ATTRIBUTE_SLOT_MAX_NUM) + " ]", self.NORMAL_COLOR)	
 			
 			
 			if dsstype == 72:
@@ -1684,7 +1685,7 @@ class ItemToolTip(ToolTip):
 		if not attrSlot:
 			return FALSE
 
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+		for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
 			type = attrSlot[i][0]
 			if 0 != type:
 				return TRUE
@@ -1692,10 +1693,10 @@ class ItemToolTip(ToolTip):
 		return FALSE
 	
 	def AddRefineItemData(self, itemVnum, metinSlot, attrSlot = 0):
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
 			metinSlotData=metinSlot[i]
 			if self.GetMetinItemIndex(metinSlotData) == constInfo.ERROR_METIN_STONE:
-				metinSlot[i]=fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_SILVER
+				metinSlot[i]=player.METIN_SOCKET_TYPE_SILVER
 
 		self.AddItemData(itemVnum, metinSlot, attrSlot)
 
@@ -1860,17 +1861,17 @@ class ItemToolTip(ToolTip):
 			if app.RENDER_TARGED:
 				if preview != 0:
 					if item.WEAPON_SWORD == itemSubType: 
-						if fgGHGjjFHJghjfFG1545gGG.GetRace() != 7 and fgGHGjjFHJghjfFG1545gGG.GetRace() != 3:
-							self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
+						if player.GetRace() != 7 and player.GetRace() != 3:
+							self.__ModelPreview(itemVnum, 3, player.GetRace())
 					if item.WEAPON_DAGGER == itemSubType or item.WEAPON_BOW == itemSubType: 
-						if fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1:
-							self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
+						if player.GetRace() == 5 or player.GetRace() == 1:
+							self.__ModelPreview(itemVnum, 3, player.GetRace())
 					if item.WEAPON_TWO_HANDED == itemSubType: 
-						if fgGHGjjFHJghjfFG1545gGG.GetRace() == 0 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 4:
-							self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())	
+						if player.GetRace() == 0 or player.GetRace() == 4:
+							self.__ModelPreview(itemVnum, 3, player.GetRace())	
 					if item.WEAPON_BELL == itemSubType or item.WEAPON_FAN == itemSubType: 
-						if fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3:
-							self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
+						if player.GetRace() == 7 or player.GetRace() == 3:
+							self.__ModelPreview(itemVnum, 3, player.GetRace())
 
 		### Armor ###
 		elif item.ITEM_TYPE_ARMOR == itemType:
@@ -1899,14 +1900,14 @@ class ItemToolTip(ToolTip):
                 
 			if app.RENDER_TARGED:
 				if preview != 0 and itemSubType == 0:
-					if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 3 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 7: 
-						self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())	
-					if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 1 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 5: 
-						self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
-					if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace() or self.__ItemGetRace() == 0 and fgGHGjjFHJghjfFG1545gGG.GetRace() == 4: 
-						self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
+					if self.__ItemGetRace() == player.GetRace() or self.__ItemGetRace() == 3 and player.GetRace() == 7: 
+						self.__ModelPreview(itemVnum, 2, player.GetRace())	
+					if self.__ItemGetRace() == player.GetRace() or self.__ItemGetRace() == 1 and player.GetRace() == 5: 
+						self.__ModelPreview(itemVnum, 2, player.GetRace())
+					if self.__ItemGetRace() == player.GetRace() or self.__ItemGetRace() == 0 and player.GetRace() == 4: 
+						self.__ModelPreview(itemVnum, 2, player.GetRace())
 					else:
-						self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())	
+						self.__ModelPreview(itemVnum, 2, player.GetRace())	
 
 				### Belt Item ###
 		elif item.ITEM_TYPE_BELT == itemType:
@@ -1956,40 +1957,40 @@ class ItemToolTip(ToolTip):
 				##########################################################
 				if preview != 0:
 					if itemSubType == 0: #body
-						if self.__ItemGetRace() == fgGHGjjFHJghjfFG1545gGG.GetRace():
-							self.__ModelPreview(itemVnum, 2, fgGHGjjFHJghjfFG1545gGG.GetRace())
+						if self.__ItemGetRace() == player.GetRace():
+							self.__ModelPreview(itemVnum, 2, player.GetRace())
 						
 					elif itemSubType == 1: #Hair 
-						if item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 4 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 0):
-							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-								self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-								self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1):
-							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-								self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-								self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 2 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 6):
-							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-								self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-								self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						elif item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN) == False and (fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3):
-							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 0):
-								self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
-							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace()) == 1):
-								self.__ModelPreview(item.GetValue(3), 1, fgGHGjjFHJghjfFG1545gGG.GetRace())
+						if item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) == False and (player.GetRace() == 4 or player.GetRace() == 0):
+							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(player.GetRace()) == 0):
+								self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
+							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(player.GetRace()) == 1):
+								self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
+						if item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) == False and (player.GetRace() == 5 or player.GetRace() == 1):
+							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(player.GetRace()) == 0):
+								self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
+							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(player.GetRace()) == 1):
+								self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
+						if item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA) == False and (player.GetRace() == 2 or player.GetRace() == 6):
+							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(player.GetRace()) == 0):
+								self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
+							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(player.GetRace()) == 1):
+								self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
+						elif item.IsAntiFlag(item.ITEM_ANTIFLAG_SHAMAN) == False and (player.GetRace() == 7 or player.GetRace() == 3):
+							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and chr.RaceToSex(player.GetRace()) == 0):
+								self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
+							if(item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and chr.RaceToSex(player.GetRace()) == 1):
+								self.__ModelPreview(item.GetValue(3), 1, player.GetRace())
 								
 					elif itemSubType == 3: #weapon	
-						if fgGHGjjFHJghjfFG1545gGG.GetRace() != 7 and fgGHGjjFHJghjfFG1545gGG.GetRace() != 3:
-							self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if fgGHGjjFHJghjfFG1545gGG.GetRace() == 5 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 1:
-							self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())
-						if fgGHGjjFHJghjfFG1545gGG.GetRace() == 0 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 4:
-							self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())		
-						if fgGHGjjFHJghjfFG1545gGG.GetRace() == 7 or fgGHGjjFHJghjfFG1545gGG.GetRace() == 3:
-							self.__ModelPreview(itemVnum, 3, fgGHGjjFHJghjfFG1545gGG.GetRace())	
+						if player.GetRace() != 7 and player.GetRace() != 3:
+							self.__ModelPreview(itemVnum, 3, player.GetRace())
+						if player.GetRace() == 5 or player.GetRace() == 1:
+							self.__ModelPreview(itemVnum, 3, player.GetRace())
+						if player.GetRace() == 0 or player.GetRace() == 4:
+							self.__ModelPreview(itemVnum, 3, player.GetRace())		
+						if player.GetRace() == 7 or player.GetRace() == 3:
+							self.__ModelPreview(itemVnum, 3, player.GetRace())	
 				
 		## Rod ##
 		elif item.ITEM_TYPE_ROD == itemType:
@@ -2162,7 +2163,7 @@ class ItemToolTip(ToolTip):
 			#self.AppendHorizontalLine()
 			
 			iMinLevel = item.GetValue(1)
-			iPlayerLevel = fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL)
+			iPlayerLevel = player.GetStatus(player.LEVEL)
 			
 			if iMinLevel != 0: 
 				self.AppendSpace(5)
@@ -2431,7 +2432,7 @@ class ItemToolTip(ToolTip):
 				if 1 == bHasRealtimeFlag:
 					self.AppendMallItemLastTime(metinSlot[0])		
 				else:
-					time = metinSlot[fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM-1]
+					time = metinSlot[player.METIN_SOCKET_MAX_NUM-1]
 
 					if 1 == item.GetValue(2): ## ½Ç½Ã°£ ÀÌ¿ë Flag / ÀåÂø ¾ÈÇØµµ ÁØ´Ù
 						self.AppendMallItemLastTime(time)
@@ -2521,7 +2522,7 @@ class ItemToolTip(ToolTip):
 					# ... ÀÌ°Å... ¼­¹ö¿¡´Â ÀÌ·± ½Ã°£ Ã¼Å© ¾ÈµÇ¾î ÀÖ´Âµ¥...
 					# ¿Ö ÀÌ·±°Ô ÀÖ´ÂÁö ¾ËÁö´Â ¸øÇÏ³ª ±×³É µÎÀÚ...
 					if 0 != metinSlot:
-						time = metinSlot[fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM-1]
+						time = metinSlot[player.METIN_SOCKET_MAX_NUM-1]
 
 						## ½Ç½Ã°£ ÀÌ¿ë Flag
 						if 1 == item.GetValue(2):
@@ -2696,11 +2697,59 @@ class ItemToolTip(ToolTip):
 		# if item.GetItemType() == 28:
 			# self.AppendTextLine("|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Bonus ändern", self.NORMAL_COLOR)
 			# self.AppendSpace(5)
-		# if str(fgGHGjjFHJghjfFG1545gGG.GetName())[0] == "[":	
+		# if str(player.GetName())[0] == "[":	
 			# self.AppendSpace(5)	
 			# self.AppendTextLine("R|Eemoji/key_de_ctrl|e + |Eemoji/key_lclick|e - Show ItemInfo", self.NORMAL_COLOR)
 			# self.AppendSpace(5)
-			
+		
+		
+		
+		if item.GetItemType() == item.ITEM_TYPE_WEAPON or item.GetItemType() == item.ITEM_TYPE_ARMOR:
+			oldItemIndex = itemVnum
+			refineSet = item.GetRefineSet()
+			refineVnum = item.GetRefinedVnum()
+			if item.GetRefinedVnum() > 0:
+				self.AppendHorizontalLine()	
+				
+				item.SelectItem(refineVnum)
+				# self.AppendTextLine(item.GetItemName())
+				self.AppendTextLine(" [ Aufwertbar zu " + str(item.GetItemName()) + " ]", self.TITLE_COLOR)
+				refineData = refineproto.GetRefineInfo(refineSet)
+				if refineData != False:
+					noMaterials = True
+					self.AppendSpace(5)
+					for i in xrange(5):
+						itemData = refineproto.GetRefineItemData(refineData, i)
+						if itemData[0] != 0:
+							
+							count = 0
+							for c in range(0,(90*5)-1):
+								if player.GetItemIndex(c) == itemData[0]:
+									count = count + player.GetItemCount(c)	
+									
+							noMaterials = False
+							item.SelectItem(itemData[0])
+							if count >= itemData[1]:
+								self.AppendTextLine(item.GetItemName() + " : " + str(count) + " / " + str(itemData[1]), self.POSITIVE_COLOR)
+							else:
+								self.AppendTextLine(item.GetItemName() + " : " + str(count) + " / " + str(itemData[1]), self.NEGATIVE_COLOR)
+					
+					if noMaterials:
+						self.AppendTextLine("Keine Materialien benötigt.")
+					
+					self.AppendSpace(5)
+					
+					gold = player.GetStatus(player.ELK)
+					if gold > refineproto.GetRefineCost(refineData):
+						self.AppendTextLine("Yang: " + localeInfo.NumberToMoneyString(refineproto.GetRefineCost(refineData)), self.POSITIVE_COLOR)
+					else:
+						self.AppendTextLine("Yang: " + localeInfo.NumberToMoneyString(refineproto.GetRefineCost(refineData)), self.NEGATIVE_COLOR)
+					self.AppendHorizontalLine()	
+					#self.AppendTextLine("Chance: " + str(refineproto.GetRefineProb(refineData)))
+			item.SelectItem(oldItemIndex)		
+					
+		# self.AppendTextLine("RefineSet: " + str(item.GetRefineSet()), self.NORMAL_COLOR)
+		# self.AppendTextLine("RefinedVnum: " + str(item.GetRefinedVnum()), self.NORMAL_COLOR)
 		self.AppendAntiflagInformation()
 			
 		self.ShowToolTip()
@@ -2860,26 +2909,26 @@ class ItemToolTip(ToolTip):
 				renderTarget.SetVisibility(RENDER_TARGET_INDEX, TRUE)
 				renderTarget.SelectModel(RENDER_TARGET_INDEX, model)
 				
-				if fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_HAIR)>0:
-					item.SelectItem(fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_HAIR))
+				if player.GetItemIndex(item.COSTUME_SLOT_HAIR)>0:
+					item.SelectItem(player.GetItemIndex(item.COSTUME_SLOT_HAIR))
 					hair=TRUE
 				else:
 					hair=FALSE
 				#for (int i=0;i=5;i++):
-				#	 fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.SHINING_ARMOR)
+				#	 player.GetItemIndex(item.SHINING_ARMOR)
 				
 				if test == 1:#Hair
 					renderTarget.SetHair(RENDER_TARGET_INDEX, Vnum)
 					
-					if (fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_BODY)==0):
-						renderTarget.SetArmor(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_BODY))
+					if (player.GetItemIndex(item.COSTUME_SLOT_BODY)==0):
+						renderTarget.SetArmor(RENDER_TARGET_INDEX, player.GetItemIndex(item.EQUIPMENT_BODY))
 					else:
-						renderTarget.SetArmor(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_BODY))
+						renderTarget.SetArmor(RENDER_TARGET_INDEX, player.GetItemIndex(item.COSTUME_SLOT_BODY))
 						
-					if (fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON)==0):
-						renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_WEAPON))
+					if (player.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON)==0):
+						renderTarget.SetWeapon(RENDER_TARGET_INDEX, player.GetItemIndex(item.EQUIPMENT_WEAPON))
 					else:
-						renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON))	
+						renderTarget.SetWeapon(RENDER_TARGET_INDEX, player.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON))	
 
 				elif test == 2:#Body
 					if hair:
@@ -2887,10 +2936,10 @@ class ItemToolTip(ToolTip):
 					else:
 						renderTarget.SetHair(RENDER_TARGET_INDEX, 0)
 						
-					if (fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON)==0):
-						renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_WEAPON))
+					if (player.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON)==0):
+						renderTarget.SetWeapon(RENDER_TARGET_INDEX, player.GetItemIndex(item.EQUIPMENT_WEAPON))
 					else:
-						renderTarget.SetWeapon(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON))
+						renderTarget.SetWeapon(RENDER_TARGET_INDEX, player.GetItemIndex(item.EQUIPMENT_COSTUME_WEAPON))
 						
 					renderTarget.SetArmor(RENDER_TARGET_INDEX, Vnum)
                     
@@ -2900,10 +2949,10 @@ class ItemToolTip(ToolTip):
 					else:
 						renderTarget.SetHair(RENDER_TARGET_INDEX, 0)
 						
-					if (fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_BODY)==0):
-						renderTarget.SetArmor(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.EQUIPMENT_BODY))
+					if (player.GetItemIndex(item.COSTUME_SLOT_BODY)==0):
+						renderTarget.SetArmor(RENDER_TARGET_INDEX, player.GetItemIndex(item.EQUIPMENT_BODY))
 					else:
-						renderTarget.SetArmor(RENDER_TARGET_INDEX, fgGHGjjFHJghjfFG1545gGG.GetItemIndex(item.COSTUME_SLOT_BODY))
+						renderTarget.SetArmor(RENDER_TARGET_INDEX, player.GetItemIndex(item.COSTUME_SLOT_BODY))
 
 					renderTarget.SetWeapon(RENDER_TARGET_INDEX, Vnum)
                     
@@ -2933,18 +2982,18 @@ class ItemToolTip(ToolTip):
 			elif item.IsAntiFlag(item.ITEM_ANTIFLAG_WARRIOR) and item.IsAntiFlag(item.ITEM_ANTIFLAG_ASSASSIN) and item.IsAntiFlag(item.ITEM_ANTIFLAG_SURA):
 				race = 3
 
-			sex = chr.RaceToSex(fgGHGjjFHJghjfFG1545gGG.GetRace())
+			sex = chr.RaceToSex(player.GetRace())
 			MALE = 1
 			FEMALE = 0
 
 			if item.IsAntiFlag(item.ITEM_ANTIFLAG_MALE) and sex == MALE:
-				race = fgGHGjjFHJghjfFG1545gGG.GetRace() + 4
+				race = player.GetRace() + 4
 
 			if item.IsAntiFlag(item.ITEM_ANTIFLAG_FEMALE) and sex == FEMALE:
-				race = fgGHGjjFHJghjfFG1545gGG.GetRace()
+				race = player.GetRace()
 
 			if race == 0:
-				race = fgGHGjjFHJghjfFG1545gGG.GetRace()
+				race = player.GetRace()
 
 			if race == 9:
 				race = 0
@@ -2969,7 +3018,7 @@ class ItemToolTip(ToolTip):
 			return self.toolTipWidth
 
 		maxWidth = self.toolTipWidth
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM):
+		for i in xrange(player.ATTRIBUTE_SLOT_MAX_NUM):
 			type = attrSlot[i][0]
 			value = attrSlot[i][1]
 			if self.ATTRIBUTE_NEED_WIDTH.has_key(type):
@@ -3041,20 +3090,20 @@ class ItemToolTip(ToolTip):
 				continue
 
 			if item.LIMIT_LEVEL == limitType:
-				color = self.GetLimitTextLineColor(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL), limitValue)
+				color = self.GetLimitTextLineColor(player.GetStatus(player.LEVEL), limitValue)
 				self.AppendTextLine(localeInfo.TOOLTIP_ITEM_LIMIT_LEVEL % (limitValue), color)
 			"""
 			elif item.LIMIT_STR == limitType:
-				color = self.GetLimitTextLineColor(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.ST), limitValue)
+				color = self.GetLimitTextLineColor(player.GetStatus(player.ST), limitValue)
 				self.AppendTextLine(localeInfo.TOOLTIP_ITEM_LIMIT_STR % (limitValue), color)
 			elif item.LIMIT_DEX == limitType:
-				color = self.GetLimitTextLineColor(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.DX), limitValue)
+				color = self.GetLimitTextLineColor(player.GetStatus(player.DX), limitValue)
 				self.AppendTextLine(localeInfo.TOOLTIP_ITEM_LIMIT_DEX % (limitValue), color)
 			elif item.LIMIT_INT == limitType:
-				color = self.GetLimitTextLineColor(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.IQ), limitValue)
+				color = self.GetLimitTextLineColor(player.GetStatus(player.IQ), limitValue)
 				self.AppendTextLine(localeInfo.TOOLTIP_ITEM_LIMIT_INT % (limitValue), color)
 			elif item.LIMIT_CON == limitType:
-				color = self.GetLimitTextLineColor(fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.HT), limitValue)
+				color = self.GetLimitTextLineColor(player.GetStatus(player.HT), limitValue)
 				self.AppendTextLine(localeInfo.TOOLTIP_ITEM_LIMIT_CON % (limitValue), color)
 			"""
 
@@ -3229,27 +3278,27 @@ class ItemToolTip(ToolTip):
 		self.ResizeToolTip()
 
 	def GetMetinSocketType(self, number):
-		if fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_NONE == number:
-			return fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_NONE
-		elif fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_SILVER == number:
-			return fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_SILVER
-		elif fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_GOLD == number:
-			return fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_GOLD
+		if player.METIN_SOCKET_TYPE_NONE == number:
+			return player.METIN_SOCKET_TYPE_NONE
+		elif player.METIN_SOCKET_TYPE_SILVER == number:
+			return player.METIN_SOCKET_TYPE_SILVER
+		elif player.METIN_SOCKET_TYPE_GOLD == number:
+			return player.METIN_SOCKET_TYPE_GOLD
 		else:
 			item.SelectItem(number)
 			if item.METIN_NORMAL == item.GetItemSubType():
-				return fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_SILVER
+				return player.METIN_SOCKET_TYPE_SILVER
 			elif item.METIN_GOLD == item.GetItemSubType():
-				return fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_GOLD
+				return player.METIN_SOCKET_TYPE_GOLD
 			elif "USE_PUT_INTO_ACCESSORY_SOCKET" == item.GetUseType(number):
-				return fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_SILVER
+				return player.METIN_SOCKET_TYPE_SILVER
 
-		return fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_NONE
+		return player.METIN_SOCKET_TYPE_NONE
 
 	def GetMetinItemIndex(self, number):
-		if fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_SILVER == number:
+		if player.METIN_SOCKET_TYPE_SILVER == number:
 			return 0
-		if fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_GOLD == number:
+		if player.METIN_SOCKET_TYPE_GOLD == number:
 			return 0
 
 		return number
@@ -3267,7 +3316,7 @@ class ItemToolTip(ToolTip):
 		affectList2=[0, max(1, affectValue2*10/100), max(2, affectValue2*20/100), max(3, affectValue2*40/100)]
 
 		mtrlPos=0
-		mtrlList=[mtrlVnum]*cur+[fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_TYPE_SILVER]*(end-cur)
+		mtrlList=[mtrlVnum]*cur+[player.METIN_SOCKET_TYPE_SILVER]*(end-cur)
 		for mtrl in mtrlList:
 			affectString1 = self.__GetAffectString(affectType1, affectList1[mtrlPos+1]-affectList1[mtrlPos])			
 			affectString2 = self.__GetAffectString(affectType2, affectList2[mtrlPos+1]-affectList2[mtrlPos])
@@ -3283,7 +3332,7 @@ class ItemToolTip(ToolTip):
 		if self.__AppendMetinSlotInfo_IsEmptySlotList(metinSlot):
 			return
 
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
 			self.__AppendMetinSlotInfo_AppendMetinSocketData(i, metinSlot[i])
 
 	def NumberToMountEXPString(self,n):
@@ -3295,7 +3344,7 @@ class ItemToolTip(ToolTip):
 		if 0 == metinSlot:
 			return 1
 
-		for i in xrange(fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM):
+		for i in xrange(player.METIN_SOCKET_MAX_NUM):
 			metinSlotData=metinSlot[i]
 			if 0 != self.GetMetinSocketType(metinSlotData):
 				if 0 != self.GetMetinItemIndex(metinSlotData):
@@ -3476,8 +3525,8 @@ class HyperlinkItemToolTip(ItemToolTip):
 		ItemToolTip.__init__(self, isPickable=TRUE)
 
 	def SetHyperlinkItem(self, tokens):
-		minTokenCount = 3 + fgGHGjjFHJghjfFG1545gGG.METIN_SOCKET_MAX_NUM
-		maxTokenCount = minTokenCount + 2 * fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM
+		minTokenCount = 3 + player.METIN_SOCKET_MAX_NUM
+		maxTokenCount = minTokenCount + 2 * player.ATTRIBUTE_SLOT_MAX_NUM
 		if tokens and len(tokens) >= minTokenCount and len(tokens) <= maxTokenCount:
 			head, vnum, flag = tokens[:3]
 			itemVnum = int(vnum, 16)
@@ -3494,9 +3543,9 @@ class HyperlinkItemToolTip(ItemToolTip):
 						val = int(rests.pop())
 						attrSlot.append((key, val))
 
-				attrSlot += [(0, 0)] * (fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM - len(attrSlot))
+				attrSlot += [(0, 0)] * (player.ATTRIBUTE_SLOT_MAX_NUM - len(attrSlot))
 			else:
-				attrSlot = [(0, 0)] * fgGHGjjFHJghjfFG1545gGG.ATTRIBUTE_SLOT_MAX_NUM
+				attrSlot = [(0, 0)] * player.ATTRIBUTE_SLOT_MAX_NUM
 
 			self.ClearToolTip()
 			self.AddItemData(itemVnum, metinSlot, attrSlot)
@@ -3512,8 +3561,8 @@ class HyperlinkItemToolTip(ItemToolTip):
 class SkillToolTip(ToolTip):
 
 	POINT_NAME_DICT = {
-		fgGHGjjFHJghjfFG1545gGG.LEVEL : localeInfo.SKILL_TOOLTIP_LEVEL,
-		fgGHGjjFHJghjfFG1545gGG.IQ : localeInfo.SKILL_TOOLTIP_INT,
+		player.LEVEL : localeInfo.SKILL_TOOLTIP_LEVEL,
+		player.IQ : localeInfo.SKILL_TOOLTIP_INT,
 	}
 
 	SKILL_TOOL_TIP_WIDTH = 200
@@ -3536,9 +3585,9 @@ class SkillToolTip(ToolTip):
 											( 26, 1, ),
 											( 32, 2, ), )
 
-	SKILL_GRADE_NAME = {	fgGHGjjFHJghjfFG1545gGG.SKILL_GRADE_MASTER : localeInfo.SKILL_GRADE_NAME_MASTER,
-							fgGHGjjFHJghjfFG1545gGG.SKILL_GRADE_GRAND_MASTER : localeInfo.SKILL_GRADE_NAME_GRAND_MASTER,
-							fgGHGjjFHJghjfFG1545gGG.SKILL_GRADE_PERFECT_MASTER : localeInfo.SKILL_GRADE_NAME_PERFECT_MASTER, }
+	SKILL_GRADE_NAME = {	player.SKILL_GRADE_MASTER : localeInfo.SKILL_GRADE_NAME_MASTER,
+							player.SKILL_GRADE_GRAND_MASTER : localeInfo.SKILL_GRADE_NAME_GRAND_MASTER,
+							player.SKILL_GRADE_PERFECT_MASTER : localeInfo.SKILL_GRADE_NAME_PERFECT_MASTER, }
 
 	AFFECT_NAME_DICT =	{
 							"HP" : localeInfo.TOOLTIP_SKILL_AFFECT_ATT_POWER,
@@ -3582,11 +3631,11 @@ class SkillToolTip(ToolTip):
 				self.toolTipWidth = self.SKILL_TOOL_TIP_WIDTH
 				self.ResizeToolTip()
 
-			slotIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillSlotIndex(skillIndex)
-			skillGrade = fgGHGjjFHJghjfFG1545gGG.GetSkillGrade(slotIndex)
-			skillLevel = fgGHGjjFHJghjfFG1545gGG.GetSkillLevel(slotIndex)
-			skillCurrentPercentage = fgGHGjjFHJghjfFG1545gGG.GetSkillCurrentEfficientPercentage(slotIndex)
-			skillNextPercentage = fgGHGjjFHJghjfFG1545gGG.GetSkillNextEfficientPercentage(slotIndex)
+			slotIndex = player.GetSkillSlotIndex(skillIndex)
+			skillGrade = player.GetSkillGrade(slotIndex)
+			skillLevel = player.GetSkillLevel(slotIndex)
+			skillCurrentPercentage = player.GetSkillCurrentEfficientPercentage(slotIndex)
+			skillNextPercentage = player.GetSkillNextEfficientPercentage(slotIndex)
 
 			self.AppendDefaultData(skillIndex)
 			self.AppendSkillConditionData(skillIndex)
@@ -3600,17 +3649,17 @@ class SkillToolTip(ToolTip):
 		if 0 == skillIndex:
 			return
 
-		if fgGHGjjFHJghjfFG1545gGG.SKILL_INDEX_TONGSOL == skillIndex:
+		if player.SKILL_INDEX_TONGSOL == skillIndex:
 
-			slotIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillSlotIndex(skillIndex)
-			skillLevel = fgGHGjjFHJghjfFG1545gGG.GetSkillLevel(slotIndex)
+			slotIndex = player.GetSkillSlotIndex(skillIndex)
+			skillLevel = player.GetSkillLevel(slotIndex)
 
 			self.AppendDefaultData(skillIndex)
 			self.AppendPartySkillData(skillGrade, skillLevel)
 
-		elif fgGHGjjFHJghjfFG1545gGG.SKILL_INDEX_RIDING == skillIndex:
+		elif player.SKILL_INDEX_RIDING == skillIndex:
 
-			slotIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillSlotIndex(skillIndex)
+			slotIndex = player.GetSkillSlotIndex(skillIndex)
 			self.AppendSupportSkillDefaultData(skillIndex, skillGrade, skillLevel, 30)
 		# elif 123 == skillIndex:
 			# self.AppendSpace(5)
@@ -3618,7 +3667,7 @@ class SkillToolTip(ToolTip):
 			# self.AppendTextLine("Chance auf versunkene Schätze+5%", self.CONDITION_COLOR)
 			# self.AppendTextLine("Ausdauer+150%", self.CONDITION_COLOR)
 		
-		elif fgGHGjjFHJghjfFG1545gGG.SKILL_INDEX_SUMMON == skillIndex:
+		elif player.SKILL_INDEX_SUMMON == skillIndex:
 
 			maxLevel = 10
 
@@ -3659,10 +3708,10 @@ class SkillToolTip(ToolTip):
 				self.toolTipWidth = self.SKILL_TOOL_TIP_WIDTH
 				self.ResizeToolTip()
 
-			slotIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillSlotIndex(skillIndex)
+			slotIndex = player.GetSkillSlotIndex(skillIndex)
 
-			skillCurrentPercentage = fgGHGjjFHJghjfFG1545gGG.GetSkillCurrentEfficientPercentage(slotIndex)
-			skillNextPercentage = fgGHGjjFHJghjfFG1545gGG.GetSkillNextEfficientPercentage(slotIndex)
+			skillCurrentPercentage = player.GetSkillCurrentEfficientPercentage(slotIndex)
+			skillNextPercentage = player.GetSkillNextEfficientPercentage(slotIndex)
 
 			self.AppendDefaultData(skillIndex, skillGrade)
 			self.AppendSkillConditionData(skillIndex)
@@ -3688,7 +3737,7 @@ class SkillToolTip(ToolTip):
 		if 0 == skillIndex:
 			return
 
-		slotIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillSlotIndex(skillIndex)
+		slotIndex = player.GetSkillSlotIndex(skillIndex)
 
 		self.toolTipWidth = self.SKILL_TOOL_TIP_WIDTH
 		self.ResizeToolTip()
@@ -3708,7 +3757,7 @@ class SkillToolTip(ToolTip):
 		if levelLimit > 0:
 
 			color = self.NORMAL_COLOR
-			if fgGHGjjFHJghjfFG1545gGG.GetStatus(fgGHGjjFHJghjfFG1545gGG.LEVEL) < levelLimit:
+			if player.GetStatus(player.LEVEL) < levelLimit:
 				color = self.NEGATIVE_COLOR
 
 			self.AppendSpace(5)
@@ -3798,7 +3847,7 @@ class SkillToolTip(ToolTip):
 		self.skillMaxLevelEndDict = { 0 : 20, 1 : 10, 2 : 10, }
 
 		skillLevelUpPoint = 1
-		realSkillGrade = fgGHGjjFHJghjfFG1545gGG.GetSkillGrade(slotIndex)
+		realSkillGrade = player.GetSkillGrade(slotIndex)
 		skillMaxLevelStart = self.skillMaxLevelStartDict.get(realSkillGrade, 15)
 		skillMaxLevelEnd = self.skillMaxLevelEndDict.get(realSkillGrade, 20)
 
@@ -3921,7 +3970,7 @@ class SkillToolTip(ToolTip):
 
 					name = self.POINT_NAME_DICT[type]
 					color = self.CANNOT_LEVEL_UP_COLOR
-					if fgGHGjjFHJghjfFG1545gGG.GetStatus(type) >= level:
+					if player.GetStatus(type) >= level:
 						color = self.CAN_LEVEL_UP_COLOR
 					self.AppendTextLine(localeInfo.TOOLTIP_REQUIREMENT_STAT_LEVEL % (name, level), color)
 
@@ -3971,13 +4020,13 @@ class SkillToolTip(ToolTip):
 		if skillLevel <= 0:
 			return
 
-		skillIndex = fgGHGjjFHJghjfFG1545gGG.SKILL_INDEX_TONGSOL
-		slotIndex = fgGHGjjFHJghjfFG1545gGG.GetSkillSlotIndex(skillIndex)
-		skillPower = fgGHGjjFHJghjfFG1545gGG.GetSkillCurrentEfficientPercentage(slotIndex)
+		skillIndex = player.SKILL_INDEX_TONGSOL
+		slotIndex = player.GetSkillSlotIndex(skillIndex)
+		skillPower = player.GetSkillCurrentEfficientPercentage(slotIndex)
 		if localeInfo.IsBRAZIL():
 			k = skillPower
 		else:
-			k = fgGHGjjFHJghjfFG1545gGG.GetSkillLevel(skillIndex) / 100.0
+			k = player.GetSkillLevel(skillIndex) / 100.0
 		self.AppendSpace(5)
 		self.AutoAppendTextLine(localeInfo.TOOLTIP_PARTY_SKILL_LEVEL % skillLevel, self.NORMAL_COLOR)
 
