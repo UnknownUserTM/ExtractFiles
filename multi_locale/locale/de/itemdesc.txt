@@ -2022,3 +2022,6 @@
 30316	Kraft des Lebens Buch	Mit diesem Buch verbesserst du den passiven Skill "Kraft des Lebens"
 30317	Verteidigung der Drachen Buch	Mit diesem Buch verbesserst du den passiven Skill "Verteidigung der Drachen"
 30318	Verteidigung der Götter Buch	Mit diesem Buch verbesserst du den passiven Skill "Verteidigung der Götter"
+100003	Craftingfragment (20%)	Erhöht die Wahrscheinlichkeit beim Crafting um +20%
+100004	Craftingfragment (40%)	Erhöht die Wahrscheinlichkeit beim Crafting um +40%
+100005	Craftingfragment (50%)	Erhöht die Wahrscheinlichkeit beim Crafting um +50%

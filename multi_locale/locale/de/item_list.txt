@@ -8318,3 +8318,6 @@
 164200	ETC	icon/item/164200.tga	
 164300	ETC	icon/item/164300.tga	
 164400	ETC	icon/item/164400.tga
+100003	ETC	icon/item/94006.tga
+100004	ETC	icon/item/94007.tga
+100005	ETC	icon/item/94008.tga
