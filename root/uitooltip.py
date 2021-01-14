@@ -2710,7 +2710,6 @@ class ItemToolTip(ToolTip):
 			refineVnum = item.GetRefinedVnum()
 			if item.GetRefinedVnum() > 0:
 				self.AppendHorizontalLine()	
-				
 				item.SelectItem(refineVnum)
 				# self.AppendTextLine(item.GetItemName())
 				self.AppendTextLine(" [ Aufwertbar zu " + str(item.GetItemName()) + " ]", self.TITLE_COLOR)
