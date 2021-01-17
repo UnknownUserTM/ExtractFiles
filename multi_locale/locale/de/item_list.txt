@@ -4941,6 +4941,8 @@
 71141	ETC	icon/item/71142.tga
 71142	ETC	icon/item/71141.tga
 39001	ETC	icon/item/30064.tga
+100006	ETC	icon/item/30064_1.tga
+100007	ETC	icon/item/100007.tga
 39002	ETC	icon/item/70005.tga
 39003	ETC	icon/item/70020.tga
 39004	ETC	icon/item/70024.tga

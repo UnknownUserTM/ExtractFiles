@@ -25,6 +25,7 @@
 18020	Prunkvoller Gürtel+0	
 18021	Prunkvoller Gürtel+1	
 18022	Prunkvoller Gürtel+2	
+100007	Magischer Splitter (b)	Mit diesem Magischer Splitter kannst du dir beim Schmied einen Magischen Stein herstellen.
 18023	Prunkvoller Gürtel+3	
 18024	Prunkvoller Gürtel+4	
 18025	Prunkvoller Gürtel+5	
@@ -451,6 +452,7 @@
 38010	Yang-Paket	Löse das Paket ein, um deine Kriegskassen mit Yang aufzufüllen. Nicht handelbar.
 38011	Yang-Paket	Löse das Paket ein, um deine Kriegskassen mit Yang aufzufüllen. Nicht handelbar.
 39001	Magischer Stein	Dieser Stein gewährt die größte Erfolgschance bei der Itemverbesserung. Der Gegenstand kann außerdem weder zerstört noch verschlechtert werden. Dieses Item ist handelbar.
+100006	Magischer Stein (b)	Dieser Stein gewährt die größte Erfolgschance bei der Itemverbesserung. Der Gegenstand kann außerdem weder zerstört noch verschlechtert werden. Dieses Item ist nicht handelbar.
 39002	Erfahrungsring	Erhöht das Sammeln von Erfahrung 60 Minuten lang um 50%. Dieses Item ist handelbar.
 39005	Magisches Kupfererz	Mit diesem Erz sowie einer Segensschriftrolle kann beim Schmied eine Schriftrolle des Krieges hergestellt werden. Dieses Item ist handelbar.
 39006	Tapferkeitsumhang	Ein farbiger Umhang, der sämtliche Monster anlockte. Mit diesem bewiesen Krieger einst ihre Tapferkeit. Dieses Item ist handelbar.
