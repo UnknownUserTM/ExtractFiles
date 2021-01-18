@@ -10,3 +10,5 @@ BIOLOGENNPC_SHOP3	Biologenitems
 BIOLOGENNPC_SHOP4	Temporäre Buffitems
 BIOLOGENNPC_SHOP5	Permanente Buffitems
 GEMINPC_SHOP	Nützliches
+SCHMIED_SHOP	Schmied Crafting
+SCHMIED_SHOP1	Verbesserung
